@@ -11,21 +11,57 @@ if (!modal || !modalClose || !modalHtml || !modalPdf || !modalImg) {
 
 // Mapeo de temas
 const contentMap = {
-  "Historia": {
+  Historia: {
     type: "html",
-    content: "temas/historia.html"
+    content: "temas/historia.html",
   },
   "Estructura del DOM": {
-    type: "pdf",
-    content: "pdfs/dom.pdf"
-  },
-  "Párrafo": {
     type: "img",
-    content: "img/parrafo-ejemplo.png"
-  }
+    content: "img/DOM.png",
+  },
+  Párrafo: {
+    type: "pdf",
+    content: "pdfs/parrafo.pdf",
+  },
+  Encabezados: {
+    type: "pdf",
+    content: "pdfs/Encabezados.pdf",
+  },
+  Listas: {
+    type: "pdf",
+    content: "pdfs/listas.pdf",
+  },
+  Enlaces: {
+    type: "pdf",
+    content: "pdfs/enlaces.pdf",
+  },
+  "Etiquetas de bloque/línea": {
+    type: "img",
+    content: "img/etiquetas.png",
+  },
+  Rutas: {
+    type: "img",
+    content: "img/rutas.png",
+  },
+  Formularios: {
+    type: "html",
+    content: "temas/formularios.html",
+  },
+  "Html básico": {
+    type: "html",
+    content: "temas/guia-etiquetas.html",
+  },
+  Inserción: {
+    type: "img",
+    content: "img/insercion.png",
+  },
+  "Selectores (elemento, clase y id)": {
+    type: "html",
+    content: "temas/selectores.html",
+  },
 };
 
-document.querySelectorAll("details ul li").forEach(item => {
+document.querySelectorAll("#clases ul li, #recursos ul li").forEach((item) => {
   item.addEventListener("click", (e) => {
     e.stopPropagation();
 
@@ -74,7 +110,7 @@ modalClose.addEventListener("click", () => {
   modalImg.src = "";
 });
 
-modal.addEventListener("click", e => {
+modal.addEventListener("click", (e) => {
   if (e.target === modal) {
     modal.style.display = "none";
     modalHtml.src = "";

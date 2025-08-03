@@ -1,9 +1,9 @@
 body {
   margin: 0;
-  font-family: 'sans-serif';
+  font-family: "sans-serif";
   scroll-behavior: smooth;
   padding-top: 70px;
-  background-image: url('pubic/fondoProg2.jpg');
+  background-image: url("pubic/fondoProg2.jpg");
   background-attachment: fixed;
   background-size: cover;
   background-position: center;
@@ -13,8 +13,8 @@ body {
 nav {
   background-color: #0d180e;
   backdrop-filter: blur(10px);
-  
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   position: fixed;
   top: 0;
   width: 100%;
@@ -81,7 +81,7 @@ section {
   padding: 50px 40px;
   margin-bottom: 40px;
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
 .section-light {
@@ -117,7 +117,7 @@ summary {
   border-left: 3px solid #264de4;
   font-weight: 600;
   font-size: 1.1rem;
-  color: #111;
+  color: #eee;
   cursor: pointer;
   transition: background 0.3s ease;
 }
@@ -130,6 +130,9 @@ summary:hover {
 /* Cuando está abierto, opcional: */
 details[open] summary {
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+details li {
+  color: #ddd;
 }
 
 /* Lista de ítems interna */
@@ -149,6 +152,10 @@ details ul li:hover {
   background-color: rgba(0, 0, 0, 0.05);
   padding-left: 6px;
   cursor: pointer;
+}
+.blanco {
+  color: #eee;
+  box-shadow: #00fdc2;
 }
 
 .modal-overlay {
@@ -209,6 +216,13 @@ details ul li:hover {
   border: none;
 }
 
+.mano {
+  cursor: pointer;
+  list-style: none;
+  border-left: 3px solid #e34c;
+  padding-left: 12px;
+  margin-bottom: 10px;
+}
 
 footer {
   background-color: #333;

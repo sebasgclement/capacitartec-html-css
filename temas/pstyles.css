@@ -1,0 +1,62 @@
+.container {
+  margin: 0 auto;
+  max-width: 1280px;
+  width: 90%;
+}
+
+main {
+  padding-bottom: 20px;
+}
+* {
+  box-sizing: border-box;
+}
+user agent stylesheet main {
+  display: block;
+  unicode-bidi: isolate;
+}
+body {
+  line-height: 1.7em;
+}
+body {
+  font-size: 0.9rem;
+}
+body {
+  font-family: Roboto, Trebuchet MS, Lucida Sans Unicode, Lucida Grande,
+    Lucida Sans, Arial, sans-serif;
+  margin: 0;
+}
+html {
+  font-size: 100%;
+}
+html {
+  --primary-color: #039be5;
+  --dile-primary-color: #039be5;
+  --primary-dark-color: #0277bd;
+  --dark-primary-color: #0277bd;
+  --primary-light-color: #e3f2fd;
+  --primary-light-color-darken1: #dbdfea;
+  --success-color: #38c172;
+  --success-dark-color: #378f5c;
+  --success-light-color: #d6ffbc;
+  --accent-color: #ffeb3b;
+  --dark-accent-color: #f57f17;
+  --black-color: #253030;
+  --dw-button-background-color: #1c95f1;
+  --dw-button-text-color: #fff;
+  --dw-button-hover-text-color: #fff;
+  --dw-button-hover-background-color: #032f44;
+  --dile-button-hover-background-color: #032f44;
+  --dile-button-hover-text-color: #fff;
+  --dile-button-border-width: 0;
+  --dile-button-border-radius: 0.25rem;
+  --dile-button-ring-offset-width: 2px;
+  --dile-button-ring-color: #5e09dc;
+  --dile-button-font-weight: normal;
+  --dile-button-text-transform: uppercase;
+  --dile-modal-z-index: 999999;
+  --dile-toast-z-index: 9999991;
+  --dw-countdown-time-shape-color: #039be5;
+  --dile-cookies-consent-background-color: #303030;
+  --dile-cookies-consent-text-color: #fff;
+  --dile-cookies-consent-border-top-color: #666;
+}

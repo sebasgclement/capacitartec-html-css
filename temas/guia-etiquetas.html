@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Guía de etiquetas HTML</title>
+    <style>
+      body {
+        font-family: "Segoe UI", sans-serif;
+        margin: 0;
+        padding: 20px;
+        background: #f9f9f9;
+        color: #333;
+      }
+
+      h1 {
+        color: #264de4;
+        margin-bottom: 5px;
+      }
+
+      h2 {
+        color: #e34c26;
+        border-bottom: 2px solid #e34c26;
+        padding-bottom: 5px;
+        margin-top: 40px;
+      }
+
+      .explicacion {
+        margin: 10px 0 20px;
+        background: #f0f8ff;
+        border-left: 4px solid #264de4;
+        padding: 10px 15px;
+      }
+
+      .ejemplo {
+        background: white;
+        border: 1px solid #ddd;
+        padding: 15px;
+        margin: 15px 0;
+        border-radius: 6px;
+        font-family: monospace;
+        white-space: pre-wrap;
+        box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
+      }
+
+      .demo {
+        margin: 10px 0 30px;
+        padding: 15px;
+        background: #fffbe6;
+        border: 1px solid #ffe58f;
+        border-radius: 6px;
+      }
+
+      code {
+        background: #eee;
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-family: monospace;
+      }
+
+      ul {
+        padding-left: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Guía de etiquetas HTML básicas</h1>
+    <p>
+      Esta guía contiene ejemplos y explicaciones de las etiquetas más comunes
+      del lenguaje HTML.
+    </p>
+
+    <!-- 1. Párrafos -->
+    <h2>&lt;p&gt; Párrafos</h2>
+    <div class="explicacion">
+      Se usa para agrupar texto en bloques. Se puede usar con atributos como
+      <code>style</code> o <code>class</code>.
+    </div>
+    <div class="ejemplo">&lt;p&gt;Este es un párrafo de ejemplo.&lt;/p&gt;</div>
+    <div class="demo">
+      <p>Este es un párrafo de ejemplo.</p>
+    </div>
+
+    <!-- 2. Encabezados -->
+    <h2>&lt;h1&gt; a &lt;h6&gt; Encabezados</h2>
+    <div class="explicacion">
+      Los encabezados definen títulos jerárquicos. <code>&lt;h1&gt;</code> es el
+      más importante y <code>&lt;h6&gt;</code> el menos.
+    </div>
+    <div class="ejemplo">
+      &lt;h1&gt;Título principal&lt;/h1&gt; &lt;h2&gt;Subtítulo&lt;/h2&gt;
+    </div>
+    <div class="demo">
+      <h1>Título principal</h1>
+      <h2>Subtítulo</h2>
+    </div>
+
+    <!-- 3. Listas -->
+    <h2>Listas: &lt;ul&gt;, &lt;ol&gt;, &lt;li&gt;</h2>
+    <div class="explicacion">
+      <ul>
+        <li><code>&lt;ul&gt;</code>: lista desordenada (con viñetas)</li>
+        <li><code>&lt;ol&gt;</code>: lista ordenada (con números)</li>
+        <li><code>&lt;li&gt;</code>: cada ítem de la lista</li>
+      </ul>
+    </div>
+    <div class="ejemplo">
+      &lt;ul&gt; &lt;li&gt;HTML&lt;/li&gt; &lt;li&gt;CSS&lt;/li&gt; &lt;/ul&gt;
+    </div>
+    <div class="demo">
+      <ul>
+        <li>HTML</li>
+        <li>CSS</li>
+      </ul>
+    </div>
+
+    <!-- 4. Enlaces -->
+    <h2>&lt;a&gt; Enlaces</h2>
+    <div class="explicacion">
+      Los enlaces se usan con <code>&lt;a&gt;</code> y el atributo
+      <code>href</code> para navegar a otras páginas o sitios.
+    </div>
+    <div class="ejemplo">
+      &lt;a href="https://www.google.com" target="_blank"&gt;Ir a
+      Google&lt;/a&gt;
+    </div>
+    <div class="demo">
+      <a href="https://www.google.com" target="_blank">Ir a Google</a>
+    </div>
+
+    <!-- 5. Etiquetas de bloque y línea -->
+    <h2>Bloque vs Línea</h2>
+    <div class="explicacion">
+      <strong>Bloque:</strong> ocupa todo el ancho disponible (ej:
+      <code>&lt;div&gt;</code>, <code>&lt;p&gt;</code>)<br />
+      <strong>Línea:</strong> solo lo necesario (ej: <code>&lt;span&gt;</code>,
+      <code>&lt;a&gt;</code>)
+    </div>
+    <div class="ejemplo">
+      &lt;div&gt;Soy un bloque&lt;/div&gt; &lt;span&gt;Soy en línea&lt;/span&gt;
+    </div>
+    <div class="demo">
+      <div style="background: #def; padding: 10px">Soy un bloque</div>
+      <span style="background: #fde; padding: 5px">Soy en línea</span>
+    </div>
+
+    <!-- 6. Rutas -->
+    <h2>Rutas</h2>
+    <div class="explicacion">
+      <ul>
+        <li>
+          <strong>Relativas:</strong> apuntan a un archivo en el mismo sitio
+          (<code>imagenes/logo.png</code>)
+        </li>
+        <li>
+          <strong>Absolutas:</strong> URL completa
+          (<code>https://midominio.com/imagenes/logo.png</code>)
+        </li>
+      </ul>
+    </div>
+    <div class="ejemplo">
+      &lt;img src="imagenes/logo.png" alt="Logo"&gt;<br />
+      &lt;a href="paginas/contacto.html"&gt;Contacto&lt;/a&gt;
+    </div>
+
+    <!-- 7. Formularios -->
+    <h2>Formularios</h2>
+    <div class="explicacion">
+      Se usa la etiqueta <code>&lt;form&gt;</code> junto con campos como
+      <code>input</code>, <code>textarea</code>, <code>select</code>. Atributos
+      comunes:
+      <ul>
+        <li><code>action</code>: destino de los datos</li>
+        <li><code>method</code>: "get" o "post"</li>
+      </ul>
+    </div>
+    <div class="ejemplo">
+      &lt;form&gt;<br />
+      &nbsp;&nbsp;&lt;input type="text" placeholder="Nombre"&gt;<br />
+      &nbsp;&nbsp;&lt;button type="submit"&gt;Enviar&lt;/button&gt;<br />
+      &lt;/form&gt;
+    </div>
+    <div class="demo">
+      <form>
+        <input type="text" placeholder="Nombre" />
+        <button type="submit">Enviar</button>
+      </form>
+    </div>
+  </body>
+</html>

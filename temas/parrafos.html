@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="temas/pstyles.css" />
+    <title>Parrafos</title>
+  </head>
+  <body>
+    <main class="container">
+      <p class="Article-description">
+        <b
+          >Cómo colocar párrafos y saltos de línea en páginas web. También vemos
+          los encabezados como párrafos que sirven de titulo.</b
+        >
+      </p>
+
+      <div class="Article-content">
+        <p>
+          En los capítulos anteriores hemos presentado a título de ejemplo
+          algunas etiquetas que permiten dar formato a nuestro texto. En este
+          capitulo veremos con más detalle las más ampliamente utilizadas y
+          ejemplificaremos algunas de ellas posteriormente.
+        </p>
+
+        <p>
+          Formatear un texto pasa por tareas tan evidentes como definir los
+          párrafos, justificarlos, introducir viñetas, numeraciones o bien poner
+          en negrita, itálica...
+        </p>
+
+        <p>
+          Hemos visto que para definir los párrafos nos servimos de la etiqueta
+          P que introduce un salto y deja una línea en blanco antes de continuar
+          con el resto del documento.
+        </p>
+
+        <p>
+          Podemos también usar la etiqueta BR, de la cual no existe su cierre
+          correspondiente (/BR), para realizar un simple retorno de carro con lo
+          que no dejamos una línea en blanco sino que solo cambiamos de línea.
+        </p>
+
+        <p></p>
+        <div class="nota">
+          <b>Nota:</b> Existen otras etiquetas que no tienen su correspondiente
+          de cierre, como IMG para las imágenes, que veremos más adelante. Esto
+          ocurre porque un salto de línea o una imagen no empiezan y acaban más
+          adelante sino que sólo tienen presencia en un lugar puntual.
+        </div>
+        <p></p>
+
+        <p>
+          Podéis comprobar que cambiar de línea en nuestro documento HTML sin
+          introducir alguna de estas u otras etiquetas no implica en absoluto un
+          cambio de línea en la página visualizada. En realidad el navegador
+          introducirá el texto y no cambiara de línea a no ser que esta llegue a
+          su fin o bien lo especifiquemos con la etiqueta correspondiente.
+        </p>
+
+        <p>
+          Los párrafos delimitados por etiquetas P pueden ser fácilmente
+          justificados a la izquierda, centro o derecha especificando dicha
+          justificación en el interior de la etiqueta por medio de un atributo
+          "align". Un atributo no es más que un parámetro incluido en el
+          interior de la etiqueta que ayuda a definir el funcionamiento de la
+          etiqueta de una forma más personalizada. Veremos a lo largo de este
+          manual cantidad de atributos muy útiles para todo tipo de etiquetas.
+        </p>
+
+        <p></p>
+        <div class="nota">
+          <b>Nota: </b> Ten muy en cuenta lo siguiente, que ya hemos comentado
+          anteriormente. <b>El HTML se usa para definir el contenido</b>. Por
+          tanto, los atributos align que vamos a conocer a continuación se están
+          metiendo a una parcela que no le corresponde al HTML, porque están
+          definiendo la forma con la que un párrafo debe de representarse, su
+          estilo, y no el contenido. Es importante señalarlo para que aprendas
+          que estas cosas se deben hacer mediante el lenguaje
+          <a href="/css">CSS</a>, que sirve para definir el estilo, la forma. En
+          la revisión de este texto en 2016 hemos decidido mantener estos
+          ejemplos, a pesar que no es el uso más correcto del HTML, porque así
+          nos sirve para introducir los atributos de las etiquetas, que no hemos
+          visto hasta ahora. No obstante, tú lo tendrás en cuenta cuando
+          realices tus páginas y
+          <a
+            href="https://desarrolloweb.com/manuales/manual-css-hojas-de-estilo.html"
+            >aprenderás CSS</a
+          >
+          para ver cómo se deben de aplicar estos formatos.
+        </div>
+        <p></p>
+
+        <p>
+          Así, si deseásemos introducir un
+          <b>texto alineado a la izquierda</b> escribiríamos:
+        </p>
+        <pre
+          class="language-markup"
+        ><code class=" language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">align</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>left<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Texto alineado a la izquierda<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span></code></pre>
+        <p></p>
+
+        <p>Para una <b>justificación al centro</b>:</p>
+        <pre
+          class="language-markup"
+        ><code class=" language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">align</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>center<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Texto alineado al centro<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span></code></pre>
+        <p></p>
+
+        <p>Para <b>alinear a la derecha</b>:</p>
+        <pre
+          class="language-markup"
+        ><code class=" language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">align</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>right<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Texto alineado a la derecha<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span></code></pre>
+        <p></p>
+
+        <p>
+          Los anteriores párrafos con sus alineaciones se verían más o menos
+          así:
+        </p>
+
+        <p>
+          <img src="https://desarrolloweb.com/archivoimg/general/3827.png" />
+        </p>
+
+        <p>
+          Como veis, en cada caso el atributo align toma determinados valores
+          que son escritos entre comillas. En algunas ocasiones necesitamos
+          especificar algunos atributos para el correcto funcionamiento de la
+          etiqueta. En otros casos, el propio navegador toma un valor definido
+          por defecto. Para el caso de align, el valor por defecto es left.
+        </p>
+
+        <p></p>
+        <div class="nota">
+          <b>Nota:</b> Los atributos tienen sus valores indicados entre comillas
+          ("), pero si no los indicamos entre comillas también funcionará en la
+          mayoría de los casos. Sin embargo, es aconsejable que pongamos siempre
+          las comillas para acostumbrarnos a utilizarlas, por dar homogeneidad a
+          nuestros códigos y para evitar errores futuros en sistemas más
+          quisquillosos.
+        </div>
+        <p></p>
+
+        <p>
+          El atributo align no es exclusivo de la etiqueta P. Otras etiquetas
+          muy comunes, que veremos más adelante, entre las cuales se introducen
+          texto o imágenes, suelen hacer uso de este atributo de una forma
+          habitual.
+        </p>
+
+        <p>
+          Imaginemos un texto relativamente largo donde todos los párrafos están
+          alineados a la izquierda (por ejemplo). Una forma de simplificar
+          nuestro código y de evitar introducir continuamente el atributo align
+          sobre cada una de nuestras etiquetas es utilizando la etiqueta DIV.
+        </p>
+
+        <p>
+          Esta etiqueta, DIV, por si sola no sirve para nada, salvo producir un
+          salto de línea simple. Para que realmente se vea tiene que estar
+          acompañada de algún estilo definido en el CSS o de atributos del HTML
+          como align y lo que nos permite es alinear cualquier elemento (párrafo
+          o imagen) de la manera que nosotros deseemos.
+        </p>
+
+        <p>Así, el código:</p>
+        <pre
+          class="language-markup"
+        ><code class=" language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">align</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>left<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Parrafo1<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span> 
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">align</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>left<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span> Parrafo3<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span> 
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">align</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>left<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span> Parrafo2<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span></code></pre>
+        <p></p>
+
+        <p>es equivalente a:</p>
+
+        <p></p>
+        <pre
+          class="language-markup"
+        ><code class=" language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">align</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>left<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span> 
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">&gt;</span></span>Parrafo1<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span> 
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">&gt;</span></span>Parrafo2<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span> 
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">&gt;</span></span>Parrafo3<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span> 
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span></code></pre>
+        <p></p>
+
+        <p></p>
+        <div class="nota">
+          <b>Nota: </b>Recuerda que align tampoco sería correcto de usar en una
+          etiqueta DIV, por el mismo motivo que no sería correcto de usar en un
+          párrafo. Nos sirve para conocer facetas del HTML, que antes se usaban
+          más y nos han quedado heredadas en las versiones actuales del
+          lenguaje.
+        </div>
+        <p></p>
+
+        <p>
+          Como hemos visto, la etiqueta DIV marca divisiones en las que
+          definimos un bloque de contenido, y a los que podríamos aplicar estilo
+          de manera global, aunque lo correcto sería aplicar ese estilo del lado
+          del CSS.
+        </p>
+
+        <h2>Ejemplo práctico:</h2>
+
+        <p>
+          Para practicar un poco lo que acabamos de ver vamos a proponer un
+          ejercicio que podéis resolver en vuestros ordenadores. Simplemente
+          queremos construir una página que tenga, por este orden:
+        </p>
+
+        <p>
+          2 Párrafos centrados
+          <br />
+          3 Párrafos alineados a la derecha
+          <br />
+          Un salto de línea triple
+          <br />
+          1 párrafo alineado a la izquierda
+        </p>
+
+        <p>
+          El código fuente del ejercicio, con lo que sabemos hasta ahora, podría
+          tener la siguiente forma:
+        </p>
+
+        <p></p>
+        <pre
+          class="language-markup"
+        ><code class=" language-markup"><span class="token doctype">&lt;!DOCTYPE html&gt;</span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span> <span class="token attr-name">lang</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>en<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">charset</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>UTF-8<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">&gt;</span></span>parrafos<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">&gt;</span></span>
+
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">align</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>center<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+  Ejemplo de formatear parrafos
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">align</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>center<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+  Esto es el resultado:
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span>
+
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">align</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>right<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">&gt;</span></span>
+  Que son los buscadores que no tienen porque mantener un índice y que tienen robots que constantemente recorren Internet en busca de nuevas páginas para incluirlas en el buscador.
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">&gt;</span></span>
+  Imaginemos un texto relativamente largo donde todos los párrafos están alineados a la izquierda (por ejemplo).
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">&gt;</span></span>
+  Que son los buscadores que no tienen porque mantener un índice y que tienen robots que constantemente recorren Internet en busca de nuevas páginas para incluirlas en el buscador. Estos buscadores suelen tener un formulario accesible desde la página inicial, con el enlace correspondiente. No hay que navegar las categorías para acceder al formulario.
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">&gt;</span></span>
+  Esto es que acaba... hasta luego...
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">&gt;</span></span></code></pre>
+        <p></p>
+
+        <p>
+          Al verlo en un navegador obtendríamos un resultado como el que sigue:
+        </p>
+
+        <p>
+          <img src="../../archivoimg/general/3828.png" />
+        </p>
+
+        <h2>Encabezados</h2>
+
+        <p>
+          Existen otras etiquetas para definir párrafos especiales, que harán
+          las veces de títulos. Son los encabezados o headings en inglés. Como
+          decimos, son etiquetas que formatean el texto como un titular, pero el
+          hecho de que cambien el formato no es lo que nos tiene que preocupar,
+          sino el significado en sí de la etiqueta. Es cierto que los
+          navegadores asignan un tamaño mayor de letra y colocan el texto en
+          negrita, pero lo importante es que sirven para definir la estructura
+          del contenido de un documento HTML. Así los navegadores para ciegos
+          podrán informar a los invidentes que esta es una división nueva de
+          contenido y que su titular es este o aquel. También motores de
+          búsqueda sabrán interpretar mejor el contenido de una página en
+          función de los titulares y subtitulares.
+        </p>
+
+        <p>
+          Hay varios tipos de encabezados, que se diferencian visualmente en el
+          tamaño de la letra que utilizan. La etiqueta en concreto es la H1,
+          para los encabezados más grandes, H2 para los de segundo nivel y así
+          hasta H6 que es el encabezado más pequeño. Pero lo importante,
+          insistimos es la estructura que denotan. Una página tendrá
+          generalmente un encabezado de nivel 1 y dentro varios de nivel 2.
+          Luego, dentro de los H2 encontraremos si acaso H3, etc. Nunca debemos
+          usar los encabezados porque nos formateen el texto de una manera dada,
+          sino porque nuestro documento lo requiera según su estructura.
+        </p>
+
+        <p>
+          Los encabezados implican también una separación en párrafos, así que
+          todo lo que escribamos dentro de H1 y su cierre (o cualquier otro
+          encabezado) se colocará en un párrafo independiente.
+        </p>
+
+        <p>Podemos ver cómo se presentan algunos encabezados a continuación.</p>
+
+        <p></p>
+        <pre
+          class="language-markup"
+        ><code class=" language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h1</span><span class="token punctuation">&gt;</span></span>Encabezado de nivel 1<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h1</span><span class="token punctuation">&gt;</span></span></code></pre>
+        <p></p>
+
+        <p>
+          Los encabezados, como otras etiquetas de HTML, soportan el atributo
+          align. Vemos un ejemplo de encabezado de nivel 2 alineado al centro,
+          aunque repetimos que esta formatación debería hacerse en CSS.
+        </p>
+
+        <p></p>
+        <pre
+          class="language-markup"
+        ><code class=" language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h2</span> <span class="token attr-name">align</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>center<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Encabezado de nivel 2<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h2</span><span class="token punctuation">&gt;</span></span></code></pre>
+        <p></p>
+
+        <p>Los encabezados se verán de esta manera en la página:</p>
+
+        <p>
+          <img src="../../archivoimg/general/3829.png" />
+        </p>
+
+        <p>
+          Otro ejercicio interesante es construir una página web que contenga
+          todos los encabezados posibles. Se puede ver a continuación.
+        </p>
+
+        <p></p>
+        <pre
+          class="language-markup"
+        ><code class=" language-markup"><span class="token doctype">&lt;!DOCTYPE html&gt;</span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span> <span class="token attr-name">lang</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>en<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">charset</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>UTF-8<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">&gt;</span></span>headings<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h1</span><span class="token punctuation">&gt;</span></span>Encabezado de nivel 1<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h1</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h2</span><span class="token punctuation">&gt;</span></span>Encabezado de nivel 2<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h2</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h3</span><span class="token punctuation">&gt;</span></span>Encabezado de nivel 3<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h3</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h4</span><span class="token punctuation">&gt;</span></span>Encabezado de nivel 4<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h4</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h5</span><span class="token punctuation">&gt;</span></span>Encabezado de nivel 5<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h5</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h6</span><span class="token punctuation">&gt;</span></span>Encabezado de nivel 6<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h6</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">&gt;</span></span></code></pre>
+        <p></p>
+      </div>
+
+      <div class="space-bottom">
+        <script
+          async=""
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+        ></script>
+        <!-- Articulos inferior -->
+        <ins
+          class="adsbygoogle"
+          style="display: block"
+          data-ad-client="ca-pub-4078465399592567"
+          data-ad-slot="9491212527"
+          data-ad-format="auto"
+          data-full-width-responsive="true"
+          data-adsbygoogle-status="done"
+          ><iframe
+            id="aswift_0"
+            style="
+              height: 1px !important;
+              max-height: 1px !important;
+              max-width: 1px !important;
+              width: 1px !important;
+            "
+            ><iframe id="google_ads_frame0"></iframe></iframe
+        ></ins>
+        <script>
+          (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+      </div>
+
+      <div class="card-panel z-depth-2 Author">
+        <div class="Author-avatar">
+          <dw-avatar
+            src="/storage/author_images/hX9R2jsPi5c3PIOW7LRFSuzXPtl4uw7uohwKorUA.jpeg"
+            alt="Rubén Alvarez"
+          >
+          </dw-avatar>
+        </div>
+        <div class="Author-profile">
+          <p class="Author-profile-name">Rubén Alvarez</p>
+          <p class="Author-profile-description">
+            Rubén es doctor en química y programador principalmente en sus ratos
+            libres con...
+          </p>
+        </div>
+      </div>
+
+      <div class="card-panel z-depth-3 Article-datosmanual">
+        <div class="Article-datosmanual-elmanual">
+          <span> <dw-icon icon="book"></dw-icon> Manual </span>
+          <ul>
+            <li><a href="/manuales/manual-html.html">Manual de HTML</a></li>
+          </ul>
+        </div>
+        <div class="sig_ant">
+          <a href="/articulos/536.php" class="fl orange darken">
+            <div class="fl">
+              <dw-icon icon="keyboard_arrow_left"></dw-icon>
+              <span>Tu primera página</span>
+            </div>
+          </a>
+          <a href="/articulos/555.php" class="fr orange darken">
+            <div class="fr">
+              <span>Formateando el texto</span>
+              <dw-icon icon="keyboard_arrow_right"></dw-icon>
+            </div>
+          </a>
+        </div>
+      </div>
+      <dw-article-vote votedelement="539" sumpositive="31" sumnegative="0">
+        <dw-icon slot="positive" icon="thumb_up"></dw-icon>
+        <dw-icon slot="negative" icon="thumb_down"></dw-icon>
+      </dw-article-vote>
+    </main>
+  </body>
+</html>

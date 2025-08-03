@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Formularios en HTML</title>
+    <style>
+      body {
+        font-family: "Segoe UI", sans-serif;
+        margin: 0;
+        padding: 20px;
+        background: #f9f9f9;
+        color: #333;
+      }
+
+      h1 {
+        color: #264de4;
+      }
+
+      h2 {
+        color: #e34c26;
+      }
+
+      p {
+        line-height: 1.6;
+      }
+
+      .ejemplo {
+        background: white;
+        border: 1px solid #ddd;
+        padding: 20px;
+        margin: 30px 0;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      }
+
+      input,
+      select,
+      textarea,
+      button {
+        font-family: inherit;
+        font-size: 1rem;
+        padding: 8px;
+        margin-top: 5px;
+        margin-bottom: 15px;
+        width: 100%;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+      }
+
+      label {
+        font-weight: 600;
+      }
+
+      button {
+        background-color: #264de4;
+        color: white;
+        border: none;
+        cursor: pointer;
+        margin-top: 10px;
+      }
+
+      button:hover {
+        background-color: #1e3cb3;
+      }
+
+      code {
+        background-color: #eee;
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-size: 0.95rem;
+      }
+
+      hr {
+        margin: 40px 0;
+      }
+
+      .atributos {
+        font-size: 0.95rem;
+        background-color: #f0f8ff;
+        border-left: 4px solid #264de4;
+        padding: 10px;
+        margin-bottom: 10px;
+      }
+
+      ul {
+        padding-left: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Formularios en HTML</h1>
+    <p>
+      Los formularios permiten ingresar y enviar datos. Cada elemento tiene
+      atributos que modifican su comportamiento. A continuación, mostramos
+      ejemplos interactivos con sus atributos explicados.
+    </p>
+
+    <div class="ejemplo">
+      <h2>Formulario básico</h2>
+
+      <div class="atributos">
+        <p>
+          <strong><code>&lt;input type="text"&gt;</code></strong>
+        </p>
+        <ul>
+          <li>
+            <code>type</code>: especifica el tipo de dato (text, email, number,
+            etc.)
+          </li>
+          <li>
+            <code>placeholder</code>: muestra un texto guía dentro del campo
+          </li>
+          <li><code>name</code>: nombre que se enviará en el formulario</li>
+          <li><code>required</code>: hace obligatorio completar el campo</li>
+        </ul>
+      </div>
+      <label for="nombre">Nombre:</label>
+      <input
+        type="text"
+        id="nombre"
+        name="nombre"
+        placeholder="Tu nombre..."
+        required
+      />
+
+      <div class="atributos">
+        <p>
+          <strong><code>&lt;input type="email"&gt;</code></strong>
+        </p>
+        <ul>
+          <li>Valida que se ingrese un correo electrónico válido.</li>
+        </ul>
+      </div>
+      <label for="email">Correo electrónico:</label>
+      <input type="email" id="email" name="email" placeholder="tu@email.com" />
+
+      <div class="atributos">
+        <p>
+          <strong
+            ><code>&lt;input type="number" min="1" max="120"&gt;</code></strong
+          >
+        </p>
+        <ul>
+          <li>
+            <code>min</code> y <code>max</code>: definen los valores permitidos
+          </li>
+        </ul>
+      </div>
+      <label for="edad">Edad:</label>
+      <input type="number" id="edad" name="edad" min="1" max="120" />
+
+      <div class="atributos">
+        <p>
+          <strong><code>&lt;input type="date"&gt;</code></strong>
+        </p>
+        <ul>
+          <li>Muestra un calendario para elegir fechas.</li>
+        </ul>
+      </div>
+      <label for="nacimiento">Fecha de nacimiento:</label>
+      <input type="date" id="nacimiento" name="nacimiento" />
+
+      <div class="atributos">
+        <p>
+          <strong
+            ><code>&lt;textarea rows="4"&gt;&lt;/textarea&gt;</code></strong
+          >
+        </p>
+        <ul>
+          <li>
+            Permite ingresar texto largo. <code>rows</code> define la altura.
+          </li>
+        </ul>
+      </div>
+      <label for="mensaje">Mensaje:</label>
+      <textarea
+        id="mensaje"
+        name="mensaje"
+        rows="4"
+        placeholder="Escribí tu mensaje..."
+      ></textarea>
+
+      <button type="submit">Enviar</button>
+    </div>
+
+    <hr />
+
+    <div class="ejemplo">
+      <h2>Opciones y selección</h2>
+
+      <div class="atributos">
+        <p>
+          <strong><code>&lt;select&gt; + &lt;option&gt;</code></strong>
+        </p>
+        <ul>
+          <li>Menú desplegable de opciones.</li>
+          <li><code>value</code>: lo que se envía del campo seleccionado.</li>
+        </ul>
+      </div>
+      <label for="pais">Seleccioná tu país:</label>
+      <select id="pais" name="pais">
+        <option value="arg">Argentina</option>
+        <option value="uru">Uruguay</option>
+        <option value="chi">Chile</option>
+        <option value="mex">México</option>
+      </select>
+
+      <div class="atributos">
+        <p>
+          <strong><code>&lt;input type="radio"&gt;</code></strong>
+        </p>
+        <ul>
+          <li>
+            Permite elegir solo una opción del grupo (mismo <code>name</code>).
+          </li>
+        </ul>
+      </div>
+      <label>Sexo:</label><br />
+      <input type="radio" id="m" name="sexo" value="m" />
+      <label for="m">Masculino</label><br />
+      <input type="radio" id="f" name="sexo" value="f" />
+      <label for="f">Femenino</label><br />
+      <input type="radio" id="x" name="sexo" value="x" />
+      <label for="x">Prefiero no decirlo</label>
+
+      <div class="atributos" style="margin-top: 20px">
+        <p>
+          <strong><code>&lt;input type="checkbox"&gt;</code></strong>
+        </p>
+        <ul>
+          <li>Permite seleccionar varias opciones.</li>
+        </ul>
+      </div>
+      <label>Intereses:</label><br />
+      <input type="checkbox" id="html" name="interes" value="HTML" />
+      <label for="html">HTML</label><br />
+      <input type="checkbox" id="css" name="interes" value="CSS" />
+      <label for="css">CSS</label><br />
+      <input type="checkbox" id="js" name="interes" value="JavaScript" />
+      <label for="js">JavaScript</label><br /><br />
+
+      <button type="submit">Guardar selección</button>
+    </div>
+  </body>
+</html>
