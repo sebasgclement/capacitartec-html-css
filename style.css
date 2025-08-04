@@ -49,6 +49,10 @@ nav ul li a:hover {
 
 .hero {
   background: linear-gradient(120deg, #00fdc2 0%, #013940 60%);
+  background-image: url("https://i.ytimg.com/vi/rr2H086z16s/maxresdefault.jpg");
+  background-repeat: no-repeat;
+  background-size: auto;
+  background-position: center;
   color: #fff;
   text-align: center;
   padding: 120px 20px;
@@ -88,9 +92,7 @@ section {
   background-color: rgba(227, 76, 38, 0.2);
   color: #ddd;
   backdrop-filter: blur(3px);
-  
 }
-
 
 .section-dark {
   background-color: rgba(38, 77, 228, 0.2);

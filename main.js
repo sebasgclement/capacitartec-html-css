@@ -59,97 +59,103 @@ const contentMap = {
     type: "html",
     content: "temas/selectores.html",
   },
-  'Propiedades de texto': {
-    type:"html",
-    content:"temas/propiedades-texto.html"
-  },
-  'Tipografías externas': {
-    type:"html",
-    content:"temas/tipografias-externas.html"
-  },
-  'Modelo de caja (box model)':{
-    type:"img",
-    content:"img/Box-Model.png"
-  },
-  'Padding y margin':{
+  "Propiedades de texto": {
     type: "html",
-    content: "temas/padding-margin.html"
+    content: "temas/propiedades-texto.html",
+  },
+  "Tipografías externas": {
+    type: "html",
+    content: "temas/tipografias-externas.html",
+  },
+  "Modelo de caja (box model)": {
+    type: "img",
+    content: "img/Box-Model.png",
+  },
+  "Padding y margin": {
+    type: "html",
+    content: "temas/padding-margin.html",
   },
   Borders: {
-    type:"html",
-    content:"temas/bordes.html"
+    type: "html",
+    content: "temas/bordes.html",
   },
-  'Box sizing': {
-    type:"html",
-    content:"temas/box-sizing.html"
+  "Box sizing": {
+    type: "html",
+    content: "temas/box-sizing.html",
   },
-  'Colorimetría (rgba, hexadecimal, hsl)':{
-    type:"html",
-    content:"temas/colorimetria.html"
+  "Colorimetría (rgba, hexadecimal, hsl)": {
+    type: "html",
+    content: "temas/colorimetria.html",
   },
-  'Unidades de medida (absolutas y relativas)':{
-    type:"html",
-    content:"temas/unidades-medida.html"
+  "Unidades de medida (absolutas y relativas)": {
+    type: "html",
+    content: "temas/unidades-medida.html",
   },
   Background: {
     type: "html",
-    content: "temas/background.html"
+    content: "temas/background.html",
   },
   Gradientes: {
-    type:"html",
-    content: "temas/gradiente.html"
+    type: "html",
+    content: "temas/gradiente.html",
   },
   Shadows: {
     type: "html",
-    content: "temas/shadows.html"
+    content: "temas/shadows.html",
   },
-  'Css básico': {
-    type:"html",
-    content:"temas/css_basico_resumen.html"
-  }
+  "Css básico": {
+    type: "html",
+    content: "temas/css_basico_resumen.html",
+  },
+  "INTEGRADOR 1": {
+    type: "html",
+    content: "temas/Ejercicio_MiniLanding_Formulario.html",
+  },
 };
 
-document.querySelectorAll("#clases ul li, #recursos ul li").forEach((item) => {
-  item.addEventListener("click", (e) => {
-    e.stopPropagation();
+document
+  .querySelectorAll("#clases ul li, #recursos ul li, #consultas ul li")
+  .forEach((item) => {
+    item.addEventListener("click", (e) => {
+      e.stopPropagation();
 
-    const texto = item.textContent.trim();
-    const data = contentMap[texto];
+      const texto = item.textContent.trim();
+      const data = contentMap[texto];
 
-    if (!data) {
-      alert("Contenido no disponible.");
-      return;
-    }
+      if (!data) {
+        alert("Contenido no disponible.");
+        return;
+      }
 
-    // Ocultar todos
-    modalHtml.style.display = "none";
-    modalPdf.style.display = "none";
-    modalImg.style.display = "none";
+      // Ocultar todos
+      modalHtml.style.display = "none";
+      modalPdf.style.display = "none";
+      modalImg.style.display = "none";
 
-    // Limpiar src
-    modalHtml.src = "";
-    modalPdf.src = "";
-    modalImg.src = "";
+      // Limpiar src
+      modalHtml.src = "";
+      modalPdf.src = "";
+      modalImg.src = "";
 
-    // Mostrar el que corresponde
-    switch (data.type) {
-      case "html":
-        modalHtml.src = data.content;
-        modalHtml.style.display = "block";
-        break;
-      case "pdf":
-        modalPdf.src = data.content;
-        modalPdf.style.display = "block";
-        break;
-      case "img":
-        modalImg.src = data.content;
-        modalImg.style.display = "block";
-        break;
-    }
+      // Mostrar el que corresponde
+      switch (data.type) {
+        case "html":
+          modalHtml.src = data.content;
+          modalHtml.style.display = "block";
+          break;
+        case "pdf":
+          modalPdf.src = data.content;
+          modalPdf.style.display = "block";
+          break;
+        case "img":
+          modalImg.src = data.content;
+          modalImg.style.display = "block";
+          break;
+      }
 
-    modal.style.display = "flex";
+      modal.style.display = "flex";
+    });
   });
-});
 
 modalClose.addEventListener("click", () => {
   modal.style.display = "none";

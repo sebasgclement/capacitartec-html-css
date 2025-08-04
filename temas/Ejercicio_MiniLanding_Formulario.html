@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Inscripción Curso Frontend</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: url("https://www.transparenttextures.com/patterns/dark-mosaic.png"),
+                  linear-gradient(rgba(0, 0, 0, 0.6), rgba(0,0,0,0.6)),
+                  url("https://source.unsplash.com/1600x900/?technology,code") no-repeat center/cover;
+      background-attachment: fixed;
+      color: white;
+      scroll-behavior: smooth;
+    }
+
+    header {
+      text-align: center;
+      padding: 60px 20px;
+      background-color: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(4px);
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin: 0;
+    }
+
+    h2 {
+      color: #ffd700;
+      margin-bottom: 10px;
+    }
+
+    section.info, section.formulario {
+      background-color: rgba(255, 255, 255, 0.05);
+      padding: 30px;
+      margin: 20px auto;
+      width: 90%;
+      max-width: 700px;
+      border-radius: 10px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    }
+
+    p {
+      line-height: 1.6;
+    }
+
+    form input, form select, form textarea {
+      width: 100%;
+      margin-top: 5px;
+      margin-bottom: 15px;
+      padding: 10px;
+      border-radius: 4px;
+      border: none;
+    }
+
+    form button {
+      background-color: #ffd700;
+      color: #333;
+      font-weight: bold;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    form button:hover {
+      background-color: #ffc400;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: rgba(0,0,0,0.6);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Curso Frontend para Principiantes</h1>
+    <p>Aprendé HTML, CSS y más desde cero</p>
+  </header>
+
+  <main>
+    <section class="info">
+      <h2>¿Qué vas a aprender?</h2>
+      <p>Dominarás las bases del desarrollo web con HTML y CSS. Vas a crear sitios web desde cero, entendiendo cómo estructurar el contenido, aplicar estilos, trabajar con formularios y más. ¡Incluye prácticas reales!</p>
+    </section>
+
+    <section class="formulario">
+      <h2>¡Inscribite ahora!</h2>
+      <form>
+        <label for="nombre">Nombre completo</label>
+        <input type="text" id="nombre" name="nombre" placeholder="Juan Pérez" required />
+
+        <label for="email">Correo electrónico</label>
+        <input type="email" id="email" name="email" placeholder="juan@email.com" required />
+
+        <label for="curso">Curso</label>
+        <select id="curso" name="curso" required>
+          <option value="">Seleccioná un curso...</option>
+          <option value="frontend">Frontend Básico</option>
+          <option value="backend">Backend Básico</option>
+          <option value="fullstack">FullStack Junior</option>
+        </select>
+
+        <label for="comentarios">Comentarios</label>
+        <textarea id="comentarios" name="comentarios" rows="4" placeholder="¿Por qué querés hacer este curso?"></textarea>
+
+        <button type="submit">Enviar inscripción</button>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 CapacitarTec - Desarrollado por Sebastián Clement</p>
+  </footer>
+</body>
+</html>
