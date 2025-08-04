@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gradientes en CSS</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 2rem;
+    }
+
+    h1 {
+      color: #444;
+    }
+
+    .explicacion {
+      background: #fff;
+      border-left: 5px solid #007acc;
+      padding: 1rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .controls, .preview {
+      background: #fff;
+      padding: 1rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+    }
+
+    .controls label {
+      display: block;
+      margin: 0.5rem 0 0.2rem;
+    }
+
+    .preview-box {
+      height: 200px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      margin-bottom: 1rem;
+    }
+
+    pre {
+      background-color: #272822;
+      color: #f8f8f2;
+      padding: 1rem;
+      border-radius: 6px;
+      overflow: auto;
+    }
+
+    select, input[type="color"], input[type="range"] {
+      margin-right: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>Gradientes en CSS</h1>
+
+  <div class="explicacion">
+    <h2>✨ Teoría breve</h2>
+    <p>Los gradientes permiten crear transiciones suaves entre dos o más colores. Podés usarlos como fondo con la propiedad <code>background-image</code>.</p>
+    <ul>
+      <li><code>linear-gradient()</code>: crea un degradado en línea recta (por defecto de arriba a abajo).</li>
+      <li><code>radial-gradient()</code>: comienza desde un centro y se expande en círculo u óvalo.</li>
+      <li><code>conic-gradient()</code>: (experimental) rota alrededor de un punto como un reloj.</li>
+      <li>Podés ajustar dirección (to right, 45deg), colores, y agregar stops personalizados.</li>
+    </ul>
+  </div>
+
+  <div class="controls">
+    <h2>🎨 Personalizá tu gradiente</h2>
+    <label for="tipo">Tipo de gradiente:</label>
+    <select id="tipo">
+      <option value="linear">Linear</option>
+      <option value="radial">Radial</option>
+    </select>
+
+    <label for="direccion">Dirección (para linear):</label>
+    <select id="direccion">
+      <option value="to right">to right</option>
+      <option value="to left">to left</option>
+      <option value="to top">to top</option>
+      <option value="to bottom">to bottom</option>
+      <option value="45deg">45deg</option>
+      <option value="135deg">135deg</option>
+    </select>
+
+    <label>Colores:</label>
+    <input type="color" id="color1" value="#ff6600" />
+    <input type="color" id="color2" value="#ffcc00" />
+  </div>
+
+  <div class="preview">
+    <h2>🌟 Vista previa</h2>
+    <div class="preview-box" id="previewBox"></div>
+    <h3>Código CSS:</h3>
+    <pre id="codigoCss"></pre>
+  </div>
+
+  <script>
+    const tipo = document.getElementById("tipo");
+    const direccion = document.getElementById("direccion");
+    const color1 = document.getElementById("color1");
+    const color2 = document.getElementById("color2");
+    const preview = document.getElementById("previewBox");
+    const codigo = document.getElementById("codigoCss");
+
+    function actualizarGradiente() {
+      const t = tipo.value;
+      const d = direccion.value;
+      const c1 = color1.value;
+      const c2 = color2.value;
+
+      let bg;
+      if (t === "linear") {
+        bg = `linear-gradient(${d}, ${c1}, ${c2})`;
+      } else {
+        bg = `radial-gradient(circle, ${c1}, ${c2})`;
+      }
+
+      preview.style.backgroundImage = bg;
+      codigo.textContent = `background-image: ${bg};`;
+    }
+
+    tipo.addEventListener("change", actualizarGradiente);
+    direccion.addEventListener("change", actualizarGradiente);
+    color1.addEventListener("input", actualizarGradiente);
+    color2.addEventListener("input", actualizarGradiente);
+
+    // Inicial
+    actualizarGradiente();
+  </script>
+</body>
+</html>

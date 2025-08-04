@@ -86,9 +86,11 @@ section {
 
 .section-light {
   background-color: rgba(227, 76, 38, 0.2);
-  color: #111;
+  color: #ddd;
   backdrop-filter: blur(3px);
+  
 }
+
 
 .section-dark {
   background-color: rgba(38, 77, 228, 0.2);
@@ -105,9 +107,10 @@ details {
 
 /* Solo cuando está abierto: */
 details[open] {
-  background-color: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(6px);
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  background-color: transparent !important;
+  backdrop-filter: none !important;
+  border: none !important;
+  box-shadow: none !important;
 }
 
 /* Summary siempre igual */
@@ -221,7 +224,20 @@ details ul li:hover {
   list-style: none;
   border-left: 3px solid #e34c;
   padding-left: 12px;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
+  font-size: 60 px;
+}
+
+.mano2 {
+  cursor: pointer;
+  list-style: none;
+  border-left: 3px solid #264de4;
+  padding-left: 12px;
+  margin-bottom: 20px;
+}
+
+.uls {
+  font-size: 20px;
 }
 
 footer {

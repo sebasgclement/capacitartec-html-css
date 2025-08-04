@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Box Sizing en CSS</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f9f9f9;
+      padding: 20px;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    h1, h2 {
+      color: #264de4;
+    }
+
+    .bloque {
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      padding: 15px;
+      margin-bottom: 30px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+
+    .control {
+      margin-bottom: 10px;
+    }
+
+    label {
+      display: inline-block;
+      width: 120px;
+      font-weight: bold;
+    }
+
+    input[type="range"] {
+      width: 200px;
+      vertical-align: middle;
+    }
+
+    select {
+      padding: 5px;
+      font-size: 1rem;
+    }
+
+    .preview-area {
+      background: #ddd;
+      padding: 40px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .box {
+      background: #e0f7fa;
+      border: 4px solid #00acc1;
+      text-align: center;
+      transition: all 0.3s ease;
+      box-sizing: content-box;
+    }
+
+    .info {
+      font-size: 0.95rem;
+      margin-top: 10px;
+      font-family: monospace;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Box Sizing en CSS</h1>
+
+  <div class="bloque">
+    <h2>📚 Teoría</h2>
+    <p>La propiedad <code>box-sizing</code> define cómo se calcula el tamaño total de un elemento:</p>
+    <ul>
+      <li><strong>content-box</strong>: el <code>width</code> solo aplica al contenido (padding y border se suman).</li>
+      <li><strong>border-box</strong>: el <code>width</code> incluye padding y border (¡más intuitivo!).</li>
+    </ul>
+  </div>
+
+  <div class="bloque">
+    <h2>🎛️ Controlá las propiedades:</h2>
+
+    <div class="control">
+      <label for="boxSize">Box sizing:</label>
+      <select id="boxSize" onchange="updateBox()">
+        <option value="content-box">content-box</option>
+        <option value="border-box">border-box</option>
+      </select>
+    </div>
+
+    <div class="control">
+      <label for="width">Width:</label>
+      <input type="range" id="width" min="100" max="400" value="200" oninput="updateBox()">
+      <span id="widthVal">200px</span>
+    </div>
+
+    <div class="control">
+      <label for="padding">Padding:</label>
+      <input type="range" id="padding" min="0" max="100" value="20" oninput="updateBox()">
+      <span id="paddingVal">20px</span>
+    </div>
+
+    <div class="control">
+      <label for="border">Border:</label>
+      <input type="range" id="border" min="0" max="30" value="4" oninput="updateBox()">
+      <span id="borderVal">4px</span>
+    </div>
+
+    <div class="control">
+      <label for="margin">Margin:</label>
+      <input type="range" id="margin" min="0" max="50" value="10" oninput="updateBox()">
+      <span id="marginVal">10px</span>
+    </div>
+  </div>
+
+  <div class="bloque preview-area">
+    <div id="caja" class="box">
+      <p>Caja dinámica</p>
+    </div>
+  </div>
+
+  <div class="bloque info">
+    <strong>Estilos aplicados:</strong>
+    <div id="estilosAplicados"></div>
+  </div>
+
+  <script>
+    function updateBox() {
+      const box = document.getElementById("caja");
+
+      const boxSize = document.getElementById("boxSize").value;
+      const width = document.getElementById("width").value;
+      const padding = document.getElementById("padding").value;
+      const border = document.getElementById("border").value;
+      const margin = document.getElementById("margin").value;
+
+      box.style.boxSizing = boxSize;
+      box.style.width = width + "px";
+      box.style.padding = padding + "px";
+      box.style.borderWidth = border + "px";
+      box.style.margin = margin + "px";
+
+      // actualizar texto
+      document.getElementById("widthVal").textContent = width + "px";
+      document.getElementById("paddingVal").textContent = padding + "px";
+      document.getElementById("borderVal").textContent = border + "px";
+      document.getElementById("marginVal").textContent = margin + "px";
+
+      // actualizar código visible
+      document.getElementById("estilosAplicados").innerText = `
+box-sizing: ${boxSize};
+width: ${width}px;
+padding: ${padding}px;
+border: ${border}px solid;
+margin: ${margin}px;
+      `.trim();
+    }
+
+    // inicializar
+    updateBox();
+  </script>
+
+</body>
+</html>

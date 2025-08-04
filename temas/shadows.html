@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sombras en CSS</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 2rem;
+      background: #f0f0f0;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    section {
+      max-width: 800px;
+      margin: auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    .preview {
+      margin-top: 1rem;
+      padding: 2rem;
+      text-align: center;
+      background-color: #fff;
+      border: 1px dashed #ccc;
+      border-radius: 8px;
+    }
+
+    .code {
+      background: #222;
+      color: #0f0;
+      padding: 1rem;
+      font-family: monospace;
+      margin-top: 1rem;
+      white-space: pre-wrap;
+      border-radius: 8px;
+    }
+
+    label {
+      display: block;
+      margin-top: 1rem;
+      font-weight: bold;
+    }
+
+    input[type="range"] {
+      width: 100%;
+    }
+
+    input[type="color"],
+    input[type="text"] {
+      padding: 0.3rem;
+      width: 100%;
+    }
+
+    .control-group {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .subtitle {
+      margin-top: 2rem;
+      font-size: 1.3rem;
+      border-bottom: 2px solid #ccc;
+      padding-bottom: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+  <section>
+    <h1>Sombras en CSS</h1>
+
+    <div class="subtitle">🎓 Parte teórica</div>
+    <p><code>box-shadow</code> permite aplicar una sombra a elementos tipo <code>div</code>, botones, cajas, etc. Se define con:</p>
+    <ul>
+      <li><strong>Desplazamiento horizontal</strong> (ej: 10px)</li>
+      <li><strong>Desplazamiento vertical</strong> (ej: 5px)</li>
+      <li><strong>Difuminado (blur)</strong></li>
+      <li><strong>Dispersión (spread)</strong></li>
+      <li><strong>Color</strong> (rgba o hex)</li>
+    </ul>
+
+    <p><code>text-shadow</code> es similar pero se aplica al texto. No admite spread.</p>
+
+    <div class="subtitle">🎛️ Controles en vivo</div>
+
+    <div class="control-group">
+      <div>
+        <label>Horizontal (px)</label>
+        <input type="range" id="hOffset" min="-50" max="50" value="5">
+      </div>
+      <div>
+        <label>Vertical (px)</label>
+        <input type="range" id="vOffset" min="-50" max="50" value="5">
+      </div>
+      <div>
+        <label>Blur (difuminado)</label>
+        <input type="range" id="blur" min="0" max="50" value="10">
+      </div>
+      <div>
+        <label>Spread (solo box-shadow)</label>
+        <input type="range" id="spread" min="0" max="30" value="0">
+      </div>
+      <div>
+        <label>Color</label>
+        <input type="color" id="shadowColor" value="#000000">
+      </div>
+      <div>
+        <label>Modo</label>
+        <select id="shadowType">
+          <option value="box">Box Shadow</option>
+          <option value="text">Text Shadow</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="subtitle">🔍 Vista previa</div>
+    <div class="preview" id="preview">
+      <p id="previewText" style="font-size: 1.5rem;">Este es un ejemplo de sombra en CSS</p>
+    </div>
+
+    <div class="subtitle">💻 Código CSS generado</div>
+    <div class="code" id="cssOutput"></div>
+  </section>
+
+  <script>
+    const hOffset = document.getElementById("hOffset");
+    const vOffset = document.getElementById("vOffset");
+    const blur = document.getElementById("blur");
+    const spread = document.getElementById("spread");
+    const shadowColor = document.getElementById("shadowColor");
+    const shadowType = document.getElementById("shadowType");
+    const preview = document.getElementById("preview");
+    const previewText = document.getElementById("previewText");
+    const cssOutput = document.getElementById("cssOutput");
+
+    function updateShadow() {
+      const h = hOffset.value;
+      const v = vOffset.value;
+      const b = blur.value;
+      const s = spread.value;
+      const c = shadowColor.value;
+      const type = shadowType.value;
+
+      let cssText = "";
+
+      if (type === "box") {
+        cssText = `box-shadow: ${h}px ${v}px ${b}px ${s}px ${c};`;
+        preview.style.boxShadow = `${h}px ${v}px ${b}px ${s}px ${c}`;
+        previewText.style.textShadow = "none";
+      } else {
+        cssText = `text-shadow: ${h}px ${v}px ${b}px ${c};`;
+        previewText.style.textShadow = `${h}px ${v}px ${b}px ${c}`;
+        preview.style.boxShadow = "none";
+      }
+
+      cssOutput.textContent = cssText;
+    }
+
+    document.querySelectorAll("input, select").forEach(input => {
+      input.addEventListener("input", updateShadow);
+    });
+
+    updateShadow();
+  </script>
+</body>
+</html>

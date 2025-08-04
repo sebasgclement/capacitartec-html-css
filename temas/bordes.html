@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bordes en CSS</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f9f9f9;
+      padding: 20px;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    h1, h2 {
+      color: #264de4;
+    }
+
+    .bloque {
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      padding: 15px;
+      margin-bottom: 30px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+
+    .control {
+      margin-bottom: 12px;
+    }
+
+    label {
+      display: inline-block;
+      width: 130px;
+      font-weight: bold;
+    }
+
+    input[type="range"] {
+      width: 180px;
+      vertical-align: middle;
+    }
+
+    select, input[type="color"] {
+      padding: 6px;
+      font-size: 1rem;
+    }
+
+    .preview-area {
+      background: #eee;
+      padding: 40px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .box {
+      background: #e0f7fa;
+      padding: 30px;
+      text-align: center;
+      width: 200px;
+      transition: all 0.3s ease;
+      border: 4px solid #00acc1;
+      border-style: solid;
+    }
+
+    .info {
+      font-size: 0.95rem;
+      margin-top: 10px;
+      font-family: monospace;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Bordes en CSS</h1>
+
+  <div class="bloque">
+    <h2>📚 Teoría</h2>
+    <p>Las propiedades de borde permiten definir el estilo del contorno de los elementos:</p>
+    <ul>
+      <li><code>border-width</code>: grosor del borde</li>
+      <li><code>border-style</code>: tipo de línea (solid, dotted, dashed, etc.)</li>
+      <li><code>border-color</code>: color del borde</li>
+      <li><code>border</code>: permite definir todo en una sola línea</li>
+    </ul>
+  </div>
+
+  <div class="bloque">
+    <h2>🎛️ Probá estilos de borde:</h2>
+
+    <div class="control">
+      <label for="borderStyle">Estilo:</label>
+      <select id="borderStyle" onchange="updateBox()">
+        <option value="solid">solid</option>
+        <option value="dashed">dashed</option>
+        <option value="dotted">dotted</option>
+        <option value="double">double</option>
+        <option value="groove">groove</option>
+        <option value="ridge">ridge</option>
+        <option value="inset">inset</option>
+        <option value="outset">outset</option>
+        <option value="none">none</option>
+      </select>
+    </div>
+
+    <div class="control">
+      <label for="borderWidth">Grosor:</label>
+      <input type="range" id="borderWidth" min="0" max="20" value="4" oninput="updateBox()">
+      <span id="widthVal">4px</span>
+    </div>
+
+    <div class="control">
+      <label for="borderColor">Color:</label>
+      <input type="color" id="borderColor" value="#00acc1" onchange="updateBox()">
+    </div>
+  </div>
+
+  <div class="bloque preview-area">
+    <div id="caja" class="box">
+      <p>Borde en vivo</p>
+    </div>
+  </div>
+
+  <div class="bloque info">
+    <strong>Estilos aplicados:</strong>
+    <div id="estilosAplicados"></div>
+  </div>
+
+  <script>
+    function updateBox() {
+      const caja = document.getElementById("caja");
+
+      const style = document.getElementById("borderStyle").value;
+      const width = document.getElementById("borderWidth").value;
+      const color = document.getElementById("borderColor").value;
+
+      caja.style.borderStyle = style;
+      caja.style.borderWidth = width + "px";
+      caja.style.borderColor = color;
+
+      document.getElementById("widthVal").textContent = width + "px";
+
+      document.getElementById("estilosAplicados").innerText = `
+border-style: ${style};
+border-width: ${width}px;
+border-color: ${color};
+      `.trim();
+    }
+
+    updateBox(); // inicializar con valores por defecto
+  </script>
+
+</body>
+</html>

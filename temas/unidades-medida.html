@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Unidades de medida en CSS</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      padding: 20px;
+      background-color: #f9f9f9;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    h1, h2 {
+      color: #264de4;
+    }
+
+    .bloque {
+      background: #fff;
+      padding: 15px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      margin-bottom: 30px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+    ul {
+      padding-left: 20px;
+    }
+
+    code {
+      background: #eee;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: monospace;
+    }
+
+    .control {
+      margin-bottom: 12px;
+    }
+
+    label {
+      display: inline-block;
+      width: 130px;
+      font-weight: bold;
+    }
+
+    input[type="range"] {
+      width: 200px;
+    }
+
+    select {
+      padding: 6px;
+      font-size: 1rem;
+    }
+
+    .preview {
+      background: #e0f7fa;
+      text-align: center;
+      margin: auto;
+      padding: 15px;
+      border: 2px solid #00acc1;
+      transition: all 0.3s ease;
+    }
+
+    .info {
+      font-family: monospace;
+      margin-top: 10px;
+      font-size: 0.9rem;
+      background: #f0f0f0;
+      padding: 10px;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Unidades de medida en CSS</h1>
+
+  <div class="bloque">
+    <h2>📚 Teoría</h2>
+
+    <h3>🔵 Unidades absolutas</h3>
+    <ul>
+      <li><code>px</code>: píxeles. La más usada en pantallas.</li>
+      <li><code>cm</code>, <code>mm</code>, <code>in</code>: medidas físicas (solo útiles para impresión).</li>
+      <li><code>pt</code>, <code>pc</code>: puntos tipográficos.</li>
+    </ul>
+
+    <h3>🟢 Unidades relativas</h3>
+    <ul>
+      <li><code>%</code>: relativo al contenedor.</li>
+      <li><code>em</code>: relativo al tamaño de fuente del padre.</li>
+      <li><code>rem</code>: relativo al tamaño raíz (generalmente 16px).</li>
+      <li><code>vw</code>: 1% del ancho del viewport.</li>
+      <li><code>vh</code>: 1% del alto del viewport.</li>
+      <li><code>vmin</code>, <code>vmax</code>: basado en el menor o mayor lado de la pantalla.</li>
+    </ul>
+  </div>
+
+  <div class="bloque">
+    <h2>🎛️ Probar unidades</h2>
+
+    <div class="control">
+      <label for="propiedad">Propiedad:</label>
+      <select id="propiedad" onchange="actualizarVista()">
+        <option value="width">Ancho</option>
+        <option value="height">Alto</option>
+        <option value="fontSize">Tamaño de fuente</option>
+      </select>
+    </div>
+
+    <div class="control">
+      <label for="valor">Valor numérico:</label>
+      <input type="range" id="valor" min="1" max="100" value="20" oninput="actualizarVista()">
+      <span id="valorActual">20</span>
+    </div>
+
+    <div class="control">
+      <label for="unidad">Unidad:</label>
+      <select id="unidad" onchange="actualizarVista()">
+        <option>px</option>
+        <option>em</option>
+        <option>rem</option>
+        <option>%</option>
+        <option>vw</option>
+        <option>vh</option>
+        <option>vmin</option>
+        <option>vmax</option>
+        <option>cm</option>
+        <option>mm</option>
+        <option>pt</option>
+        <option>in</option>
+      </select>
+    </div>
+
+    <div class="preview" id="previewBox">
+      Vista previa editable
+    </div>
+
+    <div class="info" id="codigoAplicado"></div>
+  </div>
+
+  <div class="bloque">
+    <h2>💡 Consejos útiles</h2>
+    <ul>
+      <li>Usá <code>px</code> cuando quieras precisión visual (botones, márgenes exactos).</li>
+      <li>Usá <code>rem</code> para fuentes escalables en todo el sitio.</li>
+      <li><code>%</code> es útil para hacer bloques flexibles.</li>
+      <li><code>vw</code>/<code>vh</code> son claves en diseños responsive.</li>
+      <li><code>em</code> se usa cuando querés que el tamaño dependa del elemento padre.</li>
+    </ul>
+  </div>
+
+  <script>
+    function actualizarVista() {
+      const valor = document.getElementById("valor").value;
+      const unidad = document.getElementById("unidad").value;
+      const propiedad = document.getElementById("propiedad").value;
+
+      const box = document.getElementById("previewBox");
+      const valorTotal = valor + unidad;
+
+      // Reset
+      box.style.width = "";
+      box.style.height = "";
+      box.style.fontSize = "";
+
+      // Aplicar
+      if (propiedad === "width") box.style.width = valorTotal;
+      if (propiedad === "height") box.style.height = valorTotal;
+      if (propiedad === "fontSize") box.style.fontSize = valorTotal;
+
+      document.getElementById("valorActual").textContent = valor;
+      document.getElementById("codigoAplicado").innerText = `${propiedad}: ${valor}${unidad};`;
+    }
+
+    actualizarVista();
+  </script>
+
+</body>
+</html>

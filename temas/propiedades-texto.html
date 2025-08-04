@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Propiedades de Texto en CSS</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f9f9f9;
+      padding: 20px;
+      line-height: 1.6;
+      color: #333;
+    }
+
+    h1, h2 {
+      color: #e34c26;
+    }
+
+    .bloque {
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      padding: 15px;
+      margin-bottom: 25px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+
+    .barra-css {
+      background: #f0f0f0;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      padding: 10px;
+      margin-bottom: 25px;
+    }
+
+    textarea {
+      width: 100%;
+      height: 160px;
+      font-family: monospace;
+      font-size: 14px;
+      padding: 10px;
+      border-radius: 4px;
+      border: 1px solid #999;
+      resize: vertical;
+    }
+
+    button {
+      margin-top: 10px;
+      padding: 8px 16px;
+      font-size: 1rem;
+      background-color: #264de4;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #1e3cb3;
+    }
+
+    code {
+      background: #eee;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: monospace;
+    }
+
+    .demo-texto p {
+      margin: 10px 0;
+    }
+
+    .editable {
+      border: 1px dashed #bbb;
+      padding: 10px;
+      background: #fffbe6;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Propiedades de texto en CSS</h1>
+
+  <div class="bloque">
+    <h2>📚 Teoría</h2>
+    <p>CSS permite modificar la apariencia del texto mediante propiedades como:</p>
+    <ul>
+      <li><code>color</code>: cambia el color del texto</li>
+      <li><code>font-family</code>: define la tipografía (Arial, Verdana, etc.)</li>
+      <li><code>font-size</code>: tamaño del texto</li>
+      <li><code>font-weight</code>: grosor del texto (normal, bold, etc.)</li>
+      <li><code>font-style</code>: estilo como <em>italic</em></li>
+      <li><code>text-align</code>: alineación (left, center, right)</li>
+      <li><code>text-decoration</code>: subrayado, tachado, etc.</li>
+      <li><code>text-transform</code>: mayúsculas, minúsculas, capitalización</li>
+      <li><code>letter-spacing</code>: espacio entre letras</li>
+      <li><code>line-height</code>: altura de línea</li>
+    </ul>
+  </div>
+
+  <div class="barra-css">
+    <h2>🎨 Probá tus estilos de texto:</h2>
+    <textarea id="cssEditor">
+/* Aplicá estilos a .editable */
+.editable {
+  color: #e34c26;
+  font-family: 'Arial', sans-serif;
+  font-size: 18px;
+  text-align: left;
+  text-transform: none;
+}
+    </textarea>
+    <button onclick="aplicarCSS()">Aplicar CSS</button>
+  </div>
+
+  <div class="bloque demo-texto">
+    <h2>🔍 Resultado:</h2>
+    <div class="editable">
+      <p>Esto es un párrafo para practicar <strong>propiedades de texto</strong>.</p>
+      <p>Pueden cambiarse el color, fuente, tamaño, alineación, etc.</p>
+      <p>¡Probá agregar <code>text-transform: uppercase;</code> y mirá qué pasa!</p>
+    </div>
+  </div>
+
+  <script>
+    function aplicarCSS() {
+      const nuevoEstilo = document.createElement('style');
+      nuevoEstilo.innerHTML = document.getElementById('cssEditor').value;
+      document.head.appendChild(nuevoEstilo);
+    }
+  </script>
+
+</body>
+</html>

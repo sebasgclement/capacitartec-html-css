@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Padding y Margin en CSS</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f9f9f9;
+      padding: 20px;
+      line-height: 1.6;
+      color: #333;
+    }
+
+    h1, h2 {
+      color: #264de4;
+    }
+
+    .bloque {
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      padding: 15px;
+      margin-bottom: 30px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+
+    .demo {
+      background: #fffbe6;
+      border: 1px dashed #ccc;
+      margin: 15px 0;
+      padding: 15px;
+    }
+
+    .cuadro {
+      background: #e3f2fd;
+      border: 2px solid #2196f3;
+      width: 200px;
+      text-align: center;
+      margin: 10px;
+    }
+
+    .contenedor {
+      background: #ddd;
+      padding: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    textarea {
+      width: 100%;
+      height: 140px;
+      font-family: monospace;
+      font-size: 14px;
+      padding: 10px;
+      border-radius: 4px;
+      border: 1px solid #999;
+      resize: vertical;
+    }
+
+    button {
+      margin-top: 10px;
+      padding: 8px 16px;
+      font-size: 1rem;
+      background-color: #264de4;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #1e3cb3;
+    }
+
+    code {
+      background: #eee;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: monospace;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Padding y Margin</h1>
+
+  <div class="bloque">
+    <h2>📚 Teoría</h2>
+    <p><strong>Padding</strong>: espacio <em>interno</em> entre el contenido y el borde del elemento.</p>
+    <p><strong>Margin</strong>: espacio <em>externo</em> entre el borde del elemento y el siguiente.</p>
+    <p>Ambos pueden escribirse de forma:</p>
+    <ul>
+      <li><code>margin-top</code>, <code>padding-left</code>, etc. (por lado)</li>
+      <li><code>margin: 20px 10px;</code> (top-bottom / left-right)</li>
+      <li><code>padding: 10px 20px 30px 40px;</code> (top - right - bottom - left)</li>
+      <li><code>margin: 20px;</code> (todos los lados iguales)</li>
+    </ul>
+  </div>
+
+  <div class="bloque">
+    <h2>🎯 Ejemplos visuales</h2>
+
+    <div class="contenedor">
+      <div class="cuadro" style="padding: 30px;">padding: 30px;</div>
+      <div class="cuadro" style="margin: 30px;">margin: 30px;</div>
+      <div class="cuadro" style="padding: 10px 20px;">padding: 10px 20px;</div>
+      <div class="cuadro" style="margin: 10px 20px;">margin: 10px 20px;</div>
+    </div>
+  </div>
+
+  <div class="bloque">
+    <h2>🧪 Probá tus propios estilos:</h2>
+    <p>Aplicá tus propias combinaciones de <code>padding</code> y <code>margin</code> al bloque de abajo:</p>
+
+    <textarea id="cssEditor">
+.demo-cuadro {
+  padding: 20px 10px;
+  margin: 30px auto;
+  background-color: #e0f7fa;
+  border: 2px solid #00acc1;
+  width: 200px;
+  text-align: center;
+}
+    </textarea>
+    <button onclick="aplicarCSS()">Aplicar CSS</button>
+
+    <div class="demo">
+      <div class="demo-cuadro">Caja editable</div>
+    </div>
+  </div>
+
+  <script>
+    function aplicarCSS() {
+      const nuevoEstilo = document.createElement('style');
+      nuevoEstilo.innerHTML = document.getElementById('cssEditor').value;
+      document.head.appendChild(nuevoEstilo);
+    }
+  </script>
+
+</body>
+</html>

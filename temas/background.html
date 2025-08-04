@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Fondo con background</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #f4f4f4;
+      padding: 2rem;
+    }
+    h1, h2 {
+      color: #333;
+    }
+    label {
+      font-weight: bold;
+    }
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .controls > div {
+      flex: 1 1 200px;
+    }
+    .preview {
+      height: 200px;
+      width: 100%;
+      border: 2px dashed #ccc;
+      background-color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #222;
+    }
+    code {
+      background: #eee;
+      padding: 4px 8px;
+      display: inline-block;
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>Propiedad <code>background</code> en CSS</h1>
+  <h2>📚 Explicación teórica</h2>
+  <ul>
+    <li><strong>background-color:</strong> Establece el color de fondo de un elemento.</li>
+    <li><strong>background-image:</strong> Define una imagen como fondo (puede ser URL o gradiente).</li>
+    <li><strong>background-repeat:</strong> Determina si la imagen se repite (horizontal, vertical o no se repite).</li>
+    <li><strong>background-size:</strong> Controla el tamaño de la imagen (por ejemplo: <code>cover</code>, <code>contain</code> o <code>auto</code>).</li>
+    <li><strong>background-position:</strong> Indica la posición de la imagen en el fondo (como <code>center</code>, <code>top</code>, <code>left</code>, etc.).</li>
+    <li><strong>background-attachment:</strong> Establece si el fondo se desplaza con el contenido o queda fijo (<code>scroll</code>, <code>fixed</code>, <code>local</code>).</li>
+    <li><strong>background (shorthand):</strong> Permite aplicar todas las propiedades anteriores en una sola línea.</li>
+  </ul>
+
+  <hr style="margin: 2rem 0"/>
+  <p>Probá distintas propiedades para personalizar el fondo de este recuadro.</p>
+
+  <div class="controls">
+    <div>
+      <label for="bgColor">Color de fondo:</label><br/>
+      <input type="color" id="bgColor" value="#ffffff" />
+    </div>
+
+    <div>
+      <label for="bgImage">Imagen de fondo:</label><br/>
+      <input type="text" id="bgImage" placeholder="URL de imagen..." />
+    </div>
+
+    <div>
+      <label for="bgRepeat">Repetición:</label><br/>
+      <select id="bgRepeat">
+        <option value="no-repeat">no-repeat</option>
+        <option value="repeat">repeat</option>
+        <option value="repeat-x">repeat-x</option>
+        <option value="repeat-y">repeat-y</option>
+      </select>
+    </div>
+
+    <div>
+      <label for="bgSize">Tamaño:</label><br/>
+      <select id="bgSize">
+        <option value="auto">auto</option>
+        <option value="cover">cover</option>
+        <option value="contain">contain</option>
+      </select>
+    </div>
+
+    <div>
+      <label for="bgPosition">Posición:</label><br/>
+      <select id="bgPosition">
+        <option value="center">center</option>
+        <option value="top">top</option>
+        <option value="left">left</option>
+        <option value="bottom">bottom</option>
+        <option value="right">right</option>
+      </select>
+    </div>
+
+    <div>
+      <label for="bgAttachment">Fijación:</label><br/>
+      <select id="bgAttachment">
+        <option value="scroll">scroll</option>
+        <option value="fixed">fixed</option>
+        <option value="local">local</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="preview" id="preview">
+    Fondo de prueba
+  </div>
+
+  <p>Código CSS generado:</p>
+  <code id="cssOutput"></code>
+
+  <script>
+    const preview = document.getElementById('preview');
+    const cssOutput = document.getElementById('cssOutput');
+
+    const controls = {
+      bgColor: document.getElementById('bgColor'),
+      bgImage: document.getElementById('bgImage'),
+      bgRepeat: document.getElementById('bgRepeat'),
+      bgSize: document.getElementById('bgSize'),
+      bgPosition: document.getElementById('bgPosition'),
+      bgAttachment: document.getElementById('bgAttachment'),
+    };
+
+    function updatePreview() {
+      const color = controls.bgColor.value;
+      const imageUrl = controls.bgImage.value ? `url("${controls.bgImage.value}")` : 'none';
+      const repeat = controls.bgRepeat.value;
+      const size = controls.bgSize.value;
+      const position = controls.bgPosition.value;
+      const attachment = controls.bgAttachment.value;
+
+      preview.style.backgroundColor = color;
+      preview.style.backgroundImage = imageUrl;
+      preview.style.backgroundRepeat = repeat;
+      preview.style.backgroundSize = size;
+      preview.style.backgroundPosition = position;
+      preview.style.backgroundAttachment = attachment;
+
+      cssOutput.textContent =
+        `background-color: ${color};\n` +
+        `background-image: ${imageUrl};\n` +
+        `background-repeat: ${repeat};\n` +
+        `background-size: ${size};\n` +
+        `background-position: ${position};\n` +
+        `background-attachment: ${attachment};`;
+    }
+
+    Object.values(controls).forEach((input) =>
+      input.addEventListener('input', updatePreview)
+    );
+
+    updatePreview();
+  </script>
+</body>
+</html>

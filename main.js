@@ -59,6 +59,54 @@ const contentMap = {
     type: "html",
     content: "temas/selectores.html",
   },
+  'Propiedades de texto': {
+    type:"html",
+    content:"temas/propiedades-texto.html"
+  },
+  'Tipografías externas': {
+    type:"html",
+    content:"temas/tipografias-externas.html"
+  },
+  'Modelo de caja (box model)':{
+    type:"img",
+    content:"img/Box-Model.png"
+  },
+  'Padding y margin':{
+    type: "html",
+    content: "temas/padding-margin.html"
+  },
+  Borders: {
+    type:"html",
+    content:"temas/bordes.html"
+  },
+  'Box sizing': {
+    type:"html",
+    content:"temas/box-sizing.html"
+  },
+  'Colorimetría (rgba, hexadecimal, hsl)':{
+    type:"html",
+    content:"temas/colorimetria.html"
+  },
+  'Unidades de medida (absolutas y relativas)':{
+    type:"html",
+    content:"temas/unidades-medida.html"
+  },
+  Background: {
+    type: "html",
+    content: "temas/background.html"
+  },
+  Gradientes: {
+    type:"html",
+    content: "temas/gradiente.html"
+  },
+  Shadows: {
+    type: "html",
+    content: "temas/shadows.html"
+  },
+  'Css básico': {
+    type:"html",
+    content:"temas/css_basico_resumen.html"
+  }
 };
 
 document.querySelectorAll("#clases ul li, #recursos ul li").forEach((item) => {

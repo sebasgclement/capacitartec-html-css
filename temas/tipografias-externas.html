@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tipografías Externas en CSS</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Pacifico&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f9f9f9;
+      padding: 20px;
+      line-height: 1.6;
+      color: #333;
+    }
+
+    h1, h2 {
+      color: #264de4;
+    }
+
+    .bloque {
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      padding: 15px;
+      margin-bottom: 25px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+
+    .fuente-roboto {
+      font-family: 'Roboto', sans-serif;
+    }
+
+    .fuente-pacifico {
+      font-family: 'Pacifico', cursive;
+    }
+
+    .select-prueba {
+      margin: 10px 0;
+      padding: 6px;
+      font-size: 1rem;
+    }
+
+    .demo-texto {
+      background: #fffbe6;
+      border: 1px dashed #ccc;
+      padding: 15px;
+      margin-top: 15px;
+    }
+
+    code {
+      background: #eee;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: monospace;
+    }
+
+    a {
+      color: #e34c26;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Tipografías externas</h1>
+
+  <div class="bloque">
+    <h2>📚 ¿Qué es una tipografía externa?</h2>
+    <p>Es una fuente que no está instalada por defecto en el navegador, pero que podemos <strong>importar</strong> desde servicios como <strong>Google Fonts</strong>, o <strong>instalar localmente</strong> en nuestro proyecto.</p>
+
+    <p>Ejemplo usando <code>&lt;link&gt;</code>:</p>
+    <code>
+      &lt;link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet"&gt;
+    </code>
+
+    <p>Luego usamos:</p>
+    <code>font-family: 'Roboto', sans-serif;</code>
+  </div>
+
+  <div class="bloque">
+    <h2>🎯 Probá estas tipografías:</h2>
+    <select id="selectorFuente" class="select-prueba" onchange="cambiarFuente(this.value)">
+      <option value="fuente-roboto">Roboto</option>
+      <option value="fuente-pacifico">Pacifico</option>
+      <option value="default">Volver a fuente base</option>
+    </select>
+
+    <div id="textoDemo" class="demo-texto fuente-roboto">
+      <p>Este texto cambia su fuente según la selección del menú desplegable.</p>
+      <p>Probá con Roboto (moderna) o Pacifico (caligráfica).</p>
+    </div>
+  </div>
+
+  <div class="bloque">
+    <h2>🔗 Sitios para descargar tipografías</h2>
+    <ul>
+      <li><a href="https://fonts.google.com" target="_blank">Google Fonts</a> — ideal para importar desde la web</li>
+      <li><a href="https://www.dafont.com/es/" target="_blank">DaFont</a> — fuentes para descargar e instalar</li>
+      <li><a href="https://www.fontsquirrel.com/" target="_blank">Font Squirrel</a> — fuentes 100% libres para uso comercial</li>
+    </ul>
+    <p>Si descargás una fuente, podés instalarla localmente usando <code>@font-face</code>. Lo vamos a ver en clase 😉</p>
+  </div>
+
+  <script>
+    function cambiarFuente(valor) {
+      const bloque = document.getElementById('textoDemo');
+      bloque.className = 'demo-texto';
+      if (valor !== 'default') {
+        bloque.classList.add(valor);
+      }
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Resumen CSS Básico</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 2rem;
+      background: #f8f9fa;
+      color: #333;
+    }
+
+    h1 {
+      text-align: center;
+      color: #264de4;
+    }
+
+    section {
+      max-width: 800px;
+      margin: auto;
+      padding: 2rem;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      color: #e34c26;
+      margin-top: 2rem;
+      border-bottom: 2px solid #e34c26;
+      padding-bottom: 0.3rem;
+    }
+
+    code {
+      background: #eee;
+      padding: 2px 6px;
+      border-radius: 5px;
+      font-family: monospace;
+    }
+
+    ul {
+      margin-top: 0.5rem;
+    }
+
+    li {
+      margin-bottom: 0.5rem;
+    }
+
+    pre {
+      background: #222;
+      color: #0f0;
+      padding: 1rem;
+      border-radius: 8px;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+  <section>
+    <h1>Resumen CSS Básico</h1>
+
+    <h2>🎯 Selectores</h2>
+    <ul>
+      <li><code>p</code> → Todos los párrafos</li>
+      <li><code>.clase</code> → Elementos con class="clase"</li>
+      <li><code>#id</code> → Elemento con id="id"</li>
+      <li><code>div p</code> → P dentro de un DIV</li>
+    </ul>
+
+    <h2>✍️ Propiedades de texto</h2>
+    <ul>
+      <li><code>color</code>: color del texto</li>
+      <li><code>font-size</code>: tamaño de fuente</li>
+      <li><code>font-family</code>: tipografía</li>
+      <li><code>text-align</code>: alineación</li>
+    </ul>
+
+    <h2>🧮 Unidades de medida</h2>
+    <ul>
+      <li><code>px</code>: pixeles fijos</li>
+      <li><code>em</code>, <code>rem</code>: relativas al tamaño del texto</li>
+      <li><code>%</code>: proporción respecto al contenedor</li>
+      <li><code>vh</code>, <code>vw</code>: altura o ancho del viewport</li>
+    </ul>
+
+    <h2>🎨 Color</h2>
+    <ul>
+      <li><code>color: red;</code></li>
+      <li><code>color: #ff0000;</code></li>
+      <li><code>color: rgb(255, 0, 0);</code></li>
+    </ul>
+
+    <h2>📦 Modelo de caja (Box model)</h2>
+    <ul>
+      <li><code>width</code>, <code>height</code></li>
+      <li><code>padding</code>: espacio interno</li>
+      <li><code>margin</code>: espacio externo</li>
+      <li><code>border</code>: borde del elemento</li>
+    </ul>
+
+    <h2>📏 Box Sizing</h2>
+    <p>Usamos <code>box-sizing: border-box</code> para incluir padding y border en el tamaño total del elemento.</p>
+
+    <h2>🟦 Fondos</h2>
+    <ul>
+      <li><code>background-color</code></li>
+      <li><code>background-image</code></li>
+      <li><code>background-size</code>, <code>position</code>, <code>repeat</code>, <code>attachment</code></li>
+    </ul>
+
+    <h2>🌈 Gradientes</h2>
+    <ul>
+      <li><code>linear-gradient()</code></li>
+      <li><code>radial-gradient()</code></li>
+    </ul>
+
+    <h2>🌫️ Sombras</h2>
+    <ul>
+      <li><code>box-shadow</code>: sombra en cajas</li>
+      <li><code>text-shadow</code>: sombra en texto</li>
+    </ul>
+
+    <h2>🧪 Ejemplo combinado</h2>
+    <pre>
+div {
+  color: white;
+  background: linear-gradient(to right, blue, purple);
+  padding: 20px;
+  margin: 10px;
+  border: 2px solid white;
+  box-shadow: 5px 5px 15px rgba(0,0,0,0.3);
+}
+    </pre>
+  </section>
+</body>
+</html>
