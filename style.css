@@ -10,6 +10,17 @@ body {
   background-repeat: no-repeat;
 }
 
+body::before {
+  content: "";
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: -1;
+}
+
+
 nav {
   background-color: #0d180e;
   backdrop-filter: blur(10px);
@@ -48,11 +59,8 @@ nav ul li a:hover {
 }
 
 .hero {
-  background: linear-gradient(120deg, #00fdc2 0%, #013940 60%);
-  background-image: url("https://i.ytimg.com/vi/rr2H086z16s/maxresdefault.jpg");
-  background-repeat: no-repeat;
-  background-size: auto;
-  background-position: center;
+  position: relative;
+  background: url("https://i.ytimg.com/vi/rr2H086z16s/maxresdefault.jpg") center center / cover no-repeat;
   color: #fff;
   text-align: center;
   padding: 120px 20px;
@@ -61,7 +69,19 @@ nav ul li a:hover {
   align-items: center;
   justify-content: center;
   gap: 10px;
+  z-index: 1;
+  overflow: hidden;
 }
+
+.hero::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: linear-gradient(120deg, rgba(0, 253, 194, 0.4), rgba(1, 57, 64, 0.6));
+  z-index: -1;
+}
+
 
 .hero h1 {
   font-size: 3.5rem;
@@ -74,6 +94,19 @@ nav ul li a:hover {
   margin: 0;
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
 }
+
+.no-link {
+  font-size: 1.3rem;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+  text-decoration: none;
+  color: #ddd;
+  transition: color 0.3s ease;
+}
+
+.no-link:hover {
+  color: #00fdc2;
+}
+
 
 .wrapper {
   max-width: 1000px;
@@ -224,10 +257,15 @@ details ul li:hover {
 .mano {
   cursor: pointer;
   list-style: none;
-  border-left: 3px solid #e34c;
+  border-left: 3px solid #e34c26;
   padding-left: 12px;
-  margin-bottom: 20px;
-  font-size: 60 px;
+  margin-bottom: 18px;
+  font-size: 1.2rem;
+}
+
+.toolbox-list {
+  padding: 0;
+  margin: 0;
 }
 
 .mano2 {
@@ -242,9 +280,101 @@ details ul li:hover {
   font-size: 20px;
 }
 
+section {
+  box-shadow: 0 0 8px rgba(0,253,194,0.1);
+
+}
+
 footer {
   background-color: #333;
   color: white;
   text-align: center;
   padding: 20px;
 }
+
+@media (max-width: 600px) {
+  .modal-box {
+    width: 95%;
+    max-height: 80%;
+    padding: 12px;
+    font-size: 0.9rem;
+  }
+
+  .modal-box iframe {
+    height: 300px;
+  }
+}
+
+/* ==== Unificación visual general para secciones ==== */
+section {
+  font-size: 1.1rem;
+  padding: 40px 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 8px rgba(0,253,194,0.1);
+  border: 1px solid rgba(255,255,255,0.08);
+  animation: fadeIn 0.7s ease-in;
+  transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+section:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
+}
+
+/* ==== Unificación de ítems tipo .mano y .mano2 ==== */
+.mano, .mano2 {
+  cursor: pointer;
+  list-style: none;
+  font-size: 1.1rem;
+  padding-left: 16px;
+  margin-bottom: 14px;
+  transition: background-color 0.3s ease, padding-left 0.3s ease;
+}
+
+.mano:hover, .mano2:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  padding-left: 20px;
+}
+
+/* Alternancia visual para listas de Toolbox */
+.toolbox-list li:nth-child(even) {
+  border-left-color: #264de4; /* azul CSS */
+}
+
+/* Mejora de details: efecto visual coherente */
+summary {
+  background-color: transparent;
+  padding: 12px 20px;
+  border-left: 3px solid #264de4;
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #eee;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+summary:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+details[open] {
+  background-color: rgba(0, 0, 0, 0.2);
+  padding: 12px 20px;
+  border-radius: 10px;
+}
+/* Estilo uniforme para todos los <li> en listas visibles (excepto los decorativos .mano) */
+ul:not(.toolbox-list) li:not(.mano):not(.mano2) {
+  padding: 6px 0;
+  padding-left: 6px;
+  color: #ddd;
+  transition: background-color 0.2s ease, padding-left 0.2s ease;
+}
+
+ul:not(.toolbox-list) li:not(.mano):not(.mano2):hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  padding-left: 12px;
+  cursor: pointer;
+}
+
+
