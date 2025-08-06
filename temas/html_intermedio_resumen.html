@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Resumen - HTML Intermedio</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 2rem;
+      background-color: #f4f4f4;
+      color: #333;
+    }
+
+    h1 {
+      color: #d84924;
+    }
+
+    ul {
+      padding-left: 1.2rem;
+    }
+
+    li {
+      margin-bottom: 0.4rem;
+    }
+
+    strong {
+      color: #0c5fb3;
+    }
+
+    .tema {
+      padding: 0.5rem;
+      background: #fff;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      margin-bottom: 1.2rem;
+    }
+
+    .tema h2 {
+      margin-top: 0;
+      color: #0c5fb3;
+    }
+
+    code {
+      background-color: transparent;
+      padding: 2px 4px;
+      border-radius: 4px;
+      font-family: monospace;
+    }
+
+    .destacado {
+      background-color: #ffeaa7;
+      padding: 10px;
+      border-left: 5px solid #f39c12;
+      margin: 2rem 0;
+    }
+  </style>
+</head>
+<body>
+
+<h1>📚 Resumen - HTML Intermedio</h1>
+
+<p>En esta sección profundizamos los conocimientos de HTML, aprendiendo etiquetas más avanzadas, mejores prácticas y conceptos clave para crear sitios accesibles, estructurados y modernos.</p>
+
+<div class="tema">
+  <h2>🗒️ Comentarios</h2>
+  <p>Sirven para dejar notas en el código que no se muestran en el navegador. Se escriben con <code>&lt;!-- comentario --&gt;</code>.</p>
+</div>
+
+<div class="tema">
+  <h2>🌐 Favicon</h2>
+  <p>Se agrega en el <code>&lt;head&gt;</code> usando:</p>
+  <code>&lt;link rel="icon" href="favicon.ico" type="image/x-icon"&gt;</code>
+</div>
+
+<div class="tema">
+  <h2>🔖 Metadatos</h2>
+  <p>Etiquetas como:</p>
+  <ul>
+    <li><code>&lt;meta charset="UTF-8"&gt;</code></li>
+    <li><code>&lt;meta name="viewport"&gt;</code></li>
+    <li><code>&lt;meta name="description"&gt;</code></li>
+    <li><code>&lt;title&gt;</code></li>
+  </ul>
+</div>
+
+<div class="tema">
+  <h2>🔍 metatags.io</h2>
+  <p>Genera etiquetas como:</p>
+  <ul>
+    <li><code>&lt;meta property="og:title"&gt;</code></li>
+    <li><code>&lt;meta name="twitter:card"&gt;</code></li>
+  </ul>
+</div>
+
+<div class="tema">
+  <h2>📝 Textarea</h2>
+  <p>Etiqueta para ingresar texto en varias líneas:</p>
+  <code>&lt;textarea rows="4" cols="50"&gt;&lt;/textarea&gt;</code>
+</div>
+
+<div class="tema">
+  <h2>🏷️ Label</h2>
+  <p>Vincula texto con inputs:</p>
+  <ul>
+    <li><code>&lt;label for="email"&gt;</code></li>
+    <li><code>&lt;input id="email"&gt;</code></li>
+  </ul>
+</div>
+
+<div class="tema">
+  <h2>🔽 Select, Datalist y Option</h2>
+  <ul>
+    <li><code>&lt;select&gt;</code> / <code>&lt;option&gt;</code></li>
+    <li><code>&lt;input list="..."&gt;</code> / <code>&lt;datalist&gt;</code></li>
+  </ul>
+</div>
+
+<div class="tema">
+  <h2>📦 Fieldset y Legend</h2>
+  <p>Se usan para agrupar inputs:</p>
+  <ul>
+    <li><code>&lt;fieldset&gt;</code></li>
+    <li><code>&lt;legend&gt;</code></li>
+  </ul>
+</div>
+
+<div class="tema">
+  <h2>📂 Details y Summary</h2>
+  <p>Para mostrar/ocultar contenido:</p>
+  <ul>
+    <li><code>&lt;details&gt;</code></li>
+    <li><code>&lt;summary&gt;</code></li>
+  </ul>
+</div>
+
+<div class="tema">
+  <h2>🔗 Enlaces avanzados</h2>
+  <ul>
+    <li><code>&lt;a href="..." target="_blank"&gt;</code> (externo)</li>
+    <li><code>&lt;a href="#seccion"&gt;</code> (ancla interna)</li>
+    <li><code>mailto:</code> y <code>tel:</code></li>
+  </ul>
+</div>
+
+<div class="tema">
+  <h2>🎧🎥 Audio y Video</h2>
+  <ul>
+    <li><code>&lt;audio controls&gt;&lt;source&gt;&lt;/audio&gt;</code></li>
+    <li><code>&lt;video controls poster="..."&gt;&lt;source&gt;&lt;/video&gt;</code></li>
+  </ul>
+</div>
+
+<div class="tema">
+  <h2>🚀 Lazy Loading</h2>
+  <p>Se agrega a imágenes para optimizar carga:</p>
+  <code>&lt;img src="..." loading="lazy"&gt;</code>
+</div>
+
+<div class="tema">
+  <h2>🛑 HTML Obsoleto</h2>
+  <p>Evitar etiquetas como:</p>
+  <ul>
+    <li><code>&lt;font&gt;</code></li>
+    <li><code>&lt;center&gt;</code></li>
+    <li><code>&lt;marquee&gt;</code></li>
+  </ul>
+</div>
+
+<div class="tema">
+  <h2>📐 HTML Semántico</h2>
+  <ul>
+    <li><code>&lt;header&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;footer&gt;</code></li>
+    <li><code>&lt;section&gt;</code>, <code>&lt;article&gt;</code>, <code>&lt;aside&gt;</code></li>
+  </ul>
+</div>
+
+<div class="tema">
+  <h2>♿ Accesibilidad Web</h2>
+  <ul>
+    <li><code>alt</code> en imágenes</li>
+    <li><code>aria-label</code>, <code>aria-required</code>, <code>role</code></li>
+    <li>Contrastes, navegación con teclado, etiquetas claras</li>
+  </ul>
+</div>
+
+<div class="destacado">
+  ✨ <strong>¡Felicitaciones!</strong> Si llegaste hasta acá, ya dominás las bases y el nivel intermedio de HTML. ¡Estás listo/a para comenzar con CSS intermedio!
+</div>
+
+</body>
+</html>

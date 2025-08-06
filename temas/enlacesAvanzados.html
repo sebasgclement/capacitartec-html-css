@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Enlaces avanzados en HTML</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 2rem;
+      background-color: #f4f4f4;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    h1 {
+      color: #d84924;
+    }
+
+    h2 {
+      color: #0c5fb3;
+      margin-top: 2rem;
+    }
+
+    a {
+      color: #0c5fb3;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    code {
+      background-color: transparent;
+      padding: 2px 4px;
+      border-radius: 4px;
+      font-family: monospace;
+    }
+
+    pre {
+      background-color: #222;
+      color: #eee;
+      padding: 1rem;
+      border-radius: 6px;
+      overflow-x: auto;
+    }
+
+    section {
+      padding: 1rem;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      margin-bottom: 2rem;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🔗 Enlaces avanzados en HTML</h1>
+
+  <p>Los enlaces se crean con la etiqueta <code>&lt;a&gt;</code> y permiten conectar tu página con otras direcciones, archivos o acciones. Acá te mostramos algunas variantes útiles:</p>
+
+  <h2>📘 Enlaces externos (otra pestaña)</h2>
+  <section>
+    <a href="https://www.google.com" target="_blank">Ir a Google en otra pestaña</a>
+  </section>
+
+  <pre><code>&lt;a href="https://www.google.com" target="_blank"&gt;Ir a Google&lt;/a&gt;</code></pre>
+
+  <h2>🔗 Enlace interno (a una parte de la misma página)</h2>
+  <section>
+    <a href="#ancla">Ir al final de la página</a>
+  </section>
+
+  <pre><code>&lt;a href="#ancla"&gt;Ir al final de la página&lt;/a&gt;</code></pre>
+
+  <h2>📎 Enlace a un archivo descargable</h2>
+  <section>
+    <a href="archivo.pdf" download>Descargar PDF</a>
+  </section>
+
+  <pre><code>&lt;a href="archivo.pdf" download&gt;Descargar PDF&lt;/a&gt;</code></pre>
+
+  <h2>📧 Enlace por correo electrónico</h2>
+  <section>
+    <a href="mailto:profesor@curso.com">Enviar correo al profe</a>
+  </section>
+
+  <pre><code>&lt;a href="mailto:profesor@curso.com"&gt;Enviar correo&lt;/a&gt;</code></pre>
+
+  <h2>📱 Enlace telefónico (ideal en celular)</h2>
+  <section>
+    <a href="tel:+543492123456">Llamar al 3492-123456</a>
+  </section>
+
+  <pre><code>&lt;a href="tel:+543492123456"&gt;Llamar&lt;/a&gt;</code></pre>
+
+  <h2>🎯 Destino del ancla</h2>
+  <section id="ancla">
+    <p><strong>¡Llegaste al final! 🎉</strong> Este es el destino del enlace interno (#ancla).</p>
+  </section>
+
+  
+</body>
+</html>

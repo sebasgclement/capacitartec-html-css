@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Select, Datalist y Option</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 2rem;
+      background-color: #f4f4f4;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    h1 {
+      color: #d84924;
+    }
+
+    h2 {
+      color: #0c5fb3;
+      margin-top: 2rem;
+    }
+
+    select, input {
+      font-size: 1rem;
+      padding: 8px;
+      margin-top: 0.5rem;
+      margin-bottom: 1rem;
+      width: 100%;
+      max-width: 300px;
+    }
+
+    .resultado {
+      font-weight: bold;
+      color: #0c5fb3;
+      margin-top: 0.5rem;
+    }
+
+    code {
+      background-color: transparent;
+      padding: 2px 4px;
+      border-radius: 4px;
+      font-family: monospace;
+    }
+
+    pre {
+      background-color: #222;
+      color: #eee;
+      padding: 1rem;
+      border-radius: 6px;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🔽 Select, Datalist y Option</h1>
+
+  <p>Estas etiquetas permiten crear <strong>listas de opciones</strong> en formularios.</p>
+
+  <ul>
+    <li><code>&lt;select&gt;</code>: lista desplegable con opciones fijas.</li>
+    <li><code>&lt;option&gt;</code>: define cada opción dentro de un <code>&lt;select&gt;</code> o <code>&lt;datalist&gt;</code>.</li>
+    <li><code>&lt;datalist&gt;</code>: lista de sugerencias para un <code>&lt;input&gt;</code>, sin restringir la entrada.</li>
+  </ul>
+
+  <h2>📌 Ejemplo con &lt;select&gt;</h2>
+
+  <label for="lenguaje">Elige un lenguaje:</label>
+  <select id="lenguaje" onchange="mostrarSeleccion()">
+    <option value="">-- Seleccioná --</option>
+    <option value="HTML">HTML</option>
+    <option value="CSS">CSS</option>
+    <option value="JavaScript">JavaScript</option>
+  </select>
+  <div class="resultado" id="resultadoSelect"></div>
+
+  <pre><code>&lt;label for="lenguaje"&gt;Elige un lenguaje:&lt;/label&gt;
+&lt;select id="lenguaje"&gt;
+  &lt;option value=""&gt;-- Seleccioná --&lt;/option&gt;
+  &lt;option value="HTML"&gt;HTML&lt;/option&gt;
+  &lt;option value="CSS"&gt;CSS&lt;/option&gt;
+  &lt;option value="JavaScript"&gt;JavaScript&lt;/option&gt;
+&lt;/select&gt;
+</code></pre>
+
+  <h2>📌 Ejemplo con &lt;datalist&gt;</h2>
+
+  <label for="navegador">Escribí o elegí un navegador:</label>
+  <input list="navegadores" id="navegador" placeholder="Chrome, Firefox..." oninput="mostrarInput()">
+  <datalist id="navegadores">
+    <option value="Chrome">
+    <option value="Firefox">
+    <option value="Safari">
+    <option value="Edge">
+    <option value="Opera">
+  </datalist>
+  <div class="resultado" id="resultadoInput"></div>
+
+  <pre><code>&lt;input list="navegadores" id="navegador" placeholder="Chrome, Firefox..."&gt;
+&lt;datalist id="navegadores"&gt;
+  &lt;option value="Chrome"&gt;
+  &lt;option value="Firefox"&gt;
+  &lt;option value="Safari"&gt;
+  &lt;option value="Edge"&gt;
+  &lt;option value="Opera"&gt;
+&lt;/datalist&gt;
+</code></pre>
+
+  <script>
+    function mostrarSeleccion() {
+      const valor = document.getElementById("lenguaje").value;
+      const div = document.getElementById("resultadoSelect");
+      div.textContent = valor ? `Seleccionaste: ${valor}` : '';
+    }
+
+    function mostrarInput() {
+      const valor = document.getElementById("navegador").value;
+      const div = document.getElementById("resultadoInput");
+      div.textContent = valor ? `Ingresaste: ${valor}` : '';
+    }
+  </script>
+
+  
+</body>
+</html>

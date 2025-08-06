@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Details y Summary en HTML</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 2rem;
+      background-color: #f4f4f4;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    h1 {
+      color: #d84924;
+    }
+
+    h2 {
+      color: #0c5fb3;
+      margin-top: 2rem;
+    }
+
+    details {
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      padding: 1rem;
+    }
+
+    summary {
+      font-weight: bold;
+      cursor: pointer;
+      color: #0c5fb3;
+    }
+
+    summary:hover {
+      text-decoration: underline;
+    }
+
+    code {
+      background-color: transparent;
+      padding: 2px 4px;
+      border-radius: 4px;
+      font-family: monospace;
+    }
+
+    pre {
+      background-color: #222;
+      color: #eee;
+      padding: 1rem;
+      border-radius: 6px;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>📂 Etiquetas <code>&lt;details&gt;</code> y <code>&lt;summary&gt;</code></h1>
+
+  <p>Estas etiquetas permiten mostrar u ocultar contenido fácilmente sin usar JavaScript. Son perfectas para secciones como preguntas frecuentes, instrucciones, contenidos extensos, etc.</p>
+
+  <ul>
+    <li><code>&lt;summary&gt;</code>: el texto que se ve primero (como un título)</li>
+    <li><code>&lt;details&gt;</code>: contiene el contenido oculto que se expande</li>
+    <li>✅ Semánticas, accesibles y con comportamiento automático</li>
+  </ul>
+
+  <h2>⚙️ Ejemplo interactivo</h2>
+
+  <details>
+    <summary>¿Qué es HTML?</summary>
+    <p>HTML es el lenguaje de marcado que usamos para estructurar páginas web.</p>
+  </details>
+
+  <details>
+    <summary>¿Qué es CSS?</summary>
+    <p>CSS es el lenguaje que usamos para dar estilo a los elementos HTML.</p>
+  </details>
+
+  <details open>
+    <summary>¿Por qué usar <code>&lt;details&gt;</code>?</summary>
+    <ul>
+      <li>No necesita JavaScript</li>
+      <li>Es fácil de usar</li>
+      <li>Se adapta bien a contenido expandible</li>
+    </ul>
+  </details>
+
+  <h2>💻 Código fuente</h2>
+
+  <pre><code>&lt;details&gt;
+  &lt;summary&gt;¿Qué es HTML?&lt;/summary&gt;
+  &lt;p&gt;HTML es el lenguaje de marcado que usamos para estructurar páginas web.&lt;/p&gt;
+&lt;/details&gt;
+
+&lt;details open&gt;
+  &lt;summary&gt;¿Por qué usar &lt;details&gt;?&lt;/summary&gt;
+  &lt;ul&gt;
+    &lt;li&gt;No necesita JavaScript&lt;/li&gt;
+    &lt;li&gt;Es fácil de usar&lt;/li&gt;
+    &lt;li&gt;Se adapta bien a contenido expandible&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/details&gt;
+</code></pre>
+
+
+</body>
+</html>

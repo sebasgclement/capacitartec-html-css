@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Audio y Video en HTML</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 2rem;
+      background-color: #f4f4f4;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    h1 {
+      color: #d84924;
+    }
+
+    h2 {
+      color: #0c5fb3;
+      margin-top: 2rem;
+    }
+
+    audio, video {
+      display: block;
+      margin: 1rem 0;
+      max-width: 100%;
+    }
+
+    code {
+      background-color: transparent;
+      padding: 2px 4px;
+      border-radius: 4px;
+      font-family: monospace;
+    }
+
+    pre {
+      background-color: #222;
+      color: #eee;
+      padding: 1rem;
+      border-radius: 6px;
+      overflow-x: auto;
+    }
+
+    .nota {
+      background: #fff8c4;
+      padding: 10px;
+      border-left: 5px solid #ffcc00;
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🎧🎥 Audio y Video en HTML</h1>
+
+  <p>Con HTML podés insertar archivos de audio y video sin depender de reproductores externos ni plugins. Las etiquetas que se usan son <code>&lt;audio&gt;</code> y <code>&lt;video&gt;</code>.</p>
+
+  <h2>🎵 Audio</h2>
+
+  <p>Ejemplo de reproductor de audio con controles:</p>
+
+  <audio controls>
+    <source src="audio.mp3" type="audio/mpeg">
+    Tu navegador no soporta audio HTML5.
+  </audio>
+
+  <pre><code>&lt;audio controls&gt;
+  &lt;source src="audio.mp3" type="audio/mpeg"&gt;
+  Tu navegador no soporta audio HTML5.
+&lt;/audio&gt;
+</code></pre>
+
+  <h2>🎬 Video</h2>
+
+  <p>Ejemplo de reproductor de video con controles:</p>
+
+  <video controls width="480" poster="portada.jpg">
+    <source src="video.mp4" type="video/mp4">
+    Tu navegador no soporta video HTML5.
+  </video>
+
+  <pre><code>&lt;video controls width="480" poster="portada.jpg"&gt;
+  &lt;source src="video.mp4" type="video/mp4"&gt;
+  Tu navegador no soporta video HTML5.
+&lt;/video&gt;
+</code></pre>
+
+  <h2>🧩 Atributos útiles</h2>
+
+  <ul>
+    <li><code>controls</code>: muestra los botones de reproducción</li>
+    <li><code>autoplay</code>: se reproduce automáticamente (⚠️ mejor evitarlo)</li>
+    <li><code>loop</code>: repite el contenido en bucle</li>
+    <li><code>muted</code>: comienza sin sonido (requerido si usás <code>autoplay</code>)</li>
+    <li><code>poster</code>: imagen que aparece antes de reproducir el video</li>
+  </ul>
+
+  <div class="nota">
+    📝 <strong>Nota:</strong> Para que los ejemplos funcionen en el navegador, los archivos <code>audio.mp3</code>, <code>video.mp4</code> y <code>portada.jpg</code> deben estar en la misma carpeta que este archivo HTML.
+  </div>
+
+  
+</body>
+</html>

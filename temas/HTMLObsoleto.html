@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>HTML Obsoleto</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 2rem;
+      background-color: #f4f4f4;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    h1 {
+      color: #d84924;
+    }
+
+    h2 {
+      color: #0c5fb3;
+      margin-top: 2rem;
+    }
+
+    .comparacion {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .box {
+      flex: 1 1 300px;
+      background: #fff;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 1rem;
+    }
+
+    .box h3 {
+      margin-top: 0;
+    }
+
+    code {
+      background-color: transparent;
+      padding: 2px 4px;
+      border-radius: 4px;
+      font-family: monospace;
+    }
+
+    pre {
+      background-color: #222;
+      color: #eee;
+      padding: 1rem;
+      border-radius: 6px;
+      overflow-x: auto;
+    }
+
+    .obsoleto {
+      color: red;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🛑 HTML Obsoleto</h1>
+
+  <p>Con el paso del tiempo, algunas etiquetas de HTML fueron quedando <span class="obsoleto">obsoletas</span>. Eso significa que <strong>ya no deben usarse</strong> porque fueron reemplazadas por mejores prácticas o porque causan problemas de compatibilidad.</p>
+
+  <h2>❌ Ejemplos de etiquetas obsoletas</h2>
+
+  <div class="comparacion">
+    <div class="box">
+      <h3>&lt;center&gt;</h3>
+      <center>Este texto está centrado con una etiqueta obsoleta</center>
+      <pre><code>&lt;center&gt;Texto centrado&lt;/center&gt;</code></pre>
+    </div>
+
+    <div class="box">
+      <h3>&lt;font&gt;</h3>
+      <font face="Arial" color="blue" size="4">Texto con fuente obsoleta</font>
+      <pre><code>&lt;font face="Arial" color="blue" size="4"&gt;Texto&lt;/font&gt;</code></pre>
+    </div>
+
+    <div class="box">
+      <h3>&lt;marquee&gt;</h3>
+      <marquee behavior="scroll" direction="left">Texto que se mueve 😅</marquee>
+      <pre><code>&lt;marquee&gt;Texto que se mueve&lt;/marquee&gt;</code></pre>
+    </div>
+  </div>
+
+  <h2>✅ Alternativas modernas</h2>
+
+  <div class="comparacion">
+    <div class="box">
+      <h3>CSS para centrar</h3>
+      <div style="text-align: center;">Texto centrado con CSS</div>
+      <pre><code>&lt;div style="text-align: center;"&gt;Texto&lt;/div&gt;</code></pre>
+    </div>
+
+    <div class="box">
+      <h3>CSS para estilizar texto</h3>
+      <div style="font-family: Arial; color: blue; font-size: 1.2rem;">Texto con CSS</div>
+      <pre><code>&lt;div style="font-family: Arial; color: blue;"&gt;Texto&lt;/div&gt;</code></pre>
+    </div>
+
+    <div class="box">
+      <h3>Animaciones modernas (CSS o JS)</h3>
+      <p style="animation: mover 5s linear infinite;">Texto animado correctamente</p>
+      <pre><code>/* animación con CSS */
+@keyframes mover {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}</code></pre>
+    </div>
+  </div>
+
+ 
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Metadatos en HTML</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 2rem;
+      line-height: 1.6;
+      background-color: #f4f4f4;
+      color: #333;
+    }
+
+    h1 {
+      color: #d84924;
+    }
+
+    h2 {
+      color: #0c5fb3;
+      margin-top: 2rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+    }
+
+    table, th, td {
+      border: 1px solid #aaa;
+    }
+
+    th, td {
+      padding: 10px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #eee;
+    }
+
+    code {
+      background-color: transparent;
+      padding: 2px 4px;
+      border-radius: 4px;
+      font-family: monospace;
+    }
+  </style>
+</head>
+<body>
+  <h1>📚 Metadatos en HTML</h1>
+
+  <h2>🧠 ¿Qué son?</h2>
+  <p>Los <strong>metadatos</strong> son datos sobre la página que <strong>no se muestran en el contenido visible</strong>, pero son fundamentales para el navegador, buscadores y redes sociales. Se colocan dentro del <code>&lt;head&gt;</code> del documento HTML.</p>
+
+  <h2>🧭 ¿Para qué sirven?</h2>
+  <ul>
+    <li>✅ Le dicen al navegador cómo mostrar la página</li>
+    <li>✅ Ayudan al SEO (posicionamiento en Google)</li>
+    <li>✅ Mejoran la accesibilidad y compatibilidad</li>
+    <li>✅ Personalizan cómo se ve el sitio cuando se comparte en redes</li>
+    <li>✅ Establecen información técnica (idioma, autor, codificación, etc.)</li>
+  </ul>
+
+  <h2>🧩 Metadatos comunes</h2>
+  <table>
+    <tr>
+      <th>Etiqueta</th>
+      <th>Función</th>
+    </tr>
+    <tr>
+      <td><code>&lt;meta charset="UTF-8"&gt;</code></td>
+      <td>Permite usar caracteres especiales (tildes, ñ, etc.)</td>
+    </tr>
+    <tr>
+      <td><code>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</code></td>
+      <td>Hace que la web sea responsive en celulares</td>
+    </tr>
+    <tr>
+      <td><code>&lt;meta name="description" content="..."&gt;</code></td>
+      <td>Descripción que aparece en Google</td>
+    </tr>
+    <tr>
+      <td><code>&lt;meta name="keywords" content="..."&gt;</code></td>
+      <td>Palabras clave (ya no tan usadas)</td>
+    </tr>
+    <tr>
+      <td><code>&lt;meta name="author" content="..."&gt;</code></td>
+      <td>Indica quién creó la página</td>
+    </tr>
+    <tr>
+      <td><code>&lt;title&gt;...&lt;/title&gt;</code></td>
+      <td>Título en la pestaña del navegador</td>
+    </tr>
+    <tr>
+      <td><code>&lt;link rel="icon" href="..."&gt;</code></td>
+      <td>Ícono de la pestaña (favicon)</td>
+    </tr>
+  </table>
+
+  
+</body>
+</html>

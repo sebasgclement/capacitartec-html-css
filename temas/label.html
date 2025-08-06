@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Etiqueta &lt;label&gt; en HTML</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 2rem;
+      background-color: #f4f4f4;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    h1 {
+      color: #d84924;
+    }
+
+    h2 {
+      color: #0c5fb3;
+      margin-top: 2rem;
+    }
+
+    label {
+      font-weight: bold;
+    }
+
+    input {
+      margin-bottom: 1rem;
+      padding: 6px;
+      font-size: 1rem;
+      width: 100%;
+      max-width: 300px;
+      display: block;
+    }
+
+    code {
+      background-color: transparent;
+      padding: 2px 4px;
+      border-radius: 4px;
+      font-family: monospace;
+    }
+
+    pre {
+      background-color: #222;
+      color: #eee;
+      padding: 1rem;
+      border-radius: 6px;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🏷️ La etiqueta <code>&lt;label&gt;</code> en HTML</h1>
+
+  <p>La etiqueta <code>&lt;label&gt;</code> se usa para <strong>asociar texto descriptivo a un campo de formulario</strong>, como un <code>&lt;input&gt;</code> o un <code>&lt;textarea&gt;</code>. Mejora la accesibilidad y hace más fácil hacer clic en los campos.</p>
+
+  <h2>✅ ¿Por qué usarla?</h2>
+  <ul>
+    <li>Al hacer clic en el texto, el input asociado se enfoca automáticamente.</li>
+    <li>Ayuda a personas que usan lectores de pantalla.</li>
+    <li>Es una buena práctica para formularios accesibles y claros.</li>
+  </ul>
+
+  <h2>🔁 Dos formas de usar <code>&lt;label&gt;</code></h2>
+
+  <h3>📌 Forma 1: envolviendo el <code>&lt;input&gt;</code></h3>
+
+  <label>
+    Nombre:
+    <input type="text" placeholder="Escribí tu nombre">
+  </label>
+
+  <pre><code>&lt;label&gt;
+  Nombre:
+  &lt;input type="text" placeholder="Escribí tu nombre"&gt;
+&lt;/label&gt;
+</code></pre>
+
+  <h3>📌 Forma 2: usando <code>for</code> y <code>id</code></h3>
+
+  <label for="email">Correo electrónico:</label>
+  <input type="email" id="email" placeholder="tunombre@correo.com">
+
+  <pre><code>&lt;label for="email"&gt;Correo electrónico:&lt;/label&gt;
+&lt;input type="email" id="email" placeholder="tunombre@correo.com"&gt;
+</code></pre>
+
+  <h2>👀 ¿Qué pasa al hacer clic en el label?</h2>
+  <p>Probá hacer clic sobre el texto “Nombre:” o “Correo electrónico:” y vas a ver que el cursor se posiciona automáticamente en el campo. ¡Esa es la magia del <code>&lt;label&gt;</code>!</p>
+
+ 
+</body>
+</html>

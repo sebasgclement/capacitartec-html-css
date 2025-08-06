@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Fieldset y Legend en HTML</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 2rem;
+      background-color: #f4f4f4;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    h1 {
+      color: #d84924;
+    }
+
+    h2 {
+      color: #0c5fb3;
+      margin-top: 2rem;
+    }
+
+    fieldset {
+      border: 2px solid #ccc;
+      padding: 1rem;
+      margin-bottom: 2rem;
+      border-radius: 8px;
+      background-color: #fff;
+    }
+
+    legend {
+      font-weight: bold;
+      padding: 0 10px;
+      color: #0c5fb3;
+    }
+
+    label {
+      display: block;
+      margin-top: 0.8rem;
+    }
+
+    input {
+      width: 100%;
+      max-width: 300px;
+      padding: 6px;
+      font-size: 1rem;
+    }
+
+    code {
+      background-color: transparent;
+      padding: 2px 4px;
+      border-radius: 4px;
+      font-family: monospace;
+    }
+
+    pre {
+      background-color: #222;
+      color: #eee;
+      padding: 1rem;
+      border-radius: 6px;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🧩 Etiquetas <code>&lt;fieldset&gt;</code> y <code>&lt;legend&gt;</code></h1>
+
+  <p>Estas etiquetas se usan para <strong>agrupar elementos relacionados dentro de un formulario</strong>, tanto visual como semánticamente.</p>
+
+  <ul>
+    <li><code>&lt;fieldset&gt;</code>: crea un bloque con borde para contener inputs relacionados.</li>
+    <li><code>&lt;legend&gt;</code>: agrega un título descriptivo dentro del fieldset.</li>
+    <li>Mejora la <strong>organización, accesibilidad y claridad</strong> del formulario.</li>
+  </ul>
+
+  <h2>📌 Ejemplo de uso</h2>
+
+  <form>
+    <fieldset>
+      <legend>Datos personales</legend>
+      <label for="nombre">Nombre:</label>
+      <input type="text" id="nombre" placeholder="Ej: Sebastián">
+
+      <label for="apellido">Apellido:</label>
+      <input type="text" id="apellido" placeholder="Ej: Clement">
+    </fieldset>
+
+    <fieldset>
+      <legend>Datos de contacto</legend>
+      <label for="email">Correo electrónico:</label>
+      <input type="email" id="email" placeholder="Ej: sebas@email.com">
+
+      <label for="tel">Teléfono:</label>
+      <input type="tel" id="tel" placeholder="Ej: 3492-123456">
+    </fieldset>
+  </form>
+
+  <h2>💻 Código fuente</h2>
+
+  <pre><code>&lt;form&gt;
+  &lt;fieldset&gt;
+    &lt;legend&gt;Datos personales&lt;/legend&gt;
+    &lt;label for="nombre"&gt;Nombre:&lt;/label&gt;
+    &lt;input type="text" id="nombre" placeholder="Ej: Sebastián"&gt;
+
+    &lt;label for="apellido"&gt;Apellido:&lt;/label&gt;
+    &lt;input type="text" id="apellido" placeholder="Ej: Clement"&gt;
+  &lt;/fieldset&gt;
+
+  &lt;fieldset&gt;
+    &lt;legend&gt;Datos de contacto&lt;/legend&gt;
+    &lt;label for="email"&gt;Correo electrónico:&lt;/label&gt;
+    &lt;input type="email" id="email" placeholder="Ej: sebas@email.com"&gt;
+
+    &lt;label for="tel"&gt;Teléfono:&lt;/label&gt;
+    &lt;input type="tel" id="tel" placeholder="Ej: 3492-123456"&gt;
+  &lt;/fieldset&gt;
+&lt;/form&gt;
+</code></pre>
+
+  
+</body>
+</html>

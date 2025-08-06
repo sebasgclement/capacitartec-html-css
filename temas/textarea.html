@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Textarea en HTML</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 2rem;
+      line-height: 1.6;
+      background-color: #f4f4f4;
+      color: #333;
+    }
+
+    h1 {
+      color: #d84924;
+    }
+
+    h2 {
+      color: #0c5fb3;
+      margin-top: 2rem;
+    }
+
+    textarea {
+      width: 100%;
+      max-width: 100%;
+      height: 120px;
+      padding: 10px;
+      font-size: 1rem;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      resize: vertical;
+      margin-top: 0.5rem;
+    }
+
+    .contador {
+      text-align: right;
+      font-size: 0.9rem;
+      color: #666;
+      margin-top: 0.3rem;
+    }
+
+    code {
+      background-color: transparent;
+      padding: 2px 4px;
+      border-radius: 4px;
+      font-family: monospace;
+    }
+
+    pre {
+      background-color: #222;
+      color: #eee;
+      padding: 1rem;
+      border-radius: 6px;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>📝 Textarea en HTML</h1>
+
+  <p>La etiqueta <code>&lt;textarea&gt;</code> permite al usuario escribir <strong>varias líneas de texto</strong>. Se utiliza comúnmente en formularios para comentarios, mensajes, biografías, etc.</p>
+
+  <h2>🧩 Atributos comunes</h2>
+  <ul>
+    <li><code>rows</code>: cantidad de filas visibles</li>
+    <li><code>cols</code>: cantidad de columnas visibles (ancho)</li>
+    <li><code>placeholder</code>: texto de ayuda que aparece por defecto</li>
+    <li><code>maxlength</code>: cantidad máxima de caracteres</li>
+  </ul>
+
+  <h2>⚙️ Ejemplo interactivo</h2>
+  <p>Escribí algo (máx. 120 caracteres):</p>
+  
+  <textarea id="comentario" placeholder="Escribí tu comentario acá..." maxlength="120" oninput="actualizarContador()"></textarea>
+  <div class="contador" id="contador">Quedan 120 caracteres</div>
+
+  <script>
+    function actualizarContador() {
+      const textarea = document.getElementById('comentario');
+      const contador = document.getElementById('contador');
+      const max = textarea.getAttribute('maxlength');
+      const restante = max - textarea.value.length;
+      contador.textContent = `Quedan ${restante} caracteres`;
+    }
+  </script>
+
+  <h2>🔍 Código fuente del ejemplo</h2>
+  <pre><code>&lt;textarea id="comentario" placeholder="Escribí tu comentario acá..." maxlength="120" oninput="actualizarContador()"&gt;&lt;/textarea&gt;
+&lt;div id="contador"&gt;Quedan 120 caracteres&lt;/div&gt;
+
+&lt;script&gt;
+  function actualizarContador() {
+    const textarea = document.getElementById('comentario');
+    const contador = document.getElementById('contador');
+    const max = textarea.getAttribute('maxlength');
+    const restante = max - textarea.value.length;
+    contador.textContent = `Quedan ${restante} caracteres`;
+  }
+&lt;/script&gt;
+</code></pre>
+
+</body>
+</html>

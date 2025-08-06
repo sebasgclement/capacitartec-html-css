@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>HTML Semántico</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 2rem;
+      background-color: #f4f4f4;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    h1 {
+      color: #d84924;
+    }
+
+    h2 {
+      color: #0c5fb3;
+      margin-top: 2rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 10px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #eee;
+    }
+
+    .maqueta {
+      background-color: #fff;
+      padding: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+
+    code {
+      background-color: transparent;
+      padding: 2px 4px;
+      border-radius: 4px;
+      font-family: monospace;
+    }
+
+    pre {
+      background-color: #222;
+      color: #eee;
+      padding: 1rem;
+      border-radius: 6px;
+      overflow-x: auto;
+      margin-top: 1rem;
+    }
+
+    .nota {
+      background: #fff8c4;
+      padding: 10px;
+      border-left: 5px solid #ffcc00;
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>📐 HTML Semántico</h1>
+
+  <p>El HTML semántico utiliza etiquetas que <strong>describen el contenido</strong> y su propósito. Esto mejora la accesibilidad, el SEO y la estructura del sitio.</p>
+
+  <h2>📋 Etiquetas semánticas comunes</h2>
+
+  <table>
+    <tr>
+      <th>Etiqueta</th>
+      <th>Uso recomendado</th>
+    </tr>
+    <tr>
+      <td><code>&lt;header&gt;</code></td>
+      <td>Encabezado de la página o sección</td>
+    </tr>
+    <tr>
+      <td><code>&lt;nav&gt;</code></td>
+      <td>Menú de navegación</td>
+    </tr>
+    <tr>
+      <td><code>&lt;main&gt;</code></td>
+      <td>Contenido principal</td>
+    </tr>
+    <tr>
+      <td><code>&lt;section&gt;</code></td>
+      <td>Sección temática</td>
+    </tr>
+    <tr>
+      <td><code>&lt;article&gt;</code></td>
+      <td>Contenido independiente (noticia, post)</td>
+    </tr>
+    <tr>
+      <td><code>&lt;aside&gt;</code></td>
+      <td>Contenido adicional o complementario</td>
+    </tr>
+    <tr>
+      <td><code>&lt;footer&gt;</code></td>
+      <td>Pie de página o sección</td>
+    </tr>
+  </table>
+
+  <h2>🧱 Mini maqueta semántica</h2>
+
+  <div class="maqueta">
+    <header>
+      <h1>Mi sitio web</h1>
+      <nav>
+        <a href="#">Inicio</a> | <a href="#">Noticias</a> | <a href="#">Contacto</a>
+      </nav>
+    </header>
+
+    <main>
+      <section>
+        <h2>Últimas noticias</h2>
+        <article>
+          <h3>Se lanza el nuevo curso</h3>
+          <p>Ya está disponible el curso gratuito de HTML y CSS.</p>
+        </article>
+      </section>
+      <aside>
+        <p><strong>Publicidad:</strong> Aprendé a programar gratis.</p>
+      </aside>
+    </main>
+
+    <footer>
+      <p>&copy; 2025 - CapacitarTec</p>
+    </footer>
+  </div>
+
+  <h2>💻 Código fuente de la maqueta</h2>
+  <pre><code>&lt;header&gt;
+  &lt;h1&gt;Mi sitio web&lt;/h1&gt;
+  &lt;nav&gt;
+    &lt;a href="#"&gt;Inicio&lt;/a&gt; | &lt;a href="#"&gt;Noticias&lt;/a&gt;
+  &lt;/nav&gt;
+&lt;/header&gt;
+
+&lt;main&gt;
+  &lt;section&gt;
+    &lt;h2&gt;Últimas noticias&lt;/h2&gt;
+    &lt;article&gt;
+      &lt;h3&gt;Se lanza el nuevo curso&lt;/h3&gt;
+      &lt;p&gt;Ya está disponible el curso gratuito de HTML y CSS.&lt;/p&gt;
+    &lt;/article&gt;
+  &lt;/section&gt;
+
+  &lt;aside&gt;
+    &lt;p&gt;&lt;strong&gt;Publicidad:&lt;/strong&gt; Aprendé a programar gratis.&lt;/p&gt;
+  &lt;/aside&gt;
+&lt;/main&gt;
+
+&lt;footer&gt;
+  &lt;p&gt;&copy; 2025 - CapacitarTec&lt;/p&gt;
+&lt;/footer&gt;
+</code></pre>
+
+  
+</body>
+</html>

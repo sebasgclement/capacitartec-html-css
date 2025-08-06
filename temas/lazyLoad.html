@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Lazy Loading en HTML</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 2rem;
+      background-color: #f4f4f4;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    h1 {
+      color: #d84924;
+    }
+
+    h2 {
+      color: #0c5fb3;
+      margin-top: 2rem;
+    }
+
+    img {
+      max-width: 100%;
+      margin: 1rem 0;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+
+    code {
+      background-color: transparent;
+      padding: 2px 4px;
+      border-radius: 4px;
+      font-family: monospace;
+    }
+
+    pre {
+      background-color: #222;
+      color: #eee;
+      padding: 1rem;
+      border-radius: 6px;
+      overflow-x: auto;
+    }
+
+    .separador {
+      height: 600px;
+      background: linear-gradient(to bottom, transparent 0%, #ccc 100%);
+    }
+
+    .nota {
+      background: #fff8c4;
+      padding: 10px;
+      border-left: 5px solid #ffcc00;
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🛑 Lazy Loading en HTML</h1>
+
+  <p><strong>Lazy loading</strong> es una técnica que permite <strong>cargar imágenes solo cuando están por aparecer en pantalla</strong>. Esto hace que la página sea más rápida y ligera, sobre todo en celulares o conexiones lentas.</p>
+
+  <h2>📷 Imagen cargada normalmente (sin lazy)</h2>
+
+  <img src="https://via.placeholder.com/800x400?text=Imagen+sin+lazy" alt="Imagen sin lazy">
+
+  <div class="separador"></div>
+
+  <h2>📷 Imágenes con <code>loading="lazy"</code></h2>
+
+  <img src="https://via.placeholder.com/800x400?text=Lazy+1" alt="Lazy 1" loading="lazy">
+  <img src="https://via.placeholder.com/800x400?text=Lazy+2" alt="Lazy 2" loading="lazy">
+  <img src="https://via.placeholder.com/800x400?text=Lazy+3" alt="Lazy 3" loading="lazy">
+
+  <h2>💻 Código de ejemplo</h2>
+  <pre><code>&lt;img src="imagen.jpg" alt="Texto alternativo" loading="lazy"&gt;</code></pre>
+
+  <h2>🔎 ¿Qué hace el navegador?</h2>
+  <p>No carga las imágenes con <code>loading="lazy"</code> hasta que el usuario hace scroll hacia ellas. ¡Probalo en este mismo archivo!</p>
+
+  <div class="nota">
+    📝 <strong>Nota:</strong> No todos los navegadores viejos soportan <code>loading="lazy"</code>, pero los modernos sí (Chrome, Firefox, Edge, etc.)
+  </div>
+
+  
+</body>
+</html>

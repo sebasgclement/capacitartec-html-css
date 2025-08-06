@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Accesibilidad Web</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 2rem;
+      background-color: #f4f4f4;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    h1 {
+      color: #d84924;
+    }
+
+    h2 {
+      color: #0c5fb3;
+      margin-top: 2rem;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
+
+    .formulario {
+      background-color: #fff;
+      padding: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      margin-top: 1rem;
+    }
+
+    label {
+      display: block;
+      margin-top: 1rem;
+      font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+      max-width: 400px;
+      padding: 8px;
+      font-size: 1rem;
+    }
+
+    .contrastes {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+    }
+
+    .ejemplo {
+      flex: 1 1 300px;
+      padding: 1rem;
+      border-radius: 6px;
+      color: white;
+    }
+
+    .bueno {
+      background-color: #0c5fb3;
+    }
+
+    .malo {
+      background-color: #778899;
+      color: #ccc;
+    }
+
+    .icono {
+      font-size: 2rem;
+      cursor: pointer;
+      margin-top: 1rem;
+    }
+
+    code {
+      background-color: transparent;
+      padding: 2px 4px;
+      border-radius: 4px;
+      font-family: monospace;
+    }
+
+    pre {
+      background-color: #222;
+      color: #eee;
+      padding: 1rem;
+      border-radius: 6px;
+      overflow-x: auto;
+      margin-top: 1rem;
+    }
+
+    .nota {
+      background: #fff8c4;
+      padding: 10px;
+      border-left: 5px solid #ffcc00;
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>♿ Accesibilidad Web</h1>
+
+  <p>La accesibilidad web busca que <strong>todas las personas puedan navegar por una página web</strong>, sin importar si tienen alguna discapacidad visual, auditiva, motriz o cognitiva.</p>
+
+  <h2>📷 Imagen con texto alternativo</h2>
+
+  <img src="https://via.placeholder.com/800x400?text=Paisaje" alt="Paisaje con árboles y cielo celeste">
+  <p><code>alt</code> describe lo que la persona no puede ver. ¡Siempre debe estar presente!</p>
+
+  <h2>📝 Formulario accesible</h2>
+  <form class="formulario">
+    <label for="nombre">Nombre completo</label>
+    <input type="text" id="nombre" name="nombre" aria-required="true">
+
+    <label for="email">Correo electrónico</label>
+    <input type="email" id="email" name="email" aria-required="true">
+
+    <label for="comentario">Comentario</label>
+    <input type="text" id="comentario" name="comentario" placeholder="Escribí tu mensaje...">
+  </form>
+
+  <pre><code>&lt;input type="text" id="nombre" aria-required="true"&gt;</code></pre>
+
+  <h2>🌈 Contraste correcto e incorrecto</h2>
+  <div class="contrastes">
+    <div class="ejemplo bueno">
+      Este es un texto con buen contraste
+    </div>
+    <div class="ejemplo malo">
+      Este es un texto con mal contraste
+    </div>
+  </div>
+
+  <h2>🧠 Uso de <code>aria-label</code></h2>
+  <div>
+    <span class="icono" role="button" aria-label="Abrir menú">☰</span>
+    <p>Este ícono no tiene texto visible, pero gracias a <code>aria-label</code>, un lector de pantalla sabe que es un botón de “Abrir menú”.</p>
+  </div>
+
+  <h2>🧩 Otros atributos ARIA útiles</h2>
+  <ul>
+    <li><code>aria-label</code>: describe un elemento invisible</li>
+    <li><code>aria-required</code>: indica si un campo es obligatorio</li>
+    <li><code>aria-hidden="true"</code>: oculta algo a lectores de pantalla</li>
+    <li><code>role="alert"</code>: se lee automáticamente cuando aparece</li>
+  </ul>
+
+  
+</body>
+</html>
