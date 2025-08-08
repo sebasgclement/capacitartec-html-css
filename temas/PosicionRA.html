@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Posición Relativa y Absoluta en CSS</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f5f7fa;
+        color: #333;
+        padding: 20px;
+        line-height: 1.6;
+    }
+    h1, h2 {
+        color: #d63384;
+    }
+    section {
+        background: white;
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    code {
+        background: #ffe8f0;
+        padding: 2px 5px;
+        border-radius: 4px;
+        font-size: 0.9em;
+    }
+    .contenedor {
+        position: relative;
+        background: #e9ecef;
+        height: 200px;
+        margin-top: 10px;
+        border-radius: 8px;
+        border: 2px dashed #ccc;
+    }
+    .caja {
+        width: 100px;
+        height: 100px;
+        background: #d63384;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 6px;
+    }
+    .relativa {
+        position: relative;
+        top: 20px;
+        left: 30px;
+    }
+    .absoluta {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background: #0d6efd;
+    }
+    .ejemplo {
+        background: #f8f9fa;
+        padding: 10px;
+        border: 1px solid #ccc;
+        margin-top: 10px;
+        border-radius: 6px;
+    }
+</style>
+</head>
+<body>
+
+<h1>Posición Relativa y Absoluta</h1>
+
+<section>
+    <h2>1. ¿Qué es <code>position</code>?</h2>
+    <p>La propiedad <code>position</code> en CSS define cómo se ubica un elemento en la página. Los valores más comunes son <strong>relative</strong> y <strong>absolute</strong>.</p>
+</section>
+
+<section>
+    <h2>2. Position Relative (<code>relative</code>)</h2>
+    <ul>
+        <li>El elemento mantiene su espacio original en el flujo del documento.</li>
+        <li>Se puede mover usando <code>top</code>, <code>right</code>, <code>bottom</code>, <code>left</code> en relación a su posición original.</li>
+        <li>Sirve como referencia para elementos con <code>position: absolute</code> dentro de él.</li>
+    </ul>
+    <div class="ejemplo">
+        <div class="caja relativa">Relativa</div>
+    </div>
+</section>
+
+<section>
+    <h2>3. Position Absolute (<code>absolute</code>)</h2>
+    <ul>
+        <li>El elemento se posiciona de forma absoluta respecto al ancestro más cercano que tenga <code>position</code> distinto de <code>static</code>.</li>
+        <li>No ocupa espacio en el flujo normal del documento.</li>
+        <li>Si no hay ancestro posicionado, se toma como referencia el <code>body</code>.</li>
+    </ul>
+    <div class="ejemplo">
+        <div class="contenedor">
+            <div class="caja absoluta">Absoluta</div>
+        </div>
+    </div>
+</section>
+
+<section>
+    <h2>4. Ejemplo combinado</h2>
+    <p>En este ejemplo, la caja azul (<code>absolute</code>) se posiciona respecto al contenedor gris (<code>relative</code>).</p>
+    <div class="ejemplo">
+        <div class="contenedor">
+            <div class="caja relativa">Relativa</div>
+            <div class="caja absoluta">Absoluta</div>
+        </div>
+    </div>
+</section>
+
+<section>
+    <h2>5. Mini ejercicio</h2>
+    <p>Crea un contenedor con <code>position: relative</code> y coloca una caja en la esquina inferior derecha usando <code>position: absolute</code>.</p>
+<pre><code>
+.contenedor {
+  position: relative;
+  width: 300px;
+  height: 200px;
+  background: lightgray;
+}
+.caja {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}
+</code></pre>
+</section>
+
+<section>
+    <h2>6. Resumen visual</h2>
+    <ul>
+        <li><strong>Relative</strong>: se mueve desde su posición original y mantiene su espacio.</li>
+        <li><strong>Absolute</strong>: se posiciona respecto a un contenedor posicionado y no ocupa espacio.</li>
+    </ul>
+</section>
+
+</body>
+</html>

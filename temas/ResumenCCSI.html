@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Resumen — CSS Intermedio</title>
+<style>
+  :root{ --c1:#0d6efd; --bg:#f6f8fb; --txt:#333; --bd:#dee3ea; }
+  body{ font-family: Arial, sans-serif; background:var(--bg); color:var(--txt); line-height:1.6; padding:24px; }
+  h1{ color:var(--c1); margin-top:0; }
+  section{
+    background:#fff; border:1px solid var(--bd); border-radius:12px; padding:16px; margin:14px 0;
+    box-shadow:0 2px 10px rgba(0,0,0,.05);
+  }
+  h2{ color:#0b5ed7; margin:.2rem 0 0.6rem; font-size:1.15rem; }
+  p{ margin:.25rem 0 .5rem; }
+  ul{ margin:.2rem 0 .2rem 1rem; }
+  code{ background:#eef4ff; padding:2px 6px; border-radius:6px; }
+  .tag{ display:inline-block; background:#eef4ff; border:1px solid #cfe0ff; color:#0b5ed7; padding:2px 8px; border-radius:999px; font-size:.85rem; margin:2px 6px 2px 0; }
+  .grid{ display:grid; gap:12px; grid-template-columns: repeat(auto-fit, minmax(260px,1fr)); }
+  .muted{ color:#566; font-size:.95rem; }
+</style>
+</head>
+<body>
+
+<h1>📚 Resumen — CSS Intermedio</h1>
+<p class="muted">Chuleta rápida con lo visto en la sección. Cada bloque lista lo esencial (selectores, propiedades y tips) para repasar al toque.</p>
+
+<section>
+  <h2>1) Selectores avanzados</h2>
+  <p><span class="tag">Atributo</span> <code>[attr]</code> <code>[attr="v"]</code> <code>[attr^=v]</code> <code>[attr$=v]</code> <code>[attr*=v]</code></p>
+  <p><span class="tag">Combinadores</span> <code>E1 E2</code> (descendiente) · <code>E1&gt;E2</code> (hijo) · <code>E1+E2</code> (adyacente) · <code>E1~E2</code> (hermano)</p>
+  <p><span class="tag">Estructurales</span> <code>:first-child</code> <code>:last-child</code> <code>:nth-child(n/odd/even)</code> <code>:nth-of-type()</code></p>
+  <p><span class="tag">Interacción</span> <code>:hover</code> <code>:focus</code> <code>:active</code> <code>:visited</code></p>
+</section>
+
+<section>
+  <h2>2) Especificidad y herencia</h2>
+  <ul>
+    <li><strong>Puntaje</strong>: etiqueta=1 · clase/atributo/pseudoclase=10 · id=100 · inline=1000 · <code>!important</code> (último recurso).</li>
+    <li><strong>Herencia</strong>: heredan típicamente <code>color</code>, <code>font-*</code>, <code>line-height</code>. No heredan <code>margin</code>, <code>border</code>, etc.</li>
+    <li>Empate → gana la <em>última regla</em> declarada.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>3) Pseudoclases</h2>
+  <p><code>:hover</code> <code>:focus</code> <code>:active</code> · <code>:first-child</code> <code>:last-child</code> <code>:nth-child()</code> · <code>:not(sel)</code></p>
+</section>
+
+<section>
+  <h2>4) Pseudoelementos</h2>
+  <p><code>::before</code> <code>::after</code> (requieren <code>content</code>) · <code>::first-line</code> · <code>::first-letter</code> · <code>::marker</code> · <code>::selection</code></p>
+</section>
+
+<section>
+  <h2>5) Metodología BEM</h2>
+  <ul>
+    <li><strong>Bloque</strong> <code>.card</code> · <strong>Elemento</strong> <code>.card__title</code> · <strong>Modificador</strong> <code>.card--highlight</code></li>
+    <li>Fórmula: <code>.bloque__elemento--modificador</code>. Evita conflictos y facilita reutilización.</li>
+  </ul>
+</section>
+
+<section class="grid">
+  <div>
+    <h2>6) Display</h2>
+    <p><code>block</code> · <code>inline</code> · <code>inline-block</code> · <code>flex</code> · <code>grid</code> · <code>none</code></p>
+  </div>
+  <div>
+    <h2>7) Position: relative/absolute</h2>
+    <p><code>relative</code> desplaza desde su lugar y sirve de referencia. <code>absolute</code> se posiciona respecto al ancestro posicionado.</p>
+  </div>
+  <div>
+    <h2>8) Position: fixed/sticky</h2>
+    <p><code>fixed</code> pegado a la ventana. <code>sticky</code> se “pega” al alcanzar <code>top/left/...</code> (ojo con <code>overflow</code> en ancestros).</p>
+  </div>
+</section>
+
+<section>
+  <h2>9) Ventanas modal (CSS + JS)</h2>
+  <ul>
+    <li>Fondo: <code>position: fixed</code> + overlay <code>rgba()</code>.</li>
+    <li>Centro: contenedor con <code>display:flex</code> (centrado) y <code>z-index</code> alto.</li>
+    <li>Mostrar/ocultar: alternar <code>display</code> o clase <code>.is-open</code>.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>10) Transiciones</h2>
+  <p><code>transition-property</code> · <code>transition-duration</code> · <code>transition-timing-function</code> · <code>transition-delay</code></p>
+  <p><strong>Shorthand</strong> <code>transition: transform .3s ease</code>. Mejor rendimiento con <code>transform</code> y <code>opacity</code>.</p>
+</section>
+
+<section class="grid">
+  <div>
+    <h2>11) Overflow</h2>
+    <p><code>visible</code> · <code>hidden</code> · <code>scroll</code> · <code>auto</code> · por ejes: <code>overflow-x</code>/<code>overflow-y</code></p>
+  </div>
+  <div>
+    <h2>12) Flujo de texto</h2>
+    <p><code>white-space</code> (<code>normal</code>/<code>nowrap</code>/<code>pre</code>/…)</p>
+    <p><code>overflow-wrap: break-word | anywhere</code> · <code>word-break: break-all</code> (agresivo)</p>
+    <p><code>hyphens: auto</code> · <code>text-overflow: ellipsis</code> · <strong>line-clamp</strong> (multilínea)</p>
+  </div>
+</section>
+
+<section class="grid">
+  <div>
+    <h2>13) object-fit / object-position</h2>
+    <p><code>object-fit: contain | cover | fill | none | scale-down</code></p>
+    <p><code>object-position: center | top | 20% 80%</code> (encuadre)</p>
+  </div>
+  <div>
+    <h2>14) Outline</h2>
+    <p><code>outline: ancho estilo color</code> · <code>outline-offset</code></p>
+    <p>Clave para <em>focus</em> accesible; no quitar sin reemplazo visual.</p>
+  </div>
+</section>
+
+<section>
+  <h2>15) Emmet (productividad en editor)</h2>
+  <ul>
+    <li>HTML: <code>ul>li*3{Item $}</code> · <code>nav>ul>li*4>a{Link $}</code> · <code>!</code> boilerplate</li>
+    <li>CSS: <code>d:f</code> (<code>display:flex</code>) · <code>ai:c</code> · <code>jc:sb</code> · <code>m10</code> · <code>p10-20</code> · <code>bdrs8</code></li>
+  </ul>
+</section>
+
+<section>
+  <h2>Tips generales</h2>
+  <ul>
+    <li>Preferí animar <code>transform</code> y <code>opacity</code>.</li>
+    <li>Para layouts: <code>display:flex</code> y <code>display:grid</code> (vienen en CSS Avanzado).</li>
+    <li>Mantené consistencia de nombres con <strong>BEM</strong>.</li>
+    <li>Respetá accesibilidad: focus visible, buen contraste, semántica.</li>
+  </ul>
+</section>
+
+</body>
+</html>

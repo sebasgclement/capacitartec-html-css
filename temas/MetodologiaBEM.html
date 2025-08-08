@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Metodología BEM</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f5f7fa;
+        color: #333;
+        padding: 20px;
+        line-height: 1.6;
+    }
+    h1, h2 {
+        color: #0d6efd;
+    }
+    section {
+        background: white;
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    code {
+        background: #e8e8e8;
+        padding: 2px 5px;
+        border-radius: 4px;
+        font-size: 0.9em;
+    }
+    .ejemplo {
+        background: #f8f9fa;
+        padding: 10px;
+        border: 1px solid #ccc;
+        margin-top: 10px;
+        border-radius: 6px;
+    }
+    .card {
+        background: #fff;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        padding: 15px;
+        max-width: 250px;
+    }
+    .card__title {
+        font-size: 1.2em;
+        margin-bottom: 10px;
+        color: #0d6efd;
+    }
+    .card__description {
+        font-size: 0.95em;
+        color: #555;
+    }
+    .card--highlight {
+        background: #e3f2fd;
+        border-color: #0d6efd;
+    }
+</style>
+</head>
+<body>
+
+<h1>Metodología BEM</h1>
+
+<section>
+    <h2>1. ¿Qué es BEM?</h2>
+    <p><strong>BEM</strong> significa <strong>Block, Element, Modifier</strong> y es una metodología para nombrar clases en CSS de forma clara y escalable.</p>
+    <p>Su objetivo es que el código sea fácil de entender, mantener y reutilizar.</p>
+</section>
+
+<section>
+    <h2>2. Estructura básica</h2>
+    <ul>
+        <li><strong>Bloque</strong> (<em>Block</em>): Componente independiente que tiene sentido por sí mismo. Ej: <code>.menu</code>, <code>.card</code>.</li>
+        <li><strong>Elemento</strong> (<em>Element</em>): Parte interna del bloque que cumple una función. Se nombra con doble guion bajo <code>__</code>. Ej: <code>.card__title</code>.</li>
+        <li><strong>Modificador</strong> (<em>Modifier</em>): Variante o estado del bloque o elemento. Se nombra con doble guion medio <code>--</code>. Ej: <code>.card--highlight</code>.</li>
+    </ul>
+</section>
+
+<section>
+    <h2>3. Ejemplo práctico</h2>
+    <div class="ejemplo">
+        <div class="card card--highlight">
+            <div class="card__title">Producto Destacado</div>
+            <div class="card__description">Este producto es el más vendido del mes.</div>
+        </div>
+    </div>
+    <pre><code>
+/* CSS con BEM */
+.card { ... }                /* Bloque */
+.card__title { ... }         /* Elemento */
+.card__description { ... }   /* Elemento */
+.card--highlight { ... }     /* Modificador */
+    </code></pre>
+</section>
+
+<section>
+    <h2>4. Ventajas de usar BEM</h2>
+    <ul>
+        <li>Evita conflictos de nombres.</li>
+        <li>Fácil de leer y entender.</li>
+        <li>Permite reutilizar componentes.</li>
+        <li>Escalable en proyectos grandes.</li>
+    </ul>
+</section>
+
+<section>
+    <h2>5. Mini ejercicio</h2>
+    <p>Imaginá que tenés un botón que puede ser normal o "primario". ¿Cómo lo escribirías en BEM?</p>
+    <pre><code>
+<button class="boton">Normal</button>
+<button class="boton boton--primario">Primario</button>
+    </code></pre>
+</section>
+
+<section>
+    <h2>6. Resumen visual</h2>
+    <ul>
+        <li><strong>Bloque</strong>: <code>.menu</code>, <code>.card</code></li>
+        <li><strong>Elemento</strong>: <code>.menu__item</code>, <code>.card__title</code></li>
+        <li><strong>Modificador</strong>: <code>.menu--activo</code>, <code>.card--highlight</code></li>
+    </ul>
+    <p>Fórmula: <code>.bloque__elemento--modificador</code></p>
+</section>
+
+</body>
+</html>

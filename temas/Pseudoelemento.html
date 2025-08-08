@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pseudoelementos en CSS</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f4f8;
+        color: #333;
+        padding: 20px;
+        line-height: 1.6;
+    }
+    h1, h2 {
+        color: #6a00f4;
+    }
+    section {
+        background: white;
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    code {
+        background: #e0e0e0;
+        padding: 2px 5px;
+        border-radius: 4px;
+        font-size: 0.9em;
+    }
+    .ejemplo {
+        padding: 10px;
+        border: 1px solid #ccc;
+        margin-top: 10px;
+    }
+
+    /* Ejemplo ::first-line y ::first-letter */
+    .texto-ejemplo::first-line {
+        font-weight: bold;
+        color: #ff006e;
+    }
+    .texto-ejemplo::first-letter {
+        font-size: 2em;
+        color: #8338ec;
+    }
+
+    /* Ejemplo ::before y ::after */
+    .lista-ejemplo li::before {
+        content: "🔥 ";
+        color: orange;
+    }
+    .lista-ejemplo li::after {
+        content: " ✔";
+        color: green;
+    }
+
+    /* Ejemplo marcador de lista */
+    .lista-personalizada::marker {
+        color: red;
+        font-size: 1.2em;
+    }
+
+    /* Selección de texto */
+    ::selection {
+        background: yellow;
+        color: black;
+    }
+</style>
+</head>
+<body>
+
+<h1>Pseudoelementos en CSS</h1>
+
+<section>
+    <h2>1. ¿Qué son?</h2>
+    <p>Los <strong>pseudoelementos</strong> permiten aplicar estilos a partes específicas de un elemento, como la primera letra, la primera línea, o agregar contenido antes o después de un elemento sin modificar el HTML.</p>
+    <p>Se escriben con <strong>doble dos puntos</strong> <code>::</code>, aunque algunos navegadores aceptan uno solo (<code>:</code>).</p>
+</section>
+
+<section>
+    <h2>2. Pseudoelementos más comunes</h2>
+    <ul>
+        <li><code>::first-line</code> → Estilo a la primera línea de un texto.</li>
+        <li><code>::first-letter</code> → Estilo a la primera letra.</li>
+        <li><code>::before</code> → Inserta contenido antes del elemento.</li>
+        <li><code>::after</code> → Inserta contenido después del elemento.</li>
+        <li><code>::marker</code> → Estilo a los marcadores de listas.</li>
+        <li><code>::selection</code> → Estilo al texto seleccionado.</li>
+    </ul>
+</section>
+
+<section>
+    <h2>3. Ejemplos prácticos</h2>
+    <div class="ejemplo">
+        <p class="texto-ejemplo">
+            CSS es un lenguaje que describe la presentación de documentos HTML. Es muy potente y permite modificar casi cualquier aspecto visual de una página web.
+        </p>
+    </div>
+    <div class="ejemplo">
+        <ul class="lista-ejemplo">
+            <li>HTML</li>
+            <li>CSS</li>
+            <li>JavaScript</li>
+        </ul>
+    </div>
+    <div class="ejemplo">
+        <ul class="lista-personalizada">
+            <li>Elemento uno</li>
+            <li>Elemento dos</li>
+            <li>Elemento tres</li>
+        </ul>
+    </div>
+</section>
+
+<section>
+    <h2>4. Resumen visual</h2>
+    <ul>
+        <li>Los pseudoelementos permiten dar estilo a <strong>partes específicas</strong> de un elemento.</li>
+        <li>Se escriben con <code>::</code> antes del nombre (<code>::before</code>, <code>::first-letter</code>, etc.).</li>
+        <li>Principales usos:
+            <ul>
+                <li>Texto → <code>::first-line</code>, <code>::first-letter</code>, <code>::selection</code>.</li>
+                <li>Contenido extra → <code>::before</code>, <code>::after</code>.</li>
+                <li>Listas → <code>::marker</code>.</li>
+            </ul>
+        </li>
+    </ul>
+</section>
+
+</body>
+</html>

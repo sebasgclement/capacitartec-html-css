@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Especificidad y Herencia en CSS</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f4f8;
+        color: #333;
+        padding: 20px;
+        line-height: 1.6;
+    }
+    h1, h2, h3 {
+        color: #005f73;
+    }
+    section {
+        background: white;
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    code {
+        background: #e0e0e0;
+        padding: 2px 5px;
+        border-radius: 4px;
+        font-size: 0.9em;
+    }
+    ul {
+        margin-left: 20px;
+    }
+    .ejemplo {
+        padding: 10px;
+        border: 1px solid #ccc;
+        margin-top: 10px;
+    }
+
+    /* Herencia */
+    .herencia {
+        color: darkblue; /* Se hereda en los textos hijos */
+        font-family: 'Courier New', monospace;
+    }
+
+    /* Especificidad: menos específica */
+    p {
+        color: green;
+    }
+    /* Más específica (clase) */
+    .especial {
+        color: red;
+    }
+    /* Aún más específica (id) */
+    #super-especial {
+        color: purple;
+    }
+    /* Máxima prioridad: !important */
+    .important {
+        color: orange !important;
+    }
+
+    /* Ejemplo de conflicto */
+    .conflicto p {
+        color: brown;
+    }
+    .conflicto .resaltado {
+        color: blue;
+    }
+    .conflicto #unico {
+        color: crimson;
+    }
+</style>
+</head>
+<body>
+
+<h1>Especificidad y Herencia en CSS</h1>
+
+<section>
+    <h2>1. Herencia</h2>
+    <p>La <strong>herencia</strong> en CSS significa que ciertos estilos aplicados a un elemento padre se transmiten automáticamente a sus elementos hijos. Ejemplo: color de texto, tipografía, tamaño de fuente.</p>
+    <p>No todas las propiedades se heredan (por ejemplo, <code>margin</code> o <code>border</code> no lo hacen).</p>
+    <p><strong>Ejemplo:</strong></p>
+    <div class="herencia ejemplo">
+        <p>Este texto es azul porque lo hereda del DIV padre.</p>
+        <span>Este también es azul y usa la misma fuente.</span>
+    </div>
+</section>
+
+<section>
+    <h2>2. Especificidad</h2>
+    <p>La <strong>especificidad</strong> determina qué regla CSS tiene prioridad cuando dos o más reglas afectan al mismo elemento.</p>
+    <ul>
+        <li>Etiquetas y pseudoelementos: <strong>1 punto</strong></li>
+        <li>Clases, pseudoclases y atributos: <strong>10 puntos</strong></li>
+        <li>ID: <strong>100 puntos</strong></li>
+        <li>Estilo en línea: <strong>1000 puntos</strong></li>
+        <li><code>!important</code> gana a todo, pero debe usarse solo cuando es realmente necesario.</li>
+    </ul>
+    <p><strong>Ejemplo visual:</strong></p>
+    <p class="especial ejemplo">Clase (.especial) → rojo</p>
+    <p id="super-especial" class="especial ejemplo">ID (#super-especial) → púrpura</p>
+    <p class="important ejemplo">!important → naranja</p>
+</section>
+
+<section>
+    <h2>3. Conflictos y resolución</h2>
+    <p>Cuando múltiples reglas aplican al mismo elemento, se evalúa:</p>
+    <ol>
+        <li><strong>Especificidad</strong> (más puntos = más prioridad)</li>
+        <li><strong>Orden</strong>: si la especificidad es igual, gana la última regla escrita.</li>
+    </ol>
+    <p><strong>Ejemplo:</strong></p>
+    <div class="conflicto ejemplo">
+        <p>Sin clase ni ID → marrón</p>
+        <p class="resaltado">Clase (.resaltado) → azul</p>
+        <p id="unico" class="resaltado">ID (#unico) → carmesí</p>
+    </div>
+</section>
+
+<section>
+    <h2>Resumen visual</h2>
+    <ul>
+        <li>Herencia = estilos que se transmiten del padre al hijo automáticamente.</li>
+        <li>Especificidad = puntaje que decide qué estilo gana en caso de conflicto.</li>
+        <li>!important = rompe las reglas, usar solo como último recurso.</li>
+        <li>En empate, gana la última regla definida.</li>
+    </ul>
+</section>
+
+</body>
+</html>

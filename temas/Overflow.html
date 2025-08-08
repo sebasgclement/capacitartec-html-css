@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Overflow en CSS</title>
+<style>
+  :root{
+    --c1:#0d6efd; --c2:#6610f2; --bg:#f5f7fa; --txt:#333;
+  }
+  body{ font-family: Arial, sans-serif; background:var(--bg); color:var(--txt); line-height:1.6; padding:20px; }
+  h1,h2{ color:var(--c1); }
+  section{
+    background:#fff; border-radius:8px; padding:15px; margin-bottom:20px;
+    box-shadow:0 2px 8px rgba(0,0,0,.08);
+  }
+  code{ background:#eef4ff; padding:2px 6px; border-radius:4px; }
+  .grid{ display:grid; gap:14px; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); }
+
+  /* DEMOS */
+  .demo{
+    border:2px solid var(--c1); border-radius:8px; background:#fafafa;
+    padding:8px; width:100%; height:120px;
+  }
+  .content{
+    background:#cfe2ff; padding:6px; font-size:.9rem; border-radius:4px;
+  }
+
+  /* overflow: visible */
+  .ov-visible{ overflow: visible; }
+  /* overflow: hidden */
+  .ov-hidden{ overflow: hidden; }
+  /* overflow: scroll */
+  .ov-scroll{ overflow: scroll; }
+  /* overflow: auto */
+  .ov-auto{ overflow: auto; }
+
+  /* Estilo para diferenciar */
+  .demo p{ margin:0; }
+</style>
+</head>
+<body>
+
+<h1>Propiedad <code>overflow</code> en CSS</h1>
+
+<section>
+  <h2>1) ¿Qué es?</h2>
+  <p><strong>overflow</strong> controla cómo se maneja el contenido que <em>se desborda</em> de un contenedor cuando es más grande que él.</p>
+  <ul>
+    <li><code>visible</code>: contenido se muestra aunque se salga (por defecto).</li>
+    <li><code>hidden</code>: el contenido que se sale se recorta y no se ve.</li>
+    <li><code>scroll</code>: siempre muestra barras de scroll (horizontal y/o vertical).</li>
+    <li><code>auto</code>: muestra barras de scroll solo si es necesario.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>2) Ejemplos visuales</h2>
+  <div class="grid">
+    <div>
+      <p><strong>visible</strong></p>
+      <div class="demo ov-visible">
+        <div class="content">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vehicula massa at ex porta.
+        </div>
+      </div>
+    </div>
+    <div>
+      <p><strong>hidden</strong></p>
+      <div class="demo ov-hidden">
+        <div class="content">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vehicula massa at ex porta.
+        </div>
+      </div>
+    </div>
+    <div>
+      <p><strong>scroll</strong></p>
+      <div class="demo ov-scroll">
+        <div class="content">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vehicula massa at ex porta.
+        </div>
+      </div>
+    </div>
+    <div>
+      <p><strong>auto</strong></p>
+      <div class="demo ov-auto">
+        <div class="content">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vehicula massa at ex porta.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>3) Overflow en ejes independientes</h2>
+  <p>Podés controlar cada eje por separado:</p>
+  <ul>
+    <li><code>overflow-x</code>: controla el desborde horizontal.</li>
+    <li><code>overflow-y</code>: controla el desborde vertical.</li>
+  </ul>
+  <pre><code>/* Solo scroll vertical */
+.caja { overflow-y: scroll; overflow-x: hidden; }</code></pre>
+</section>
+
+<section>
+  <h2>4) Buenas prácticas</h2>
+  <ul>
+    <li>Evitar <code>scroll</code> constante si no es necesario → usar <code>auto</code>.</li>
+    <li>En diseños responsive, el scroll horizontal suele indicar problemas de maquetado.</li>
+    <li>Para ocultar elementos sin alterar el flujo, <code>overflow:hidden</code> + <code>max-height</code> es útil.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>5) Resumen rápido</h2>
+  <ul>
+    <li><code>visible</code>: deja que el contenido se desborde (default).</li>
+    <li><code>hidden</code>: recorta lo que se sale.</li>
+    <li><code>scroll</code>: siempre muestra scroll.</li>
+    <li><code>auto</code>: scroll solo si hace falta.</li>
+    <li>Podés separar por ejes con <code>overflow-x</code> y <code>overflow-y</code>.</li>
+  </ul>
+</section>
+
+</body>
+</html>

@@ -138,13 +138,23 @@ const contentMap = {
   'HTML avanzado':{
     type: "html",
     content: "temas/html_intermedio_resumen.html",
-    enabled: true
+    enabled: false
+  },
+  'Css avanzado':{
+    type: "html",
+    content: "temas/ResumenCCSI.html",
+    enabled: false
   },
   //Ejercicios
   "INTEGRADOR 1": {
     type: "html",
-    content: "temas/Ejercicio_MiniLanding_Formulario.html",
-    enabled:true
+    content: "temas/IntegradorI.html",
+    enabled:false
+  },
+  "INTEGRADOR 2":{
+    type: "html",
+    content: "temas/IntegradorII.html",
+    enabled: false
   },
   
   //HTML Intermedio
@@ -222,7 +232,84 @@ const contentMap = {
     type: "html",
     content: "temas/accesibilidad.html",
     enabled: false
-  }
+  },
+  //CSS Intermedio
+  'Selectores avanzados':{
+    type: "html",
+    content: "temas/selectoresAvanzados.html",
+    enabled: false
+  },
+  'Herencia, Cascada y Especificidad':{
+    type:"html",
+    content: "temas/EspecificidadHerencia.html",
+    enabled: false
+  },
+  Pseudoclases:{
+    type:"html",
+    content: "temas/Pseudoclase.html",
+    enabled: false
+  },
+  Pseudoelementos:{
+    type: "html",
+    content: "temas/Pseudoelemento.html",
+    enabled: false
+  },
+  'Metodología BEM':{
+    type:"html",
+    content:"temas/MetodologiaBEM.html",
+    enabled:false
+  },
+  Display: {
+    type: "html",
+    content: "temas/Display.html",
+    enabled: false
+  },
+  'Posición relativa y absoluta':{
+    type: "html",
+    content: "temas/PosicionRA.html",
+    enabled: false
+  },
+  'Ventanas Modal':{
+    type:"html",
+    content: "temas/ventanaModal.html",
+    enabled: false
+  },
+  'Posición fixed y sticky':{
+    type: "html",
+    content: "temas/FixedSticky.html",
+    enabled: false
+  },
+  Transiciones:{
+    type: "html",
+    content: "temas/Transiciones.html",
+    enabled: false
+  },
+  Overflow:{
+    type: "html",
+    content: "temas/Overflow.html",
+    enabled: false
+  },
+  'Control de flujo del texto':{
+    type: "html",
+    content: "temas/FlujoTexto.html",
+    enabled: false
+  },
+  'Object-fit y object-position':{
+    type: "html",
+    content: "temas/ObjectFP.html",
+    enabled: false
+  },
+  Outline:{
+    type: "html",
+    content: "temas/Outline.html",
+    enabled: false
+  },
+  Emmet:{
+    type: "html",
+    content: "temas/Emmet.html",
+    enabled: false
+  },
+  //CSS Flexbox
 };
 
 document

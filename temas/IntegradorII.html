@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>INTEGRADOR 2 — HTML & CSS Avanzados</title>
+<link rel="icon" href="favicon.ico" />
+<meta name="description" content="Integrador 2 del curso — HTML y CSS avanzados: semántica, accesibilidad, BEM, modales, sticky, transiciones, multimedia y más." />
+<style>
+  :root{
+    --bg:#f6f8fb; --card:#fff; --txt:#273140;
+    --c1:#0d6efd; --c2:#6610f2; --ok:#198754; --warn:#ff9f1c; --muted:#5b6675;
+    --bd:#dee3ea;
+  }
+  *{ box-sizing: border-box; }
+  body{ margin:0; font-family:system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; background:var(--bg); color:var(--txt); line-height:1.6; }
+  a{ color:var(--c1); text-decoration:none; }
+  a:hover{ text-decoration:underline; }
+  header.header{
+    position:sticky; top:0; z-index:1000;
+    background:#ffffffcc; backdrop-filter:saturate(140%) blur(6px);
+    border-bottom:1px solid var(--bd);
+  }
+  .header__inner{
+    max-width:1100px; margin:auto; display:flex; align-items:center; justify-content:space-between;
+    padding:12px 16px;
+  }
+  .logo{ font-weight:700; color:var(--c1); letter-spacing:.3px; }
+  nav ul{ list-style:none; display:flex; gap:14px; padding:0; margin:0; }
+  nav a{ padding:8px 10px; border-radius:8px; }
+  nav a:hover{ background:#eef4ff; }
+  main{ max-width:1100px; margin:18px auto; padding:0 16px 80px; display:grid; gap:18px; }
+  section{
+    background:var(--card); border:1px solid var(--bd); border-radius:14px; padding:16px;
+    box-shadow:0 6px 18px rgba(0,0,0,.04);
+  }
+  h1{ margin:.6rem 0; color:#0b5ed7; }
+  h2{ margin:.2rem 0 .6rem; color:#0b5ed7; font-size:1.15rem; }
+  code, pre code{ background:#eef4ff; border-radius:6px; padding:2px 6px; }
+  code{background-color: transparent !important;}
+  pre{ background:#0b2447; color:#eaf2ff; padding:14px; border-radius:10px; overflow:auto; font-size:.95rem; }
+  .grid{ display:grid; gap:14px; grid-template-columns: repeat(auto-fit, minmax(260px,1fr)); }
+  .pill{ display:inline-block; padding:4px 10px; border-radius:999px; background:#eef4ff; border:1px solid #cfe0ff; color:#0b5ed7; font-size:.85rem; margin:2px 6px 2px 0; }
+  .note{ background:#fff6d6; border-left:5px solid #f6c000; padding:10px; border-radius:8px; }
+  .ok{ color:var(--ok); }
+  .warn{ color:#d9480f; }
+  .kbd{ padding:.1rem .4rem; border:1px solid #ccd; border-bottom-width:2px; border-radius:6px; background:#f7f7fb; font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .check li{ margin:.25rem 0; }
+  .rubrica td, .rubrica th{ border:1px solid var(--bd); padding:8px; }
+  .rubrica{ width:100%; border-collapse:collapse; font-size:.95rem; }
+  /* Demo modal (para que vean lo que se pide) */
+  .demo-modal__backdrop{ display:none; position:fixed; inset:0; background:rgba(0,0,0,.5); z-index:1200; align-items:center; justify-content:center; }
+  .demo-modal__content{ background:#fff; width:min(92vw,520px); border-radius:12px; padding:16px; box-shadow:0 18px 60px rgba(0,0,0,.28); }
+  .btn{ background:var(--c1); color:#fff; border:0; padding:10px 14px; border-radius:10px; cursor:pointer; }
+  .btn:hover{ filter:brightness(1.05); }
+  .btn--ghost{ background:#eef4ff; color:#0b5ed7; }
+  .gallery{ display:grid; grid-template-columns: repeat(auto-fit, minmax(160px,1fr)); gap:10px; }
+  .gallery__item{ aspect-ratio: 4/3; border-radius:10px; overflow:hidden; background:#e9eef5; }
+  .gallery__item img{ width:100%; height:100%; object-fit:cover; object-position:center; transition: transform .35s ease, opacity .35s ease; }
+  .gallery__item img:hover{ transform: scale(1.06); opacity:.92; }
+  .badge{ display:inline-block; background:#e7f1ff; border:1px solid #cfe0ff; color:#0b5ed7; padding:2px 8px; border-radius:999px; font-size:.8rem; }
+
+  /* Accesibilidad focus visible */
+  :focus { outline:3px solid #0d6efd; outline-offset:3px; }
+  .visually-hidden { position:absolute !important; height:1px; width:1px; overflow:hidden; clip:rect(1px, 1px, 1px, 1px); white-space:nowrap; }
+
+  /* Footer fijo como ejemplo "fixed" */
+  .footer-fixed{
+    position:fixed; right:16px; bottom:16px; z-index:1100;
+    background:#6610f2; color:#fff; padding:10px 12px; border-radius:10px;
+    box-shadow:0 8px 24px rgba(0,0,0,.25);
+    cursor: pointer;
+  }
+</style>
+</head>
+<body>
+
+<header class="header" role="banner">
+  <div class="header__inner">
+    <div class="logo">Integrador 2</div>
+    <nav aria-label="Secciones">
+      <ul>
+        <li><a href="#brief">Brief</a></li>
+        <li><a href="#requisitos">Requisitos</a></li>
+        <li><a href="#rubrica">Rúbrica</a></li>
+        <li><a href="#starter">Starter</a></li>
+        <li><a href="#checklist">Checklist</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="content">
+  <section id="brief">
+    <h1>Integrador 2 — Mini‑Sitio Accesible con Galería, Modal y Sticky</h1>
+    <p>
+      Construí un <strong>mini‑sitio de 2–3 secciones</strong> para una marca ficticia (producto, evento, portfolio o blog).
+      El foco está en <span class="badge">semántica</span> <span class="badge">accesibilidad</span> <span class="badge">BEM</span> <span class="badge">modal</span> <span class="badge">sticky</span> <span class="badge">transiciones</span> <span class="badge">object‑fit</span> <span class="badge">control de texto</span>.
+    </p>
+    <div class="note"><strong>Objetivo:</strong> que el sitio sea <em>usable, accesible y prolijo</em> en desktop y mobile, con una UI simple pero cuidada.</div>
+  </section>
+
+  <section id="requisitos">
+    <h2>Requisitos (técnicos)</h2>
+    <ul class="check">
+      <li><strong>HTML semántico</strong>: usar <code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;section&gt;</code>, <code>&lt;article&gt;</code>, <code>&lt;footer&gt;</code>.</li>
+      <li><strong>Accesibilidad</strong>: <code>alt</code> en imágenes, <code>label</code> + <code>for</code> en inputs, <code>aria-label</code> o <code>aria-expanded</code> donde aplique, <strong>focus visible</strong>.</li>
+      <li><strong>Metadatos</strong>: <code>&lt;title&gt;</code>, <code>&lt;meta name="description"&gt;</code>, y <strong>favicon</strong>.</li>
+      <li><strong>Metodología BEM</strong> en clases: <code>.bloque__elemento--modificador</code>.</li>
+      <li><strong>Navegación sticky</strong> (<code>position: sticky</code>) o header fijo.</li>
+      <li><strong>Modal</strong> para ver detalles (botón “ver más”): abrir/cerrar + <code>aria</code> mínimo.</li>
+      <li><strong>Galería/cards</strong> con imágenes usando <code>object-fit: cover</code> y <code>object-position</code>.</li>
+      <li><strong>Transiciones</strong> en hover/focus (usar <code>transform</code>/<code>opacity</code>).</li>
+      <li><strong>Control de texto</strong>: usar <code>line-clamp</code> (multilínea) o <code>text-overflow: ellipsis</code> (1 línea) en descripciones.</li>
+      <li><strong>Enlaces avanzados</strong>: al menos uno con <code>mailto:</code> o <code>tel:</code> + un ancla interna.</li>
+      <li><strong>Details/Summary</strong> o <strong>FAQ</strong> (colapsable) para contenido secundario.</li>
+      <li><strong>Validación visual de formularios</strong> (mínima): :focus y :required o <code>aria-required</code>.</li>
+      <li><strong>Sin frameworks</strong>. Solo HTML + CSS + un poco de JS vanilla para el modal.</li>
+    </ul>
+  </section>
+
+  <section id="rubrica">
+    <h2>Rúbrica (100 pts)</h2>
+    <table class="rubrica">
+      <thead><tr><th>Criterio</th><th>Descripción</th><th>Puntos</th></tr></thead>
+      <tbody>
+        <tr><td>Semántica</td><td>Uso correcto de etiquetas y estructura lógica.</td><td>15</td></tr>
+        <tr><td>Accesibilidad</td><td>Labels, alt, roles/aria mínimos, focus visible, contraste.</td><td>15</td></tr>
+        <tr><td>BEM</td><td>Nombres consistentes: bloque/elemento/modificador.</td><td>10</td></tr>
+        <tr><td>Navegación</td><td>Sticky/fixed bien resuelto, sin superponer contenido.</td><td>10</td></tr>
+        <tr><td>Galería/cards</td><td>Imágenes con object-fit + transiciones suaves.</td><td>10</td></tr>
+        <tr><td>Modal</td><td>Abrir/cerrar, overlay, focus manejable, aria básico.</td><td>15</td></tr>
+        <tr><td>Tipografía/Texto</td><td>Clamp/ellipsis + buen flujo de texto y alineación.</td><td>10</td></tr>
+        <tr><td>Metadatos/Links</td><td>Title, description, favicon, enlaces avanzados.</td><td>5</td></tr>
+        <tr><td>Calidad general</td><td>Orden, coherencia visual, sin errores graves.</td><td>10</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section id="starter">
+    <h2>Starter (base sugerida)</h2>
+    <p>Copiá/pegá y personalizá. Incluye modal funcional, galería con <code>object-fit</code>, sticky, BEM, transiciones y control de texto.</p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8" /&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1" /&gt;
+  &lt;title&gt;Marca X — Mini Sitio&lt;/title&gt;
+  &lt;meta name="description" content="Mini sitio accesible con galería y modal." /&gt;
+  &lt;link rel="icon" href="favicon.ico" /&gt;
+  &lt;style&gt;
+    :root{ --c1:#0d6efd; --txt:#273140; --bd:#dee3ea; }
+    *{ box-sizing: border-box; }
+    body{ margin:0; font-family:system-ui,Segoe UI,Roboto,Arial,sans-serif; color:var(--txt); line-height:1.6; background:#f6f8fb; }
+    a{ color:var(--c1); text-decoration:none; }
+    a:hover{ text-decoration:underline; }
+    .header{ position:sticky; top:0; background:#ffffffcc; backdrop-filter:blur(6px); border-bottom:1px solid var(--bd); z-index:1000; }
+    .header__inner{ max-width:1100px; margin:auto; display:flex; gap:14px; align-items:center; justify-content:space-between; padding:12px 16px; }
+    .nav__list{ list-style:none; display:flex; gap:12px; padding:0; margin:0; }
+    .btn{ background:var(--c1); color:#fff; border:0; padding:10px 14px; border-radius:10px; cursor:pointer; }
+    .btn:hover{ filter:brightness(1.05); }
+    main{ max-width:1100px; margin:18px auto; padding:0 16px 80px; display:grid; gap:18px; }
+    .hero{ background:#fff; border:1px solid var(--bd); border-radius:14px; padding:18px; display:grid; gap:10px; }
+    .cards{ display:grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap:12px; }
+    .card{ background:#fff; border:1px solid var(--bd); border-radius:12px; overflow:hidden; display:flex; flex-direction:column; }
+    .card__media{ aspect-ratio: 4/3; background:#e9eef5; }
+    .card__img{ width:100%; height:100%; object-fit:cover; object-position:center; transition: transform .35s ease, opacity .35s ease; }
+    .card__img:hover{ transform:scale(1.06); opacity:.93; }
+    .card__body{ padding:12px; display:grid; gap:6px; }
+    .card__title{ margin:0; font-size:1.05rem; }
+    .card__desc{ display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }
+    /* Modal */
+    .modal{ display:none; position:fixed; inset:0; background:rgba(0,0,0,.5); z-index:1200; align-items:center; justify-content:center; }
+    .modal__dialog{ background:#fff; width:min(92vw,520px); border-radius:12px; padding:16px; box-shadow:0 18px 60px rgba(0,0,0,.28); }
+    .modal__footer{ display:flex; justify-content:flex-end; gap:8px; margin-top:10px; }
+    /* Accesibilidad focus */
+    :focus{ outline:3px solid var(--c1); outline-offset:3px; }
+    .visually-hidden{ position:absolute !important; height:1px; width:1px; overflow:hidden; clip:rect(1px,1px,1px,1px); white-space:nowrap; }
+    footer{ text-align:center; color:#5b6675; padding:14px; }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+  &lt;header class="header" role="banner"&gt;
+    &lt;div class="header__inner"&gt;
+      &lt;a class="logo" href="#top"&gt;&lt;strong&gt;Marca X&lt;/strong&gt;&lt;/a&gt;
+      &lt;nav class="nav" aria-label="Principal"&gt;
+        &lt;ul class="nav__list"&gt;
+          &lt;li&gt;&lt;a href="#productos"&gt;Productos&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href="#faq"&gt;FAQ&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href="mailto:ventas@marcax.com"&gt;Contacto&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/nav&gt;
+    &lt;/div&gt;
+  &lt;/header&gt;
+
+  &lt;main id="top"&gt;
+    &lt;section class="hero"&gt;
+      &lt;h1&gt;Lanzamiento 2025&lt;/h1&gt;
+      &lt;p&gt;Descubrí nuestra nueva línea de productos. Calidad, diseño y accesibilidad para todos.&lt;/p&gt;
+      &lt;button class="btn" id="openModal" aria-haspopup="dialog" aria-controls="dialog"&gt;Ver detalle&lt;/button&gt;
+    &lt;/section&gt;
+
+    &lt;section id="productos" class="cards"&gt;
+      &lt;article class="card"&gt;
+        &lt;div class="card__media"&gt;
+          &lt;img class="card__img" src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&amp;w=1200" alt="Zapatilla modelo A" loading="lazy"&gt;
+        &lt;/div&gt;
+        &lt;div class="card__body"&gt;
+          &lt;h3 class="card__title"&gt;Modelo A&lt;/h3&gt;
+          &lt;p class="card__desc"&gt;Diseño liviano y cómodo, ideal para entrenamiento diario y caminatas urbanas.&lt;/p&gt;
+          &lt;a class="btn" href="#top"&gt;Comprar&lt;/a&gt;
+        &lt;/div&gt;
+      &lt;/article&gt;
+
+      &lt;article class="card"&gt;
+        &lt;div class="card__media"&gt;
+          &lt;img class="card__img" src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?q=80&amp;w=1200" alt="Zapatilla modelo B" loading="lazy"&gt;
+        &lt;/div&gt;
+        &lt;div class="card__body"&gt;
+          &lt;h3 class="card__title"&gt;Modelo B&lt;/h3&gt;
+          &lt;p class="card__desc"&gt;Amortiguación superior y grip mejorado para superficies mixtas.&lt;/p&gt;
+          &lt;a class="btn" href="tel:+5491100000000"&gt;Llamar&lt;/a&gt;
+        &lt;/div&gt;
+      &lt;/article&gt;
+
+      &lt;article class="card"&gt;
+        &lt;div class="card__media"&gt;
+          &lt;img class="card__img" src="https://images.unsplash.com/photo-1519741497674-611481863552?q=80&amp;w=1200" alt="Zapatilla modelo C" loading="lazy"&gt;
+        &lt;/div&gt;
+        &lt;div class="card__body"&gt;
+          &lt;h3 class="card__title"&gt;Modelo C&lt;/h3&gt;
+          &lt;p class="card__desc"&gt;Edición limitada con materiales premium y detalles únicos.&lt;/p&gt;
+          &lt;a class="btn" href="#faq"&gt;Ver FAQ&lt;/a&gt;
+        &lt;/div&gt;
+      &lt;/article&gt;
+    &lt;/section&gt;
+
+    &lt;section id="faq"&gt;
+      &lt;h2&gt;Preguntas frecuentes&lt;/h2&gt;
+      &lt;details&gt;
+        &lt;summary&gt;¿Cómo elijo mi talle?&lt;/summary&gt;
+        &lt;p&gt;Recomendamos medir tu pie y consultar la tabla de talles. Si estás entre dos talles, elegir el mayor.&lt;/p&gt;
+      &lt;/details&gt;
+      &lt;details&gt;
+        &lt;summary&gt;¿Tienen envío al interior?&lt;/summary&gt;
+        &lt;p&gt;Sí, realizamos envíos a todo el país con seguimiento.&lt;/p&gt;
+      &lt;/details&gt;
+    &lt;/section&gt;
+  &lt;/main&gt;
+
+  &lt;footer role="contentinfo"&gt;© 2025 Marca X — &lt;a href="#top"&gt;Volver arriba&lt;/a&gt;&lt;/footer&gt;
+
+  &lt;!-- Modal accesible --&gt;
+  &lt;div class="modal" id="dialog" role="dialog" aria-modal="true" aria-labelledby="dialogTitle"&gt;
+    &lt;div class="modal__dialog"&gt;
+      &lt;h2 id="dialogTitle"&gt;Detalle del lanzamiento&lt;/h2&gt;
+      &lt;p&gt;Nueva colección con foco en materiales reciclados y procesos responsables. Stock limitado.&lt;/p&gt;
+      &lt;div class="modal__footer"&gt;
+        &lt;button class="btn" id="closeModal"&gt;Cerrar&lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;script&gt;
+    const openBtn = document.getElementById('openModal');
+    const closeBtn = document.getElementById('closeModal');
+    const dialog = document.getElementById('dialog');
+
+    openBtn.addEventListener('click', () =&gt; {
+      dialog.style.display = 'flex';
+      dialog.querySelector('.modal__dialog').focus();
+    });
+    closeBtn.addEventListener('click', () =&gt; dialog.style.display = 'none');
+    window.addEventListener('click', (e) =&gt; { if(e.target === dialog) dialog.style.display = 'none'; });
+    window.addEventListener('keydown', (e) =&gt; { if(e.key === 'Escape') dialog.style.display = 'none'; });
+  &lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+  </section>
+
+  <section id="checklist">
+    <h2>Checklist de entrega</h2>
+    <ul class="check">
+      <li>✅ Semántica correcta + estructura lógica.</li>
+      <li>✅ Accesibilidad mínima (alt, label/for, aria básico, focus visible).</li>
+      <li>✅ BEM en nombres de clases.</li>
+      <li>✅ Sticky/fixed sin tapar contenido.</li>
+      <li>✅ Modal con overlay y cierre por fondo/Escape.</li>
+      <li>✅ Galería/cards con <code>object-fit</code> y transiciones suaves.</li>
+      <li>✅ Control de texto (ellipsis o clamp) en descripciones.</li>
+      <li>✅ Metadatos + favicon + enlaces avanzados.</li>
+      <li>✅ Código ordenado (indentación, comentarios, archivos organizados).</li>
+    </ul>
+    <p class="muted">Tip: usá <span class="kbd">Emmet</span> para acelerar la maquetación 😉</p>
+  </section>
+</main>
+
+<!-- Botoncito fijo solo de demo -->
+<div class="footer-fixed" aria-hidden="true" id="btnIntegrador">Demo</div>
+
+<!-- Demo modal (por si querés mostrarlo in situ en clase) -->
+<div class="demo-modal__backdrop" id="demoBack">
+  <div class="demo-modal__content">
+    <h3>Ejemplo de Modal</h3>
+    <p>Este es un modal de demostración en la página del integrador.</p>
+    <button class="btn btn--ghost" onclick="document.getElementById('demoBack').style.display='none'">Cerrar</button>
+  </div>
+</div>
+
+<script>
+  document.getElementById('btnIntegrador').addEventListener('click', () => {
+    window.open('Integrador.html', '_blank');
+  });
+</script>
+</body>
+</html>

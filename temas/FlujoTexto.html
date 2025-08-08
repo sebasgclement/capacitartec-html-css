@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Control de flujo de texto (CSS)</title>
+<style>
+  :root{
+    --c1:#0d6efd; --c2:#6f42c1; --bg:#f5f7fa; --txt:#333;
+    --card:#ffffff; --bd:#dde3ea;
+  }
+  body{ font-family: Arial, sans-serif; background:var(--bg); color:var(--txt); line-height:1.6; padding:20px; }
+  h1,h2{ color:var(--c1); }
+  section{
+    background:var(--card); border-radius:10px; padding:16px; margin-bottom:20px;
+    box-shadow:0 2px 10px rgba(0,0,0,.06); border:1px solid var(--bd);
+  }
+  code{ background:#eef4ff; padding:2px 6px; border-radius:4px; }
+  .grid{ display:grid; gap:14px; grid-template-columns: repeat(auto-fit,minmax(260px,1fr)); }
+  .demo{
+    border:1px dashed #cfd6dd; border-radius:8px; padding:10px; background:#fbfdff;
+    min-height:88px;
+  }
+  .cap{ font-size:.95rem; color:#445; margin:.25rem 0 .5rem; }
+  .box{
+    border:1px solid #d8dee6; border-radius:8px; background:#fff; padding:10px;
+    max-width:100%; height:90px;
+  }
+
+  /* ====== PROPIEDADES CLAVE ====== */
+
+  /* 1) white-space */
+  .ws-normal{ white-space: normal; }
+  .ws-nowrap{ white-space: nowrap; }               /* no hace saltos de línea */
+  .ws-pre{ white-space: pre; }                     /* respeta espacios/saltos */
+  .ws-prewrap{ white-space: pre-wrap; }            /* respeta espacios y envuelve */
+  .ws-preline{ white-space: pre-line; }            /* colapsa espacios, respeta \n */
+
+  /* 2) overflow-wrap / word-wrap (alias) */
+  .ow-normal{ overflow-wrap: normal; }
+  .ow-break{ overflow-wrap: break-word; }
+  .ow-anywhere{ overflow-wrap: anywhere; }         /* rompe en cualquier punto si hace falta */
+
+  /* 3) word-break */
+  .wb-normal{ word-break: normal; }
+  .wb-breakall{ word-break: break-all; }           /* rompe palabras en cualquier carácter */
+  .wb-keepall{ word-break: keep-all; }             /* evita romper (útil en idiomas CJK) */
+
+  /* 4) hyphens (guionado) */
+  .hy-none{ hyphens: none; }
+  .hy-manual{ hyphens: manual; }                   /* usa soft-hyphen &shy; en el HTML */
+  .hy-auto{ hyphens: auto; }                       /* intenta guionar automáticamente */
+
+  /* 5) text-overflow: ellipsis (requiere ancho limitado, overflow hidden y no-wrap o clamp) */
+  .ellipsis{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* 6) line-clamp (corte a N líneas con puntos suspensivos) */
+  .clamp-3{
+    display: -webkit-box;
+    -webkit-line-clamp: 3;           /* número de líneas */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* Decos */
+  .hint{ font-size:.9rem; color:#667; }
+  .mono{ font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+</style>
+</head>
+<body>
+
+<h1>Control de flujo de texto (CSS)</h1>
+
+<section>
+  <h2>1) ¿Qué es?</h2>
+  <p>Es el conjunto de técnicas para decidir <strong>cómo envuelve, corta o guiona</strong> el texto dentro de un contenedor. Con esto evitás desbordes feos, mejorás legibilidad y controlás alineaciones en tarjetas, tablas o layouts responsivos.</p>
+  <ul>
+    <li><code>white-space</code>: cómo se tratan los espacios y saltos de línea.</li>
+    <li><code>overflow-wrap</code> / <code>word-wrap</code>: cómo romper palabras largas.</li>
+    <li><code>word-break</code>: estrategia de corte dentro de palabras.</li>
+    <li><code>hyphens</code>: guionado automático o manual.</li>
+    <li><code>text-overflow</code>: puntos suspensivos en una línea.</li>
+    <li><strong>line-clamp</strong>: recortar a N líneas con “…” (multilínea).</li>
+  </ul>
+</section>
+
+<section>
+  <h2>2) <code>white-space</code></h2>
+  <p class="hint">Controla espacios/saltos: <code>normal</code>, <code>nowrap</code>, <code>pre</code>, <code>pre-wrap</code>, <code>pre-line</code>.</p>
+  <div class="grid">
+    <div>
+      <div class="cap"><code>white-space: normal;</code></div>
+      <div class="box ws-normal">
+        Texto   con   espacios   múltiples
+        y saltos
+        de línea.
+      </div>
+    </div>
+    <div>
+      <div class="cap"><code>white-space: nowrap;</code></div>
+      <div class="box ws-nowrap">
+        Texto con espacios que NO se corta en varias líneas (puede desbordar si no hay ancho).
+      </div>
+    </div>
+    <div>
+      <div class="cap"><code>white-space: pre;</code></div>
+      <div class="box ws-pre mono">
+Texto   con   espacios   y
+saltos de línea    preservados.
+      </div>
+    </div>
+    <div>
+      <div class="cap"><code>white-space: pre-wrap;</code></div>
+      <div class="box ws-prewrap mono">
+Texto   con   espacios   preservados
+y también permite envolver líneas.
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>3) Cortes de palabras largas</h2>
+  <p class="hint">Útil para URLs, códigos o identificadores infinitos que rompen el layout.</p>
+  <div class="grid">
+    <div>
+      <div class="cap"><code>overflow-wrap: normal;</code></div>
+      <div class="box ow-normal">
+        PalabraLarguísimaSinPuntosDeCorte_123456789ABCDEFGHIJK
+      </div>
+    </div>
+    <div>
+      <div class="cap"><code>overflow-wrap: break-word;</code></div>
+      <div class="box ow-break">
+        PalabraLarguísimaSinPuntosDeCorte_123456789ABCDEFGHIJK
+      </div>
+    </div>
+    <div>
+      <div class="cap"><code>overflow-wrap: anywhere;</code></div>
+      <div class="box ow-anywhere">
+        PalabraLarguísimaSinPuntosDeCorte_123456789ABCDEFGHIJK
+      </div>
+    </div>
+  </div>
+  <p class="hint">Alternativa: <code>word-break: break-all;</code> (rompe más agresivo, puede cortar palabras normales).</p>
+</section>
+
+<section>
+  <h2>4) <code>word-break</code></h2>
+  <div class="grid">
+    <div>
+      <div class="cap"><code>word-break: normal;</code></div>
+      <div class="box wb-normal">
+        Supercalifragilisticoespialidoso en varias líneas si hace falta.
+      </div>
+    </div>
+    <div>
+      <div class="cap"><code>word-break: break-all;</code></div>
+      <div class="box wb-breakall">
+        Supercalifragilisticoespialidoso rompe en cualquier carácter si es necesario.
+      </div>
+    </div>
+    <div>
+      <div class="cap"><code>word-break: keep-all;</code></div>
+      <div class="box wb-keepall">
+        Texto continuo que intenta evitar cortes dentro de palabras.
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>5) Guionado con <code>hyphens</code></h2>
+  <p class="hint">Permite cortes con guion (‑). Requiere diccionarios del navegador/idioma correcto.</p>
+  <div class="grid">
+    <div>
+      <div class="cap"><code>hyphens: none;</code></div>
+      <div class="box hy-none" lang="es">
+        Internacionalización y accesibilidad mejoran la experiencia de usuario en dispositivos móviles.
+      </div>
+    </div>
+    <div>
+      <div class="cap"><code>hyphens: manual;</code> + <code>&amp;shy;</code></div>
+      <div class="box hy-manual" lang="es">
+        Internacio&shy;nalización y accesibi&shy;lidad con puntos de corte manuales.
+      </div>
+    </div>
+    <div>
+      <div class="cap"><code>hyphens: auto;</code></div>
+      <div class="box hy-auto" lang="es">
+        Internacionalización y accesibilidad mejoran la experiencia de usuario en dispositivos móviles.
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>6) Puntos suspensivos (una línea)</h2>
+  <p class="hint"><code>text-overflow: ellipsis;</code> necesita ancho limitado, <code>overflow:hidden</code> y normalmente <code>white-space: nowrap</code>.</p>
+  <div class="demo" style="width:100%">
+    <div class="cap"><code>.ellipsis</code> (corta en 1 línea)</div>
+    <div class="box ellipsis" style="max-width:420px;">
+      Este es un texto muy largo que no entra en una sola línea y queremos que termine con puntos suspensivos…
+    </div>
+  </div>
+  <pre><code>.title{
+  max-width: 420px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}</code></pre>
+</section>
+
+<section>
+  <h2>7) Clamp (N líneas)</h2>
+  <p class="hint">Para tarjetas/noticias: recorta a 3 líneas y agrega “…” implícitos.</p>
+  <div class="demo">
+    <div class="cap"><code>-webkit-line-clamp: 3;</code></div>
+    <div class="box clamp-3" style="max-width:420px;">
+      CSS nos permite controlar la cantidad de líneas visibles de un párrafo largo con line-clamp. Es ideal para tarjetas en grid, listados de noticias o catálogos, evitando que un texto excesivo rompa el layout y manteniendo consistencia visual.
+    </div>
+  </div>
+  <pre><code>.excerpt{
+  display:-webkit-box;
+  -webkit-line-clamp:3;
+  -webkit-box-orient:vertical;
+  overflow:hidden;
+}</code></pre>
+</section>
+
+<section>
+  <h2>8) Mini ejercicio</h2>
+  <p>Convertí las descripciones de una card en <strong>máximo 2 líneas</strong> con clamp y aplicá <code>overflow-wrap: break-word</code> para URLs:</p>
+<pre><code>.card__desc{
+  display:-webkit-box;
+  -webkit-line-clamp:2;
+  -webkit-box-orient:vertical;
+  overflow:hidden;
+  overflow-wrap: break-word;
+}</code></pre>
+</section>
+
+<section>
+  <h2>9) Resumen rápido</h2>
+  <ul>
+    <li><code>white-space</code> controla espacios y saltos (<code>nowrap</code> evita cortes).</li>
+    <li><code>overflow-wrap</code> / <code>break-word</code> rompen palabras largas sin arruinar el layout.</li>
+    <li><code>word-break: break-all</code> es agresivo: usalo con cuidado.</li>
+    <li><code>hyphens: auto</code> guiona palabras (según idioma).</li>
+    <li><code>text-overflow: ellipsis</code> = “…” en una línea.</li>
+    <li><strong>line-clamp</strong> corta a N líneas (ideal para tarjetas y listas).</li>
+  </ul>
+</section>
+
+</body>
+</html>

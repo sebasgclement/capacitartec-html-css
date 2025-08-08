@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Emmet – Turbo para HTML y CSS</title>
+<style>
+  :root{
+    --c1:#0d6efd; --c2:#6f42c1; --bg:#f5f7fa; --txt:#333; --bd:#dbe2ea;
+  }
+  body{ font-family: Arial, sans-serif; background:var(--bg); color:var(--txt); line-height:1.6; padding:20px; }
+  h1,h2{ color:var(--c1); }
+  section{
+    background:#fff; border:1px solid var(--bd); border-radius:10px; padding:16px; margin-bottom:20px;
+    box-shadow:0 2px 10px rgba(0,0,0,.06);
+  }
+  code, pre code{ background:#eef4ff; padding:2px 6px; border-radius:4px; }
+  pre{ background:#0b2447; color:#eaf2ff; padding:14px; border-radius:10px; overflow:auto; }
+  .grid{ display:grid; gap:14px; grid-template-columns: repeat(auto-fit,minmax(260px,1fr)); }
+  .pill{ display:inline-block; padding:3px 8px; border-radius:999px; background:#efeaff; color:#5b36c5; border:1px solid #d7ccff; font-size:.85rem; }
+  .note{ background:#fff6d6; border-left:5px solid #f6c000; padding:10px; border-radius:8px; }
+  .ok{ color:#198754; }
+  .kbd{ padding:.1rem .4rem; border:1px solid #ccd; border-bottom-width:2px; border-radius:6px; background:#f7f7fb; font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+</style>
+</head>
+<body>
+
+<h1>Emmet – Escribir HTML y CSS a la velocidad de la luz ⚡</h1>
+
+<section>
+  <h2>¿Qué es Emmet?</h2>
+  <p><strong>Emmet</strong> es un sistema de abreviaturas que expanden a código HTML/CSS completo en tu editor (VS Code lo trae incorporado). Escribís algo corto, apretás <span class="kbd">Tab</span> y ¡boom!, tenés la estructura lista.</p>
+  <div class="note"><strong>VS Code:</strong> Funciona por defecto. Si no expande con <span class="kbd">Tab</span>, verificá en <em>Settings → Emmet: Trigger Expansion On Tab</em> y que el lenguaje del archivo sea el correcto (HTML, CSS, etc.).</div>
+</section>
+
+<section>
+  <h2>Conceptos clave (sintaxis)</h2>
+  <ul>
+    <li><span class="pill">Multiplicación</span> <code>li*3</code> → repite elementos.</li>
+    <li><span class="pill">Hijos</span> <code>ul>li</code> | <span class="pill">Hermanos</span> <code>h1+p</code> | <span class="pill">Subir nivel</span> <code>section>h2^p</code>.</li>
+    <li><span class="pill">Clases</span> <code>.card</code> | <span class="pill">ID</span> <code>#hero</code> | <span class="pill">Atributos</span> <code>a[href="/"]</code>.</li>
+    <li><span class="pill">Texto</span> <code>a{Click aquí}</code>.</li>
+    <li><span class="pill">Numeración</span> <code>li.item$*5</code> → <code>.item1</code>, <code>.item2</code>… | <code>$$</code> agrega ceros: <code>01</code>, <code>02</code>.</li>
+    <li><span class="pill">Agrupar</span> <code>(header>nav>ul>li*3)>main+footer</code>.</li>
+    <li><span class="pill">Lipsum</span> <code>lorem10</code> → 10 palabras de texto de prueba.</li>
+    <li><span class="pill">Atajos HTML5</span> <code>!</code> → boilerplate; <code>link:css</code>, <code>script:src</code>, etc.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>HTML: ejemplos de uso</h2>
+  <div class="grid">
+    <div>
+      <p><strong>Navbar simple</strong></p>
+      <pre><code>nav>ul.nav>li*3>a{Item $}</code></pre>
+      <p class="ok">Expande a:</p>
+      <pre><code>&lt;nav&gt;
+  &lt;ul class="nav"&gt;
+    &lt;li&gt;&lt;a href=""&gt;Item 1&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=""&gt;Item 2&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=""&gt;Item 3&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/nav&gt;</code></pre>
+    </div>
+
+    <div>
+      <p><strong>Card con imagen y CTA</strong></p>
+      <pre><code>.card>img.card__img[src="img.jpg" alt=""]+h3.card__title{Título}+p.card__desc{lorem15}+a.btn[href="#"]{Comprar}</code></pre>
+    </div>
+
+    <div>
+      <p><strong>Formulario básico</strong></p>
+      <pre><code>form.form>(label[for=name]{Nombre}+input#name[type=text])+ (label[for=mail]{Email}+input#mail[type=email])+button.btn{Enviar}</code></pre>
+    </div>
+
+    <div>
+      <p><strong>Tabla rápida</strong></p>
+      <pre><code>table.table>(thead>tr>th*3{Col $})+(tbody>tr*3>td*3{Dato})</code></pre>
+    </div>
+
+    <div>
+      <p><strong>Layout base</strong></p>
+      <pre><code>header#top.header>h1{Sitio}+nav>ul>li*4>a{Enlace $}^^main>section.section*2>h2{Sección $}+p{lorem20}^^footer.footer{© 2025}</code></pre>
+    </div>
+
+    <div>
+      <p><strong>Links e imágenes</strong></p>
+      <pre><code>a[href="https://example.com" target=_blank]{Visitar} + img[alt="Paisaje" src="img/paisaje.jpg"]</code></pre>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>CSS: abreviaturas útiles</h2>
+  <p>En archivos <em>CSS/SCSS</em> Emmet expande propiedades completas:</p>
+  <div class="grid">
+    <div>
+      <p><strong>Box model</strong></p>
+      <pre><code>m10        → margin: 10px;
+mt8        → margin-top: 8px;
+p10-20     → padding: 10px 20px;
+w100       → width: 100px;
+h100p      → height: 100%;</code></pre>
+    </div>
+    <div>
+      <p><strong>Display & Flex</strong></p>
+      <pre><code>d:f        → display: flex;
+fd:c       → flex-direction: column;
+ai:c       → align-items: center;
+jc:sb      → justify-content: space-between;
+g10        → gap: 10px;</code></pre>
+    </div>
+    <div>
+      <p><strong>Posicionamiento</strong></p>
+      <pre><code>pos:a      → position: absolute;
+t0 l0      → top: 0; left: 0;
+z10        → z-index: 10;</code></pre>
+    </div>
+    <div>
+      <p><strong>Tipografía</strong></p>
+      <pre><code>ff:sans    → font-family: sans-serif;
+fw700      → font-weight: 700;
+fs14       → font-size: 14px;
+ta:c       → text-align: center;</code></pre>
+    </div>
+    <div>
+      <p><strong>Colores & fondo</strong></p>
+      <pre><code>c#333      → color: #333;
+bg#f5f5f5  → background: #f5f5f5;
+bgc#000.5  → background-color: rgba(0,0,0,.5);</code></pre>
+    </div>
+    <div>
+      <p><strong>Bordes & sombras</strong></p>
+      <pre><code>bd1s#ccc   → border: 1px solid #ccc;
+bdrs8      → border-radius: 8px;
+bxsh       → box-shadow: 0 0 0 #000; (luego ajustás valores)</code></pre>
+    </div>
+  </div>
+  <div class="note">
+    <strong>Tip:</strong> Si una abreviatura no expande, escribí la propiedad corta (ej. <code>bgc</code>) y apretá <span class="kbd">Tab</span>. Emmet sugiere variaciones en el Intellisense.
+  </div>
+</section>
+
+<section>
+  <h2>Atajos “estrella” para usar todos los días</h2>
+  <div class="grid">
+    <div>
+      <p><strong>Estructura HTML5</strong></p>
+      <pre><code>!</code></pre>
+      <p class="ok">Boilerplate completo (doctype, head, meta, body).</p>
+    </div>
+    <div>
+      <p><strong>Lista con texto</strong></p>
+      <pre><code>ul>li.item$*5{Elemento $}</code></pre>
+    </div>
+    <div>
+      <p><strong>Grilla de cards</strong></p>
+      <pre><code>.grid>.card*3>img.card__img[src="img$.jpg"]+h3.card__title{Card $}+p.card__txt{lorem10}</code></pre>
+    </div>
+    <div>
+      <p><strong>Formulario express</strong></p>
+      <pre><code>form>(label+input:text+br)*2+button{Enviar}</code></pre>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Flujo de trabajo recomendado</h2>
+  <ol>
+    <li>Escribí la abreviatura (pensá en <em>estructura</em>, no en etiquetas sueltas).</li>
+    <li>Presioná <span class="kbd">Tab</span> para expandir.</li>
+    <li>Movete con <span class="kbd">Tab</span> por los “cursos” (lugares editables) y completá textos/attrs.</li>
+    <li>Usá <span class="kbd">Wrap with Abbreviation</span> (⌘/Ctrl+Shift+P) para envolver contenido existente.</li>
+  </ol>
+</section>
+
+<section>
+  <h2>Mini ejercicio</h2>
+  <p>Escribí y expandí esta abreviatura para una <strong>landing simple</strong>:</p>
+  <pre><code>header.header>h1.logo{Marca}+nav>ul.menu>li*4>a[href="#"]{Sección $}^^main>section.hero>.hero__content>h2{Título destacado}+p{lorem20}+a.btn[href="#"]{Empezar}^^footer.footer>p{© 2025}</code></pre>
+</section>
+
+<section>
+  <h2>Resumen machetero</h2>
+  <ul>
+    <li><strong>&gt;</strong> hijo | <strong>+</strong> hermano | <strong>^</strong> subir | <strong>*</strong> repetir | <strong>{}</strong> texto | <strong>[]</strong> atributos.</li>
+    <li><strong>.</strong> clase | <strong>#</strong> id | <strong>$</strong> numeración.</li>
+    <li><strong>!</strong> HTML5 rápido | <strong>loremN</strong> texto muestra | <strong>link:css</strong>, <strong>script:src</strong>.</li>
+    <li>En CSS, abreviaturas como <code>d:f</code>, <code>ai:c</code>, <code>jc:c</code>, <code>m10</code>, <code>p10-20</code>, <code>bd1s#ccc</code>, <code>bdrs8</code>, <code>c#333</code>, <code>bg#eee</code>.</li>
+  </ul>
+</section>
+
+</body>
+</html>

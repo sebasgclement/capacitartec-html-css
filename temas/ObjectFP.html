@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>object-fit y object-position (CSS)</title>
+<style>
+  :root{
+    --c1:#0d6efd; --c2:#6f42c1; --bg:#f5f7fa; --txt:#333; --bd:#dbe2ea;
+  }
+  body{ font-family: Arial, sans-serif; background:var(--bg); color:var(--txt); line-height:1.6; padding:20px; }
+  h1,h2{ color:var(--c1); }
+  section{
+    background:#fff; border:1px solid var(--bd); border-radius:10px; padding:16px; margin-bottom:20px;
+    box-shadow:0 2px 10px rgba(0,0,0,.06);
+  }
+  code{ background:#eef4ff; padding:2px 6px; border-radius:4px; }
+  .grid{ display:grid; gap:14px; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); }
+  .card{
+    border:1px solid var(--bd); border-radius:10px; background:#fafafa; padding:10px;
+  }
+
+  /* Contenedores fijos para ver el recorte */
+  .frame{
+    width:100%; aspect-ratio: 16/10; /* contenedor "marco" */
+    border-radius:10px; overflow:hidden; background:#e9eef5; display:grid; place-items:center;
+  }
+  .frame.tall{ aspect-ratio: 3/4; }
+  .frame.wide{ aspect-ratio: 21/9; }
+
+  /* Las imágenes y videos ocupan todo el marco por defecto para comparar */
+  .fit-demo{
+    width:100%; height:100%; display:block; background:#cfe2ff;
+    object-fit: contain; /* se sobreescribe en cada demo */
+    object-position: center; /* default */
+  }
+
+  /* Etiquetas */
+  .cap{ font-size:.9rem; color:#556; margin:.25rem 0 .5rem; }
+  .hint{ font-size:.9rem; color:#667; }
+  .pill{
+    display:inline-block; padding:4px 8px; border-radius:999px; background:#eef4ff; border:1px solid #cfe0ff; color:#0b5ed7; font-size:.85rem;
+  }
+
+  /* Demos específicas */
+  .contain  .fit-demo{ object-fit: contain; }
+  .cover    .fit-demo{ object-fit: cover; }
+  .fill     .fit-demo{ object-fit: fill; }
+  .none     .fit-demo{ object-fit: none; }
+  .scale    .fit-demo{ object-fit: scale-down; }
+
+  /* object-position */
+  .pos-center .fit-demo{ object-position: 50% 50%; }
+  .pos-top    .fit-demo{ object-position: top; }
+  .pos-bottom .fit-demo{ object-position: bottom; }
+  .pos-left   .fit-demo{ object-position: left; }
+  .pos-right  .fit-demo{ object-position: right; }
+  .pos-custom .fit-demo{ object-position: 20% 80%; } /* x% y% */
+
+  /* Extra: borde para ver deformación en fill */
+  .fill .frame{ outline:2px dashed #e68; }
+</style>
+</head>
+<body>
+
+<h1><code>object-fit</code> y <code>object-position</code></h1>
+
+<section>
+  <h2>1) ¿Qué son?</h2>
+  <p><strong>object-fit</strong> controla <em>cómo encaja</em> un contenido reemplazado (ej: <code>&lt;img&gt;</code>, <code>&lt;video&gt;</code>) dentro de su contenedor cuando hay <strong>diferencia de proporciones</strong>.</p>
+  <p><strong>object-position</strong> define <em>desde qué punto</em> se recorta o alinea la imagen/video dentro del contenedor.</p>
+  <ul>
+    <li>Valores de <code>object-fit</code>: <code>contain</code>, <code>cover</code>, <code>fill</code>, <code>none</code>, <code>scale-down</code>.</li>
+    <li>Valores de <code>object-position</code>: palabras clave (<code>top</code>, <code>left</code>, <code>center</code>…), o coordenadas (<code>20% 80%</code>, <code>10px 5px</code>).</li>
+  </ul>
+  <p class="hint">Útil en <strong>cards</strong>, <strong>galerías</strong>, <strong>thumbnails</strong> y <strong>headers</strong> donde el recorte importa.</p>
+</section>
+
+<section>
+  <h2>2) Demos de <code>object-fit</code></h2>
+  <div class="grid">
+    <div class="card contain">
+      <div class="cap"><span class="pill">contain</span> — Ajusta sin recortar (puede dejar “bandas”)</div>
+      <div class="frame">
+        <img class="fit-demo" src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=1200" alt="Paisaje" />
+      </div>
+    </div>
+
+    <div class="card cover">
+      <div class="cap"><span class="pill">cover</span> — Rellena recortando lo que sobre</div>
+      <div class="frame">
+        <img class="fit-demo" src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=1200" alt="Paisaje" />
+      </div>
+    </div>
+
+    <div class="card fill">
+      <div class="cap"><span class="pill">fill</span> — Estira para ocupar (puede <strong>deformar</strong>)</div>
+      <div class="frame">
+        <img class="fit-demo" src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=1200" alt="Paisaje" />
+      </div>
+    </div>
+
+    <div class="card none">
+      <div class="cap"><span class="pill">none</span> — No escala ni recorta (puede desbordar)</div>
+      <div class="frame">
+        <img class="fit-demo" src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=1200" alt="Paisaje" />
+      </div>
+    </div>
+
+    <div class="card scale">
+      <div class="cap"><span class="pill">scale-down</span> — Elige entre <em>none</em> o <em>contain</em>, la que deje la imagen más chica</div>
+      <div class="frame">
+        <img class="fit-demo" src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=1200" alt="Paisaje" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>3) Demos de <code>object-position</code> (con <code>object-fit: cover</code>)</h2>
+  <p class="hint">Cuando recortás con <code>cover</code>, elegí la parte “importante” de la imagen.</p>
+  <div class="grid">
+    <div class="card pos-center cover">
+      <div class="cap"><code>center</code> (50% 50%)</div>
+      <div class="frame tall">
+        <img class="fit-demo" src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?q=80&w=1200" alt="Retrato" />
+      </div>
+    </div>
+
+    <div class="card pos-top cover">
+      <div class="cap"><code>top</code></div>
+      <div class="frame tall">
+        <img class="fit-demo" src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?q=80&w=1200" alt="Retrato" />
+      </div>
+    </div>
+
+    <div class="card pos-bottom cover">
+      <div class="cap"><code>bottom</code></div>
+      <div class="frame tall">
+        <img class="fit-demo" src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?q=80&w=1200" alt="Retrato" />
+      </div>
+    </div>
+
+    <div class="card pos-left cover">
+      <div class="cap"><code>left</code></div>
+      <div class="frame wide">
+        <img class="fit-demo" src="https://images.unsplash.com/photo-1549880338-65ddcdfd017b?q=80&w=1200" alt="Ciudad" />
+      </div>
+    </div>
+
+    <div class="card pos-right cover">
+      <div class="cap"><code>right</code></div>
+      <div class="frame wide">
+        <img class="fit-demo" src="https://images.unsplash.com/photo-1549880338-65ddcdfd017b?q=80&w=1200" alt="Ciudad" />
+      </div>
+    </div>
+
+    <div class="card pos-custom cover">
+      <div class="cap"><code>20% 80%</code> (x% y%)</div>
+      <div class="frame wide">
+        <img class="fit-demo" src="https://images.unsplash.com/photo-1549880338-65ddcdfd017b?q=80&w=1200" alt="Ciudad" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>4) También funciona con <code>&lt;video&gt;</code></h2>
+  <div class="grid">
+    <div class="card cover">
+      <div class="cap"><code>object-fit: cover</code> + <code>object-position: center</code></div>
+      <div class="frame">
+        <video class="fit-demo" autoplay muted loop playsinline
+               src="https://cdn.coverr.co/videos/coverr-calm-sea-2521/1080p.mp4"></video>
+      </div>
+    </div>
+    <div class="card contain">
+      <div class="cap"><code>object-fit: contain</code></div>
+      <div class="frame">
+        <video class="fit-demo" autoplay muted loop playsinline
+               src="https://cdn.coverr.co/videos/coverr-calm-sea-2521/1080p.mp4"></video>
+      </div>
+    </div>
+  </div>
+  <p class="hint">Ideal para headers con video responsivo sin deformar.</p>
+</section>
+
+<section>
+  <h2>5) Código base</h2>
+  <pre><code>/* Imagen/Video responsivo dentro de un marco fijo */
+.card__media{
+  width:100%; height:100%;
+  object-fit: cover;          /* o contain/none/fill/scale-down */
+  object-position: center;    /* o top/left/20% 80% etc. */
+}
+/* El contenedor define la proporción/recorte */
+.card__frame{
+  aspect-ratio: 16/9; /* o 1/1 para cuadrado, 3/4 vertical */
+  overflow:hidden; border-radius:10px;
+}</code></pre>
+</section>
+
+<section>
+  <h2>6) Mini ejercicio</h2>
+  <p>Hacé que la imagen de portada de una card se vea siempre completa en móvil sin bandas laterales:</p>
+  <pre><code>.card__frame{ aspect-ratio: 4/3; overflow:hidden; }
+.card__img{
+  width:100%; height:100%;
+  object-fit: cover;
+  object-position: 50% 30%; /* priorizá el sujeto (ojos/rostro) */
+}</code></pre>
+</section>
+
+<section>
+  <h2>7) Resumen rápido</h2>
+  <ul>
+    <li><code>contain</code> = todo visible (puede dejar banda gris/espacio).</li>
+    <li><code>cover</code> = llena el marco recortando bordes (lo más usado en cards/headers).</li>
+    <li><code>fill</code> = deforma para ocupar (evitalo salvo casos puntuales).</li>
+    <li><code>none</code> = sin escala (puede desbordar).</li>
+    <li><code>scale-down</code> = elige entre <em>none</em> o <em>contain</em> (la menor).</li>
+    <li><code>object-position</code> te deja “encuadrar” la parte importante.</li>
+  </ul>
+</section>
+
+</body>
+</html>

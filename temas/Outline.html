@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>CSS Outline</title>
+<style>
+  :root{
+    --c1:#198754; --c2:#20c997; --bg:#f6f8f9; --txt:#333; --bd:#dbe2ea;
+  }
+  body{ font-family: Arial, sans-serif; background:var(--bg); color:var(--txt); line-height:1.6; padding:20px; }
+  h1,h2{ color:var(--c1); }
+  section{
+    background:#fff; border:1px solid var(--bd); border-radius:10px; padding:16px; margin-bottom:20px;
+    box-shadow:0 2px 10px rgba(0,0,0,.05);
+  }
+  code{ background:#eef7f2; padding:2px 6px; border-radius:4px; }
+  .grid{ display:grid; gap:14px; grid-template-columns: repeat(auto-fit,minmax(200px,1fr)); }
+  .card{ border:1px solid var(--bd); border-radius:10px; background:#fafafa; padding:10px; text-align:center; }
+  .demo{
+    padding:20px; background:#fff; border:1px solid #ccc; margin-top:8px;
+  }
+  .pill{
+    display:inline-block; padding:4px 8px; border-radius:999px; background:#e6f4ec; border:1px solid #b2dfc5; color:#146c43; font-size:.85rem;
+  }
+  /* Ejemplos de outline */
+  .outline-basic{ outline:2px solid #198754; }
+  .outline-dotted{ outline:3px dotted #0d6efd; }
+  .outline-dashed{ outline:3px dashed #d63384; }
+  .outline-double{ outline:5px double #fd7e14; }
+  .outline-offset{ outline:3px solid #20c997; outline-offset:8px; }
+  .outline-none:focus{ outline:none; border-color:#dc3545; }
+</style>
+</head>
+<body>
+
+<h1>Propiedad <code>outline</code> en CSS</h1>
+
+<section>
+  <h2>1) ¿Qué es <code>outline</code>?</h2>
+  <p><strong>outline</strong> es una línea que se dibuja <em>por fuera</em> del borde (<code>border</code>) de un elemento.  
+  A diferencia de <code>border</code>, <strong>no ocupa espacio</strong> ni afecta al flujo de la página.</p>
+  <ul>
+    <li>Se usa mucho para <strong>enfocar elementos</strong> (<em>focus</em>), especialmente en accesibilidad.</li>
+    <li>Puede tener color, grosor, estilo y también <code>outline-offset</code> para separar la línea del elemento.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>2) Sintaxis</h2>
+  <pre><code>outline: &lt;grosor&gt; &lt;estilo&gt; &lt;color&gt;;
+
+/* Ejemplo */
+outline: 3px solid red;
+
+outline-color: red;
+outline-style: dashed;
+outline-width: 4px;
+
+outline-offset: 6px; /* separa la línea del borde */</code></pre>
+</section>
+
+<section>
+  <h2>3) Ejemplos visuales</h2>
+  <div class="grid">
+    <div class="card">
+      <span class="pill">Solid</span>
+      <div class="demo outline-basic">outline: 2px solid verde</div>
+    </div>
+    <div class="card">
+      <span class="pill">Dotted</span>
+      <div class="demo outline-dotted">outline: 3px dotted azul</div>
+    </div>
+    <div class="card">
+      <span class="pill">Dashed</span>
+      <div class="demo outline-dashed">outline: 3px dashed rosa</div>
+    </div>
+    <div class="card">
+      <span class="pill">Double</span>
+      <div class="demo outline-double">outline: 5px double naranja</div>
+    </div>
+    <div class="card">
+      <span class="pill">Offset</span>
+      <div class="demo outline-offset">outline-offset: 8px</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>4) Usos en accesibilidad</h2>
+  <p>Cuando navegamos con teclado, el navegador dibuja un <em>outline</em> automático para indicar el elemento activo.</p>
+  <pre><code>button:focus{
+  outline: 3px solid #0d6efd;
+  outline-offset: 4px;
+}</code></pre>
+  <p class="hint">No lo elimines sin dar una alternativa visual, ya que es clave para usuarios que navegan con teclado.</p>
+</section>
+
+<section>
+  <h2>5) Ejemplo de quitar outline (no recomendado sin reemplazo)</h2>
+  <div class="demo">
+    <input type="text" class="outline-none" placeholder="Hacé click o tab acá">
+  </div>
+  <pre><code>.outline-none:focus{
+  outline: none; /* cuidado! */
+  border: 2px solid red; /* reemplazo visual */
+}</code></pre>
+</section>
+
+<section>
+  <h2>6) Resumen rápido</h2>
+  <ul>
+    <li><strong>outline</strong> = línea por fuera del borde, no ocupa espacio.</li>
+    <li>No es lo mismo que <code>border</code> (que sí afecta el tamaño).</li>
+    <li><code>outline-offset</code> separa el outline del elemento.</li>
+    <li>Importante para accesibilidad (enfoque con teclado).</li>
+  </ul>
+</section>
+
+</body>
+</html>

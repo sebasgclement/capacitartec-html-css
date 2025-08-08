@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Selectores Avanzados en CSS</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f4f8;
+        color: #333;
+        padding: 20px;
+        line-height: 1.6;
+    }
+    h1, h2, h3 {
+        color: #005f73;
+    }
+    section {
+        background: white;
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    code {
+        background: #e0e0e0;
+        padding: 2px 5px;
+        border-radius: 4px;
+        font-size: 0.9em;
+    }
+    ul {
+        margin-left: 20px;
+    }
+
+    /* Selectores de atributos */
+    a[target] {
+        color: darkorange;
+    }
+    a[target="_blank"] {
+        font-weight: bold;
+    }
+    input[type="text"] {
+        border: 2px solid #005f73;
+    }
+    input[type^="pass"] {
+        border: 2px dashed #ae2012;
+    }
+    input[type$="mail"] {
+        border: 2px solid #9b2226;
+    }
+    input[type*="num"] {
+        border: 2px dotted #0a9396;
+    }
+
+    /* Combinadores */
+    div > p {
+        background: #e9d8a6;
+    }
+    h2 + p {
+        color: #ae2012;
+    }
+    h3 ~ p {
+        font-style: italic;
+    }
+
+    /* Pseudo-clases estructurales */
+    ul li:first-child {
+        font-weight: bold;
+    }
+    ul li:last-child {
+        color: #005f73;
+    }
+    ul li:nth-child(odd) {
+        background: #d8f3dc;
+    }
+    ul li:nth-of-type(2) {
+        text-decoration: underline;
+    }
+
+    /* Pseudo-clases de interacción */
+    a:hover {
+        color: #0a9396;
+        text-decoration: underline;
+    }
+    input:focus {
+        background: #fefae0;
+    }
+    button:active {
+        background: #ca6702;
+        color: white;
+    }
+</style>
+</head>
+<body>
+
+<h1>Selectores Avanzados en CSS</h1>
+
+<section>
+    <h2>1. Selectores de atributos</h2>
+    <p>Permiten aplicar estilos a elementos HTML en base a sus atributos y valores.</p>
+    <ul>
+        <li><code>[attr]</code>: elementos que tienen el atributo especificado.</li>
+        <li><code>[attr="valor"]</code>: elementos cuyo atributo tiene exactamente ese valor.</li>
+        <li><code>[attr^="valor"]</code>: atributo que comienza con el valor indicado.</li>
+        <li><code>[attr$="valor"]</code>: atributo que termina con el valor indicado.</li>
+        <li><code>[attr*="valor"]</code>: atributo que contiene el valor indicado.</li>
+    </ul>
+    <p><strong>Ejemplo:</strong></p>
+    <a href="https://example.com" target="_blank">Enlace externo</a> |
+    <a href="https://example.com">Enlace interno</a>
+    <br><br>
+    <input type="text" placeholder="Texto">
+    <input type="password" placeholder="Contraseña">
+    <input type="email" placeholder="Email">
+    <input type="number" placeholder="Número">
+</section>
+
+<section>
+    <h2>2. Combinadores</h2>
+    <p>Definen la relación entre elementos HTML para aplicar estilos:</p>
+    <ul>
+        <li><code>E1 > E2</code>: E2 es hijo directo de E1.</li>
+        <li><code>E1 + E2</code>: E2 es el elemento inmediatamente siguiente a E1.</li>
+        <li><code>E1 ~ E2</code>: E2 es cualquier hermano posterior de E1.</li>
+    </ul>
+    <p><strong>Ejemplo:</strong></p>
+    <div>
+        <p>Hijo directo de DIV</p>
+        <section>
+            <p>No es hijo directo de DIV</p>
+        </section>
+    </div>
+    <h2>Título H2</h2>
+    <p>Párrafo justo después de H2</p>
+    <h3>Título H3</h3>
+    <p>Párrafo después de H3</p>
+</section>
+
+<section>
+    <h2>3. Pseudo-clases estructurales</h2>
+    <p>Seleccionan elementos según su posición o tipo dentro de un contenedor:</p>
+    <ul>
+        <li><code>:first-child</code>: primer hijo.</li>
+        <li><code>:last-child</code>: último hijo.</li>
+        <li><code>:nth-child(n)</code>: hijo en la posición indicada (o patrón).</li>
+        <li><code>:nth-of-type(n)</code>: elemento del tipo especificado en esa posición.</li>
+    </ul>
+    <p><strong>Ejemplo:</strong></p>
+    <ul>
+        <li>Elemento 1 (primer hijo)</li>
+        <li>Elemento 2 (nth-of-type(2))</li>
+        <li>Elemento 3</li>
+        <li>Elemento 4</li>
+        <li>Elemento 5 (último hijo)</li>
+    </ul>
+</section>
+
+<section>
+    <h2>4. Pseudo-clases de interacción</h2>
+    <p>Estilos aplicados en respuesta a acciones del usuario:</p>
+    <ul>
+        <li><code>:hover</code>: cuando el cursor pasa por encima.</li>
+        <li><code>:focus</code>: cuando un elemento recibe foco (ej. input activo).</li>
+        <li><code>:active</code>: cuando el elemento está siendo clicado.</li>
+    </ul>
+    <p><strong>Ejemplo:</strong></p>
+    <a href="#">Pasa el mouse por aquí</a><br><br>
+    <input type="text" placeholder="Haz focus aquí"><br><br>
+    <button>Haz click aquí</button>
+</section>
+
+</body>
+</html>

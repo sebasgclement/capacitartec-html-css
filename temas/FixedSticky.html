@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Posición: fixed y sticky</title>
+<style>
+  :root{
+    --c1:#0d6efd; --c2:#d63384; --bg:#f5f7fa; --txt:#333;
+  }
+  body{
+    font-family: Arial, sans-serif;
+    background: var(--bg);
+    color: var(--txt);
+    line-height:1.6;
+    padding:20px;
+  }
+  h1,h2{ color: var(--c1); }
+  section{
+    background:#fff; border-radius:8px; padding:15px; margin-bottom:20px;
+    box-shadow:0 2px 8px rgba(0,0,0,.08);
+  }
+  code{ background:#eef4ff; padding:2px 6px; border-radius:4px; }
+  .ejemplo{
+    border:1px solid #ddd; border-radius:6px; padding:12px; background:#fafafa;
+  }
+
+  /* HEADER FIXED (siempre visible) */
+  .header-fixed{
+    position: fixed;
+    top:0; left:0; right:0;
+    background:#0d6efd; color:#fff; padding:10px 16px;
+    z-index: 1000;
+  }
+  .spacer{ height:60px; } /* para compensar el header fixed */
+
+  /* Botón “volver arriba” FIXED */
+  .btn-top{
+    position: fixed;
+    right:16px; bottom:16px;
+    background:#d63384; color:#fff; border:none; padding:10px 14px;
+    border-radius:999px; cursor:pointer; box-shadow:0 4px 12px rgba(0,0,0,.2);
+  }
+  .btn-top:hover{ filter:brightness(1.05); }
+
+  /* Sticky sidebar dentro de un contenedor scrollable */
+  .layout{
+    display:grid; grid-template-columns: 240px 1fr; gap:16px;
+  }
+  .contenedor{
+    border:1px dashed #bbb; border-radius:8px; padding:10px;
+    /* IMPORTANTE: que el contenedor NO tenga overflow:hidden para que sticky funcione bien */
+  }
+  .sidebar{
+    background:#fff; border:1px solid #ddd; border-radius:6px; padding:10px;
+    position: sticky; /* clave */
+    top: 80px;        /* umbral desde el top de la ventana */
+  }
+  .contenido{
+    background:#fff; border:1px solid #ddd; border-radius:6px; padding:10px;
+    min-height: 900px; /* solo para simular scroll */
+  }
+
+  /* Demostración de sticky en una tabla de contenidos */
+  .toc h3{ margin-top:0; color:var(--c2); }
+
+  /* Mini ejercicio caja pegajosa */
+  .box-ejercicio{
+    height: 120px; background:#eef; border:1px solid #99b; border-radius:6px; padding:8px;
+    position: sticky; top: 10px;
+  }
+</style>
+</head>
+<body>
+
+<!-- Header fijo real (para que lo vean en acción) -->
+<header class="header-fixed">
+  <strong>Header fijo</strong> — Siempre visible al hacer scroll
+</header>
+<div class="spacer" aria-hidden="true"></div>
+
+<h1>Posición: <code>fixed</code> y <code>sticky</code></h1>
+
+<section>
+  <h2>1) ¿Qué hacen?</h2>
+  <ul>
+    <li><strong>fixed</strong>: el elemento queda <em>fijo respecto a la ventana</em>. No se mueve al hacer scroll. No ocupa espacio en el flujo normal.</li>
+    <li><strong>sticky</strong>: el elemento se comporta como <em>estático</em> hasta que llega a un umbral (ej. <code>top: 80px</code>) y a partir de ahí se “pega” a la ventana <em>mientras su contenedor siga visible</em>.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>2) Ejemplo de <code>fixed</code></h2>
+  <div class="ejemplo">
+    <p>El <strong>header azul</strong> arriba es <code>position: fixed</code>. Queda siempre visible.</p>
+    <p>Además, tenés un botón rosado de “volver arriba” en la esquina inferior derecha (también con <code>fixed</code>).</p>
+  </div>
+</section>
+
+<section>
+  <h2>3) Ejemplo de <code>sticky</code></h2>
+  <div class="ejemplo contenedor">
+    <div class="layout">
+      <aside class="sidebar toc">
+        <h3>Índice (sticky)</h3>
+        <ol>
+          <li>Introducción</li>
+          <li>Conceptos</li>
+          <li>Ejemplos</li>
+          <li>Resumen</li>
+        </ol>
+        <small>Se queda “pegado” a <code>top:80px</code> al scrollear.</small>
+      </aside>
+      <article class="contenido">
+        <h3>Contenido largo</h3>
+        <p>Hacé scroll para ver cómo el índice se mantiene visible dentro de su contenedor.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer non metus vitae arcu tempor facilisis. Cras nec urna et enim laoreet posuere. Proin a ipsum sit amet justo sagittis pulvinar. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Curabitur sed mi ac lectus sodales varius. Suspendisse potenti. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Vestibulum consequat risus et lorem convallis, eu sodales odio iaculis. Donec a urna nec tellus tempor gravida. Aliquam id pulvinar nunc, a feugiat nunc. Sed nec laoreet est. Suspendisse vitae mi ac nisl condimentum hendrerit.</p>
+        <p>...</p>
+        <p style="margin-top:600px">Fin del contenido simulado.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>4) Diferencias y tips clave</h2>
+  <ul>
+    <li><strong>fixed</strong> ignora el flujo del documento y queda pegado a la ventana. Suele requerir <code>z-index</code> alto para pasar por encima de otros elementos.</li>
+    <li><strong>sticky</strong> necesita un <strong>umbral</strong> (<code>top</code>, <code>left</code>, <code>right</code>, <code>bottom</code>) para activarse.</li>
+    <li><strong>sticky</strong> solo funciona si <em>ningún ancestro</em> relevante tiene <code>overflow: hidden/auto/scroll</code> que recorte el flujo (puede romper el sticky).</li>
+    <li>Si tenés un header fijo, acordate de “compensar” con un <code>padding-top</code> o un <code>spacer</code> para que el contenido no quede tapado.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>5) Mini ejercicio</h2>
+  <p>Hacé que esta caja sea “pegajosa” a 10px del top mientras scrolleás esta sección (ya está resuelto abajo, mirá el CSS 👇).</p>
+  <div class="box-ejercicio">
+    Soy una caja <strong>sticky</strong> con <code>top:10px</code>. Probá a scrollear esta sección si el contenido fuese más largo.
+  </div>
+  <pre><code>.box-ejercicio{
+  position: sticky;
+  top: 10px;
+}</code></pre>
+</section>
+
+<section>
+  <h2>6) Resumen rápido</h2>
+  <ul>
+    <li><strong>fixed</strong> → Siempre visible en pantalla (header fijo, botón “volver arriba”).</li>
+    <li><strong>sticky</strong> → Se pega al llegar a un umbral, pero solo dentro de su contenedor.</li>
+    <li>Usá <code>z-index</code> si algo queda por debajo de un header fixed.</li>
+    <li>Para sticky: recordá definir <code>top</code> y evitar <code>overflow</code> en ancestros que corten el flujo.</li>
+  </ul>
+</section>
+
+<button class="btn-top" id="btnTop" aria-label="Volver arriba">↑</button>
+
+<script>
+  // Botón volver arriba (fixed)
+  const btn = document.getElementById('btnTop');
+  btn.addEventListener('click', ()=> window.scrollTo({top:0, behavior:'smooth'}));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Transiciones en CSS</title>
+<style>
+  :root{
+    --c1:#0d6efd; --c2:#d63384; --bg:#f5f7fa; --txt:#333; --ok:#198754; --warn:#fd7e14;
+  }
+  body{ font-family: Arial, sans-serif; background:var(--bg); color:var(--txt); line-height:1.6; padding:20px; }
+  h1,h2{ color:var(--c1); }
+  section{
+    background:#fff; border-radius:8px; padding:15px; margin-bottom:20px;
+    box-shadow:0 2px 8px rgba(0,0,0,.08);
+  }
+  code{ background:#eef4ff; padding:2px 6px; border-radius:4px; }
+  .grid{ display:grid; gap:14px; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); }
+
+  /* DEMOS */
+  .card{
+    border:1px solid #ddd; border-radius:10px; padding:16px; background:#fafafa;
+  }
+  .box{
+    width:80px; height:80px; border-radius:10px; background:var(--c1);
+    display:grid; place-items:center; color:#fff; font-weight:bold;
+  }
+
+  /* 1) Propiedad + duración + timing + delay */
+  .t1 .box{
+    transition-property: transform, background-color;
+    transition-duration: .6s, .6s;
+    transition-timing-function: ease;
+    transition-delay: 0s;
+  }
+  .t1 .box:hover{ transform: translateY(-8px) scale(1.06); background:var(--c2); }
+
+  /* 2) Shorthand y múltiples properties */
+  .t2 .box{
+    transition: transform .4s ease, box-shadow .4s ease;
+  }
+  .t2 .box:hover{
+    transform: translateY(-6px);
+    box-shadow:0 10px 20px rgba(0,0,0,.18);
+  }
+
+  /* 3) Timing functions comparadas */
+  .timing{ display:flex; gap:12px; align-items:center; }
+  .pill{
+    padding:6px 10px; border-radius:999px; background:#eef4ff; font-size:.9rem;
+    border:1px solid #cfe0ff;
+  }
+  .t3 .box{ transition: transform 1s; }
+  .t3 .box:hover{ transform: translateX(120px); }
+  .ease    .box{ transition-timing-function:ease; }
+  .linear  .box{ transition-timing-function:linear; }
+  .ease-in .box{ transition-timing-function:ease-in; }
+  .ease-out .box{ transition-timing-function:ease-out; }
+  .ease-in-out .box{ transition-timing-function:ease-in-out; }
+  .bezier  .box{ transition-timing-function:cubic-bezier(.22,1,.36,1); } /* easeOutQuint-ish */
+
+  /* 4) Delay / secuencia simple */
+  .t4 .box{ transition: transform .5s ease, background .5s ease .2s; }
+  .t4 .box:hover{ transform: rotate(6deg) scale(1.05); background:var(--ok); }
+
+  /* 5) Estados de foco: inputs */
+  .input-demo input{
+    padding:10px 12px; border:2px solid #ddd; border-radius:8px; outline:none;
+    transition: border-color .25s ease, box-shadow .25s ease;
+    width:100%;
+  }
+  .input-demo input:focus{
+    border-color: var(--c1);
+    box-shadow:0 0 0 4px rgba(13,110,253,.15);
+  }
+
+  /* 6) Buenas prácticas: transform + opacity (GPU-friendly) */
+  .t6 .card{ overflow:hidden; }
+  .t6 .box{
+    transition: transform .35s ease, opacity .35s ease;
+    opacity:.85;
+  }
+  .t6 .box:hover{
+    transform: translateY(-8px) scale(1.04);
+    opacity:1;
+  }
+
+  /* Mini ejercicio visual */
+  .exercise .chip{
+    display:inline-block; background:#eef4ff; border:1px solid #cfe0ff; color:#0b5ed7;
+    padding:8px 12px; border-radius:999px; margin:6px 8px 0 0;
+    transition: transform .25s ease, background .25s ease, color .25s ease;
+    cursor:default;
+  }
+  .exercise .chip:hover{ transform: translateY(-3px); background:#0b5ed7; color:#fff; }
+</style>
+</head>
+<body>
+
+<h1>Transiciones en CSS</h1>
+
+<section>
+  <h2>1) ¿Qué son?</h2>
+  <p>Las <strong>transiciones</strong> permiten <em>animar suavemente</em> los cambios entre dos estados de una propiedad (por ejemplo, color normal → color en <code>:hover</code>), sin usar JavaScript.</p>
+  <ul>
+    <li><code>transition-property</code>: qué propiedad(s) animar (ej: <code>transform</code>, <code>opacity</code>).</li>
+    <li><code>transition-duration</code>: cuánto dura (ej: <code>.3s</code>).</li>
+    <li><code>transition-timing-function</code>: curva de aceleración (ej: <code>ease</code>, <code>linear</code>, <code>cubic-bezier(...)</code>).</li>
+    <li><code>transition-delay</code>: cuándo empieza (ej: <code>.2s</code>).</li>
+  </ul>
+  <p>También podés usar el <strong>shorthand</strong> <code>transition</code> para definir todo en una sola línea.</p>
+</section>
+
+<section>
+  <h2>2) Ejemplo base</h2>
+  <div class="grid">
+    <div class="card t1">
+      <p><strong>Propiedad + duración</strong></p>
+      <div class="box">1</div>
+      <small>Poné el mouse encima</small>
+    </div>
+    <div class="card t2">
+      <p><strong>Shorthand + múltiples props</strong></p>
+      <div class="box">2</div>
+      <small>Transform + shadow</small>
+    </div>
+  </div>
+  <pre><code>/* Shorthand */
+.algo { transition: transform .4s ease, box-shadow .4s ease; }
+.algo:hover { transform: translateY(-6px); box-shadow:0 10px 20px rgba(0,0,0,.18); }</code></pre>
+</section>
+
+<section class="t3">
+  <h2>3) Timing functions (sensación del movimiento)</h2>
+  <div class="timing">
+    <span class="pill">ease</span>
+    <span class="pill">linear</span>
+    <span class="pill">ease-in</span>
+    <span class="pill">ease-out</span>
+    <span class="pill">ease-in-out</span>
+    <span class="pill">cubic-bezier(.22,1,.36,1)</span>
+  </div>
+  <div class="grid">
+    <div class="card ease"><div class="box">ease</div></div>
+    <div class="card linear"><div class="box">linear</div></div>
+    <div class="card ease-in"><div class="box">in</div></div>
+    <div class="card ease-out"><div class="box">out</div></div>
+    <div class="card ease-in-out"><div class="box">in/out</div></div>
+    <div class="card bezier"><div class="box">bezier</div></div>
+  </div>
+  <small>Pasá el mouse por cada caja y compará cómo acelera/frena.</small>
+</section>
+
+<section class="t4">
+  <h2>4) Delay y pequeñas secuencias</h2>
+  <p>Podés demorar una propiedad para crear efectos más “vivos”.</p>
+  <div class="card">
+    <div class="box">delay</div>
+  </div>
+  <pre><code>.box{ transition: transform .5s ease, background .5s ease .2s; }
+.box:hover{ transform: rotate(6deg) scale(1.05); background:#198754; }</code></pre>
+</section>
+
+<section class="input-demo">
+  <h2>5) Inputs con transiciones de foco</h2>
+  <input type="text" placeholder="Hacé foco aquí (TAB o click)">
+  <pre><code>input{
+  transition: border-color .25s ease, box-shadow .25s ease;
+}
+input:focus{
+  border-color:#0d6efd;
+  box-shadow:0 0 0 4px rgba(13,110,253,.15);
+}</code></pre>
+</section>
+
+<section class="t6">
+  <h2>6) Buenas prácticas</h2>
+  <ul>
+    <li><strong>Animá preferentemente</strong> <code>transform</code> y/o <code>opacity</code> (más fluido; menos repaints).</li>
+    <li>Algunas propiedades <strong>no se pueden animar</strong> (ej: <code>display</code>). Alternativa: animar <code>opacity</code>/<code>max-height</code>.</li>
+    <li>Definí un <strong>estado inicial y final</strong> claro (normal vs <code>:hover</code>/<code>.is-open</code>).</li>
+  </ul>
+  <div class="grid">
+    <div class="card">
+      <div class="box">OK</div>
+      <small>transform + opacity = suave</small>
+    </div>
+    <div class="card">
+      <p style="margin:0 0 6px"><strong>Hint:</strong> para “acordeón”, combiná <code>max-height</code> y <code>overflow:hidden</code>.</p>
+      <pre><code>.panel{ max-height:0; overflow:hidden; transition:max-height .4s ease; }
+.panel.is-open{ max-height:260px; }</code></pre>
+    </div>
+  </div>
+</section>
+
+<section class="exercise">
+  <h2>7) Mini ejercicio</h2>
+  <p>Crea “chips” interactivos que <em>suban</em> y cambien color al pasar el mouse (abajo ya están hechos para que te guíes):</p>
+  <div>
+    <span class="chip">HTML</span>
+    <span class="chip">CSS</span>
+    <span class="chip">JS</span>
+    <span class="chip">Accesibilidad</span>
+  </div>
+  <pre><code>.chip{
+  transition: transform .25s ease, background .25s ease, color .25s ease;
+}
+.chip:hover{ transform: translateY(-3px); background:#0b5ed7; color:#fff; }</code></pre>
+</section>
+
+<section>
+  <h2>8) Resumen rápido</h2>
+  <ul>
+    <li>Usá <code>transition</code> para animar el pasaje entre estados.</li>
+    <li>Propiedades clave: <code>property</code>, <code>duration</code>, <code>timing-function</code>, <code>delay</code>.</li>
+    <li>Shorthand: <code>transition: propiedad duración timing delay</code>.</li>
+    <li>Mejor rendimiento con <code>transform</code> y <code>opacity</code>.</li>
+    <li><code>display</code> no es animable: buscá alternativas (opacity, height/max-height).</li>
+  </ul>
+</section>
+
+</body>
+</html>
