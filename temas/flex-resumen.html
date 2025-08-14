@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Resumen — CSS Flexbox</title>
+<style>
+  :root{
+    --bg:#0f1320; --panel:#141a2a; --text:#e7e9ee; --muted:#a7b0c0;
+    --radius:14px; --border:#1f2640; --accent:#60a5fa; --warn:#fbbf24; --ok:#34d399;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:#0b0e19;color:var(--text);
+       font-family:ui-sans-serif,system-ui,Segoe UI,Roboto; line-height:1.55; padding:24px}
+  .wrap{max-width:1100px;margin:0 auto;display:flex;flex-direction:column;gap:18px}
+  h1,h2{margin:0 0 8px}
+  p.code, code, kbd{font-family:ui-monospace,Menlo,Consolas; font-size:12.5px}
+  .card{background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);padding:16px}
+  .muted{color:var(--muted)}
+  .grid{display:flex;flex-wrap:wrap;gap:12px}
+  .col{flex:1 1 480px}
+  .tag{display:inline-flex;align-items:center;gap:6px;padding:4px 8px;border-radius:999px;
+       background:#0f172a;border:1px solid #223154;color:#c7d2fe;font-size:12px}
+  table{width:100%;border-collapse:separate;border-spacing:0;overflow:hidden;border-radius:12px;border:1px solid #223154}
+  th,td{padding:10px 12px;border-bottom:1px solid #223154;vertical-align:top}
+  th{background:#0f172a;text-align:left}
+  tr:last-child td{border-bottom:0}
+  .good{color:var(--ok)} .warn{color:var(--warn)}
+  .pill{background:#0b1222;border:1px solid #203055;border-radius:10px;padding:8px 10px;display:inline-block}
+  .kbd{display:inline-block;border:1px solid #3a4a71;border-radius:6px;padding:2px 6px;background:#0f172a}
+  .list{display:flex;flex-wrap:wrap;gap:8px}
+  .note{font-size:13px;color:#93a2bd}
+  .hl{color:var(--accent)}
+  .demo{display:flex;gap:8px;flex-wrap:wrap}
+  .box{background:#0f172a;border:1px dashed #27406d;color:#cbd5e1;border-radius:10px;padding:6px 10px}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Resumen — CSS Flexbox</h1>
+    <p class="muted">Cheat‑sheet compacto con propiedades, valores por defecto, atajos y tips.</p>
+
+    <div class="card">
+      <div class="grid">
+        <div class="col">
+          <h2>Conceptos clave</h2>
+          <ul class="muted">
+            <li><b>Eje principal</b>: definido por <code>flex-direction</code> (por defecto, horizontal izquierda→derecha).</li>
+            <li><b>Eje cruzado</b>: perpendicular al principal.</li>
+            <li><b>Unidimensional</b>: Flexbox organiza en fila <i>o</i> columna (para 2D, suele convenir Grid).</li>
+            <li><b>Shorthand</b>: <code>flex</code> y <code>flex-flow</code> agrupan valores frecuentes.</li>
+          </ul>
+          <p class="note">Truco: <span class="pill">margin-left:auto</span> empuja un ítem hacia el extremo opuesto en <code>row</code>.</p>
+        </div>
+        <div class="col">
+          <h2>Ejes (visual)</h2>
+          <div class="demo">
+            <span class="tag">row → eje principal horizontal</span>
+            <span class="tag">column → eje principal vertical</span>
+            <span class="tag">justify-* → a lo largo del principal</span>
+            <span class="tag">align-* → a lo largo del cruzado</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Propiedades del contenedor (padre)</h2>
+      <table>
+        <tr>
+          <th>Propiedad</th><th>Valores comunes</th><th>Default</th><th>Notas</th>
+        </tr>
+        <tr>
+          <td><code>display</code></td>
+          <td><code>flex</code>, <code>inline-flex</code></td>
+          <td>—</td>
+          <td>Activa el contexto flex.</td>
+        </tr>
+        <tr>
+          <td><code>flex-direction</code></td>
+          <td><code>row</code>, <code>row-reverse</code>, <code>column</code>, <code>column-reverse</code></td>
+          <td><code>row</code></td>
+          <td>Define el eje principal.</td>
+        </tr>
+        <tr>
+          <td><code>flex-wrap</code></td>
+          <td><code>nowrap</code>, <code>wrap</code>, <code>wrap-reverse</code></td>
+          <td><code>nowrap</code></td>
+          <td>Permite múltiples líneas de ítems.</td>
+        </tr>
+        <tr>
+          <td><code>flex-flow</code></td>
+          <td><code>&lt;direction&gt; &lt;wrap&gt;</code> (p. ej. <code>row wrap</code>)</td>
+          <td><code>row nowrap</code></td>
+          <td>Atajo de <code>flex-direction</code> + <code>flex-wrap</code>.</td>
+        </tr>
+        <tr>
+          <td><code>justify-content</code></td>
+          <td><code>flex-start</code>, <code>center</code>, <code>flex-end</code>, <code>space-between</code>, <code>space-around</code>, <code>space-evenly</code></td>
+          <td><code>flex-start</code></td>
+          <td>Distribución a lo largo del eje principal.</td>
+        </tr>
+        <tr>
+          <td><code>align-items</code></td>
+          <td><code>stretch</code>, <code>flex-start</code>, <code>center</code>, <code>flex-end</code>, <code>baseline</code></td>
+          <td><code>stretch</code></td>
+          <td>Alineación en el eje cruzado (una sola línea).</td>
+        </tr>
+        <tr>
+          <td><code>align-content</code></td>
+          <td><code>stretch</code>, <code>flex-start</code>, <code>center</code>, <code>flex-end</code>, <code>space-between</code>, <code>space-around</code></td>
+          <td><code>normal</code> (efecto tipo <code>stretch</code>)</td>
+          <td>Solo aplica cuando hay <code>wrap</code> y múltiples líneas.</td>
+        </tr>
+        <tr>
+          <td><code>gap</code></td>
+          <td><code>row-gap</code>, <code>column-gap</code>, p. ej. <code>gap:12px</code></td>
+          <td><code>0</code></td>
+          <td>Espacio entre ítems (sí funciona en Flex).</td>
+        </tr>
+        <tr>
+          <td><code>place-content</code></td>
+          <td><code>&lt;align-content&gt; / &lt;justify-content&gt;</code></td>
+          <td>—</td>
+          <td>Atajo para contenido en ambos ejes (multi-línea).</td>
+        </tr>
+        <tr>
+          <td class="muted"><code>justify-items</code></td>
+          <td class="muted">—</td>
+          <td class="muted">—</td>
+          <td class="muted">No tiene efecto en contenedores flex.</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <h2>Propiedades de los ítems (hijos)</h2>
+      <table>
+        <tr>
+          <th>Propiedad</th><th>Valores</th><th>Default</th><th>Notas</th>
+        </tr>
+        <tr>
+          <td><code>order</code></td>
+          <td>Entero (negativo/positivo)</td>
+          <td><code>0</code></td>
+          <td><span class="warn">Cambia el orden visual</span>, no el del DOM (accesibilidad/tabbing).</td>
+        </tr>
+        <tr>
+          <td><code>flex-grow</code></td>
+          <td>Número ≥ 0</td>
+          <td><code>0</code></td>
+          <td>Proporción para crecer si sobra espacio.</td>
+        </tr>
+        <tr>
+          <td><code>flex-shrink</code></td>
+          <td>Número ≥ 0</td>
+          <td><code>1</code></td>
+          <td>Proporción para encogerse si falta espacio.</td>
+        </tr>
+        <tr>
+          <td><code>flex-basis</code></td>
+          <td><code>auto</code>, <code>content</code>, longitudes (px, %, etc.)</td>
+          <td><code>auto</code></td>
+          <td>Tamaño base preferido del ítem.</td>
+        </tr>
+        <tr>
+          <td><code>flex</code></td>
+          <td><code>&lt;grow&gt; &lt;shrink&gt; &lt;basis&gt;</code> (p. ej. <code>1 1 200px</code>)</td>
+          <td><code>0 1 auto</code></td>
+          <td>Atajo más usado.</td>
+        </tr>
+        <tr>
+          <td><code>align-self</code></td>
+          <td><code>auto</code>, <code>stretch</code>, <code>flex-start</code>, <code>center</code>, <code>flex-end</code>, <code>baseline</code></td>
+          <td><code>auto</code> (hereda de <code>align-items</code>)</td>
+          <td>Anula alineación del ítem individual.</td>
+        </tr>
+        <tr>
+          <td><code>min-width</code>/<code>min-height</code></td>
+          <td>longitudes</td>
+          <td>auto</td>
+          <td>Útiles para evitar “aplastamiento” excesivo.</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <h2>Valores por defecto más usados</h2>
+      <div class="list">
+        <span class="pill"><b>Contenedor:</b> <code>display:flex</code>, <code>flex-direction:row</code>, <code>flex-wrap:nowrap</code></span>
+        <span class="pill"><code>justify-content:flex-start</code>, <code>align-items:stretch</code>, <code>align-content:normal</code>, <code>gap:0</code></span>
+        <span class="pill"><b>Ítem:</b> <code>order:0</code>, <code>flex:0 1 auto</code>, <code>align-self:auto</code></span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Atajos útiles</h2>
+      <ul>
+        <li><code>flex:1</code> ≈ <code>1 1 0</code> (crece y se reparte por igual).</li>
+        <li><code>flex:0 0 260px</code> → ancho fijo tipo sidebar.</li>
+        <li><code>flex-flow: row wrap</code> → dirección + múltiples líneas en una.</li>
+        <li><code>place-content: center</code> → atajo de <code>align-content</code> + <code>justify-content</code> (multi-línea).</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>Gotchas / Errores comunes</h2>
+      <ul>
+        <li><span class="warn">Usar <code>align-content</code> sin <code>wrap</code></span>: no tendrá efecto.</li>
+        <li><span class="warn">Reordenar con <code>order</code></span> puede confundir a lectores de pantalla y el foco de teclado.</li>
+        <li>Texto “aplastado”: agrega <code>min-width</code>/<code>min-height</code> o limita <code>flex-shrink</code>.</li>
+        <li>Querer cuadrículas perfectas con Flex: para layouts 2D, <b>CSS Grid</b> suele ser mejor.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>Snippets rápidos</h2>
+      <p class="code">/* Repartir columnas iguales con salto por ancho */<br>
+.container { display:flex; flex-wrap:wrap; gap:12px; }<br>
+.col { flex:1 1 240px; }</p>
+
+      <p class="code">/* Empujar un ítem al extremo derecho en row */<br>
+.toolbar { display:flex; }<br>
+.spacer { margin-left:auto; }</p>
+
+      <p class="code">/* Sidebar fija + contenido flexible */<br>
+.layout { display:flex; gap:16px; }<br>
+.sidebar { flex:0 0 260px; }<br>
+.content { flex:1 1 600px; }</p>
+
+      <p class="code">/* Evitar aplastamiento excesivo */<br>
+.card { flex:1 1 300px; min-width:280px; }</p>
+    </div>
+
+    <div class="card">
+      <h2>Cuándo usar Flex vs Grid</h2>
+      <ul>
+        <li class="good"><b>Flex:</b> barras, cards en fila/columna, alineaciones simples, componentes.</li>
+        <li class="good"><b>Grid:</b> layouts de página, rejillas 2D, alineaciones por filas y columnas a la vez.</li>
+      </ul>
+      <p class="note">Podés combinarlos: Grid para el layout general y Flex dentro de cada sección/componente.</p>
+    </div>
+  </div>
+</body>
+</html>

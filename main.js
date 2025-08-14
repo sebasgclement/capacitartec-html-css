@@ -1,15 +1,56 @@
-const modal = document.getElementById("modal");
+// Elementos del modal
+const modal      = document.getElementById("modal");
 const modalClose = document.getElementById("modalClose");
-const modalHtml = document.getElementById("modalHtml");
-const modalPdf = document.getElementById("modalPdf");
-const modalImg = document.getElementById("modalImg");
+const modalBox   = document.querySelector(".modal-box");
+const modalHtml  = document.getElementById("modalHtml");
+const modalPdf   = document.getElementById("modalPdf");
+const modalImg   = document.getElementById("modalImg");
 
-// Validación defensiva
-if (!modal || !modalClose || !modalHtml || !modalPdf || !modalImg) {
-  console.error("Faltan elementos del modal en el HTML.");
+// Aviso
+const modalNotice = document.getElementById("modalNotice");
+const noticeClose = document.getElementById("noticeClose");
+const noticeTopic = document.getElementById("noticeTopic");
+
+// Helpers
+function clearMedia() {
+  if (modalHtml) { modalHtml.src = ""; modalHtml.hidden = true; }
+  if (modalPdf)  { modalPdf.src  = ""; modalPdf.hidden  = true; }
+  if (modalImg)  { modalImg.src  = ""; modalImg.hidden  = true; }
+}
+function hideAll() {
+  clearMedia();
+  if (modalNotice) modalNotice.hidden = true;
+  if (modalBox)    modalBox.hidden    = true;
+}
+function showNotice(topicText) {
+  hideAll();
+  if (noticeTopic) {
+    noticeTopic.textContent = topicText ? `Tema: ${topicText}` : "";
+    noticeTopic.style.display = topicText ? "inline-block" : "none";
+  }
+  modalNotice.hidden = false;         
+  modal.style.display = "flex";
+  setTimeout(() => noticeClose?.focus(), 0);
+}
+function openModalWith(type, src) {
+  hideAll();
+  modalBox.hidden = false;            
+
+  if (type === "html") { modalHtml.src = src; modalHtml.hidden = false; }
+  else if (type === "pdf") { modalPdf.src = src; modalPdf.hidden = false; }
+  else if (type === "img") { modalImg.src = src; modalImg.hidden = false; }
+  else { showNotice(); return; }
+
+  modal.style.display = "flex";
+}
+function closeModal() {
+  modal.style.display = "none";
+  hideAll();
 }
 
+// =====================
 // Mapeo de temas
+// =====================
 const contentMap = {
   //HTML básico
   Historia: {
@@ -143,6 +184,11 @@ const contentMap = {
   'Css avanzado':{
     type: "html",
     content: "temas/ResumenCCSI.html",
+    enabled: false
+  },
+  'CSS flexbox':{
+    type: "html",
+    content: "temas/flex-resumen.html",
     enabled: false
   },
   //Ejercicios
@@ -310,64 +356,61 @@ const contentMap = {
     enabled: false
   },
   //CSS Flexbox
+  'Introducción a Flexbox':{
+    type: "html",
+    content: "temas/flex-introduccion.html",
+    enabled: false
+  },
+  'Flex Direction, Wrap y Flow':{
+    type: "html",
+    content: "temas/flex-direction-wrap-flow.html",
+    enabled: false
+  },
+  'Alineación en los ejes':{
+    type: "html",
+    content: "temas/flex-align-ejes.html",
+    enabled: false
+  },
+  Order:{
+    type: "html",
+    content: "temas/flex-order.html",
+    enabled: false
+  },
+  'Flex Basis, Shrink y Grow':{
+    type: "html",
+    content: "temas/flex-basis-shrink-grow.html",
+    enabled: false
+  },
+  'Align Self':{
+    type: "html",
+    content: "temas/flex-align-self.html",
+    enabled: false
+  },
+  'Layout con Flexbox':{
+    type: "html",
+    content: "temas/flex-layout-sin-media-queries.html",
+    enabled: false
+  },
+  //Responsive design
 };
 
+// Listeners
 document
   .querySelectorAll("#clases ul li, #recursos ul li, #consultas ul li")
   .forEach((item) => {
     item.addEventListener("click", (e) => {
       e.stopPropagation();
-
       const texto = item.textContent.trim();
       const data = contentMap[texto];
 
-      if (!data || data.enabled === false) {
-        alert("Contenido no disponible.");
-        return;
-      }
-
-      // Ocultar todos
-      modalHtml.style.display = "none";
-      modalPdf.style.display = "none";
-      modalImg.style.display = "none";
-
-      // Limpiar src
-      modalHtml.src = "";
-      modalPdf.src = "";
-      modalImg.src = "";
-
-      // Mostrar el que corresponde
-      switch (data.type) {
-        case "html":
-          modalHtml.src = data.content;
-          modalHtml.style.display = "block";
-          break;
-        case "pdf":
-          modalPdf.src = data.content;
-          modalPdf.style.display = "block";
-          break;
-        case "img":
-          modalImg.src = data.content;
-          modalImg.style.display = "block";
-          break;
-      }
-
-      modal.style.display = "flex";
+      if (!data || data.enabled === false) { showNotice(texto); return; }
+      openModalWith(data.type, data.content);
     });
   });
 
-modalClose.addEventListener("click", () => {
-  modal.style.display = "none";
-  modalHtml.src = "";
-  modalPdf.src = "";
-  modalImg.src = "";
-});
-
-modal.addEventListener("click", (e) => {
-  if (e.target === modal) {
-    modal.style.display = "none";
-    modalHtml.src = "";
-    modalPdf.src = "";
-    modalImg.src = "";
-  }
+modalClose?.addEventListener("click", closeModal);
+modal?.addEventListener("click", (e) => { if (e.target === modal) closeModal(); });
+noticeClose?.addEventListener("click", closeModal);
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && modal?.style.display === "flex") closeModal();
 });

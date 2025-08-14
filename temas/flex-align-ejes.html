@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Alineación en los ejes — Flexbox</title>
+<style>
+  :root{--panel:#141a2a;--text:#e7e9ee;--muted:#a7b0c0;--radius:14px}
+  *{box-sizing:border-box} body{margin:0;background:#0b0e19;color:var(--text);font-family:ui-sans-serif,system-ui; padding:24px}
+  .wrap{max-width:1000px;margin:0 auto;display:flex;flex-direction:column;gap:20px}
+  .card{background:var(--panel);border:1px solid #1f2640;border-radius:var(--radius);padding:18px}
+  .legend{color:var(--muted);font-size:14px}
+  .area{display:flex;gap:10px;border:1px dashed #2a3659;border-radius:12px;padding:10px;background:#0f172a;min-height:120px}
+  .item{background:#1e293b;border:1px solid #334155;border-radius:10px;color:#cbd5e1;padding:10px 12px}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Alineación en los ejes</h1>
+    <p class="legend">Eje principal: controlado por <code>justify-content</code>. Eje cruzado: <code>align-items</code>. Múltiples líneas: <code>align-content</code>.</p>
+
+    <div class="card">
+      <h2>justify-content</h2>
+      <p class="legend">Espaciado a lo largo del eje principal (por defecto: horizontal).</p>
+      <div class="area" style="justify-content:flex-start"><div class="item">start</div><div class="item">item</div><div class="item">item</div></div>
+      <div class="area" style="justify-content:center"><div class="item">center</div><div class="item">item</div><div class="item">item</div></div>
+      <div class="area" style="justify-content:space-between"><div class="item">between</div><div class="item">item</div><div class="item">item</div></div>
+      <div class="area" style="justify-content:space-around"><div class="item">around</div><div class="item">item</div><div class="item">item</div></div>
+      <div class="area" style="justify-content:space-evenly"><div class="item">evenly</div><div class="item">item</div><div class="item">item</div></div>
+    </div>
+
+    <div class="card">
+      <h2>align-items</h2>
+      <p class="legend">Alineación transversal en una sola línea.</p>
+      <div class="area" style="align-items:flex-start;height:120px"><div class="item">start</div><div class="item">alto<br>múltiple</div><div class="item">item</div></div>
+      <div class="area" style="align-items:center;height:120px"><div class="item">center</div><div class="item">alto<br>múltiple</div><div class="item">item</div></div>
+      <div class="area" style="align-items:flex-end;height:120px"><div class="item">end</div><div class="item">alto<br>múltiple</div><div class="item">item</div></div>
+      <div class="area" style="align-items:stretch;height:120px"><div class="item" style="height:auto">stretch</div><div class="item" style="height:auto">auto</div><div class="item" style="height:auto">auto</div></div>
+    </div>
+
+    <div class="card">
+      <h2>align-content (cuando hay wrap)</h2>
+      <p class="legend">Alinea el conjunto de líneas en el eje cruzado (requiere <code>flex-wrap: wrap</code> y altura libre).</p>
+      <div class="area" style="flex-wrap:wrap;align-content:space-between;height:220px">
+        <div class="item">1</div><div class="item">2</div><div class="item">3</div><div class="item">4</div>
+        <div class="item">5</div><div class="item">6</div><div class="item">7</div><div class="item">8</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

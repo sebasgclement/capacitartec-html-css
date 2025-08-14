@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Flex Direction, Wrap y Flow</title>
+<style>
+  :root{--bg:#0f1320;--panel:#141a2a;--text:#e7e9ee;--muted:#a7b0c0;--radius:14px}
+  *{box-sizing:border-box} body{margin:0;background:#0b0e19;color:var(--text);font-family:ui-sans-serif,system-ui; padding:24px}
+  h1{margin:0 0 12px} .wrap{max-width:1000px;margin:0 auto;display:flex;flex-direction:column;gap:20px}
+  .card{background:var(--panel);border:1px solid #1f2640;border-radius:var(--radius);padding:18px}
+  .demo{display:flex;gap:12px;flex-wrap:wrap}
+  .row{display:flex;gap:8px;border:1px dashed #2a3659;border-radius:12px;padding:10px;background:#0f172a;min-height:64px}
+  .item{background:#1e293b;border:1px solid #334155;border-radius:10px;color:#cbd5e1;padding:8px 10px}
+  .legend{color:var(--muted);font-size:14px}
+  .note{font-size:13px;color:#93a2bd}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Flex Direction, Wrap y Flow</h1>
+    <p class="legend">Recordatorio: <code>flex-flow</code> combina <code>flex-direction</code> y <code>flex-wrap</code> en una sola propiedad.</p>
+
+    <div class="card">
+      <h2>flex-direction: row (por defecto)</h2>
+      <div class="row" style="flex-direction:row;">
+        <div class="item">1</div><div class="item">2</div><div class="item">3</div><div class="item">4</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>flex-direction: column</h2>
+      <div class="row" style="flex-direction:column; height: 190px;">
+        <div class="item">A</div><div class="item">B</div><div class="item">C</div>
+      </div>
+      <p class="note">El eje principal pasa a ser vertical y el “cross-axis” horizontal.</p>
+    </div>
+
+    <div class="card">
+      <h2>flex-wrap</h2>
+      <p class="legend"><code>wrap</code> permite que los ítems salten de línea; <code>nowrap</code> los mantiene en una sola fila/columna.</p>
+      <div class="row" style="flex-wrap:wrap;">
+        <div class="item">1</div><div class="item">2</div><div class="item">3</div><div class="item">4</div>
+        <div class="item">5</div><div class="item">6</div><div class="item">7</div><div class="item">8</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>flex-flow</h2>
+      <p class="legend"><code>flex-flow: row wrap;</code></p>
+      <div class="row" style="flex-flow: row wrap;">
+        <div class="item">a</div><div class="item">b</div><div class="item">c</div><div class="item">d</div>
+        <div class="item">e</div><div class="item">f</div><div class="item">g</div><div class="item">h</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

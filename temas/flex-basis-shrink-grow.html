@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Flex Basis, Shrink y Grow</title>
+<style>
+  :root{--panel:#141a2a;--text:#e7e9ee;--muted:#a7b0c0;--radius:14px}
+  *{box-sizing:border-box} body{margin:0;background:#0b0e19;color:var(--text);font-family:ui-sans-serif,system-ui; padding:24px}
+  .wrap{max-width:1000px;margin:0 auto;display:flex;flex-direction:column;gap:20px}
+  .card{background:var(--panel);border:1px solid #1f2640;border-radius:var(--radius);padding:18px}
+  .row{display:flex;gap:10px;border:1px dashed #2a3659;border-radius:12px;padding:10px;background:#0f172a}
+  .item{background:#1e293b;border:1px solid #334155;border-radius:10px;color:#cbd5e1;padding:10px 12px;text-align:center}
+  .legend{color:var(--muted);font-size:14px}
+  .code{font:12px ui-monospace,Menlo;background:#0f172a;border:1px solid #223154;border-radius:8px;padding:6px 8px;display:inline-block}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Flex Basis, Shrink y Grow</h1>
+    <p class="legend">
+      <code>flex-basis</code>: tamaño base preferido.<br>
+      <code>flex-grow</code>: cuánto crece si sobra espacio (proporción).<br>
+      <code>flex-shrink</code>: cuánto se encoge si falta espacio.
+    </p>
+
+    <div class="card">
+      <h2>flex-basis</h2>
+      <p class="legend">Tres ítems con bases diferentes.</p>
+      <div class="row">
+        <div class="item" style="flex:0 1 120px">120px</div>
+        <div class="item" style="flex:0 1 200px">200px</div>
+        <div class="item" style="flex:0 1 160px">160px</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>flex-grow</h2>
+      <p class="legend">Reparte espacio sobrante: 1 : 2 : 1</p>
+      <div class="row">
+        <div class="item" style="flex:1 1 120px">grow 1</div>
+        <div class="item" style="flex:2 1 120px">grow 2</div>
+        <div class="item" style="flex:1 1 120px">grow 1</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>flex-shrink</h2>
+      <p class="legend">Cuando falta espacio, el del medio se encoge menos (<code>shrink:0</code>).</p>
+      <div class="row" style="min-width:320px">
+        <div class="item" style="flex:1 1 260px">shrink 1</div>
+        <div class="item" style="flex:1 0 260px">shrink 0</div>
+        <div class="item" style="flex:1 1 260px">shrink 1</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Atajo: <code>flex: grow shrink basis</code></h2>
+      <div class="code">.col { flex: 1 1 200px; }</div>
+    </div>
+  </div>
+</body>
+</html>

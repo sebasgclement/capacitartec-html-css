@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Layout con Flexbox (sin media queries)</title>
+<style>
+  :root{
+    --bg:#0f1320; --panel:#141a2a; --text:#e7e9ee; --muted:#a7b0c0;
+    --radius:14px; --border:#1f2640;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:#0b0e19;color:var(--text);font-family:ui-sans-serif,system-ui; padding:24px}
+  .wrap{max-width:1200px;margin:0 auto;display:flex;flex-direction:column;gap:20px}
+  .card{background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);padding:18px}
+  .legend{color:var(--muted);font-size:14px}
+  /* LAYOUT */
+  .layout{display:flex;gap:16px;min-height:320px}
+  header,nav,main,aside,footer{
+    background:#0f172a;border:1px solid #223154;border-radius:12px;padding:12px
+  }
+  header,footer{display:flex;align-items:center;justify-content:space-between}
+  .top{display:flex;flex-direction:column;gap:16px}
+  .hero{display:flex;gap:16px}
+  .hero .left{flex:2;min-height:120px}
+  .hero .right{flex:1;min-height:120px}
+  .cols{display:flex;gap:16px}
+  .cols > *{flex:1;min-height:120px}
+  /* SIN media queries: forzamos flex-basis */
+  .sidebar{flex:0 0 260px}
+  .content{flex:1 1 600px;display:flex;flex-direction:column;gap:16px}
+  .stack{display:flex;gap:16px;flex-wrap:wrap}
+  .cardy{flex:1 1 260px;min-height:100px;background:#0b1222;border:1px dashed #2b3757;border-radius:10px;padding:10px}
+  /* Caja de advertencias */
+  .warn{background:#1f2937;border:1px solid #374151;border-radius:12px;padding:12px;color:#fbbf24}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Layout con Flexbox (sin media queries)</h1>
+    <p class="legend">Armamos un layout “completo” solo con Flexbox para evidenciar límites cuando NO usamos <code>@media</code>.</p>
+
+    <div class="card">
+      <header>
+        <strong>Logo</strong>
+        <nav style="display:flex;gap:10px;flex-wrap:wrap">
+          <span>Inicio</span><span>Cursos</span><span>Recursos</span><span>Contacto</span>
+        </nav>
+      </header>
+    </div>
+
+    <div class="layout">
+      <aside class="sidebar">Sidebar fija (260px)</aside>
+      <main class="content">
+        <div class="top">
+          <section class="hero">
+            <div class="left">Hero principal</div>
+            <div class="right">CTA / Imagen</div>
+          </section>
+          <section class="cols">
+            <div>Columna A</div>
+            <div>Columna B</div>
+            <div>Columna C</div>
+          </section>
+        </div>
+        <section class="stack">
+          <div class="cardy">Card 1</div>
+          <div class="cardy">Card 2</div>
+          <div class="cardy">Card 3</div>
+          <div class="cardy">Card 4</div>
+        </section>
+      </main>
+    </div>
+
+    <div class="card">
+      <footer>
+        <span>© 2025</span>
+        <span>Rafaela · AR</span>
+      </footer>
+    </div>
+
+    <div class="card warn">
+      <strong>Desventajas sin media queries:</strong>
+      <ul>
+        <li><b>Sidebars rígidas</b>: con <code>flex-basis</code> fijo (p. ej. 260px) en pantallas chicas invaden el contenido o generan scroll horizontal.</li>
+        <li><b>Texto aplastado</b>: columnas con <code>flex:1 1 600px</code> se encogen demasiado; la lectura se vuelve incómoda.</li>
+        <li><b>Orden visual ≠ semántico</b>: si reordenás con <code>order</code> para móvil/escritorio, sin media queries podés confundir usuarios/lectores de pantalla.</li>
+        <li><b>Alturas impredecibles</b>: al wrappear tarjetas, algunas quedan largas/cortas y el flujo no siempre luce “cuadriculado”.</li>
+        <li><b>Componentes mezclados</b>: un layout complejo suele requerir cambiar de 3 columnas → 1 columna; sin @media no tenés ese quiebre.</li>
+      </ul>
+      <p class="legend">Recomendación: combinar Flexbox con <b>@media</b> para redefinir <code>flex-basis</code>, <code>order</code>, <code>gap</code> y orientación (<code>row/column</code>) según ancho de pantalla. Para layouts generales, CSS Grid suele ser más cómodo.</p>
+    </div>
+  </div>
+</body>
+</html>

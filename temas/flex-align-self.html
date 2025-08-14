@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Align Self — Flexbox</title>
+<style>
+  :root{--panel:#141a2a;--text:#e7e9ee;--muted:#a7b0c0;--radius:14px}
+  *{box-sizing:border-box} body{margin:0;background:#0b0e19;color:var(--text);font-family:ui-sans-serif,system-ui; padding:24px}
+  .wrap{max-width:900px;margin:0 auto;display:flex;flex-direction:column;gap:20px}
+  .card{background:var(--panel);border:1px solid #1f2640;border-radius:var(--radius);padding:18px}
+  .row{display:flex;gap:10px;border:1px dashed #2a3659;border-radius:12px;padding:10px;background:#0f172a;height:180px;align-items:center}
+  .item{background:#1e293b;border:1px solid #334155;border-radius:10px;color:#cbd5e1;padding:10px 12px}
+  .legend{color:var(--muted);font-size:14px}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Align Self</h1>
+    <p class="legend">Override de <code>align-items</code> para un ítem específico.</p>
+
+    <div class="card">
+      <h2>Ejemplo</h2>
+      <p class="legend">El contenedor usa <code>align-items:center</code>, pero cada caja define su propio <code>align-self</code>.</p>
+      <div class="row">
+        <div class="item" style="align-self:flex-start">start</div>
+        <div class="item" style="align-self:center">center</div>
+        <div class="item" style="align-self:flex-end">end</div>
+        <div class="item" style="align-self:stretch;min-width:120px">stretch</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

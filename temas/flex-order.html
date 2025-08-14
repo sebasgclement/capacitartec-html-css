@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Order — Flexbox</title>
+<style>
+  :root{--panel:#141a2a;--text:#e7e9ee;--muted:#a7b0c0;--radius:14px}
+  *{box-sizing:border-box} body{margin:0;background:#0b0e19;color:var(--text);font-family:ui-sans-serif,system-ui; padding:24px}
+  .wrap{max-width:900px;margin:0 auto;display:flex;flex-direction:column;gap:20px}
+  .card{background:var(--panel);border:1px solid #1f2640;border-radius:var(--radius);padding:18px}
+  .row{display:flex;gap:10px;border:1px dashed #2a3659;border-radius:12px;padding:10px;background:#0f172a}
+  .item{background:#1e293b;border:1px solid #334155;border-radius:10px;color:#cbd5e1;padding:10px 12px}
+  .legend{color:var(--muted);font-size:14px}
+  .warn{color:#fbbf24}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Propiedad <code>order</code></h1>
+    <p class="legend">Cambia el orden visual de los ítems sin modificar el HTML. Útil para reordenar módulos, pero <span class="warn">¡ojo con la accesibilidad!</span> El orden del DOM sigue siendo el mismo para lectores de pantalla y tabulación.</p>
+
+    <div class="card">
+      <h2>Ejemplo simple</h2>
+      <div class="row">
+        <div class="item" style="order:2">A (2)</div>
+        <div class="item" style="order:3">B (3)</div>
+        <div class="item" style="order:1">C (1)</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Layout móvil vs escritorio (concepto)</h2>
+      <p class="legend">En móvil podrías mostrar primero el contenido y luego la sidebar. Con media queries cambias el <code>order</code>. Aquí lo ilustramos sin MQ:</p>
+      <div class="row" style="flex-wrap:wrap">
+        <div class="item" style="flex:1 1 240px; order:1">Contenido</div>
+        <div class="item" style="flex:1 1 160px; order:2">Sidebar</div>
+        <div class="item" style="flex:1 1 100%; order:3">Footer</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

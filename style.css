@@ -377,6 +377,90 @@ ul:not(.toolbox-list) li:not(.mano):not(.mano2):hover {
   cursor: pointer;
 }
 
+/* —— Modal Notice —— */
+.modal-notice {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  text-align: center;
+
+  background: rgba(20, 26, 42, 0.8);
+  border: 1px solid #1f2640;
+  border-radius: 14px;
+  padding: 22px;
+  box-shadow: 0 10px 35px rgba(0,0,0,.45);
+  backdrop-filter: blur(10px);
+  animation: pop-in .18s ease-out both;
+}
+
+.notice-icon {
+  font-size: 42px;
+  filter: drop-shadow(0 1px 0 rgba(255,255,255,.08));
+}
+
+.notice-title {
+  margin: 0;
+  font-size: 22px;
+  color: #e7e9ee;
+}
+
+.notice-text {
+  margin: 0;
+  color: #a7b0c0;
+  line-height: 1.55;
+}
+
+.notice-topic {
+  display: inline-block;
+  margin-top: 6px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: #0f172a;
+  border: 1px solid #223154;
+  color: #c7d2fe;
+  font-size: 12px;
+}
+
+/* Botones del notice (pueden reutilizar tus clases si ya las tenés) */
+.notice-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.btn {
+  cursor: pointer;
+  border-radius: 10px;
+  padding: 8px 14px;
+  border: 1px solid #223154;
+  background: #0f172a;
+  color: #e7e9ee;
+}
+
+.btn:hover { filter: brightness(1.15); }
+
+.btn-primary {
+  background: linear-gradient(180deg, #1a48a3, #2563eb);
+  border-color: #2a4fb8;
+}
+
+.btn-ghost {
+  background: transparent;
+  color: #cbd5e1;
+}
+
+/* Animación sutil */
+@keyframes pop-in {
+  from { transform: translateY(6px) scale(.98); opacity: 0; }
+  to   { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+
+/* Fuerza que hidden gane a cualquier display previo */
+[hidden] { display: none !important; }
 
 
 

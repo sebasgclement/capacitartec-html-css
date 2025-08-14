@@ -106,7 +106,7 @@
         <details>
           <summary><strong>CSS Flexbox</strong></summary>
           <ul>
-            <li>Introducción</li>
+            <li>Introducción a Flexbox</li>
             <li>Flex Direction, Wrap y Flow</li>
             <li>Alineación en los ejes</li>
             <li>Order</li>
@@ -254,13 +254,29 @@
     </footer>
 
     <!-- Ventana Modal -->
-    <div class="modal-overlay" id="modal">
-      <div class="modal-box">
-        <span class="modal-close" id="modalClose">&times;</span>
-        <iframe id="modalHtml" style="display: none" frameborder="0"></iframe>
-        <iframe id="modalPdf" style="display: none" frameborder="0"></iframe>
-        <img id="modalImg" style="display: none; max-width: 100%" />
-      </div>
+<div class="modal-overlay" id="modal">
+  <div class="modal-box">
+    <span class="modal-close" id="modalClose">&times;</span>
+    <iframe id="modalHtml" frameborder="0" hidden></iframe>
+    <iframe id="modalPdf"  frameborder="0" hidden></iframe>
+    <img id="modalImg" style="max-width:100%" hidden />
+  </div>
+      <!-- Aviso de contenido no disponible -->
+<div id="modalNotice" class="modal-notice" hidden>
+  <div class="notice-icon" aria-hidden="true">🚧</div>
+  <h2 class="notice-title">Contenido no disponible</h2>
+  <p class="notice-text">
+    Este recurso todavía no está habilitado. <br />
+    <span id="noticeTopic" class="notice-topic"></span>
+  </p>
+
+  <div class="notice-actions">
+    <button id="noticeClose" class="btn btn-primary">Entendido</button>
+    <!-- Opcional: link a consultas -->
+    <a href="#consultas" class="btn btn-ghost">Hacer una consulta</a>
+  </div>
+</div>
+
     </div>
 
     <script src="main.js"></script>

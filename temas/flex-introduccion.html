@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Flexbox — Introducción</title>
+<style>
+  :root{
+    --bg:#0f1320; --panel:#141a2a; --text:#e7e9ee; --muted:#a7b0c0;
+    --brand1:#ff6b35; --brand2:#2563eb; --ok:#22c55e; --warn:#f59e0b;
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:ui-sans-serif,system-ui,Segoe UI,Roboto; background:linear-gradient(180deg,#0b0e19,#0f1320 40%,#0b0e19); color:var(--text); line-height:1.5; padding:24px}
+  h1,h2{margin:0 0 12px}
+  .wrap{max-width:1100px;margin:0 auto;display:flex;flex-direction:column;gap:20px}
+  .card{background:var(--panel);border:1px solid #1f2640;border-radius:var(--radius);padding:18px}
+  .grid{display:flex;flex-wrap:wrap;gap:16px}
+  .tag{font:12px/1.2 ui-monospace,Menlo;padding:4px 8px;border-radius:999px;background:#1e283f;color:#a5b4fc;border:1px solid #2a3659}
+
+  /* DEMOS */
+  .demo{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+  .box{background:#1e293b;border:1px dashed #334155;color:#cbd5e1;padding:8px 10px;border-radius:10px}
+  .row{display:flex;gap:10px}
+  .row > div{flex:1;min-width:140px;background:#111827;border:1px solid #263247;border-radius:12px;padding:12px}
+  .nav{display:flex;gap:10px;align-items:center;justify-content:space-between;background:#0b1222;border:1px solid #1c2540;border-radius:12px;padding:10px 14px}
+  .nav .menu{display:flex;gap:10px;flex-wrap:wrap}
+  .badges{display:flex;gap:8px;flex-wrap:wrap}
+  .badge{background:#0f172a;border:1px solid #23314f;border-radius:999px;padding:6px 10px;color:#c7d2fe}
+  .gallery{display:flex;gap:10px;flex-wrap:wrap}
+  .gallery .item{flex:1 1 180px;min-height:90px;border-radius:12px;background:#0f172a;border:1px solid #223154;display:flex;align-items:center;justify-content:center}
+  .pricing{display:flex;gap:12px;flex-wrap:wrap}
+  .plan{flex:1 1 220px;background:#0f172a;border:1px solid #223154;border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:8px}
+  .plan .price{font-size:28px}
+  .equal{display:flex;gap:12px}
+  .equal > .col{flex:1;min-width:200px;background:#0f172a;border:1px solid #223154;border-radius:14px;padding:14px;display:flex;flex-direction:column}
+  .equal .grow{flex:1;background:#0b1222;border:1px dashed #2b3757;border-radius:10px;margin-top:10px;display:flex;align-items:center;justify-content:center;color:#9aa7bd}
+  .footer{display:flex;justify-content:space-between;align-items:center;gap:12px;background:#0b1222;border:1px solid #1c2540;border-radius:12px;padding:10px}
+  .hint{color:var(--muted);font-size:14px}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Flexbox — Introducción</h1>
+    <p class="hint">Flexbox es un modo de diseño unidimensional (fila o columna) ideal para alinear, distribuir espacio y hacer módulos flexibles sin dolores de cabeza.</p>
+
+    <div class="card">
+      <h2>Navbar flexible</h2>
+      <p class="hint">Alineación horizontal, separación entre extremos y menú responsive con <code>flex-wrap</code>.</p>
+      <div class="nav">
+        <div class="logo box">Logo</div>
+        <div class="menu">
+          <span class="badge">Inicio</span>
+          <span class="badge">Cursos</span>
+          <span class="badge">Recursos</span>
+          <span class="badge">Contacto</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Galería adaptable</h2>
+      <p class="hint">Con <code>flex: 1 1 180px</code> logramos tarjetas que “saltan” a la siguiente línea al faltar espacio.</p>
+      <div class="gallery">
+        <div class="item">IMG 1</div><div class="item">IMG 2</div><div class="item">IMG 3</div>
+        <div class="item">IMG 4</div><div class="item">IMG 5</div><div class="item">IMG 6</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Planes / Pricing</h2>
+      <p class="hint">Columnas que comparten ancho, con contenido vertical flexible.</p>
+      <div class="pricing">
+        <div class="plan">
+          <strong>Starter</strong>
+          <div class="price">$0</div>
+          <div class="badges"><span class="badge">1 curso</span><span class="badge">Soporte básico</span></div>
+          <button class="box">Comenzar</button>
+        </div>
+        <div class="plan" style="border-color:var(--brand2)">
+          <strong>Pro</strong>
+          <div class="price">$9</div>
+          <div class="badges"><span class="badge">Todo Starter</span><span class="badge">+ Certificado</span></div>
+          <button class="box">Elegir</button>
+        </div>
+        <div class="plan">
+          <strong>Team</strong>
+          <div class="price">$29</div>
+          <div class="badges"><span class="badge">5 usuarios</span><span class="badge">Soporte prioridad</span></div>
+          <button class="box">Contactar</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Columnas de igual altura</h2>
+      <p class="hint">La magia de <code>display:flex</code> en el contenedor: todas las columnas igualan altura automáticamente.</p>
+      <div class="equal">
+        <div class="col">
+          <strong>Noticias</strong>
+          <p>Items varios…</p>
+          <div class="grow">Rellena el espacio</div>
+        </div>
+        <div class="col">
+          <strong>Eventos</strong>
+          <p>Fechas y actividades</p>
+          <div class="grow">Altura igualada</div>
+        </div>
+        <div class="col">
+          <strong>Convocatorias</strong>
+          <p>Llamados y becas</p>
+          <div class="grow">Sin hacks</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Footer “pegajoso” simple</h2>
+      <p class="hint">Flex ayuda a alinear contenido interno; para sticky real conviene layout global con min-height y Grid o calc.</p>
+      <div class="footer">
+        <span class="tag">© 2025</span>
+        <div class="badges"><span class="badge">Privacidad</span><span class="badge">Términos</span></div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
