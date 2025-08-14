@@ -453,5 +453,6 @@ export const contentMap = {
     type: "html",
     content: "temas/grid-12-pagina-web.html",
     enabled: false
+    
   },
 };
