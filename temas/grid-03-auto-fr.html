@@ -1,0 +1,19 @@
+<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>auto y fr</title>
+<style>
+:root{--bg:#0b0e14;--fg:#eef1f8;--mut:#9aa4b2;--b:#1f2741}
+body{margin:0;font:16px/1.5 system-ui;color:var(--fg);background:var(--bg)}
+.wrap{max-width:1000px;margin:auto;padding:24px}
+.grid{display:grid;gap:10px;background:#121726;border:1px solid var(--b);padding:10px;border-radius:12px}
+.item{background:#0f1322;border:1px solid var(--b);border-radius:10px;padding:16px;text-align:center}
+</style></head><body>
+<div class="wrap">
+  <h1>auto y fr</h1>
+  <p style="color:var(--mut)"><code>fr</code> reparte el espacio disponible; <code>auto</code> se ajusta al contenido.</p>
+  <div class="grid" style="grid-template-columns: auto 1fr 2fr;">
+    <div class="item">auto<br/>📦 contenido largo…</div>
+    <div class="item">1fr</div>
+    <div class="item">2fr</div>
+  </div>
+</div></body></html>

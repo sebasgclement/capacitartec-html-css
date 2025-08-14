@@ -1,0 +1,21 @@
+<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Grid dinámico y responsive</title>
+<style>
+:root{--bg:#0b0e14;--fg:#eef1f8;--mut:#9aa4b2;--b:#1f2741}
+body{margin:0;font:16px/1.5 system-ui;color:var(--fg);background:var(--bg)}
+.wrap{max-width:1100px;margin:auto;padding:24px}
+.grid{display:grid;gap:12px;background:#121726;border:1px solid var(--b);padding:12px;border-radius:12px}
+/* Truco responsive sin media queries: columnas auto-fit con minmax */
+.grid{grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));}
+.item{background:#0f1322;border:1px solid var(--b);border-radius:10px;padding:18px;text-align:center}
+</style></head><body>
+<div class="wrap">
+  <h1>Grid dinámico y responsive</h1>
+  <p style="color:var(--mut)">Usá <code>repeat(auto-fit, minmax())</code> para que la grilla fluya sola según el ancho.</p>
+  <div class="grid">
+    <div class="item">Card 1</div><div class="item">Card 2</div><div class="item">Card 3</div>
+    <div class="item">Card 4</div><div class="item">Card 5</div><div class="item">Card 6</div>
+    <div class="item">Card 7</div><div class="item">Card 8</div>
+  </div>
+</div></body></html>

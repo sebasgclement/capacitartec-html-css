@@ -1,0 +1,22 @@
+<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>grid-auto-flow: dense</title>
+<style>
+:root{--bg:#0b0e14;--fg:#eef1f8;--mut:#9aa4b2;--b:#1f2741}
+body{margin:0;font:16px/1.5 system-ui;color:var(--fg);background:var(--bg)}
+.wrap{max-width:1000px;margin:auto;padding:24px}
+.grid{display:grid;gap:10px;background:#121726;border:1px solid var(--b);padding:10px;border-radius:12px;grid-template-columns: repeat(4,1fr);grid-auto-rows:70px;grid-auto-flow: dense;}
+.item{background:#0f1322;border:1px solid var(--b);border-radius:10px;padding:16px;text-align:center}
+.w2{grid-column: span 2}.h2{grid-row: span 2}
+</style></head><body>
+<div class="wrap">
+  <h1>grid-auto-flow: dense</h1>
+  <p style="color:var(--mut)">Rellena huecos reordenando automáticamente ítems sin posición fija.</p>
+  <div class="grid">
+    <div class="item w2 h2">A</div>
+    <div class="item">B</div><div class="item">C</div>
+    <div class="item w2">D</div>
+    <div class="item">E</div><div class="item">F</div><div class="item">G</div>
+    <div class="item h2">H</div><div class="item">I</div><div class="item">J</div>
+  </div>
+</div></body></html>

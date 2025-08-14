@@ -146,6 +146,11 @@ export const contentMap = {
     content: "temas/responsive-resumen.html",
     enabled: false
   },
+  'CSS grid':{
+    type: "html",
+    content:"temas/grid-resumen.html",
+    enabled: false
+  },
 
   //Ejercicios
   "INTEGRADOR 1": {
@@ -387,5 +392,66 @@ export const contentMap = {
     type: "html",
     content: "temas/responsive-container-queries.html",
     enabled: false
-  }
+  },
+  //CSS Grid
+  'Introducción a CSS Grid':{
+    type: "html",
+    content: "temas/grid-01-introduccion.html",
+    enabled: false
+  },
+  'Creando un Grid':{
+    type: "html",
+    content: "temas/grid-02-creando-un-grid.html",
+    enabled: false
+  },
+   'Auto y fr':{
+    type: "html",
+    content: "temas/grid-03-auto-fr.html",
+    enabled: false
+  },
+  'Repeat y Minmax':{
+    type: "html",
+    content: "temas/grid-04-repeat-minmax.html",
+    enabled: false
+  },
+  'Grid implícito y explícito':{
+    type: "html",
+    content: "temas/grid-05-implicito-explicito.html",
+    enabled: false
+  },
+  'Grid dinámico y responsive':{
+    type: "html",
+    content: "temas/grid-06-dinamico-responsive.html",
+    enabled: false
+  },
+  'Grid column y row':{
+    type: "html",
+    content: "temas/grid-07-column-row.html",
+    enabled: false
+  },
+  'Grid flow: dense':{
+    type: "html",
+    content: "temas/grid-08-flow-dense.html",
+    enabled: false
+  },
+  'Grid areas':{
+    type: "html",
+    content: "temas/grid-09-areas.html",
+    enabled: false
+  },
+  'Alineación con Grid':{
+    type: "html",
+    content: "temas/grid-10-alineacion.html",
+    enabled: false
+  },
+  Subgrid:{
+    type: "html",
+    content: "temas/grid-11-subgrid.html",
+    enabled: false
+  },
+  'Creando una página web':{
+    type: "html",
+    content: "temas/grid-12-pagina-web.html",
+    enabled: false
+  },
 };

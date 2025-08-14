@@ -1,0 +1,18 @@
+<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>repeat() y minmax()</title>
+<style>
+:root{--bg:#0b0e14;--fg:#eef1f8;--mut:#9aa4b2;--b:#1f2741}
+body{margin:0;font:16px/1.5 system-ui;color:var(--fg);background:var(--bg)}
+.wrap{max-width:1000px;margin:auto;padding:24px}
+.grid{display:grid;gap:10px;background:#121726;border:1px solid var(--b);padding:10px;border-radius:12px}
+.item{background:#0f1322;border:1px solid var(--b);border-radius:10px;padding:16px;text-align:center}
+</style></head><body>
+<div class="wrap">
+  <h1>repeat() y minmax()</h1>
+  <p style="color:var(--mut)"><code>repeat(n, …)</code> repite patrones; <code>minmax(min,max)</code> limita el tamaño.</p>
+  <div class="grid" style="grid-template-columns: repeat(3, minmax(120px, 1fr));">
+    <div class="item">A</div><div class="item">B</div><div class="item">C</div>
+    <div class="item">D</div><div class="item">E</div><div class="item">F</div>
+  </div>
+</div></body></html>

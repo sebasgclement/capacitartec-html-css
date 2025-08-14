@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Resumen — CSS Grid</title>
+<style>
+  :root {
+    --bg:#0b0e14; --fg:#eef1f8; --muted:#9aa4b2;
+    --brand:#ff5f45; --chip-bg:#121726; --chip-fg:#fff; --b:#1f2741;
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; font:16px/1.5 system-ui, Segoe UI, Roboto; color:var(--fg); background:var(--bg); }
+  .wrap { max-width: 1000px; margin:auto; padding:24px; }
+  h1 { margin-top:0; }
+  p  { color:var(--muted); margin-bottom:16px; }
+
+  /* Chips */
+  .chips { display:flex; flex-wrap:wrap; gap:8px; margin: 8px 0 24px; }
+  .chip {
+    background:var(--chip-bg); color:var(--chip-fg);
+    border:1px solid var(--b); border-radius:999px;
+    padding:6px 12px; font-size:0.9rem; white-space:nowrap;
+  }
+
+  /* Bloques de resumen */
+  .resumen {
+    background:#121726; border:1px solid var(--b);
+    border-radius:14px; padding:16px; margin-bottom:18px;
+  }
+  .resumen h2 { margin:0 0 10px; font-size:1.05rem; color:var(--brand); }
+  ul { margin:0; padding-left:20px; }
+  li { margin-bottom:6px; }
+  code {
+    background:#0f1322; padding:2px 6px; border-radius:6px; font-size:0.9rem;
+  }
+
+  /* Snippets */
+  pre { margin:0; overflow:auto; background:#0f1322; border:1px solid var(--b); border-radius:10px; padding:12px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Resumen — CSS Grid</h1>
+  <p>Ficha rápida con selectores, propiedades y patrones de uso frecuente en <strong>Grid</strong>.</p>
+
+  <!-- Chips -->
+  <div class="chips">
+    <div class="chip">display: grid</div>
+    <div class="chip">grid-template-*</div>
+    <div class="chip">grid-auto-flow (dense)</div>
+    <div class="chip">gap / row-gap / column-gap</div>
+    <div class="chip">repeat()</div>
+    <div class="chip">minmax()</div>
+    <div class="chip">auto-fit / auto-fill</div>
+    <div class="chip">fr</div>
+    <div class="chip">fit-content()</div>
+    <div class="chip">min-/max-content</div>
+    <div class="chip">grid-area</div>
+    <div class="chip">place-items / place-content</div>
+    <div class="chip">justify-/align-self</div>
+    <div class="chip">subgrid</div>
+    <div class="chip">líneas con [nombres]</div>
+  </div>
+
+  <!-- Selectores / Display -->
+  <div class="resumen">
+    <h2>Selectores y display</h2>
+    <ul>
+      <li><code>.container { display: grid | inline-grid; }</code></li>
+      <li>Los <em>grid items</em> son los <strong>hijos directos</strong> del contenedor grid.</li>
+      <li>Sub-rejillas: <code>grid-template-columns: subgrid;</code> / <code>grid-template-rows: subgrid;</code> (soporte moderno).</li>
+    </ul>
+  </div>
+
+  <!-- Contenedor -->
+  <div class="resumen">
+    <h2>Propiedades del contenedor</h2>
+    <ul>
+      <li><code>grid-template-columns</code>, <code>grid-template-rows</code>, <code>grid-template-areas</code></li>
+      <li><code>grid-auto-columns</code>, <code>grid-auto-rows</code> (tamaño de pistas implícitas)</li>
+      <li><code>grid-auto-flow: row | column | dense | row dense | column dense</code></li>
+      <li><code>gap</code>, <code>row-gap</code>, <code>column-gap</code></li>
+      <li>Alineación del <em>contenido de la grilla</em>:
+        <code>justify-content</code>, <code>align-content</code>, <code>place-content</code></li>
+      <li>Alineación de <em>los items en sus celdas</em>:
+        <code>justify-items</code>, <code>align-items</code>, <code>place-items</code></li>
+      <li><code>grid</code> (shorthand): filas/columnas/áreas + auto-flow en una sola declaración.</li>
+    </ul>
+  </div>
+
+  <!-- Ítems -->
+  <div class="resumen">
+    <h2>Propiedades del ítem</h2>
+    <ul>
+      <li><code>grid-column</code> / <code>grid-row</code> (e.g. <code>grid-column: 1 / span 2</code>)</li>
+      <li><code>grid-area</code> (nombre de área o shorthand: <code>row-start / column-start / row-end / column-end</code>)</li>
+      <li><code>justify-self</code>, <code>align-self</code>, <code>place-self</code></li>
+    </ul>
+  </div>
+
+  <!-- Funciones / palabras clave -->
+  <div class="resumen">
+    <h2>Funciones y keywords para tracks</h2>
+    <ul>
+      <li><code>fr</code> (fracciones del espacio disponible)</li>
+      <li><code>repeat(n, …)</code> y <code>repeat(auto-fit | auto-fill, …)</code></li>
+      <li><code>minmax(min, max)</code>, <code>fit-content(x)</code></li>
+      <li><code>min-content</code>, <code>max-content</code>, <code>auto</code></li>
+      <li><strong>auto-fit vs auto-fill</strong>: ambos crean “huecos” de columnas; <em>auto-fit</em> colapsa columnas vacías para estirar las existentes; <em>auto-fill</em> mantiene las pistas aunque queden vacías.</li>
+    </ul>
+  </div>
+
+  <!-- Patrones útiles -->
+  <div class="resumen">
+    <h2>Patrones útiles</h2>
+    <ul>
+      <li>Grid responsive sin media queries:
+        <code>grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));</code></li>
+      <li>Grid implícito controlado:
+        <code>grid-auto-rows: 150px;</code>,
+        <code>grid-auto-flow: row dense;</code></li>
+      <li>Áreas nombradas (layout semántico) con <code>grid-template-areas</code>.</li>
+      <li>Líneas nombradas:
+        <code>grid-template-columns: [full-start] 1fr [content-start] repeat(12, minmax(0, 70px)) [content-end] 1fr [full-end];</code></li>
+    </ul>
+  </div>
+
+  <!-- Snippets listos -->
+  <div class="resumen">
+    <h2>Snippets listos para copiar</h2>
+    <p class="hint" style="color:var(--muted)">Starter mínimo:</p>
+    <pre><code>.grid {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}</code></pre>
+    <p class="hint" style="color:var(--muted); margin-top:12px">Grid áreas “Holy Grail”:</p>
+    <pre><code>.layout {
+  display: grid;
+  grid-template-columns: 220px 1fr 260px;
+  grid-template-areas:
+    "header header header"
+    "nav    main   aside"
+    "footer footer footer";
+  gap: 12px;
+}
+header{grid-area:header} nav{grid-area:nav}
+main{grid-area:main} aside{grid-area:aside}
+footer{grid-area:footer}</code></pre>
+    <p class="hint" style="color:var(--muted); margin-top:12px">Shorthand + dense:</p>
+    <pre><code>.masonry-like {
+  display:grid;
+  grid: masonry / repeat(4, 1fr); /* (nota) 'masonry' real no es estándar en grid; usar dense */
+  grid-auto-flow: row dense;
+  grid-auto-rows: 140px;
+}</code></pre>
+  </div>
+
+  <!-- Tips -->
+  <div class="resumen">
+    <h2>Tips y debugging</h2>
+    <ul>
+      <li>Activá la <strong>superposición de Grid</strong> en DevTools (Chrome/Firefox) para ver líneas y áreas.</li>
+      <li>Usá <code>outline:1px dashed</code> en items para inspeccionar rápidamente.</li>
+      <li>Preferí <code>place-*</code> como shorthands de <code>justify-*</code> + <code>align-*</code>.</li>
+      <li>Combiná Grid (layout) + Flex (alineación en componentes internos) cuando tenga sentido.</li>
+    </ul>
+  </div>
+</div>
+</body>
+</html>

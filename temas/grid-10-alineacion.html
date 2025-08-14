@@ -1,0 +1,23 @@
+<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Alineación con Grid</title>
+<style>
+:root{--bg:#0b0e14;--fg:#eef1f8;--mut:#9aa4b2;--b:#1f2741}
+body{margin:0;font:16px/1.5 system-ui;color:var(--fg);background:var(--bg)}
+.wrap{max-width:1000px;margin:auto;padding:24px}
+.board{display:grid;background:#121726;border:1px solid var(--b);border-radius:12px;padding:12px;gap:12px;grid-template-columns:repeat(3,120px);grid-auto-rows:80px;justify-content:center;align-content:center;height:360px}
+.item{background:#0f1322;border:1px solid var(--b);border-radius:10px;display:flex;align-items:center;justify-content:center}
+.one{justify-self:start;align-self:end}
+.two{justify-self:center;align-self:start}
+.three{justify-self:end;align-self:center}
+</style></head><body>
+<div class="wrap">
+  <h1>Alineación con Grid</h1>
+  <p style="color:var(--mut)">Usá <code>justify-content</code>/<code>align-content</code> (contenedor) y <code>justify-self</code>/<code>align-self</code> (ítems).</p>
+  <div class="board">
+    <div class="item one">1</div>
+    <div class="item two">2</div>
+    <div class="item three">3</div>
+    <div class="item">4</div><div class="item">5</div><div class="item">6</div>
+  </div>
+</div></body></html>

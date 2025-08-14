@@ -1,0 +1,27 @@
+<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Grid areas</title>
+<style>
+:root{--bg:#0b0e14;--fg:#eef1f8;--mut:#9aa4b2;--b:#1f2741}
+body{margin:0;font:16px/1.5 system-ui;color:var(--fg);background:var(--bg)}
+.wrap{max-width:1000px;margin:auto;padding:24px}
+.grid{display:grid;gap:10px;background:#121726;border:1px solid var(--b);padding:10px;border-radius:12px}
+.item{background:#0f1322;border:1px solid var(--b);border-radius:10px;padding:16px}
+</style></head><body>
+<div class="wrap">
+  <h1>Grid areas</h1>
+  <p style="color:var(--mut)">Nombrá áreas y asignalas a los ítems.</p>
+  <div class="grid" style="
+     grid-template-columns: 200px 1fr 250px;
+     grid-template-areas:
+       'header header header'
+       'nav    main   aside'
+       'footer footer footer';
+  ">
+    <header class="item" style="grid-area:header">Header</header>
+    <nav class="item" style="grid-area:nav">Nav</nav>
+    <main class="item" style="grid-area:main">Main</main>
+    <aside class="item" style="grid-area:aside">Aside</aside>
+    <footer class="item" style="grid-area:footer">Footer</footer>
+  </div>
+</div></body></html>

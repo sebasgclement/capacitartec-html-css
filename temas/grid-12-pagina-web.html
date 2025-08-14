@@ -1,0 +1,53 @@
+<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Layout con CSS Grid</title>
+<style>
+:root{--bg:#0b0e14;--fg:#eef1f8;--mut:#9aa4b2;--b:#1f2741;--acc:#ff5f45}
+*{box-sizing:border-box}body{margin:0;font:16px/1.6 system-ui;color:var(--fg);background:var(--bg)}
+.wrap{min-height:100dvh;display:grid;grid-template-rows:auto 1fr auto}
+.header,.footer{background:#121726;border-block:1px solid var(--b);padding:16px}
+.main{display:grid;gap:14px;padding:16px}
+@media (min-width: 900px){
+  .main{grid-template-columns:240px 1fr 280px;grid-template-areas:"nav content aside"}
+}
+@media (max-width: 899px){
+  .main{grid-template-columns:1fr}
+}
+.box{background:#0f1322;border:1px solid var(--b);border-radius:12px;padding:14px}
+.nav{grid-area:nav}.content{grid-area:content}.aside{grid-area:aside}
+.cardgrid{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(180px,1fr))}
+.tag{display:inline-block;background:#101426;border:1px solid var(--b);padding:4px 8px;border-radius:999px;margin-right:6px}
+.btn{background:var(--acc);color:#fff;border:none;border-radius:10px;padding:10px 14px;font-weight:700}
+</style></head><body>
+<div class="wrap">
+  <header class="header"><strong>Mi Sitio</strong> — Demo Grid</header>
+
+  <div class="main">
+    <nav class="box nav">
+      <h3>Navegación</h3>
+      <ul style="margin:0;padding-left:18px">
+        <li>Inicio</li><li>Artículos</li><li>Contacto</li>
+      </ul>
+    </nav>
+
+    <main class="box content">
+      <h1>Título de la página</h1>
+      <p style="color:var(--mut)">Layout responsive con Grid + <code>auto-fit</code>/<code>minmax</code> para cards.</p>
+      <div class="cardgrid">
+        <article class="box"><strong>Card 1</strong><div><span class="tag">UI</span><span class="tag">CSS</span></div></article>
+        <article class="box"><strong>Card 2</strong><div><span class="tag">Grid</span></div></article>
+        <article class="box"><strong>Card 3</strong><div><span class="tag">Tips</span></div></article>
+        <article class="box"><strong>Card 4</strong><div><span class="tag">Layout</span></div></article>
+      </div>
+      <p><button class="btn">Call to Action</button></p>
+    </main>
+
+    <aside class="box aside">
+      <h3>Aside</h3>
+      <p style="color:var(--mut)">Contenido extra, anuncios o enlaces.</p>
+    </aside>
+  </div>
+
+  <footer class="footer">© Tu Curso — CSS Grid</footer>
+</div>
+</body></html>
