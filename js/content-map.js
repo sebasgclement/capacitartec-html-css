@@ -1,57 +1,7 @@
-// Elementos del modal
-const modal      = document.getElementById("modal");
-const modalClose = document.getElementById("modalClose");
-const modalBox   = document.querySelector(".modal-box");
-const modalHtml  = document.getElementById("modalHtml");
-const modalPdf   = document.getElementById("modalPdf");
-const modalImg   = document.getElementById("modalImg");
-
-// Aviso
-const modalNotice = document.getElementById("modalNotice");
-const noticeClose = document.getElementById("noticeClose");
-const noticeTopic = document.getElementById("noticeTopic");
-
-// Helpers
-function clearMedia() {
-  if (modalHtml) { modalHtml.src = ""; modalHtml.hidden = true; }
-  if (modalPdf)  { modalPdf.src  = ""; modalPdf.hidden  = true; }
-  if (modalImg)  { modalImg.src  = ""; modalImg.hidden  = true; }
-}
-function hideAll() {
-  clearMedia();
-  if (modalNotice) modalNotice.hidden = true;
-  if (modalBox)    modalBox.hidden    = true;
-}
-function showNotice(topicText) {
-  hideAll();
-  if (noticeTopic) {
-    noticeTopic.textContent = topicText ? `Tema: ${topicText}` : "";
-    noticeTopic.style.display = topicText ? "inline-block" : "none";
-  }
-  modalNotice.hidden = false;         
-  modal.style.display = "flex";
-  setTimeout(() => noticeClose?.focus(), 0);
-}
-function openModalWith(type, src) {
-  hideAll();
-  modalBox.hidden = false;            
-
-  if (type === "html") { modalHtml.src = src; modalHtml.hidden = false; }
-  else if (type === "pdf") { modalPdf.src = src; modalPdf.hidden = false; }
-  else if (type === "img") { modalImg.src = src; modalImg.hidden = false; }
-  else { showNotice(); return; }
-
-  modal.style.display = "flex";
-}
-function closeModal() {
-  modal.style.display = "none";
-  hideAll();
-}
-
 // =====================
 // Mapeo de temas
 // =====================
-const contentMap = {
+export const contentMap = {
   //HTML básico
   Historia: {
     type: "html",
@@ -393,24 +343,3 @@ const contentMap = {
   },
   //Responsive design
 };
-
-// Listeners
-document
-  .querySelectorAll("#clases ul li, #recursos ul li, #consultas ul li")
-  .forEach((item) => {
-    item.addEventListener("click", (e) => {
-      e.stopPropagation();
-      const texto = item.textContent.trim();
-      const data = contentMap[texto];
-
-      if (!data || data.enabled === false) { showNotice(texto); return; }
-      openModalWith(data.type, data.content);
-    });
-  });
-
-modalClose?.addEventListener("click", closeModal);
-modal?.addEventListener("click", (e) => { if (e.target === modal) closeModal(); });
-noticeClose?.addEventListener("click", closeModal);
-document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape" && modal?.style.display === "flex") closeModal();
-});
