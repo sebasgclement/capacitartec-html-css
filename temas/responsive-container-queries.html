@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Container Queries</title>
+<style>
+  :root { --bg:#0b0e14; --fg:#eef1f8; --muted:#9aa4b2; --chip:#1f2741; }
+  body { margin:0; font:16px/1.5 system-ui,Segoe UI,Roboto; color:var(--fg); background:var(--bg); }
+  .wrap { max-width: 1100px; margin:auto; padding:24px; }
+  .grid { display:grid; gap:16px; grid-template-columns: 1fr; }
+  @media (min-width: 800px) { .grid { grid-template-columns: repeat(3, 1fr); } }
+  /* Declarar contenedor para que sus hijos reaccionen a SU ancho (no al viewport) */
+  .card { container-type: inline-size; background:#121726; border:1px solid #1f2741; border-radius:14px; padding:16px; }
+  .head { display:flex; align-items:center; gap:12px; }
+  .avatar { width:56px; height:56px; border-radius:50%; background:#0f1322; }
+  .title { font-weight:700; }
+  .meta { color:var(--muted); font-size:0.9rem; }
+  .content { margin-top:10px; color:var(--muted); }
+  /* Consultas basadas en el contenedor (.card) */
+  @container (min-width: 420px) {
+    .card { display:grid; grid-template-columns: 72px 1fr; gap:12px; align-items:start; }
+    .head { grid-column: span 2; }
+  }
+  @container (min-width: 620px) {
+    .head { grid-column: 1 / -1; justify-content:space-between; }
+    .meta { font-size:1rem; }
+  }
+  /* Pequeño chip de ejemplo */
+  .chip { display:inline-block; padding:4px 8px; border-radius:999px; background:var(--chip); }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Container Queries</h1>
+    <p>La tarjeta cambia su layout según el ancho de <em>su propio contenedor</em> (no del viewport). Útil en grids con columnas variables.</p>
+
+    <div class="grid">
+      <article class="card">
+        <div class="head">
+          <div class="avatar"></div>
+          <div class="title">Perfil de Desarrollador</div>
+          <span class="chip">Nuevo</span>
+        </div>
+        <div class="content">
+          <p class="meta">Frontend • HTML • CSS • JS</p>
+          <p>Cuando esta card se hace más ancha (p. ej. pasa a otra columna), la disposición interna se reconfigura.</p>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="head">
+          <div class="avatar"></div>
+          <div class="title">UI Designer</div>
+          <span class="chip">Pro</span>
+        </div>
+        <div class="content">
+          <p class="meta">Figma • Prototyping</p>
+          <p>Prueba redimensionando el modal o cambiando el ancho del contenedor padre.</p>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="head">
+          <div class="avatar"></div>
+          <div class="title">Fullstack</div>
+          <span class="chip">Top</span>
+        </div>
+        <div class="content">
+          <p class="meta">Node • Django • SQL</p>
+          <p>Las <strong>container queries</strong> permiten componentes verdaderamente adaptables.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</body>
+</html>

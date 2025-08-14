@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Bloques y multimedia flexible</title>
+<style>
+  :root { --bg:#0b0e14; --fg:#eef1f8; --muted:#9aa4b2; --brand:#ff5f45; }
+  body { margin:0; font:16px/1.5 system-ui,Segoe UI,Roboto; color:var(--fg); background:var(--bg); }
+  .wrap { max-width: 900px; margin: auto; padding: 24px; }
+  h1,h2 { margin: 0 0 12px; }
+  p { color: var(--muted); margin: 8px 0 16px; }
+  .card { background: #121726; border:1px solid #1f2741; border-radius:14px; padding:16px; margin:16px 0; }
+  /* 1) Imágenes fluidas: ocupan el ancho de su contenedor manteniendo proporción */
+  img.resp { max-width: 100%; height: auto; display:block; border-radius: 10px; }
+  /* 2) Videos responsivos con aspect-ratio */
+  .ratio { position: relative; width: 100%; aspect-ratio: 16 / 9; background:#0f1322; border-radius:10px; overflow:hidden; }
+  .ratio iframe,
+  .ratio video { position:absolute; inset:0; width:100%; height:100%; border:0; }
+  /* 3) Iframe flexible (ej: mapa, youtube, etc.) ya cubierto con .ratio */
+  code { background:#0f1322; padding:2px 6px; border-radius:6px; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Bloques y multimedia flexible</h1>
+    <p>Regla de oro: <code>max-width:100%</code> para imágenes y contenedores con <code>aspect-ratio</code> para iframes/videos.</p>
+
+    <div class="card">
+      <h2>Imagen fluida</h2>
+      <p>La imagen nunca desborda el contenedor y se reduce en pantallas pequeñas.</p>
+      <img class="resp" src="https://images.unsplash.com/photo-1522199755839-a2bacb67c546?q=80&w=1600&auto=format&fit=crop" alt="Teclado y escritorio elegante" />
+    </div>
+
+    <div class="card">
+      <h2>Video responsivo (YouTube)</h2>
+      <div class="ratio">
+        <iframe src="https://www.youtube.com/embed/dD2EISBDjWM"
+                title="HTML & CSS"
+                allowfullscreen
+                loading="lazy"></iframe>
+      </div>
+      <p>El contenedor usa <code>aspect-ratio:16/9</code> para mantener proporción.</p>
+    </div>
+
+    <div class="card">
+      <h2>Video local con controls</h2>
+      <div class="ratio">
+        <video src="" controls poster="https://images.unsplash.com/photo-1518779578993-ec3579fee39f?q=80&w=1400&auto=format&fit=crop"></video>
+      </div>
+      <p>Puedes reemplazar <code>src</code> por tu archivo MP4/WEBM.</p>
+    </div>
+  </div>
+</body>
+</html>

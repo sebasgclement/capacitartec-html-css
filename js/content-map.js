@@ -141,6 +141,12 @@ export const contentMap = {
     content: "temas/flex-resumen.html",
     enabled: false
   },
+  'Responsive design':{
+    type: "html",
+    content: "temas/responsive-resumen.html",
+    enabled: false
+  },
+
   //Ejercicios
   "INTEGRADOR 1": {
     type: "html",
@@ -342,4 +348,44 @@ export const contentMap = {
     enabled: false
   },
   //Responsive design
+  'Bloques y multimedia flexible':{
+    type: "html",
+    content: "temas/responsive-bloques-multimedia.html",
+    enabled: false
+  },
+  'SRCSET y SIZES':{
+    type: "html",
+    content: "temas/responsive-srcset-sizes.html",
+    enabled: false
+  },
+  'Picture, Source y Media':{
+    type: "html",
+    content: "temas/responsive-picture-source-media.html",
+    enabled: false
+  },
+  'Media Queries':{
+    type: "html",
+    content: "temas/responsive-media-queries.html",
+    enabled: false
+  },
+  'Ejercicio "Holy Grail"':{
+    type: "html",
+    content: "temas/responsive-holy-grail.html",
+    enabled: false
+  },
+  'Mobile First':{
+    type: "html",
+    content: "temas/responsive-mobile-first.html",
+    enabled: false
+  },
+  'Feature Queries':{
+    type: "html",
+    content: "temas/responsive-feature-queries.html",
+    enabled: false
+  },
+  'Container Queries':{
+    type: "html",
+    content: "temas/responsive-container-queries.html",
+    enabled: false
+  }
 };

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>SRCSET y SIZES</title>
+<style>
+  :root { --bg:#0b0e14; --fg:#eef1f8; --muted:#9aa4b2; }
+  body { margin:0; font:16px/1.5 system-ui,Segoe UI,Roboto; color:var(--fg); background:var(--bg); }
+  .wrap { max-width: 1000px; margin:auto; padding:24px; }
+  figure { margin:0; }
+  img { max-width:100%; height:auto; border-radius:12px; display:block; }
+  .grid { display:grid; gap:16px; grid-template-columns: 1fr; }
+  @media (min-width: 900px) { .grid { grid-template-columns: 1fr 1fr; } }
+  p { color:var(--muted); }
+  code { background:#0f1322; padding:2px 6px; border-radius:6px; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>SRCSET y SIZES</h1>
+    <p><strong>Objetivo:</strong> que el navegador elija la mejor imagen según el tamaño de pantalla y densidad.</p>
+
+    <div class="grid">
+      <figure>
+        <img 
+          src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=800&auto=format&fit=crop"
+          srcset="
+            https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=480&auto=format&fit=crop 480w,
+            https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=800&auto=format&fit=crop 800w,
+            https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop 1200w
+          "
+          sizes="(max-width: 600px) 90vw, (max-width: 900px) 60vw, 600px"
+          alt="Laptop sobre escritorio con código" />
+        <figcaption>Ejemplo con <code>srcset</code> y <code>sizes</code>.</figcaption>
+      </figure>
+
+      <div>
+        <h2>¿Cómo leer <code>sizes</code>?</h2>
+        <ul>
+          <li><code>(max-width:600px) 90vw</code> → en móviles, usa ~90% del viewport.</li>
+          <li><code>(max-width:900px) 60vw</code> → en tablets, ~60% del viewport.</li>
+          <li><code>600px</code> → en escritorio, fije 600px de ancho mostrado.</li>
+        </ul>
+        <p>El navegador combina <em>ancho mostrado</em> + <em>DPR</em> para elegir el recurso adecuado del <code>srcset</code>.</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

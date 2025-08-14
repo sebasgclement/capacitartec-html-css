@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Resumen - Responsive Design</title>
+<style>
+  :root {
+    --bg:#0b0e14; --fg:#eef1f8; --muted:#9aa4b2;
+    --brand:#ff5f45; --chip-bg:#121726; --chip-fg:#fff;
+  }
+  body { margin:0; font:16px/1.5 system-ui,Segoe UI,Roboto;
+         color:var(--fg); background:var(--bg); }
+  .wrap { max-width: 900px; margin:auto; padding:24px; }
+  h1 { margin-top:0; }
+  p { color:var(--muted); margin-bottom:16px; }
+  
+  /* Estilo para los chips de código */
+  .chips { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:24px; }
+  .chip {
+    background:var(--chip-bg); color:var(--chip-fg);
+    border:1px solid #1f2741; border-radius:999px;
+    padding:6px 12px; font-size:0.9rem;
+    white-space:nowrap;
+  }
+  
+  /* Listas de resumen */
+  .resumen {
+    background:#121726; border:1px solid #1f2741;
+    border-radius:14px; padding:16px;
+    margin-bottom:20px;
+  }
+  .resumen h2 {
+    margin:0 0 12px; font-size:1.1rem; color:var(--brand);
+  }
+  ul { margin:0; padding-left:20px; }
+  li { margin-bottom:6px; }
+  code {
+    background:#0f1322; padding:2px 6px;
+    border-radius:6px; font-size:0.9rem;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Resumen — Responsive Design</h1>
+  <p>Lista de selectores, propiedades y elementos clave usados en los ejemplos de esta sección.</p>
+  
+  <!-- Chips rápidos -->
+  <div class="chips">
+    <div class="chip">@media</div>
+    <div class="chip>@supports</div>
+    <div class="chip>aspect-ratio</div>
+    <div class="chip>srcset / sizes</div>
+    <div class="chip>&lt;picture&gt; / &lt;source&gt;</div>
+    <div class="chip>Mobile First</div>
+    <div class="chip>Container Queries</div>
+  </div>
+
+  <!-- Bloque 1 -->
+  <div class="resumen">
+    <h2>Selectores</h2>
+    <ul>
+      <li><code>img.resp</code> — imágenes fluidas.</li>
+      <li><code>.ratio iframe</code> — video responsivo.</li>
+      <li><code>@media (min-width: ...)</code> — media queries móviles-first.</li>
+      <li><code>@container (min-width: ...)</code> — container queries.</li>
+    </ul>
+  </div>
+
+  <!-- Bloque 2 -->
+  <div class="resumen">
+    <h2>Propiedades CSS</h2>
+    <ul>
+      <li><code>max-width</code>, <code>height:auto</code></li>
+      <li><code>aspect-ratio</code></li>
+      <li><code>grid-template-columns</code></li>
+      <li><code>flex-wrap</code></li>
+      <li><code>object-fit</code></li>
+      <li><code>border-radius</code></li>
+    </ul>
+  </div>
+
+  <!-- Bloque 3 -->
+  <div class="resumen">
+    <h2>Elementos HTML</h2>
+    <ul>
+      <li><code>&lt;img&gt;</code></li>
+      <li><code>&lt;picture&gt;</code></li>
+      <li><code>&lt;source&gt;</code></li>
+      <li><code>&lt;video&gt;</code></li>
+      <li><code>&lt;iframe&gt;</code></li>
+    </ul>
+  </div>
+
+</div>
+</body>
+</html>

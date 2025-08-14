@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Ejercicio Holy Grail</title>
+<style>
+  :root { --bg:#0b0e14; --fg:#eef1f8; --muted:#9aa4b2; --accent:#ff5f45; }
+  * { box-sizing: border-box; }
+  body { margin:0; font:16px/1.5 system-ui,Segoe UI,Roboto; color:var(--fg); background:var(--bg); }
+  header, footer, nav, main, aside { padding:16px; }
+  header, footer { background:#121726; border-block:1px solid #1f2741; }
+  nav { background:#101426; border-right:1px solid #1f2741; }
+  aside { background:#101426; border-left:1px solid #1f2741; }
+  main { background:#0f1322; }
+  .wrap { min-height:100dvh; display:grid; grid-template-rows: auto 1fr auto; }
+  .layout { display:grid; grid-template-columns: 1fr; }
+  /* Escritorio: 3 columnas. Holy Grail: nav | main | aside */
+  @media (min-width: 900px) {
+    .layout {
+      grid-template-columns: 220px 1fr 260px;
+      grid-template-areas: "nav main aside";
+    }
+    nav { grid-area: nav; }
+    main { grid-area: main; }
+    aside { grid-area: aside; }
+  }
+  /* Móvil: nav arriba, aside abajo, main al medio */
+  @media (max-width: 899px) {
+    .layout { gap:12px; }
+  }
+  ul { margin:0; padding-left:18px; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header><strong>Header</strong> — Sitio Demo</header>
+
+    <div class="layout">
+      <nav>
+        <strong>Navegación</strong>
+        <ul>
+          <li>Inicio</li><li>Artículos</li><li>Contacto</li>
+        </ul>
+      </nav>
+
+      <main>
+        <h1>Contenido principal</h1>
+        <p>En pantallas grandes verás tres columnas; en móvil, todo se apila.</p>
+      </main>
+
+      <aside>
+        <strong>Aside</strong>
+        <p>Contenido extra / publicidad / links.</p>
+      </aside>
+    </div>
+
+    <footer><strong>Footer</strong> — © Tu Curso</footer>
+  </div>
+</body>
+</html>

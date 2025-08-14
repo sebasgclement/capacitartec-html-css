@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Media Queries</title>
+<style>
+  :root { --bg:#0b0e14; --fg:#eef1f8; --muted:#9aa4b2; --brand:#41b883; }
+  body { margin:0; font:16px/1.5 system-ui,Segoe UI,Roboto; color:var(--fg); background:var(--bg); }
+  .wrap { max-width: 1000px; margin:auto; padding:24px; }
+  .grid { display:grid; gap:16px; grid-template-columns: 1fr; }
+  .card { background:#121726; border:1px solid #1f2741; border-radius:14px; padding:16px; }
+  .box { background:#0f1322; padding:20px; border-radius:10px; text-align:center; font-weight:600; }
+  /* Breakpoints móviles-first */
+  @media (min-width: 600px) {
+    .grid { grid-template-columns: repeat(2,1fr); }
+  }
+  @media (min-width: 900px) {
+    .grid { grid-template-columns: repeat(3,1fr); }
+  }
+  /* Modo oscuro/claro del sistema */
+  @media (prefers-color-scheme: light) {
+    :root { --bg:#f6f7fb; --fg:#10131a; --muted:#4a5568; }
+    .card { background:#ffffff; border-color:#e4e7ee; }
+    .box { background:#eef1f8; }
+  }
+  /* Reduce motion: desactivar animaciones potentes si el usuario lo pide */
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Media Queries</h1>
+    <p>Ejemplo clásico de columnas que crecen con <code>min-width</code> + preferencias del usuario (color y movimiento).</p>
+
+    <div class="card">
+      <h2>Grid responsivo</h2>
+      <div class="grid">
+        <div class="box">Item 1</div>
+        <div class="box">Item 2</div>
+        <div class="box">Item 3</div>
+        <div class="box">Item 4</div>
+        <div class="box">Item 5</div>
+        <div class="box">Item 6</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
