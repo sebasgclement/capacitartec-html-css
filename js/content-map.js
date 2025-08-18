@@ -151,6 +151,16 @@ export const contentMap = {
     content:"temas/grid-resumen.html",
     enabled: false
   },
+  'Resumen animaciones':{
+    type: "html",
+    content: "temas/00-resumen.html",
+    enabled: false
+  },
+  'Resumen Bootstrap':{
+    type:"html",
+    content: "temas/bootstrap/00-resumen.html",
+    enabled: true
+  },
 
   //Ejercicios
   "INTEGRADOR 1": {
@@ -455,4 +465,103 @@ export const contentMap = {
     enabled: false
     
   },
+  //Animaciones
+  Transiciones:{
+    type:"html",
+    content:"temas/01-transiciones.html",
+    enabled: false
+  },
+  Animaciones:{
+    type: "html",
+    content:"temas/02-animaciones.html",
+    enabled: false
+  },
+  'Botones animados y Typewriter':{
+    type: "html",
+    content: "temas/03-botones-typewriter.html",
+    enabled: false
+  },
+  'Animaciones con scroll':{
+    type: "html",
+    content: "temas/04-scroll.html",
+    enabled: false
+  },
+  'Rango de animaciones':{
+    type: "html",
+    content: "temas/05-rango.html",
+    enabled: false
+  },
+  'Integración en proyectos':{
+    type: "html",
+    content: "temas/06-integracion.html",
+    enabled: false
+  },
+  'Animaciones y promesas':{
+    type: "html",
+    content: "temas/07-promesas.html",
+    enabled: false
+  },
+
+  //Bootstrap
+  'Framework CSS':{
+    type: "html",
+    content: "temas/bootstrap/01-framework.html",
+    enabled: true
+  },
+  '¿Qué es Bootstrap y por qué es útil?':{
+    type: "html",
+    content: "temas/bootstrap/02-que-es.html",
+    enabled: true
+  },
+  'Cómo incluirlo en CDN':{
+    type: "html",
+    content: "temas/bootstrap/03-cdn.html",
+    enabled: true
+  },
+  'Tipo de contenedores':{
+    type: "html",
+    content: "temas/bootstrap/04-contenedores.html",
+    enabled: true
+  },
+  'Sistema de grillas':{
+    type: "html",
+    content: "temas/bootstrap/05-grillas.html",
+    enabled: true
+  },
+  'Clases utilitarias':{
+    type: "html",
+    content: "temas/bootstrap/06-utilitarias.html",
+    enabled: true
+  },
+  Componentes:{
+    type:"html",
+    content: "temas/bootstrap/07-componentes.html",
+    enabled: true
+  },
+  Breakponints: {
+    type: "html",
+    content: "temas/bootstrap/08-breakpoints.html",
+    enabled: true
+  },
+  'Responsive y navbar':{
+    type: "html",
+    content: "temas/bootstrap/09-navbar.html",
+    enabled: true
+  },
+  'Acordeones y modales': {
+    type: "html",
+    content: "temas/bootstrap/10-acordeones.html",
+    enabled: true
+  },
+  'Bootstrap y CSS personalizado': {
+    type: "html",
+    content: "temas/bootstrap/11-css-personalizado.html",
+    enabled: true
+  },
+  'Tips de buenas prácticas':{
+    type: "html",
+    content: "temas/bootstrap/12-tips.html",
+    enabled: true
+  },
+
 };

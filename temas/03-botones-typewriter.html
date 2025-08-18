@@ -1,0 +1,68 @@
+<!-- /temas/animaciones/03-botones-typewriter.html -->
+<!doctype html><html lang="es"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Botones animados + Typewriter</title>
+<style>
+  :root{--txt:#e5e7eb;--bg:#0b1020;--c1:#22d3ee;--c2:#f472b6}
+  body{margin:0;background:radial-gradient(600px 300px at 20% 0%,#11203b 0,#0b1020 60%);color:var(--txt);font-family:system-ui;padding:28px;display:grid;place-items:center;min-height:100svh}
+  .wrap{max-width:900px;display:grid;gap:24px}
+  .row{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+  .card{background:#0f172a;border-radius:16px;padding:20px;box-shadow:0 8px 24px rgba(0,0,0,.3)}
+  /* Botón brillo */
+  .btn-glow{--p:0%; position:relative; padding:14px 20px;border-radius:12px;border:1px solid #334155;background:#111827;color:var(--txt);cursor:pointer;overflow:hidden}
+  .btn-glow::before{content:"";position:absolute;inset:-2px;background:conic-gradient(from 180deg at 50% 50%,var(--c1),var(--c2),var(--c1));filter:blur(12px);opacity:.0;transition:opacity .25s}
+  .btn-glow:hover::before{opacity:.6}
+  .btn-glow span{position:relative;z-index:1}
+  /* Botón subrayado deslizante */
+  .btn-underline{position:relative;color:var(--txt);text-decoration:none;padding:10px 2px;display:inline-block}
+  .btn-underline::after{content:"";position:absolute;left:0;right:100%;bottom:0;height:2px;background:linear-gradient(90deg,var(--c1),var(--c2));transition:right .35s ease}
+  .btn-underline:hover::after{right:0}
+  /* Typewriter puro CSS */
+  .type{width:ch;max-width:100%;border-right:2px solid #94a3b8;white-space:nowrap;overflow:hidden}
+  .type[data-text]{--n: attr(data-text length); }
+  .type{animation:typing 3s steps(30,end) 1 both, blink .8s step-end infinite}
+  @keyframes typing{from{width:0} to{width:100%}}
+  @keyframes blink{50%{border-color:transparent}}
+  /* Variante JS para escribir y borrar */
+  .terminal{background:#0b1220;border-radius:12px;padding:16px;font-family:ui-monospace,Consolas,monospace}
+  .cursor{border-right:2px solid #94a3b8;animation:blink .9s step-end infinite}
+</style></head><body>
+<div class="wrap">
+  <h1>Botones animados + efecto Typewriter</h1>
+  <div class="row">
+    <div class="card">
+      <h3>Glow sutil</h3>
+      <button class="btn-glow"><span>Comprar ahora</span></button>
+      <p>Brillo alrededor con pseudo-elemento + <code>filter: blur()</code>.</p>
+    </div>
+    <div class="card">
+      <h3>Subrayado deslizante</h3>
+      <a class="btn-underline" href="#" onclick="event.preventDefault()">Ver detalles</a>
+      <p>Transición del pseudo-elemento <code>::after</code> para el underline.</p>
+    </div>
+    <div class="card">
+      <h3>Typewriter (CSS)</h3>
+      <p class="type">Aprendé animaciones modernas en CSS ✨</p>
+      <p>Uso de <code>steps()</code> y borde como cursor.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Typewriter (JS, escribe y borra)</h3>
+    <div class="terminal"><span id="tw"></span><span class="cursor"></span></div>
+    <p>Con el Web API básico animamos texto dinámico.</p>
+  </div>
+</div>
+<script>
+  const frases=["Hola mundo 👋","CSS Animations 💫","Frontend divertido ✨"];
+  const el=document.getElementById('tw');
+  let i=0, j=0, borrando=false;
+  function tick(){
+    const f=frases[i%frases.length];
+    if(!borrando){ j++; el.textContent=f.slice(0,j); if(j===f.length){borrando=true; setTimeout(tick,900); return;}}
+    else{ j--; el.textContent=f.slice(0,j); if(j===0){borrando=false; i++;}}
+    setTimeout(tick, borrando?40:70);
+  }
+  tick();
+</script>
+</body></html>

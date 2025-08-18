@@ -1,0 +1,204 @@
+<!-- /temas/animaciones/00-resumen.html -->
+<!doctype html><html lang="es"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Animaciones — Resumen de propiedades</title>
+<style>
+  :root{--bg:#0b1020;--card:#0f172a;--txt:#e5e7eb;--mut:#93a3b8;--hi:#22d3ee}
+  *{box-sizing:border-box}
+  body{margin:0;background:linear-gradient(120deg,#0b1020,#0f172a);color:var(--txt);font-family:system-ui,Segoe UI,Roboto;line-height:1.55;padding:28px;display:grid;place-items:start}
+  .wrap{width:min(1100px,100%);margin:auto;display:grid;gap:20px}
+  h1,h2{margin:0 0 6px}
+  p{margin:.2rem 0 .8rem}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+  .card{background:var(--card);border-radius:16px;padding:14px 16px;border:1px solid #1f2a44;box-shadow:0 8px 24px rgba(0,0,0,.25)}
+  .k{font-family:ui-monospace,Consolas,monospace;background:#0b1220;border:1px solid #1c2540;border-radius:8px;padding:2px 6px;color:#cbd5e1}
+  .mini{font-size:.92rem;color:var(--mut)}
+  ul{margin:.3rem 0 .6rem 1rem;padding:0}
+  li{margin:.18rem 0}
+  code{font-family:ui-monospace,Consolas,monospace}
+  pre{background:#0b1220;border:1px solid #1c2540;border-radius:10px;padding:10px;overflow:auto;margin:.4rem 0}
+  .tag{display:inline-block;font-size:.78rem;color:#0ea5e9;background:#0b1220;border:1px solid #1f2a42;padding:2px 8px;border-radius:999px;margin-right:6px}
+  .two{display:grid;grid-template-columns:1fr;gap:12px}
+  @media (min-width:880px){.two{grid-template-columns:1.2fr .8fr}}
+  .ok{color:#34d399}.warn{color:#fbbf24}.bad{color:#f87171}
+</style></head><body>
+<div class="wrap">
+  <h1>Animaciones — Resumen de propiedades</h1>
+  <p class="mini">Transiciones, <code>@keyframes</code>, scroll-driven y Web Animations API. Incluye shorthands, valores útiles y tips de performance/accesibilidad.</p>
+
+  <!-- TRANSICIONES -->
+  <div class="two">
+    <div class="card">
+      <h2>Transiciones (<span class="k">transition</span>)</h2>
+      <ul>
+        <li><span class="k">transition-property</span>: propiedad(es) a animar. Ej: <span class="k">transform, opacity</span> o <span class="k">all</span> (mejor evitar “all”).</li>
+        <li><span class="k">transition-duration</span>: tiempo. Ej: <span class="k">300ms</span>, <span class="k">.35s</span>.</li>
+        <li><span class="k">transition-timing-function</span>: curva. <span class="k">ease</span>, <span class="k">linear</span>, <span class="k">ease-in|out|in-out</span>, <span class="k">cubic-bezier(x,y,x,y)</span>, <span class="k">steps(n,start|end)</span>.</li>
+        <li><span class="k">transition-delay</span>: demora. Ej: <span class="k">120ms</span>.</li>
+      </ul>
+      <p><b>Shorthand</b>:</p>
+      <pre><code>/* property duration timing delay (multiplés separados por coma) */
+transition: transform .35s ease, opacity .35s;</code></pre>
+      <p class="mini"><b>Tip:</b> transicioná <span class="k">transform</span> y <span class="k">opacity</span> (GPU-friendly). Evitá <span class="k">width/height/top/left</span> si podés.</p>
+    </div>
+    <div class="card">
+      <h3>Timing rápido</h3>
+      <ul>
+        <li>UI sutil: <span class="k">150–250ms</span></li>
+        <li>Hover/press: <span class="k">120–200ms</span></li>
+        <li>Reveals: <span class="k">250–450ms</span></li>
+      </ul>
+      <p class="mini">Curva recomendada: <span class="k">cubic-bezier(.2,.7,.2,1)</span> (ease-out elástica sutil).</p>
+    </div>
+  </div>
+
+  <!-- ANIMACIONES -->
+  <div class="card">
+    <h2>Animaciones con <code>@keyframes</code></h2>
+    <div class="grid">
+      <div>
+        <p><b>Propiedades</b></p>
+        <ul>
+          <li><span class="k">animation-name</span>: nombre de los keyframes.</li>
+          <li><span class="k">animation-duration</span>: tiempo total.</li>
+          <li><span class="k">animation-timing-function</span>: curva global (cada keyframe puede definir <span class="k">easing</span> propio con <span class="k">animation-timing-function</span> o <span class="k">easing</span> por etapa en WAAPI).</li>
+          <li><span class="k">animation-delay</span></li>
+          <li><span class="k">animation-iteration-count</span>: <span class="k">1</span>, <span class="k">2</span>, <span class="k">infinite</span>.</li>
+          <li><span class="k">animation-direction</span>: <span class="k">normal</span>, <span class="k">reverse</span>, <span class="k">alternate</span>, <span class="k">alternate-reverse</span>.</li>
+          <li><span class="k">animation-fill-mode</span>: <span class="k">none</span>, <span class="k">forwards</span>, <span class="k">backwards</span>, <span class="k">both</span>.</li>
+          <li><span class="k">animation-play-state</span>: <span class="k">running</span> | <span class="k">paused</span>.</li>
+          <li><span class="k">animation-composition</span> (soporte nuevo): <span class="k">replace</span> | <span class="k">add</span> | <span class="k">accumulate</span>.</li>
+          <li><span class="k">animation-timeline</span> / <span class="k">animation-range</span> (scroll-driven, ver abajo).</li>
+        </ul>
+      </div>
+      <div>
+        <p><b>Shorthand</b></p>
+        <pre><code>/* name duration timing delay iteration direction fill play-state */
+animation: bounce 1s ease 0s infinite alternate both;</code></pre>
+        <p><b>Keyframes mínimo</b></p>
+        <pre><code>@keyframes bounce{
+  0%,100%{ transform:translateY(0) }
+  50%    { transform:translateY(-40px) }
+}</code></pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- BOTONES / TYPEWRITER -->
+  <div class="grid">
+    <div class="card">
+      <h3>Botones / micro-interacciones</h3>
+      <ul>
+        <li>Usá <span class="k">transition</span> para hovers y focos.</li>
+        <li>Elevar: <span class="k">transform: translateY(-3px)</span> + sombra.</li>
+        <li>Feedback click: <span class="k">scale(.96)</span> rápido + rebote sutil.</li>
+      </ul>
+      <pre><code>.btn{transition: transform .2s ease, background-color .2s}
+.btn:hover{transform:translateY(-3px)}</code></pre>
+    </div>
+    <div class="card">
+      <h3>Typewriter</h3>
+      <ul>
+        <li>CSS: <span class="k">steps(n,end)</span> con <span class="k">width</span> y borde-cursor.</li>
+        <li>JS: escribir/borrar con <span class="k">setTimeout</span> o WAAPI (más abajo).</li>
+      </ul>
+      <pre><code>.type{overflow:hidden;border-right:2px solid #94a3b8;
+  animation: typing 3s steps(30,end) 1 both, blink .8s step-end infinite}</code></pre>
+    </div>
+  </div>
+
+  <!-- SCROLL -->
+  <div class="two">
+    <div class="card">
+      <h2>Animaciones con scroll (moderno)</h2>
+      <ul>
+        <li><span class="k">animation-timeline: view()</span> o <span class="k">scroll()</span></li>
+        <li><span class="k">animation-range</span>: define tramo activo<br>
+          Valores: <span class="k">entry</span>, <span class="k">cover</span>, <span class="k">exit</span> + porcentajes.</li>
+      </ul>
+      <pre><code>@supports (animation-timeline: scroll(block)){
+  .box{
+    animation: growspin linear both;
+    animation-timeline: view();
+    animation-range: entry 10% cover 80%;
+  }
+}</code></pre>
+      <p class="mini">Fallback clásico: <span class="k">IntersectionObserver</span> para agregar una clase y transicionar.</p>
+    </div>
+    <div class="card">
+      <h3>IntersectionObserver (clave)</h3>
+      <ul>
+        <li><span class="k">threshold</span>: % visible para disparar (0–1).</li>
+        <li><span class="k">rootMargin</span>: margen del viewport (p. ej. <span class="k">-10%</span> abajo).</li>
+      </ul>
+      <pre><code>const io=new IntersectionObserver(es=>es.forEach(e=>{
+  if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+}),{threshold:.15, rootMargin:"0px 0px -10% 0px"});</code></pre>
+    </div>
+  </div>
+
+  <!-- WAAPI -->
+  <div class="card">
+    <h2>Web Animations API (WAAPI) + Promesas</h2>
+    <div class="grid">
+      <div>
+        <p><b>Método</b></p>
+        <pre><code>const a = el.animate(keyframes, options);
+/* keyframes: [{transform:"..."}, {...}, ...]
+   options: { duration, easing, delay, endDelay, iterations,
+              direction, fill, composite } */</code></pre>
+        <p><b>Control</b></p>
+        <ul>
+          <li><span class="k">a.play()</span> / <span class="k">a.pause()</span> / <span class="k">a.cancel()</span> / <span class="k">a.finish()</span></li>
+          <li>Promesas: <span class="k">a.finished</span>, <span class="k">a.ready</span></li>
+          <li>Progreso: <span class="k">a.currentTime</span>, <span class="k">a.playbackRate</span></li>
+        </ul>
+      </div>
+      <div>
+        <p><b>Secuencias</b></p>
+        <pre><code>await el.animate([{opacity:0},{opacity:1}],{duration:250}).finished;
+await el.animate([{transform:"scale(1)"},{transform:"scale(1.1)"}],
+                 {duration:180, direction:"alternate", iterations:2}).finished;</code></pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- ACCESIBILIDAD + PERF -->
+  <div class="grid">
+    <div class="card">
+      <h3>Accesibilidad</h3>
+      <ul>
+        <li>Respetar <span class="k">@media (prefers-reduced-motion: reduce)</span>.</li>
+        <li>Evitar animar fondo/ruido constante; permitir pausar.</li>
+        <li>Duraciones razonables; no bloquear interacción.</li>
+      </ul>
+      <pre><code>@media (prefers-reduced-motion: reduce){
+  *{animation: none !important; transition: none !important;}
+}</code></pre>
+    </div>
+    <div class="card">
+      <h3>Performance</h3>
+      <ul>
+        <li class="ok">OK: <span class="k">transform</span>, <span class="k">opacity</span>.</li>
+        <li class="warn">Cuidado: <span class="k">filter</span>, <span class="k">box-shadow</span> (costosos).</li>
+        <li class="bad">Evitar: layout properties (<span class="k">left/top/width/height</span>) si podés.</li>
+        <li>Usá <span class="k">will-change</span> con moderación (antes del hover o al hacer reveal).</li>
+      </ul>
+      <pre><code>.tile:hover{ will-change: transform; }</code></pre>
+    </div>
+  </div>
+
+  <!-- CHEAT EXPRESS -->
+  <div class="card">
+    <h2>Cheat express</h2>
+    <ul>
+      <li><span class="tag">Shorthand</span> <span class="k">transition</span> → <span class="k">property duration timing delay</span></li>
+      <li><span class="tag">Shorthand</span> <span class="k">animation</span> → <span class="k">name duration timing delay iteration direction fill play-state</span></li>
+      <li><span class="tag">Loop</span> <span class="k">animation-iteration-count: infinite</span></li>
+      <li><span class="tag">Ping-pong</span> <span class="k">animation-direction: alternate</span> + <span class="k">fill: both</span></li>
+      <li><span class="tag">Scroll</span> <span class="k">animation-timeline: view()</span> + <span class="k">animation-range: entry X% cover Y%</span></li>
+      <li><span class="tag">Pausa</span> <span class="k">animation-play-state: paused</span> (o <span class="k">a.pause()</span> en WAAPI)</li>
+    </ul>
+  </div>
+</div>
+</body></html>

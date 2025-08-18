@@ -1,0 +1,71 @@
+<!-- /temas/animaciones/07-promesas.html -->
+<!doctype html><html lang="es"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Animaciones y Promesas</title>
+<style>
+  :root{--txt:#e5e7eb}
+  body{margin:0;background:#0b1020;color:var(--txt);font-family:system-ui;display:grid;place-items:center;min-height:100svh;padding:24px}
+  .card{background:#0f172a;border-radius:16px;padding:24px;max-width:820px;box-shadow:0 8px 24px rgba(0,0,0,.35)}
+  .row{display:flex;gap:12px;flex-wrap:wrap;margin:12px 0}
+  button{background:#111827;border:1px solid #2a344a;color:var(--txt);padding:10px 14px;border-radius:10px;cursor:pointer}
+  .box{width:90px;height:90px;border-radius:16px;background:linear-gradient(135deg,#22d3ee,#a78bfa)}
+  pre{background:#0b1220;border-radius:12px;padding:12px;overflow:auto}
+</style></head><body>
+<div class="card">
+  <h1>Web Animations API + Promesas</h1>
+  <p><code>element.animate(keyframes, options)</code> devuelve un objeto <b>Animation</b> con una promesa <code>.finished</code>. Esto permite encadenar animaciones en secuencia sin “callbacks hell”.</p>
+  <div class="row">
+    <div class="box" id="box"></div>
+  </div>
+  <div class="row">
+    <button id="sec">Secuencia</button>
+    <button id="par">Paralelo</button>
+    <button id="stop">Detener</button>
+  </div>
+  <pre><code>// Secuencia
+await el.animate([{transform:"translateX(0)"},{transform:"translateX(200px)"}],{duration:500, easing:"ease-out"}).finished;
+await el.animate([{transform:"translateX(200px) rotate(0)"},{transform:"translateX(200px) rotate(180deg)"}],{duration:400}).finished;</code></pre>
+</div>
+<script>
+  const el=document.getElementById('box');
+  let running=[];
+  function stopAll(){ running.forEach(a=>a.cancel()); running=[]; }
+  document.getElementById('stop').onclick=stopAll;
+
+  document.getElementById('sec').onclick=async ()=>{
+    stopAll();
+    // Secuencia con await sobre .finished
+    const a1=el.animate(
+      [{transform:"translateX(0)"},{transform:"translateX(220px)"}],
+      {duration:500, easing:"ease-out", fill:"forwards"}
+    ); running.push(a1); await a1.finished;
+
+    const a2=el.animate(
+      [{transform:"translateX(220px) rotate(0deg)"},{transform:"translateX(220px) rotate(180deg)"}],
+      {duration:400, easing:"ease-in-out", fill:"forwards"}
+    ); running.push(a2); await a2.finished;
+
+    const a3=el.animate(
+      [{transform:"translate(220px,0) scale(1)", opacity:1},{transform:"translate(0,0) scale(1.2)", opacity:1}],
+      {duration:450, easing:"cubic-bezier(.2,.7,.2,1)", direction:"alternate", iterations:2, fill:"forwards"}
+    ); running.push(a3); await a3.finished;
+  };
+
+  document.getElementById('par').onclick=async ()=>{
+    stopAll();
+    // Paralelo: esperar a que terminen todas
+    const a = el.animate(
+      [{transform:"translateX(0)"},{transform:"translateX(220px)"}],
+      {duration:600, easing:"ease-out", fill:"forwards"}
+    );
+    const b = el.animate(
+      [{offset:0,   filter:"saturate(100%)"},
+       {offset:.75, filter:"saturate(150%)"},
+       {offset:1,   filter:"saturate(120%)"}],
+      {duration:600, fill:"forwards"}
+    );
+    running.push(a,b);
+    await Promise.all([a.finished,b.finished]);
+  };
+</script>
+</body></html>

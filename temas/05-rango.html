@@ -1,0 +1,68 @@
+<!-- /temas/animaciones/05-rango.html -->
+<!doctype html><html lang="es"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rango de Animaciones</title>
+<style>
+  :root{--txt:#e5e7eb}
+  body{margin:0;font-family:system-ui;background:#0b1020;color:var(--txt)}
+  header{padding:56px 24px;text-align:center}
+  .spacer{height:14svh}
+  .track{position:sticky;top:10svh;height:60svh;display:grid;place-items:center}
+  .box{width:160px;height:160px;border-radius:24px;background:linear-gradient(135deg,#22d3ee,#a78bfa);
+       transform:scale(.6) rotate(0deg);opacity:.4;transition:transform .2s, opacity .2s}
+  .bar{height:6px;background:#1f2937;border-radius:999px;margin:18px auto;width:min(560px,90%);overflow:hidden}
+  .fill{height:100%;width:0%;background:linear-gradient(90deg,#22d3ee,#a78bfa)}
+  /* Propuesta moderna (si hay soporte): scroll-timeline + animation-range */
+  @supports (animation-timeline: scroll(block)) {
+    @keyframes growspin {
+      0%{transform:scale(.6) rotate(0deg);opacity:.4}
+      100%{transform:scale(1.2) rotate(270deg);opacity:1}
+    }
+    .box{
+      animation: growspin linear both;
+      animation-timeline: view();
+      /* el tramo activo: desde que entra 10% hasta cubrir 80% del viewport */
+      animation-range: entry 10% cover 80%;
+    }
+  }
+</style></head><body>
+<header>
+  <h1>Rango de animaciones</h1>
+  <p>Definí qué parte del scroll “conduce” la animación. Si el navegador no soporta <code>animation-timeline</code>, usamos un fallback JS con progreso.</p>
+</header>
+
+<div class="spacer"></div>
+<div class="track">
+  <div class="box" id="box"></div>
+  <div class="bar"><div class="fill" id="fill"></div></div>
+</div>
+<div class="spacer"></div><div class="spacer"></div><div class="spacer"></div>
+
+<script>
+  // Fallback: calcular progreso manualmente entre un rango del viewport
+  if (!CSS.supports('animation-timeline: scroll(block)')) {
+    const box=document.getElementById('box');
+    const fill=document.getElementById('fill');
+    const track=document.querySelector('.track');
+    function lerp(a,b,t){return a+(b-a)*t}
+    function clamp01(x){return Math.max(0,Math.min(1,x))}
+    function onScroll(){
+      const r=track.getBoundingClientRect();
+      const vh=window.innerHeight;
+      // rango activo: cuando el centro de track está entre 10% y 90% del viewport
+      const center=r.top + r.height/2;
+      const start=vh*0.1, end=vh*0.9;
+      const t=clamp01((center-start)/(end-start));
+      // aplicar al box (escala y giro)
+      const scale=lerp(0.6,1.2,t);
+      const rot=lerp(0,270,t);
+      const op=lerp(0.4,1,t);
+      box.style.transform=`scale(${scale}) rotate(${rot}deg)`;
+      box.style.opacity=op.toFixed(3);
+      // progreso visual
+      fill.style.width=(t*100).toFixed(1)+'%';
+    }
+    onScroll(); addEventListener('scroll',onScroll,{passive:true}); addEventListener('resize',onScroll);
+  }
+</script>
+</body></html>

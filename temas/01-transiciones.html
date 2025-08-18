@@ -1,0 +1,36 @@
+<!-- /temas/animaciones/01-transiciones.html -->
+<!doctype html><html lang="es"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Transiciones CSS</title>
+<style>
+  :root { --bg:#0f172a; --card:#111827; --txt:#e5e7eb; --acc:#38bdf8; }
+  body{margin:0;font-family:system-ui,Segoe UI,Roboto;background:linear-gradient(120deg,#0f172a,#111827);color:var(--txt);min-height:100svh;display:grid;place-items:center;padding:24px}
+  .wrap{max-width:900px;width:100%;display:grid;gap:24px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+  .card{background:var(--card);padding:18px;border-radius:16px;box-shadow:0 8px 24px rgba(0,0,0,.25)}
+  .box{height:120px;border-radius:14px;background:#1f2937;display:grid;place-items:center;color:#9ca3af;
+       transition: transform .35s ease, background-color .35s ease, border-radius .35s ease;}
+  .box:hover{transform:translateY(-8px) scale(1.04);background:#334155;border-radius:24px}
+  code,kbd{background:#0b1220;padding:.1rem .4rem;border-radius:6px}
+  pre{background:#0b1220;border-radius:12px;padding:12px;overflow:auto}
+</style></head><body>
+<div class="wrap">
+  <h1>Transiciones CSS</h1>
+  <p>Una <b>transición</b> suaviza el cambio entre dos estados. Se declara con <code>transition: propiedad duración timing delay</code>. Podés listar varias propiedades separadas por comas.</p>
+  <div class="grid">
+    <div class="card">
+      <h3>Hover suave</h3>
+      <div class="box">pasá el mouse 👆</div>
+      <pre><code>.box{transition: transform .35s ease, background-color .35s ease, border-radius .35s;}
+.box:hover{transform:translateY(-8px) scale(1.04);background:#334155;border-radius:24px}</code></pre>
+    </div>
+    <div class="card">
+      <h3>Delays y timing</h3>
+      <div class="box" style="transition-timing-function:cubic-bezier(.2,.7,.2,1.1);transition-duration:.6s">bezier</div>
+      <pre><code>.box{transition-duration:.6s;
+  transition-timing-function:cubic-bezier(.2,.7,.2,1.1);}</code></pre>
+    </div>
+  </div>
+  <p><b>Tip:</b> Usá <code>transition</code> para cambios de estado (hover/focus/expanded). Para bucles o coreografías, usá <a href="./02-animaciones.html" target="_blank">animaciones</a>.</p>
+</div>
+</body></html>

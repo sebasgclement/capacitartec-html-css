@@ -1,0 +1,69 @@
+<!-- /temas/animaciones/02-animaciones.html -->
+<!doctype html><html lang="es"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Animaciones con @keyframes</title>
+<style>
+  :root{--bg:#0b1020;--card:#0f172a;--txt:#e5e7eb;--acc:#a78bfa}
+  *{box-sizing:border-box} body{margin:0;background:radial-gradient(800px 400px at 10% 10%,#12203a 0,#0b1020 60%);color:var(--txt);font-family:system-ui,Segoe UI;padding:28px}
+  .wrap{max-width:1000px;margin:auto;display:grid;gap:20px}
+  .stage{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+  .card{background:var(--card);border-radius:16px;padding:18px;box-shadow:0 8px 24px rgba(0,0,0,.3)}
+  .ball{width:80px;height:80px;border-radius:999px;margin:auto;background:linear-gradient(135deg,#22d3ee,#818cf8)}
+  /* Keyframes */
+  @keyframes bounce {
+    0%,100%{transform:translateY(0)}
+    50%{transform:translateY(-40px)}
+  }
+  @keyframes pulse {
+    0%{transform:scale(1);filter:saturate(100%)}
+    70%{transform:scale(1.12);filter:saturate(130%)}
+    100%{transform:scale(1)}
+  }
+  @keyframes spin3d {
+    from{transform:rotateY(0deg)}
+    to{transform:rotateY(360deg)}
+  }
+  .bouncing .ball{animation:bounce 1s ease-in-out infinite}
+  .pulse .ball{animation:pulse 1.6s ease-in-out infinite}
+  .spin .ball{animation:spin3d 2.5s linear infinite; transform-style:preserve-3d}
+  pre{background:#0b1220;border-radius:12px;padding:12px;overflow:auto}
+  code{font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace}
+  .controls{display:flex;gap:8px;flex-wrap:wrap}
+  button{background:#1f2937;border:1px solid #334155;color:#e5e7eb;padding:8px 12px;border-radius:10px;cursor:pointer}
+  button:hover{background:#2a3648}
+</style></head><body>
+<div class="wrap">
+  <h1>@keyframes: crear animaciones declarativas</h1>
+  <div class="stage">
+    <div class="card bouncing"><h3>Rebote</h3><div class="ball"></div><pre><code>@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-40px)}}
+.ball{animation:bounce 1s ease-in-out infinite}</code></pre></div>
+    <div class="card pulse"><h3>Pulso</h3><div class="ball"></div></div>
+    <div class="card spin"><h3>Giro 3D</h3><div class="ball"></div></div>
+  </div>
+  <div class="card">
+    <h3>Controles por clase</h3>
+    <div class="controls">
+      <button data-action="pause">Pausar</button>
+      <button data-action="play">Reanudar</button>
+      <button data-action="slower">Más lento</button>
+      <button data-action="faster">Más rápido</button>
+    </div>
+    <p>Podés pausar/reanudar y cambiar la duración editando <code>animation-play-state</code> y <code>animation-duration</code> desde JS.</p>
+  </div>
+</div>
+<script>
+  const cards=[...document.querySelectorAll('.card')];
+  document.addEventListener('click',e=>{
+    const b=e.target.closest('button'); if(!b) return;
+    const a=b.dataset.action;
+    cards.forEach(c=>{
+      const el=c.querySelector('.ball'); if(!el) return;
+      const cs=getComputedStyle(el); const dur=parseFloat(cs.animationDuration);
+      if(a==='pause') el.style.animationPlayState='paused';
+      if(a==='play')  el.style.animationPlayState='running';
+      if(a==='slower') el.style.animationDuration=(dur*1.25)+'s';
+      if(a==='faster') el.style.animationDuration=(Math.max(dur*0.8, .2))+'s';
+    });
+  });
+</script>
+</body></html>

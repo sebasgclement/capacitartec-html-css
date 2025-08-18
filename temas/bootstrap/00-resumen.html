@@ -1,0 +1,237 @@
+<!-- temas/bootstrap/00-resumen.html -->
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Bootstrap — Resumen (Machete)</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="bs-theme.css" rel="stylesheet">
+</head>
+<body class="page">
+  <div class="container-lg py-4">
+    <header class="mb-3">
+      <h1 class="display-6">Bootstrap — Machete</h1>
+      <p class="lead mb-0">Grillas, breakpoints, utilidades y componentes clave (v5.3), listo para usar.</p>
+    </header>
+
+    <!-- CDN -->
+    <div class="card section mb-3">
+      <div class="card-body">
+        <h2 class="h5 mb-2">CDN</h2>
+        <pre class="mb-2"><code>&lt;link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"&gt;
+&lt;script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"&gt;&lt;/script&gt;</code></pre>
+        <p class="mb-0"><span class="badge badge-acc">Tip</span> El <b>bundle</b> ya trae Popper para modales, dropdowns, offcanvas.</p>
+      </div>
+    </div>
+
+    <!-- Contenedores & Breakpoints -->
+    <div class="row g-3">
+      <div class="col-lg-6">
+        <div class="card section h-100">
+          <div class="card-body">
+            <h2 class="h5">Contenedores</h2>
+            <ul class="mb-2">
+              <li><code>.container</code> → ancho fijo por breakpoint</li>
+              <li><code>.container-fluid</code> → 100% de ancho</li>
+              <li><code>.container-{bp}</code> → fluido hasta ese <i>bp</i></li>
+            </ul>
+            <table class="table table-darkish table-sm align-middle mb-2">
+              <thead><tr><th>BP</th><th>Min width</th><th>Max container</th></tr></thead>
+              <tbody>
+                <tr><td>sm</td><td>≥576px</td><td>540px</td></tr>
+                <tr><td>md</td><td>≥768px</td><td>720px</td></tr>
+                <tr><td>lg</td><td>≥992px</td><td>960px</td></tr>
+                <tr><td>xl</td><td>≥1200px</td><td>1140px</td></tr>
+                <tr><td>xxl</td><td>≥1400px</td><td>1320px</td></tr>
+              </tbody>
+            </table>
+            <pre class="mb-0"><code>&lt;div class="container"&gt;...&lt;/div&gt;
+&lt;div class="container-fluid"&gt;...&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="card section h-100">
+          <div class="card-body">
+            <h2 class="h5">Breakpoints</h2>
+            <p class="mb-2">Escala: <code>xs</code> (&lt;576), <code>sm</code> (≥576), <code>md</code> (≥768), <code>lg</code> (≥992), <code>xl</code> (≥1200), <code>xxl</code> (≥1400)</p>
+            <pre class="mb-0"><code>/* Patrón: {prop}-{bp?}-{valor} */
+d-none d-md-block
+text-center text-lg-start
+p-2 p-md-3 p-xl-4</code></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Grilla -->
+    <div class="card section my-3">
+      <div class="card-body">
+        <h2 class="h5">Sistema de grillas (12 columnas)</h2>
+        <ul>
+          <li>Fila: <code>.row</code> — Columnas: <code>.col</code> / <code>.col-*</code> / <code>.col-{bp}-*</code></li>
+          <li>Gaps: <code>.g-0</code>…<code>.g-5</code> + variantes <code>.gx-*</code>, <code>.gy-*</code></li>
+          <li>Offset y orden: <code>.offset-*</code>, <code>.order-*</code></li>
+        </ul>
+        <pre class="mb-2"><code>&lt;div class="row g-3"&gt;
+  &lt;div class="col-12 col-md-6 col-lg-4"&gt;A&lt;/div&gt;
+  &lt;div class="col-12 col-md-6 col-lg-4"&gt;B&lt;/div&gt;
+  &lt;div class="col-12 col-lg-4"&gt;C&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        <pre class="mb-0"><code>&lt;div class="row"&gt;
+  &lt;div class="col-4"&gt;1&lt;/div&gt;
+  &lt;div class="col-4 offset-4"&gt;2 (offset 4)&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+      </div>
+    </div>
+
+    <!-- Utilidades clave -->
+    <div class="row g-3">
+      <div class="col-md-6">
+        <div class="card section h-100">
+          <div class="card-body">
+            <h2 class="h5">Espaciado</h2>
+            <p class="mb-2"><code>m</code> (margin), <code>p</code> (padding) + lados <code>t/b/s/e/x/y</code> y escala <code>0–5</code>, <code>auto</code>.</p>
+            <pre class="mb-0"><code>p-3 py-4 px-2 mt-2 ms-auto mb-0
+p-md-4 mt-lg-5 mx-auto</code></pre>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card section h-100">
+          <div class="card-body">
+            <h2 class="h5">Display &amp; visibilidad</h2>
+            <pre class="mb-2"><code>d-block d-inline d-inline-block d-none
+d-md-block          /* visible md+ */
+d-lg-none           /* oculto en lg+ */</code></pre>
+            <p class="mb-0">Helpers: <code>.visually-hidden</code>, <code>.stretched-link</code>, <code>.ratio</code>, <code>.img-fluid</code>.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-3 my-1">
+      <div class="col-md-6">
+        <div class="card section h-100">
+          <div class="card-body">
+            <h2 class="h5">Flex &amp; Grid helpers</h2>
+            <pre class="mb-2"><code>d-flex flex-row flex-column flex-wrap
+justify-content-start|center|between|end
+align-items-start|center|end
+align-self-start|center|end
+order-0 order-1 order-lg-0
+gap-1 gap-2 gap-3</code></pre>
+            <p class="mb-0">Útil: <code>.row-cols-*</code> (ej. <code>row-cols-2 row-cols-md-3</code>).</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card section h-100">
+          <div class="card-body">
+            <h2 class="h5">Tipografía &amp; color</h2>
+            <pre class="mb-2"><code>fw-light|normal|bold   fst-italic
+text-start|center|end  text-truncate
+text-primary|success|danger|warning|info|dark|muted
+bg-primary|light|dark|body-secondary
+rounded|rounded-1..5|rounded-circle   shadow|shadow-sm|shadow-lg</code></pre>
+            <p class="mb-0">Tamaños: <code>fs-1 … fs-6</code>. Opacidad: <code>text-opacity-50</code>.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Componentes esenciales -->
+    <div class="card section my-3">
+      <div class="card-body">
+        <h2 class="h5">Componentes esenciales</h2>
+
+        <h3 class="h6 mt-2">Navbar</h3>
+        <pre class="mb-2"><code>&lt;nav class="navbar navbar-expand-lg bg-body-tertiary"&gt;
+  &lt;div class="container-fluid"&gt;
+    &lt;a class="navbar-brand" href="#"&gt;Brand&lt;/a&gt;
+    &lt;button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#nav"&gt;
+      &lt;span class="navbar-toggler-icon"&gt;&lt;/span&gt;
+    &lt;/button&gt;
+    &lt;div id="nav" class="collapse navbar-collapse"&gt;...&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/nav&gt;</code></pre>
+
+        <h3 class="h6">Card</h3>
+        <pre class="mb-2"><code>&lt;div class="card" style="width:18rem"&gt;
+  &lt;img src="..." class="card-img-top" alt=""&gt;
+  &lt;div class="card-body"&gt;
+    &lt;h5 class="card-title"&gt;Título&lt;/h5&gt;
+    &lt;p class="card-text"&gt;Texto corto.&lt;/p&gt;
+    &lt;a class="btn btn-primary"&gt;Acción&lt;/a&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+        <h3 class="h6">Acordeón</h3>
+        <pre class="mb-2"><code>&lt;div class="accordion" id="acc"&gt;
+  &lt;div class="accordion-item"&gt;
+    &lt;h2 class="accordion-header"&gt;
+      &lt;button class="accordion-button" data-bs-toggle="collapse" data-bs-target="#c1"&gt;Tema&lt;/button&gt;
+    &lt;/h2&gt;
+    &lt;div id="c1" class="accordion-collapse collapse show" data-bs-parent="#acc"&gt;
+      &lt;div class="accordion-body"&gt;Contenido&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+        <h3 class="h6">Modal</h3>
+        <pre class="mb-2"><code>&lt;button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#m1"&gt;Abrir&lt;/button&gt;
+&lt;div id="m1" class="modal fade" tabindex="-1"&gt;
+  &lt;div class="modal-dialog"&gt;&lt;div class="modal-content"&gt;...&lt;/div&gt;&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+        <h3 class="h6">Offcanvas</h3>
+        <pre class="mb-0"><code>&lt;button class="btn btn-secondary" data-bs-toggle="offcanvas" data-bs-target="#oc"&gt;Menú&lt;/button&gt;
+&lt;div class="offcanvas offcanvas-end" id="oc"&gt;...&lt;/div&gt;</code></pre>
+      </div>
+    </div>
+
+    <!-- Bootstrap + CSS propio / Buenas prácticas -->
+    <div class="row g-3">
+      <div class="col-lg-6">
+        <div class="card section h-100">
+          <div class="card-body">
+            <h2 class="h5">Bootstrap + CSS propio</h2>
+            <ul class="mb-2">
+              <li>Creamos clases propias y las combinamos con utilitarias.</li>
+              <li>Para overrides, cargá tu CSS <b>después</b> del CSS de Bootstrap.</li>
+            </ul>
+            <pre class="mb-0"><code>/* custom.css */
+.btn-brand{background:#6610f2;color:#fff;border-radius:999px}
+.btn-brand:hover{background:#520dc2}</code></pre>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="card section h-100">
+          <div class="card-body">
+            <h2 class="h5">Buenas prácticas</h2>
+            <ul class="mb-2">
+              <li><b>Mobile first</b>: usá bp ascendentes (<code>-sm</code>, <code>-md</code>…)</li>
+              <li>No repitas 10 utilitarias → movelas a una clase.</li>
+              <li>Accesibilidad: foco visible, contraste, <code>.visually-hidden</code></li>
+              <li>Performance: no anidar grillas de más; preferí <code>gap</code></li>
+              <li>JS: usá el <b>bundle</b> oficial para modales/offcanvas</li>
+            </ul>
+            <pre class="mb-0"><code>@media (prefers-reduced-motion: reduce){
+  *{scroll-behavior:auto!important}
+}</code></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="text-muted small mt-3">
+      Atajo mental: <code>{prop}</code>-<code>{bp?}</code>-<code>{valor}</code> → <code>d-md-flex</code>, <code>px-3</code>, <code>text-lg-start</code>.
+    </footer>
+  </div>
+
+  <!-- Opcional: sólo si querés probar componentes aquí mismo -->
+  <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script> -->
+</body>
+</html>
