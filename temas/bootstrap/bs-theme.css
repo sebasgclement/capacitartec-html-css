@@ -1,35 +1,116 @@
-/* temas/bootstrap/bs-theme.css */
+/* temas/bootstrap/bs-theme.css — vHC (high-contrast) */
 :root{
   --bg1:#0b1020; --bg2:#0f172a;
-  --ink:#e5e7eb; --mut:#9ca3af;
+  --ink:#f1f5f9;           /* texto principal MÁS claro */
+  --mut:#cbd5e1;           /* secundario legible */
   --card:#111827; --line:#1f2a44;
-  --acc:#22d3ee; --acc2:#a78bfa;
+  --acc:#38bdf8; --acc2:#a78bfa;
 }
+
 *{box-sizing:border-box}
+
 body.page{
   margin:0; font-family:system-ui,Segoe UI,Roboto;
   color:var(--ink);
   background:linear-gradient(120deg,var(--bg1),var(--bg2));
   min-height:100svh;
+
+  /* Alinear Bootstrap al dark theme y subir contraste */
+  --bs-body-bg: transparent;
+  --bs-body-color: var(--ink);
+  --bs-secondary-color: var(--mut);
+  --bs-tertiary-color: #a7b3c0;
+
+  --bs-heading-color: #f8fafc;
+  --bs-link-color: var(--acc);
+  --bs-link-hover-color: #7dd3fc;
+  --bs-border-color: var(--line);
+
+  /* Componentes que te estaban “apagando” el texto */
+  --bs-card-bg: rgba(17,24,39,.94);
+  --bs-card-color: var(--ink);
+
+  --bs-list-group-bg: rgba(17,24,39,.94);
+  --bs-list-group-color: var(--ink);
+  --bs-list-group-border-color: var(--line);
+
+  --bs-accordion-bg: rgba(15,23,42,.98);
+  --bs-accordion-color: var(--ink);
+  --bs-accordion-btn-bg: rgba(15,23,42,.98);
+  --bs-accordion-btn-color: var(--ink);
+  --bs-accordion-btn-focus-border-color: #22d3ee80;
+  --bs-accordion-active-bg: #111827;
+  --bs-accordion-active-color: var(--ink);
+
+  --bs-table-color: var(--ink);
+  --bs-table-bg: #0f172a;
+
+  /* Navbar */
+  --bs-navbar-color: rgba(255,255,255,.92);
+  --bs-navbar-hover-color: #fff;
+  --bs-navbar-brand-color: #fff;
+  --bs-navbar-brand-hover-color: #fff;
+
+  /* Código más legible en dark */
+  --bs-code-color: #f472b6;
 }
+
+/* --- helpers de la sección --- */
 .container-lg{max-width:1100px}
 .lead{color:var(--mut)}
-.card.section{background:rgba(17,24,39,.9); border:1px solid var(--line);
-  border-radius:18px; box-shadow:0 12px 30px rgba(0,0,0,.35)}
+
+.card.section{
+  background:var(--bs-card-bg);
+  border:1px solid var(--line);
+  border-radius:18px;
+  box-shadow:0 12px 30px rgba(0,0,0,.35);
+  color:var(--ink);                    /* 🔒 fuerza color dentro de la card */
+}
 .card.section .card-title{margin-bottom:.25rem}
-.badge-acc{background:#0b1220;border:1px solid var(--line);color:#93c5fd}
-pre{background:#0b1220; border:1px solid var(--line); color:#cbd5e1;
-  padding:12px; border-radius:12px; overflow:auto}
+
+/* fuerza color legible en hijos comunes de las secciones */
+.card.section p,
+.card.section li,
+.card.section .list-group-item,
+.accordion,
+.accordion *:not(.btn):not(.badge),
+.list-group-item,
+.table-darkish{
+  color:var(--ink) !important;
+  opacity:1 !important;
+}
+
+a:not(.btn){ color:var(--acc); text-decoration:none }
+a:not(.btn):hover{ color:var(--bs-link-hover-color); text-decoration:underline }
+
+.badge-acc{ background:#0b1220; border:1px solid var(--line); color:#bfe3ff }
+
+pre{
+  background:#0b1220; border:1px solid var(--line); color:#e2e8f0;
+  padding:12px; border-radius:12px; overflow:auto
+}
 code,kbd{font-family:ui-monospace,Consolas,monospace}
+
 .demo-grid .col, .demo-tile{
   background:linear-gradient(135deg,#22d3ee22,#a78bfa22);
-  border:1px dashed #334155; border-radius:12px; padding:10px; color:#93a3b8
+  border:1px dashed #334155; border-radius:12px; padding:10px; color:#e2e8f0
 }
+
 .btn-ghost{
   background:#111827;border:1px solid #233146;color:var(--ink);
   border-radius:12px;padding:10px 14px
 }
 .btn-ghost:hover{background:#162136}
-.navbar-pro{backdrop-filter:blur(8px); background:rgba(15,23,42,.5)!important}
-.table-darkish{--bs-table-bg:#0f172a;--bs-table-border-color:#1f2a44;color:var(--ink)}
+
+.navbar-pro{backdrop-filter:blur(8px); background:rgba(15,23,42,.72)!important}
+
+.table-darkish{
+  --bs-table-bg:#0f172a;
+  --bs-table-border-color:#1f2a44;
+  color:var(--ink)
+}
+
 .ratio > iframe, .ratio > img{border-radius:12px}
+
+/* por si algún utilitario aplica opacidades, las cancelamos donde importa */
+.text-muted, .text-body-secondary{ color:var(--mut) !important; opacity:1 !important }

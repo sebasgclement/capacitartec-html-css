@@ -159,7 +159,7 @@ export const contentMap = {
   'Resumen Bootstrap':{
     type:"html",
     content: "temas/bootstrap/00-resumen.html",
-    enabled: true
+    enabled: false
   },
 
   //Ejercicios
@@ -171,6 +171,11 @@ export const contentMap = {
   "INTEGRADOR 2":{
     type: "html",
     content: "temas/IntegradorII.html",
+    enabled: false
+  },
+  'INTEGRADOR 3':{
+    type: "html",
+    content: "temas/integrador-instrucciones.html",
     enabled: false
   },
   
@@ -506,62 +511,62 @@ export const contentMap = {
   'Framework CSS':{
     type: "html",
     content: "temas/bootstrap/01-framework.html",
-    enabled: true
+    enabled: false
   },
   '¿Qué es Bootstrap y por qué es útil?':{
     type: "html",
     content: "temas/bootstrap/02-que-es.html",
-    enabled: true
+    enabled: false
   },
   'Cómo incluirlo en CDN':{
     type: "html",
     content: "temas/bootstrap/03-cdn.html",
-    enabled: true
+    enabled: false
   },
   'Tipo de contenedores':{
     type: "html",
     content: "temas/bootstrap/04-contenedores.html",
-    enabled: true
+    enabled: false
   },
   'Sistema de grillas':{
     type: "html",
     content: "temas/bootstrap/05-grillas.html",
-    enabled: true
+    enabled: false
   },
   'Clases utilitarias':{
     type: "html",
     content: "temas/bootstrap/06-utilitarias.html",
-    enabled: true
+    enabled: false
   },
   Componentes:{
     type:"html",
     content: "temas/bootstrap/07-componentes.html",
-    enabled: true
+    enabled: false
   },
   Breakponints: {
     type: "html",
     content: "temas/bootstrap/08-breakpoints.html",
-    enabled: true
+    enabled: false
   },
   'Responsive y navbar':{
     type: "html",
     content: "temas/bootstrap/09-navbar.html",
-    enabled: true
+    enabled: false
   },
   'Acordeones y modales': {
     type: "html",
     content: "temas/bootstrap/10-acordeones.html",
-    enabled: true
+    enabled: false
   },
   'Bootstrap y CSS personalizado': {
     type: "html",
     content: "temas/bootstrap/11-css-personalizado.html",
-    enabled: true
+    enabled: false
   },
   'Tips de buenas prácticas':{
     type: "html",
     content: "temas/bootstrap/12-tips.html",
-    enabled: true
+    enabled: false
   },
 
 };
