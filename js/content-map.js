@@ -166,7 +166,7 @@ export const contentMap = {
   "INTEGRADOR 1": {
     type: "html",
     content: "temas/IntegradorI.html",
-    enabled:false
+    enabled:true
   },
   "INTEGRADOR 2":{
     type: "html",
