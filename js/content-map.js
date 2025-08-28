@@ -183,153 +183,153 @@ export const contentMap = {
   Comentarios: {
     type:"img",
     content: "img/comentarios.png",
-    enabled:false
+    enabled:true
   },
   Favicon:{
     type:"img",
     content: "img/faicon.png",
-    enabled:false
+    enabled:true
   },
   Metadatos: {
     type: "html",
     content: "temas/metadatos.html",
-    enabled: false
+    enabled: true
   },
   'Metatags.io':{
     type: "html",
     content: "temas/metatagsIO.html",
-    enabled: false
+    enabled: true
   },
   Textarea: {
     type: "html",
     content: "temas/textarea.html",
-    enabled: false
+    enabled: true
   },
   Labels: {
     type: "html",
     content: "temas/label.html",
-    enabled: false
+    enabled: true
   },
   'Select, datalist y option': {
     type: "html",
     content: "temas/select.html",
-    enabled: false
+    enabled: true
   },
   'Fieldset y legend':{
     type: "html",
     content: "temas/fieldset.html",
-    enabled: false
+    enabled: true
   },
   'Details y summary':{
     type: "html",
     content: "temas/details.html",
-    enabled: false
+    enabled: true
   },
   'Enlaces avanzados':{
     type:"html",
     content: "temas/enlacesAvanzados.html",
-    enabled: false
+    enabled: true
   },
   'Audio y Video':{
     type: "html",
     content: "temas/audioVideo.html",
-    enabled: false
+    enabled: true
   },
   'Lazy Loading':{
     type: "html",
     content: "temas/lazyLoad.html",
-    enabled: false
+    enabled: true
   },
   'HTML Obsoleto':{
     type: "html",
     content: "temas/HTMLObsoleto.html",
-    enabled: false
+    enabled: true
   },
   'HTML Semántico':{
     type: "html",
     content: "temas/HTMLSemantico.html",
-    enabled: false
+    enabled: true
   },
   'Accesibilidad WEB':{
     type: "html",
     content: "temas/accesibilidad.html",
-    enabled: false
+    enabled: true
   },
   //CSS Intermedio
   'Selectores avanzados':{
     type: "html",
     content: "temas/selectoresAvanzados.html",
-    enabled: false
+    enabled: true
   },
   'Herencia, Cascada y Especificidad':{
     type:"html",
     content: "temas/EspecificidadHerencia.html",
-    enabled: false
+    enabled: true
   },
   Pseudoclases:{
     type:"html",
     content: "temas/Pseudoclase.html",
-    enabled: false
+    enabled: true
   },
   Pseudoelementos:{
     type: "html",
     content: "temas/Pseudoelemento.html",
-    enabled: false
+    enabled: true
   },
   'Metodología BEM':{
     type:"html",
     content:"temas/MetodologiaBEM.html",
-    enabled:false
+    enabled:true
   },
   Display: {
     type: "html",
     content: "temas/Display.html",
-    enabled: false
+    enabled: true
   },
   'Posición relativa y absoluta':{
     type: "html",
     content: "temas/PosicionRA.html",
-    enabled: false
+    enabled: true
   },
   'Ventanas Modal':{
     type:"html",
     content: "temas/ventanaModal.html",
-    enabled: false
+    enabled: true
   },
   'Posición fixed y sticky':{
     type: "html",
     content: "temas/FixedSticky.html",
-    enabled: false
+    enabled: true
   },
   Transiciones:{
     type: "html",
     content: "temas/Transiciones.html",
-    enabled: false
+    enabled: true
   },
   Overflow:{
     type: "html",
     content: "temas/Overflow.html",
-    enabled: false
+    enabled: true
   },
   'Control de flujo del texto':{
     type: "html",
     content: "temas/FlujoTexto.html",
-    enabled: false
+    enabled: true
   },
   'Object-fit y object-position':{
     type: "html",
     content: "temas/ObjectFP.html",
-    enabled: false
+    enabled: true
   },
   Outline:{
     type: "html",
     content: "temas/Outline.html",
-    enabled: false
+    enabled: true
   },
   Emmet:{
     type: "html",
     content: "temas/Emmet.html",
-    enabled: false
+    enabled: true
   },
   //CSS Flexbox
   'Introducción a Flexbox':{
