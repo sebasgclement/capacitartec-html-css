@@ -129,12 +129,12 @@ export const contentMap = {
   'HTML avanzado':{
     type: "html",
     content: "temas/html_intermedio_resumen.html",
-    enabled: false
+    enabled: true
   },
   'Css avanzado':{
     type: "html",
     content: "temas/ResumenCCSI.html",
-    enabled: false
+    enabled: true
   },
   'CSS flexbox':{
     type: "html",
@@ -301,7 +301,7 @@ export const contentMap = {
     content: "temas/FixedSticky.html",
     enabled: true
   },
-  Transiciones:{
+  'CSS Transiciones':{
     type: "html",
     content: "temas/Transiciones.html",
     enabled: true
