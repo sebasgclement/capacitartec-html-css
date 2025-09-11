@@ -139,7 +139,7 @@ export const contentMap = {
   'CSS flexbox':{
     type: "html",
     content: "temas/flex-resumen.html",
-    enabled: false
+    enabled: true
   },
   'Responsive design':{
     type: "html",
@@ -171,7 +171,7 @@ export const contentMap = {
   "INTEGRADOR 2":{
     type: "html",
     content: "temas/IntegradorII.html",
-    enabled: false
+    enabled: true
   },
   'INTEGRADOR 3':{
     type: "html",
@@ -335,37 +335,37 @@ export const contentMap = {
   'Introducción a Flexbox':{
     type: "html",
     content: "temas/flex-introduccion.html",
-    enabled: false
+    enabled: true
   },
   'Flex Direction, Wrap y Flow':{
     type: "html",
     content: "temas/flex-direction-wrap-flow.html",
-    enabled: false
+    enabled: true
   },
   'Alineación en los ejes':{
     type: "html",
     content: "temas/flex-align-ejes.html",
-    enabled: false
+    enabled: true
   },
   Order:{
     type: "html",
     content: "temas/flex-order.html",
-    enabled: false
+    enabled: true
   },
   'Flex Basis, Shrink y Grow':{
     type: "html",
     content: "temas/flex-basis-shrink-grow.html",
-    enabled: false
+    enabled: true
   },
   'Align Self':{
     type: "html",
     content: "temas/flex-align-self.html",
-    enabled: false
+    enabled: true
   },
   'Layout con Flexbox':{
     type: "html",
     content: "temas/flex-layout-sin-media-queries.html",
-    enabled: false
+    enabled: true
   },
   //Responsive design
   'Bloques y multimedia flexible':{
