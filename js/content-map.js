@@ -144,12 +144,12 @@ export const contentMap = {
   'Responsive design':{
     type: "html",
     content: "temas/responsive-resumen.html",
-    enabled: false
+    enabled: true
   },
   'CSS grid':{
     type: "html",
     content:"temas/grid-resumen.html",
-    enabled: false
+    enabled: true
   },
   'Resumen animaciones':{
     type: "html",
@@ -371,103 +371,103 @@ export const contentMap = {
   'Bloques y multimedia flexible':{
     type: "html",
     content: "temas/responsive-bloques-multimedia.html",
-    enabled: false
+    enabled: true
   },
   'SRCSET y SIZES':{
     type: "html",
     content: "temas/responsive-srcset-sizes.html",
-    enabled: false
+    enabled: true
   },
   'Picture, Source y Media':{
     type: "html",
     content: "temas/responsive-picture-source-media.html",
-    enabled: false
+    enabled: true
   },
   'Media Queries':{
     type: "html",
     content: "temas/responsive-media-queries.html",
-    enabled: false
+    enabled: true
   },
   'Ejercicio "Holy Grail"':{
     type: "html",
     content: "temas/responsive-holy-grail.html",
-    enabled: false
+    enabled: true
   },
   'Mobile First':{
     type: "html",
     content: "temas/responsive-mobile-first.html",
-    enabled: false
+    enabled: true
   },
   'Feature Queries':{
     type: "html",
     content: "temas/responsive-feature-queries.html",
-    enabled: false
+    enabled: true
   },
   'Container Queries':{
     type: "html",
     content: "temas/responsive-container-queries.html",
-    enabled: false
+    enabled: true
   },
   //CSS Grid
   'Introducción a CSS Grid':{
     type: "html",
     content: "temas/grid-01-introduccion.html",
-    enabled: false
+    enabled: true
   },
   'Creando un Grid':{
     type: "html",
     content: "temas/grid-02-creando-un-grid.html",
-    enabled: false
+    enabled: true
   },
    'Auto y fr':{
     type: "html",
     content: "temas/grid-03-auto-fr.html",
-    enabled: false
+    enabled: true
   },
   'Repeat y Minmax':{
     type: "html",
     content: "temas/grid-04-repeat-minmax.html",
-    enabled: false
+    enabled: true
   },
   'Grid implícito y explícito':{
     type: "html",
     content: "temas/grid-05-implicito-explicito.html",
-    enabled: false
+    enabled: true
   },
   'Grid dinámico y responsive':{
     type: "html",
     content: "temas/grid-06-dinamico-responsive.html",
-    enabled: false
+    enabled: true
   },
   'Grid column y row':{
     type: "html",
     content: "temas/grid-07-column-row.html",
-    enabled: false
+    enabled: true
   },
   'Grid flow: dense':{
     type: "html",
     content: "temas/grid-08-flow-dense.html",
-    enabled: false
+    enabled: true
   },
   'Grid areas':{
     type: "html",
     content: "temas/grid-09-areas.html",
-    enabled: false
+    enabled: true
   },
   'Alineación con Grid':{
     type: "html",
     content: "temas/grid-10-alineacion.html",
-    enabled: false
+    enabled: true
   },
   Subgrid:{
     type: "html",
     content: "temas/grid-11-subgrid.html",
-    enabled: false
+    enabled: true
   },
   'Creando una página web':{
     type: "html",
     content: "temas/grid-12-pagina-web.html",
-    enabled: false
+    enabled: true
     
   },
   //Animaciones
