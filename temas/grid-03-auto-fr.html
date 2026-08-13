@@ -1,19 +1,201 @@
-<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>auto y fr</title>
-<style>
-:root{--bg:#0b0e14;--fg:#eef1f8;--mut:#9aa4b2;--b:#1f2741}
-body{margin:0;font:16px/1.5 system-ui;color:var(--fg);background:var(--bg)}
-.wrap{max-width:1000px;margin:auto;padding:24px}
-.grid{display:grid;gap:10px;background:#121726;border:1px solid var(--b);padding:10px;border-radius:12px}
-.item{background:#0f1322;border:1px solid var(--b);border-radius:10px;padding:16px;text-align:center}
-</style></head><body>
-<div class="wrap">
-  <h1>auto y fr</h1>
-  <p style="color:var(--mut)"><code>fr</code> reparte el espacio disponible; <code>auto</code> se ajusta al contenido.</p>
-  <div class="grid" style="grid-template-columns: auto 1fr 2fr;">
-    <div class="item">auto<br/>📦 contenido largo…</div>
-    <div class="item">1fr</div>
-    <div class="item">2fr</div>
-  </div>
-</div></body></html>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Auto y fr</title>
+  <link rel="stylesheet" href="theme.css" />
+</head>
+<body>
+<article class="ficha">
+
+  <header class="ficha-header">
+    <p class="ficha-modulo">CSS Grid · Tema 3 de 12</p>
+    <h1>Auto y fr</h1>
+    <p class="ficha-resumen">
+      Las dos unidades que hacen que una grilla deje de tener medidas fijas
+      y empiece a adaptarse sola.
+    </p>
+  </header>
+
+  <section class="bloque bloque-problema">
+    <h2>¿Qué problema resuelve?</h2>
+    <p>
+      Con <code>grid-template-columns: 200px 200px 200px</code> la grilla mide
+      siempre 600px. En una pantalla de 1400px te sobra medio monitor vacío; en
+      un celular de 360px se desborda.
+    </p>
+    <p>
+      Podrías usar porcentajes, pero traen un problema clásico:
+      <code>33.33% 33.33% 33.33%</code> más el <code>gap</code> suma
+      <strong>más del 100%</strong> y se rompe. Habría que calcular
+      <code>calc(33.33% - 8px)</code> a mano.
+    </p>
+    <p>
+      <code>fr</code> resuelve eso de raíz: significa <em>una fracción del espacio
+      que sobra</em>. Grid primero descuenta los gaps y las medidas fijas, y recién
+      después reparte lo que queda. <strong>Nunca se pasa.</strong>
+    </p>
+    <p>
+      <code>auto</code> es la otra cara: en vez de repartir espacio, se
+      <strong>ajusta al contenido</strong>.
+    </p>
+  </section>
+
+  <section class="bloque bloque-sintaxis">
+    <h2>Sintaxis mínima</h2>
+<pre><code>/* Tres columnas iguales que ocupan todo el ancho */
+grid-template-columns: <b>1fr 1fr 1fr</b>;
+
+/* La del medio recibe el doble que las otras */
+grid-template-columns: <b>1fr 2fr 1fr</b>;
+
+/* Una barra fija + contenido flexible: el patrón más usado */
+grid-template-columns: <b>250px 1fr</b>;
+
+/* auto se encoge hasta lo que mide su contenido */
+grid-template-columns: <b>auto 1fr</b>;</code></pre>
+    <p>
+      La cuenta es simple: sumás todos los <code>fr</code> y cada columna se lleva
+      su parte. Con <code>1fr 2fr 1fr</code> el total es 4, así que reciben
+      25%, 50% y 25% <em>del espacio sobrante</em>.
+    </p>
+  </section>
+
+  <section class="bloque bloque-demo">
+    <h2>Probalo vos</h2>
+    <div class="editor" data-editor>
+      <div class="editor-panel">
+        <div class="editor-barra">
+          <span>HTML + CSS</span>
+          <button type="button" class="editor-reset" data-editor-reset>Reiniciar</button>
+        </div>
+        <textarea spellcheck="false" aria-label="Código editable">
+          <style>
+            body { font: 14px system-ui; padding: 10px; margin: 0; }
+
+            .contenedor {
+              display: grid;
+              grid-template-columns: auto 1fr 2fr;
+              gap: 8px;
+            }
+
+            .caja {
+              background: #264de4;
+              color: white;
+              padding: 16px 10px;
+              border-radius: 8px;
+              text-align: center;
+            }
+          </style>
+
+          <div class="contenedor">
+            <div class="caja">auto<br>me ajusto al texto</div>
+            <div class="caja">1fr</div>
+            <div class="caja">2fr</div>
+          </div>
+        </textarea>
+      </div>
+      <div class="editor-panel">
+        <div class="editor-barra"><span>Resultado</span></div>
+        <iframe title="Vista previa del ejemplo"></iframe>
+      </div>
+    </div>
+    <p class="editor-ayuda">
+      Alargá o acortá el texto de la primera caja: <code>auto</code> la sigue.
+      Las otras dos se reparten lo que quede, siempre en proporción 1 a 2.
+    </p>
+  </section>
+
+  <section class="bloque bloque-errores">
+    <h2>Errores comunes</h2>
+    <ul class="errores">
+      <li>
+        <strong>Creer que <code>1fr</code> es "un tercio"</strong>
+        <code>fr</code> reparte el <em>sobrante</em>. En
+        <code>200px 1fr 1fr</code>, los 200px salen primero y recién después se
+        divide el resto en dos.
+      </li>
+      <li>
+        <strong>Que <code>1fr</code> no se achique lo suficiente</strong>
+        Es el problema más frustrante de Grid. Por defecto una pista
+        <code>1fr</code> no baja de lo que mide su contenido más ancho (una
+        imagen, una palabra larga, un <code>&lt;pre&gt;</code>). Si se te desborda
+        la grilla, la solución es <code>minmax(0, 1fr)</code> (tema 4).
+      </li>
+      <li>
+        <strong>Mezclar <code>%</code> con <code>gap</code></strong>
+        <code>50% 50%</code> más un gap de 10px suma 100% + 10px y se desborda.
+        Con <code>1fr 1fr</code> eso no pasa nunca.
+      </li>
+      <li>
+        <strong>Confundir <code>auto</code> con <code>1fr</code> cuando sobra espacio</strong>
+        Si no hay ninguna pista <code>fr</code>, las <code>auto</code> se estiran
+        y se reparten el sobrante. Pero apenas agregás un <code>fr</code>, las
+        <code>auto</code> vuelven a encogerse al contenido.
+      </li>
+    </ul>
+  </section>
+
+  <section class="bloque bloque-cuando">
+    <h2>Cuándo NO usarlo</h2>
+    <div class="comparacion">
+      <div class="si">
+        <h3>✔ Usá fr</h3>
+        <p>
+          Para todo lo que tenga que ocupar el espacio disponible: columnas de
+          contenido, galerías, el área principal de un layout.
+        </p>
+      </div>
+      <div class="no">
+        <h3>✘ Usá px</h3>
+        <p>
+          Para lo que tiene una medida real: una barra lateral de 250px, una
+          columna de íconos de 40px, un borde de color.
+        </p>
+      </div>
+    </div>
+    <p style="margin-top:14px">
+      El patrón que más vas a escribir en tu vida es
+      <code>grid-template-columns: 250px 1fr</code>: algo fijo al costado y el
+      contenido llenando el resto.
+    </p>
+  </section>
+
+  <section class="bloque bloque-ejercicio">
+    <h2>Mini-ejercicio</h2>
+    <div class="consigna">
+      <p>Armá el esqueleto de una app de mensajería:</p>
+      <ol>
+        <li>Una <strong>lista de contactos fija de 220px</strong> a la izquierda.</li>
+        <li>La <strong>conversación ocupando todo el resto</strong>.</li>
+        <li>Un <strong>panel de detalles</strong> que mida lo que mida su contenido, sin estirarse.</li>
+      </ol>
+    </div>
+
+    <details class="solucion">
+      <summary>Ver solución</summary>
+<pre><code>.contenedor {
+  display: grid;
+  <b>grid-template-columns: 220px 1fr auto;</b>
+  gap: 10px;
+}</code></pre>
+      <p>
+        El orden importa: <code>auto</code> se encoge al contenido justamente
+        <em>porque</em> hay un <code>1fr</code> que se lleva todo el sobrante.
+        Si sacaras el <code>1fr</code>, el panel de detalles se estiraría.
+      </p>
+    </details>
+  </section>
+
+  <footer class="ficha-footer">
+    Referencia:
+    <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/flex_value" target="_blank" rel="noopener">
+      La unidad fr en MDN
+    </a>
+  </footer>
+
+</article>
+<script src="editor.js" defer></script>
+</body>
+</html>

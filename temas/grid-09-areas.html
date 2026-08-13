@@ -1,27 +1,251 @@
-<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Grid areas</title>
-<style>
-:root{--bg:#0b0e14;--fg:#eef1f8;--mut:#9aa4b2;--b:#1f2741}
-body{margin:0;font:16px/1.5 system-ui;color:var(--fg);background:var(--bg)}
-.wrap{max-width:1000px;margin:auto;padding:24px}
-.grid{display:grid;gap:10px;background:#121726;border:1px solid var(--b);padding:10px;border-radius:12px}
-.item{background:#0f1322;border:1px solid var(--b);border-radius:10px;padding:16px}
-</style></head><body>
-<div class="wrap">
-  <h1>Grid areas</h1>
-  <p style="color:var(--mut)">Nombrá áreas y asignalas a los ítems.</p>
-  <div class="grid" style="
-     grid-template-columns: 200px 1fr 250px;
-     grid-template-areas:
-       'header header header'
-       'nav    main   aside'
-       'footer footer footer';
-  ">
-    <header class="item" style="grid-area:header">Header</header>
-    <nav class="item" style="grid-area:nav">Nav</nav>
-    <main class="item" style="grid-area:main">Main</main>
-    <aside class="item" style="grid-area:aside">Aside</aside>
-    <footer class="item" style="grid-area:footer">Footer</footer>
-  </div>
-</div></body></html>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Grid areas</title>
+  <link rel="stylesheet" href="theme.css" />
+</head>
+<body>
+<article class="ficha">
+
+  <header class="ficha-header">
+    <p class="ficha-modulo">CSS Grid · Tema 9 de 12</p>
+    <h1>Grid areas</h1>
+    <p class="ficha-resumen">
+      Dibujar el layout con nombres en vez de contar líneas. Probablemente la
+      función más linda de todo CSS.
+    </p>
+  </header>
+
+  <section class="bloque bloque-problema">
+    <h2>¿Qué problema resuelve?</h2>
+    <p>
+      Con lo del tema 7, un layout clásico de página se escribe así:
+    </p>
+<pre><code>.header  { grid-column: 1 / 3; grid-row: 1 / 2; }
+.sidebar { grid-column: 1 / 2; grid-row: 2 / 3; }
+.main    { grid-column: 2 / 3; grid-row: 2 / 3; }
+.footer  { grid-column: 1 / 3; grid-row: 3 / 4; }</code></pre>
+    <p>
+      Funciona perfecto. El problema es que <strong>no se entiende de un vistazo</strong>:
+      hay que leer ocho números y armar el dibujo en la cabeza. Y si tenés que
+      mover la sidebar a la derecha, hay que recalcular casi todo.
+    </p>
+    <p>
+      <code>grid-template-areas</code> te deja <strong>dibujar el layout con
+      texto</strong>, literalmente. El CSS pasa a tener la forma del resultado.
+    </p>
+  </section>
+
+  <section class="bloque bloque-sintaxis">
+    <h2>Sintaxis mínima</h2>
+<pre><code>.pagina {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  grid-template-rows: auto 1fr auto;
+
+  <b>grid-template-areas:
+    "header  header"
+    "sidebar main"
+    "footer  footer";</b>
+}
+
+/* Y en cada hijo, el nombre del área que ocupa */
+.header  { <b>grid-area: header;</b> }
+.sidebar { <b>grid-area: sidebar;</b> }
+.main    { <b>grid-area: main;</b> }
+.footer  { <b>grid-area: footer;</b> }</code></pre>
+    <p>
+      Cada string entre comillas es una <strong>fila</strong>. Cada palabra dentro
+      es una <strong>columna</strong>. Repetir un nombre en celdas contiguas hace
+      que el área se extienda para cubrirlas.
+    </p>
+    <p>
+      Un punto <code>.</code> deja la celda <strong>vacía</strong>:
+    </p>
+<pre><code>grid-template-areas:
+  "header header"
+  "sidebar main"
+  <b>".      footer";</b>   /* la celda de abajo a la izquierda queda vacía */</code></pre>
+  </section>
+
+  <section class="bloque bloque-demo">
+    <h2>Probalo vos</h2>
+    <div class="editor" data-editor>
+      <div class="editor-panel">
+        <div class="editor-barra">
+          <span>HTML + CSS</span>
+          <button type="button" class="editor-reset" data-editor-reset>Reiniciar</button>
+        </div>
+        <textarea spellcheck="false" aria-label="Código editable">
+          <style>
+            body { font: 13px system-ui; padding: 10px; margin: 0; }
+
+            .pagina {
+              display: grid;
+              grid-template-columns: 90px 1fr;
+              grid-template-rows: 50px 1fr 40px;
+              grid-template-areas:
+                "header  header"
+                "sidebar main"
+                "footer  footer";
+              gap: 8px;
+              min-height: 250px;
+            }
+
+            .pagina > * {
+              display: grid;
+              place-items: center;
+              border-radius: 8px;
+              color: white;
+            }
+
+            .header  { grid-area: header;  background: #264de4; }
+            .sidebar { grid-area: sidebar; background: #0d9488; }
+            .main    { grid-area: main;    background: #4b5563; }
+            .footer  { grid-area: footer;  background: #e34c26; }
+          </style>
+
+          <div class="pagina">
+            <div class="header">header</div>
+            <div class="sidebar">sidebar</div>
+            <div class="main">main</div>
+            <div class="footer">footer</div>
+          </div>
+        </textarea>
+      </div>
+      <div class="editor-panel">
+        <div class="editor-barra"><span>Resultado</span></div>
+        <iframe title="Vista previa del ejemplo"></iframe>
+      </div>
+    </div>
+    <p class="editor-ayuda">
+      Cambiá <code>"sidebar main"</code> por <code>"main sidebar"</code>: moviste
+      la barra lateral al otro lado <strong>sin tocar el HTML</strong> y sin
+      recalcular una sola línea.
+    </p>
+  </section>
+
+  <section class="bloque bloque-errores">
+    <h2>Errores comunes</h2>
+    <ul class="errores">
+      <li>
+        <strong>Filas con distinta cantidad de columnas</strong>
+        Todas las strings tienen que tener la misma cantidad de nombres. Si una
+        fila tiene 2 y otra 3, <strong>la propiedad entera se ignora</strong> y
+        el layout se desarma sin aviso.
+      </li>
+      <li>
+        <strong>Áreas en forma de L o de T</strong>
+        Un área tiene que ser siempre un <strong>rectángulo</strong>. Repetir el
+        mismo nombre en celdas que no forman rectángulo invalida la declaración.
+      </li>
+      <li>
+        <strong>Poner comillas alrededor del nombre en <code>grid-area</code></strong>
+        En el contenedor van entre comillas; en el hijo <strong>no</strong>:
+        <code>grid-area: header</code>, sin comillas.
+      </li>
+      <li>
+        <strong>Olvidarse de nombrar un hijo</strong>
+        Si un hijo no tiene <code>grid-area</code>, no queda afuera: se acomoda
+        automáticamente y suele aparecer en un lugar inesperado, creando filas
+        implícitas.
+      </li>
+      <li>
+        <strong>Poner coma entre las filas</strong>
+        Van una debajo de otra, separadas solo por el salto de línea. Sin comas.
+      </li>
+    </ul>
+  </section>
+
+  <section class="bloque bloque-cuando">
+    <h2>Cuándo NO usarlo</h2>
+    <div class="comparacion">
+      <div class="si">
+        <h3>✔ Usá areas</h3>
+        <p>
+          Cuando las piezas tienen identidad propia y son pocas: el esqueleto de
+          una página, una ficha de producto, un formulario con zonas.
+        </p>
+      </div>
+      <div class="no">
+        <h3>✘ Usá líneas o automático</h3>
+        <p>
+          Cuando hay muchos elementos iguales o la cantidad es dinámica. Nadie va
+          a nombrar 30 tarjetas de una galería.
+        </p>
+      </div>
+    </div>
+    <p style="margin-top:14px">
+      Donde más brilla es en responsive: redibujás el mismo layout dentro de una
+      media query y listo, sin tocar ninguna otra regla.
+    </p>
+<pre><code>@media (max-width: 600px) {
+  .pagina {
+    grid-template-columns: 1fr;
+    <b>grid-template-areas:
+      "header"
+      "main"
+      "sidebar"
+      "footer";</b>
+  }
+}</code></pre>
+    <p>
+      Fijate que ahí además <strong>cambiaste el orden</strong>: en celular el
+      contenido principal va antes que la barra lateral, aunque en el HTML esté
+      después.
+    </p>
+  </section>
+
+  <section class="bloque bloque-ejercicio">
+    <h2>Mini-ejercicio</h2>
+    <div class="consigna">
+      <p>Dibujá el layout de un panel de control:</p>
+      <ol>
+        <li>Una <strong>barra superior</strong> de ancho completo.</li>
+        <li>Un <strong>menú lateral izquierdo</strong> que llegue hasta abajo.</li>
+        <li>Un <strong>área de gráficos</strong> arriba a la derecha y una <strong>tabla</strong> debajo.</li>
+      </ol>
+    </div>
+
+    <details class="solucion">
+      <summary>Ver solución</summary>
+<pre><code>.panel {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  grid-template-rows: 60px 1fr 1fr;
+  <b>grid-template-areas:
+    "barra  barra"
+    "menu   graficos"
+    "menu   tabla";</b>
+  gap: 12px;
+  min-height: 100vh;
+}
+
+.barra    { grid-area: barra; }
+.menu     { grid-area: menu; }
+.graficos { grid-area: graficos; }
+.tabla    { grid-area: tabla; }</code></pre>
+      <p>
+        El menú aparece dos veces en la misma columna y eso lo estira a lo alto
+        de las dos filas: sigue siendo un rectángulo, así que es válido.
+      </p>
+      <p>
+        Y el CSS <em>parece</em> el layout. Cualquiera que abra este archivo
+        entiende la pantalla sin ejecutarla.
+      </p>
+    </details>
+  </section>
+
+  <footer class="ficha-footer">
+    Referencia:
+    <a href="https://developer.mozilla.org/es/docs/Web/CSS/grid-template-areas" target="_blank" rel="noopener">
+      grid-template-areas en MDN
+    </a>
+  </footer>
+
+</article>
+<script src="editor.js" defer></script>
+</body>
+</html>

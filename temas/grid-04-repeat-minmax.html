@@ -1,18 +1,209 @@
-<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>repeat() y minmax()</title>
-<style>
-:root{--bg:#0b0e14;--fg:#eef1f8;--mut:#9aa4b2;--b:#1f2741}
-body{margin:0;font:16px/1.5 system-ui;color:var(--fg);background:var(--bg)}
-.wrap{max-width:1000px;margin:auto;padding:24px}
-.grid{display:grid;gap:10px;background:#121726;border:1px solid var(--b);padding:10px;border-radius:12px}
-.item{background:#0f1322;border:1px solid var(--b);border-radius:10px;padding:16px;text-align:center}
-</style></head><body>
-<div class="wrap">
-  <h1>repeat() y minmax()</h1>
-  <p style="color:var(--mut)"><code>repeat(n, …)</code> repite patrones; <code>minmax(min,max)</code> limita el tamaño.</p>
-  <div class="grid" style="grid-template-columns: repeat(3, minmax(120px, 1fr));">
-    <div class="item">A</div><div class="item">B</div><div class="item">C</div>
-    <div class="item">D</div><div class="item">E</div><div class="item">F</div>
-  </div>
-</div></body></html>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Repeat y Minmax</title>
+  <link rel="stylesheet" href="theme.css" />
+</head>
+<body>
+<article class="ficha">
+
+  <header class="ficha-header">
+    <p class="ficha-modulo">CSS Grid · Tema 4 de 12</p>
+    <h1>Repeat y Minmax</h1>
+    <p class="ficha-resumen">
+      Dos funciones que evitan repetir código y le ponen límites a las pistas.
+      Juntas son la base del grid responsive.
+    </p>
+  </header>
+
+  <section class="bloque bloque-problema">
+    <h2>¿Qué problema resuelve?</h2>
+    <p>
+      En el tema 2 escribiste esto para un calendario:
+    </p>
+<pre><code>grid-template-columns: 60px 60px 60px 60px 60px 60px 60px;</code></pre>
+    <p>
+      Funciona, pero es tedioso de escribir y peor de mantener: si mañana querés
+      65px, tenés que cambiar siete valores sin olvidarte de ninguno.
+      <code>repeat()</code> resuelve eso.
+    </p>
+    <p>
+      El segundo problema es distinto. <code>1fr</code> se adapta, pero
+      <strong>sin límites</strong>: en un monitor ancho una columna de texto puede
+      estirarse a 900px y volverse ilegible; en un celular puede achicarse tanto
+      que las palabras se rompen. <code>minmax()</code> te deja decir
+      <em>"flexible, pero nunca menos de esto ni más de aquello"</em>.
+    </p>
+  </section>
+
+  <section class="bloque bloque-sintaxis">
+    <h2>Sintaxis mínima</h2>
+<pre><code>/* repeat(cantidad, tamaño) */
+grid-template-columns: <b>repeat(7, 60px)</b>;
+grid-template-columns: <b>repeat(3, 1fr)</b>;
+
+/* Se puede combinar con valores sueltos */
+grid-template-columns: 250px <b>repeat(3, 1fr)</b> 100px;
+
+/* repeat también acepta varios tamaños que se alternan */
+grid-template-columns: <b>repeat(2, 1fr 2fr)</b>;   /* = 1fr 2fr 1fr 2fr */
+
+/* minmax(mínimo, máximo) */
+grid-template-columns: <b>minmax(200px, 1fr)</b> 2fr;
+
+/* El truco más útil de todo Grid */
+grid-template-columns: <b>minmax(0, 1fr)</b> 1fr;</code></pre>
+    <p>
+      Ese último merece una explicación: por defecto una pista <code>1fr</code>
+      no puede achicarse más de lo que mide su contenido. Con
+      <code>minmax(0, 1fr)</code> le decís <em>"podés llegar hasta cero"</em>, y
+      así se acaban los desbordes misteriosos.
+    </p>
+  </section>
+
+  <section class="bloque bloque-demo">
+    <h2>Probalo vos</h2>
+    <div class="editor" data-editor>
+      <div class="editor-panel">
+        <div class="editor-barra">
+          <span>HTML + CSS</span>
+          <button type="button" class="editor-reset" data-editor-reset>Reiniciar</button>
+        </div>
+        <textarea spellcheck="false" aria-label="Código editable">
+          <style>
+            body { font: 14px system-ui; padding: 10px; margin: 0; }
+
+            .contenedor {
+              display: grid;
+              grid-template-columns: repeat(3, minmax(80px, 1fr));
+              gap: 8px;
+            }
+
+            .caja {
+              background: #264de4;
+              color: white;
+              padding: 18px 8px;
+              border-radius: 8px;
+              text-align: center;
+            }
+          </style>
+
+          <div class="contenedor">
+            <div class="caja">1</div>
+            <div class="caja">2</div>
+            <div class="caja">3</div>
+            <div class="caja">4</div>
+            <div class="caja">5</div>
+            <div class="caja">6</div>
+          </div>
+        </textarea>
+      </div>
+      <div class="editor-panel">
+        <div class="editor-barra"><span>Resultado</span></div>
+        <iframe title="Vista previa del ejemplo"></iframe>
+      </div>
+    </div>
+    <p class="editor-ayuda">
+      Cambiá el <code>3</code> de <code>repeat()</code> por <code>4</code> y
+      después subí el mínimo a <code>150px</code>: vas a ver el momento exacto
+      en que la grilla se desborda porque le pediste un mínimo imposible.
+    </p>
+  </section>
+
+  <section class="bloque bloque-errores">
+    <h2>Errores comunes</h2>
+    <ul class="errores">
+      <li>
+        <strong>Poner el <code>fr</code> en el mínimo</strong>
+        <code>minmax(1fr, 300px)</code> no es válido: <code>fr</code> solo puede
+        ir en el <strong>máximo</strong>. El mínimo tiene que ser una medida
+        concreta, <code>auto</code> o <code>min-content</code>.
+      </li>
+      <li>
+        <strong>Mínimos demasiado grandes</strong>
+        <code>repeat(4, minmax(300px, 1fr))</code> exige 1200px más los gaps.
+        En una pantalla más chica la grilla se desborda: el mínimo gana siempre.
+      </li>
+      <li>
+        <strong>Olvidar <code>minmax(0, 1fr)</code> con contenido ancho</strong>
+        Si adentro tenés una imagen grande, un <code>&lt;pre&gt;</code> o una tabla,
+        la columna se niega a achicarse. Este es el arreglo, y casi nadie lo
+        conoce hasta que lo sufre.
+      </li>
+      <li>
+        <strong>Escribir <code>repeat</code> con coma de más</strong>
+        Es <code>repeat(3, 1fr)</code>: la coma va solo entre la cantidad y el
+        tamaño. <code>repeat(3, 1fr, 2fr)</code> es inválido; lo correcto es
+        <code>repeat(3, 1fr 2fr)</code>.
+      </li>
+    </ul>
+  </section>
+
+  <section class="bloque bloque-cuando">
+    <h2>Cuándo NO usarlo</h2>
+    <div class="comparacion">
+      <div class="si">
+        <h3>✔ Usá repeat</h3>
+        <p>
+          Cuando las pistas se repiten con un patrón: galerías, calendarios,
+          grillas de productos, cualquier cosa de N columnas iguales.
+        </p>
+      </div>
+      <div class="no">
+        <h3>✘ Escribilas a mano</h3>
+        <p>
+          Cuando cada pista es distinta: <code>250px 1fr 300px</code> se lee
+          mejor así que forzando un <code>repeat()</code>.
+        </p>
+      </div>
+    </div>
+    <p style="margin-top:14px">
+      Con dos o tres columnas distintas, escribirlas es más claro. A partir de
+      cuatro iguales, <code>repeat()</code> gana siempre.
+    </p>
+  </section>
+
+  <section class="bloque bloque-ejercicio">
+    <h2>Mini-ejercicio</h2>
+    <div class="consigna">
+      <p>Una galería de fotos que se porte bien:</p>
+      <ol>
+        <li><strong>4 columnas</strong>, usando <code>repeat()</code>.</li>
+        <li>Cada una <strong>nunca menor a 120px</strong> pero flexible hacia arriba.</li>
+        <li>Filas de <strong>alto mínimo 100px</strong>, que crezcan si el contenido lo pide.</li>
+      </ol>
+    </div>
+
+    <details class="solucion">
+      <summary>Ver solución</summary>
+<pre><code>.galeria {
+  display: grid;
+  <b>grid-template-columns: repeat(4, minmax(120px, 1fr));</b>
+  <b>grid-auto-rows: minmax(100px, auto);</b>
+  gap: 10px;
+}</code></pre>
+      <p>
+        <code>grid-auto-rows</code> es para las filas que Grid crea solo, que es
+        justo lo que pasa en una galería: no sabés cuántas fotos va a haber.
+        Lo vemos en detalle en el tema 5.
+      </p>
+      <p>
+        Ojo: con 4 columnas de mínimo 120px, abajo de ~520px se desborda.
+        La solución de verdad es <code>auto-fit</code>, y es el tema 6.
+      </p>
+    </details>
+  </section>
+
+  <footer class="ficha-footer">
+    Referencia:
+    <a href="https://developer.mozilla.org/es/docs/Web/CSS/minmax" target="_blank" rel="noopener">
+      minmax() en MDN
+    </a>
+  </footer>
+
+</article>
+<script src="editor.js" defer></script>
+</body>
+</html>

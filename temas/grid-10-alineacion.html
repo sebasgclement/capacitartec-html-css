@@ -1,23 +1,259 @@
-<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Alineación con Grid</title>
-<style>
-:root{--bg:#0b0e14;--fg:#eef1f8;--mut:#9aa4b2;--b:#1f2741}
-body{margin:0;font:16px/1.5 system-ui;color:var(--fg);background:var(--bg)}
-.wrap{max-width:1000px;margin:auto;padding:24px}
-.board{display:grid;background:#121726;border:1px solid var(--b);border-radius:12px;padding:12px;gap:12px;grid-template-columns:repeat(3,120px);grid-auto-rows:80px;justify-content:center;align-content:center;height:360px}
-.item{background:#0f1322;border:1px solid var(--b);border-radius:10px;display:flex;align-items:center;justify-content:center}
-.one{justify-self:start;align-self:end}
-.two{justify-self:center;align-self:start}
-.three{justify-self:end;align-self:center}
-</style></head><body>
-<div class="wrap">
-  <h1>Alineación con Grid</h1>
-  <p style="color:var(--mut)">Usá <code>justify-content</code>/<code>align-content</code> (contenedor) y <code>justify-self</code>/<code>align-self</code> (ítems).</p>
-  <div class="board">
-    <div class="item one">1</div>
-    <div class="item two">2</div>
-    <div class="item three">3</div>
-    <div class="item">4</div><div class="item">5</div><div class="item">6</div>
-  </div>
-</div></body></html>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Alineación con Grid</title>
+  <link rel="stylesheet" href="theme.css" />
+</head>
+<body>
+<article class="ficha">
+
+  <header class="ficha-header">
+    <p class="ficha-modulo">CSS Grid · Tema 10 de 12</p>
+    <h1>Alineación con Grid</h1>
+    <p class="ficha-resumen">
+      Seis propiedades que se confunden entre sí, ordenadas de una vez por todas
+      con una sola regla para acordarse.
+    </p>
+  </header>
+
+  <section class="bloque bloque-problema">
+    <h2>¿Qué problema resuelve?</h2>
+    <p>
+      Ya sabés armar la grilla. Falta lo último: <strong>dónde se para el contenido
+      adentro de cada celda</strong>, y <strong>dónde se para la grilla entera
+      adentro del contenedor</strong> cuando le sobra espacio.
+    </p>
+    <p>
+      Son dos preguntas distintas y por eso hay dos familias de propiedades. La
+      mayoría del lío viene de mezclarlas.
+    </p>
+
+    <p><strong>La regla para no perderse:</strong></p>
+    <ul>
+      <li><code>justify-*</code> → eje <strong>horizontal</strong> (columnas, ↔)</li>
+      <li><code>align-*</code> → eje <strong>vertical</strong> (filas, ↕)</li>
+      <li><code>*-items</code> → mueve <strong>el contenido dentro de sus celdas</strong></li>
+      <li><code>*-content</code> → mueve <strong>la grilla entera</strong> dentro del contenedor</li>
+      <li><code>*-self</code> → igual que <code>items</code>, pero para <strong>un solo hijo</strong></li>
+    </ul>
+    <p>
+      Combinando esas piezas salen las seis: <code>justify-items</code>,
+      <code>align-items</code>, <code>justify-content</code>,
+      <code>align-content</code>, <code>justify-self</code>, <code>align-self</code>.
+    </p>
+    <p>
+      Dato importante: <code>*-content</code> <strong>solo hace algo si sobra
+      espacio</strong>. Con <code>1fr</code> nunca sobra, así que no vas a ver
+      ningún efecto. Es la causa número uno de <em>"puse justify-content y no pasa nada"</em>.
+    </p>
+  </section>
+
+  <section class="bloque bloque-sintaxis">
+    <h2>Sintaxis mínima</h2>
+<pre><code>.contenedor {
+  display: grid;
+  grid-template-columns: repeat(3, 100px);
+  height: 400px;
+
+  /* Contenido DENTRO de cada celda */
+  <b>justify-items: center;</b>   /* start | end | center | stretch (default) */
+  <b>align-items: center;</b>
+
+  /* La GRILLA dentro del contenedor (necesita espacio sobrante) */
+  <b>justify-content: center;</b> /* start | end | center | space-between |
+                                    space-around | space-evenly */
+  <b>align-content: center;</b>
+}
+
+/* Un hijo puntual, distinto al resto */
+.especial {
+  <b>justify-self: end;</b>
+  <b>align-self: start;</b>
+}
+
+/* Atajos */
+<b>place-items: center;</b>        /* align-items + justify-items */
+<b>place-content: center;</b>      /* align-content + justify-content */
+<b>place-self: center;</b>         /* align-self + justify-self */</code></pre>
+    <p>
+      <code>place-items: center</code> es el famoso "centrar cualquier cosa en
+      dos líneas de CSS":
+    </p>
+<pre><code>.centrado {
+  <b>display: grid;
+  place-items: center;</b>
+}</code></pre>
+  </section>
+
+  <section class="bloque bloque-demo">
+    <h2>Probalo vos</h2>
+    <div class="editor" data-editor>
+      <div class="editor-panel">
+        <div class="editor-barra">
+          <span>HTML + CSS</span>
+          <button type="button" class="editor-reset" data-editor-reset>Reiniciar</button>
+        </div>
+        <textarea spellcheck="false" aria-label="Código editable">
+          <style>
+            body { font: 13px system-ui; padding: 10px; margin: 0; }
+
+            .contenedor {
+              display: grid;
+              grid-template-columns: repeat(3, 70px);
+              grid-auto-rows: 70px;
+              gap: 8px;
+              height: 260px;
+
+              /* dentro de cada celda */
+              justify-items: stretch;
+              align-items: stretch;
+
+              /* la grilla dentro del contenedor */
+              justify-content: start;
+              align-content: start;
+
+              border: 2px dashed #94a3b8;
+            }
+
+            .caja {
+              background: #264de4;
+              color: white;
+              display: grid;
+              place-items: center;
+              border-radius: 6px;
+              padding: 6px;
+            }
+          </style>
+
+          <div class="contenedor">
+            <div class="caja">1</div>
+            <div class="caja">2</div>
+            <div class="caja">3</div>
+            <div class="caja">4</div>
+            <div class="caja">5</div>
+            <div class="caja">6</div>
+          </div>
+        </textarea>
+      </div>
+      <div class="editor-panel">
+        <div class="editor-barra"><span>Resultado</span></div>
+        <iframe title="Vista previa del ejemplo"></iframe>
+      </div>
+    </div>
+    <p class="editor-ayuda">
+      La línea punteada es el contenedor. Cambiá <code>justify-items</code> a
+      <code>center</code> (las cajas se achican en su celda) y después
+      <code>justify-content</code> a <code>center</code> (se mueve el bloque
+      entero). Ahí se ve la diferencia de una vez.
+    </p>
+  </section>
+
+  <section class="bloque bloque-errores">
+    <h2>Errores comunes</h2>
+    <ul class="errores">
+      <li>
+        <strong>Usar <code>*-content</code> con columnas <code>1fr</code></strong>
+        Con <code>1fr</code> las pistas se comen todo el espacio, así que no sobra
+        nada y <code>justify-content</code> no tiene efecto. Necesitás medidas
+        fijas (<code>100px</code>, <code>auto</code>) para ver la diferencia.
+      </li>
+      <li>
+        <strong>Esperar que <code>align-content</code> funcione sin altura</strong>
+        Si el contenedor no tiene <code>height</code> ni <code>min-height</code>,
+        mide exactamente lo que su contenido: no hay espacio vertical sobrante
+        para repartir.
+      </li>
+      <li>
+        <strong>Confundir <code>justify</code> con <code>align</code></strong>
+        En Grid es fijo: <code>justify</code> siempre es horizontal y
+        <code>align</code> siempre vertical. (En Flexbox depende de
+        <code>flex-direction</code>, y de ahí viene la confusión.)
+      </li>
+      <li>
+        <strong>Usar <code>justify-self</code> en el contenedor</strong>
+        Las tres propiedades <code>*-self</code> van en el <strong>hijo</strong>.
+        En el contenedor no hacen nada.
+      </li>
+      <li>
+        <strong>Pelear con <code>stretch</code> sin saberlo</strong>
+        Es el valor por defecto de <code>*-items</code>: por eso las cajas ocupan
+        toda su celda aunque no se lo hayas pedido.
+      </li>
+    </ul>
+  </section>
+
+  <section class="bloque bloque-cuando">
+    <h2>Cuándo NO usarlo</h2>
+    <div class="comparacion">
+      <div class="si">
+        <h3>✔ Alineá con Grid</h3>
+        <p>
+          Para centrar un elemento en un contenedor (<code>place-items: center</code>)
+          o alinear el contenido de las celdas de una grilla.
+        </p>
+      </div>
+      <div class="no">
+        <h3>✘ Usá Flexbox adentro</h3>
+        <p>
+          Para alinear varios elementos <em>dentro</em> de una misma celda: un
+          ícono y su texto, una fila de botones al pie de una tarjeta.
+        </p>
+      </div>
+    </div>
+    <p style="margin-top:14px">
+      Es el patrón más común en producción: Grid alinea las celdas entre sí,
+      Flexbox alinea lo que hay adentro de cada una.
+    </p>
+  </section>
+
+  <section class="bloque bloque-ejercicio">
+    <h2>Mini-ejercicio</h2>
+    <div class="consigna">
+      <p>Tres situaciones, tres soluciones:</p>
+      <ol>
+        <li>Centrar un cartel de "Cargando…" en el <strong>centro exacto</strong> de la pantalla.</li>
+        <li>Una grilla de <strong>3 columnas de 100px</strong> centrada horizontalmente en un contenedor ancho.</li>
+        <li>Que <strong>solo la última caja</strong> se pegue a la derecha de su celda.</li>
+      </ol>
+    </div>
+
+    <details class="solucion">
+      <summary>Ver solución</summary>
+<pre><code>/* 1 */
+.pantalla {
+  display: grid;
+  <b>place-items: center;</b>
+  min-height: 100vh;     /* sin altura no hay nada que centrar */
+}
+
+/* 2 */
+.grilla {
+  display: grid;
+  grid-template-columns: repeat(3, 100px);
+  <b>justify-content: center;</b>   /* funciona porque las columnas son fijas */
+}
+
+/* 3 */
+.grilla > :last-child {
+  <b>justify-self: end;</b>
+}</code></pre>
+      <p>
+        En el caso 2, si cambiaras <code>100px</code> por <code>1fr</code>, el
+        <code>justify-content</code> dejaría de hacer efecto: no sobraría espacio.
+      </p>
+    </details>
+  </section>
+
+  <footer class="ficha-footer">
+    Referencia:
+    <a href="https://developer.mozilla.org/es/docs/Web/CSS/CSS_grid_layout/Box_alignment_in_grid_layout" target="_blank" rel="noopener">
+      Alineación de cajas en Grid · MDN
+    </a>
+  </footer>
+
+</article>
+<script src="editor.js" defer></script>
+</body>
+</html>

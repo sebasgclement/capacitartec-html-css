@@ -1,26 +1,218 @@
-<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Grid implícito y explícito</title>
-<style>
-:root{--bg:#0b0e14;--fg:#eef1f8;--mut:#9aa4b2;--b:#1f2741}
-body{margin:0;font:16px/1.5 system-ui;color:var(--fg);background:var(--bg)}
-.wrap{max-width:1000px;margin:auto;padding:24px}
-.grid{display:grid;gap:10px;background:#121726;border:1px solid var(--b);padding:10px;border-radius:12px}
-.item{background:#0f1322;border:1px solid var(--b);border-radius:10px;padding:16px;text-align:center}
-.note{color:var(--mut)}
-</style></head><body>
-<div class="wrap">
-  <h1>Grid implícito y explícito</h1>
-  <p class="note">Definís lo “explícito” con <code>grid-template-*</code>. Si faltan celdas, el navegador crea el “implícito”.</p>
-  <div class="grid" style="
-    grid-template-columns: repeat(3, 1fr);
-    grid-auto-rows: 80px;  /* implícito */
-    grid-auto-flow: row;   /* cómo se llenan celdas implícitas */
-  ">
-    <!-- 10 ítems, pero solo 2 filas explícitas (si no defines, se generan implícitas) -->
-    <div class="item">1</div><div class="item">2</div><div class="item">3</div>
-    <div class="item">4</div><div class="item">5</div><div class="item">6</div>
-    <div class="item">7</div><div class="item">8</div><div class="item">9</div>
-    <div class="item">10</div>
-  </div>
-</div></body></html>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Grid implícito y explícito</title>
+  <link rel="stylesheet" href="theme.css" />
+</head>
+<body>
+<article class="ficha">
+
+  <header class="ficha-header">
+    <p class="ficha-modulo">CSS Grid · Tema 5 de 12</p>
+    <h1>Grid implícito y explícito</h1>
+    <p class="ficha-resumen">
+      Qué pasa cuando hay más elementos que celdas declaradas, y cómo controlar
+      las pistas que Grid inventa por su cuenta.
+    </p>
+  </header>
+
+  <section class="bloque bloque-problema">
+    <h2>¿Qué problema resuelve?</h2>
+    <p>
+      En el tema 1 pasó algo raro: declaraste 2 columnas, pusiste 7 cajas, y las
+      que sobraban se acomodaron igual en filas nuevas que vos nunca escribiste.
+    </p>
+    <p>
+      Eso no es magia: es el <strong>grid implícito</strong>. Grid nunca deja un
+      elemento afuera. Si no hay celda para él, <strong>crea la pista que haga falta</strong>.
+    </p>
+    <p>La diferencia importa porque cada uno se controla con propiedades distintas:</p>
+    <ul>
+      <li>
+        <strong>Explícito:</strong> lo que vos declaraste con
+        <code>grid-template-columns</code> y <code>grid-template-rows</code>.
+      </li>
+      <li>
+        <strong>Implícito:</strong> lo que Grid agregó solo. Se controla con
+        <code>grid-auto-rows</code> y <code>grid-auto-columns</code>.
+      </li>
+    </ul>
+    <p>
+      El síntoma típico de no saber esto: <em>"le puse alto a las filas pero de
+      la tercera para abajo lo ignora"</em>. Claro: la tercera fila es implícita,
+      y <code>grid-template-rows</code> no la alcanza.
+    </p>
+  </section>
+
+  <section class="bloque bloque-sintaxis">
+    <h2>Sintaxis mínima</h2>
+<pre><code>.contenedor {
+  display: grid;
+
+  /* EXPLÍCITO: lo que vos declarás */
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 100px;        /* solo la primera fila */
+
+  /* IMPLÍCITO: el molde de las filas que Grid cree después */
+  <b>grid-auto-rows: 60px;</b>
+
+  /* Y en qué dirección las crea */
+  <b>grid-auto-flow: row;</b>       /* row (por defecto) | column */
+}</code></pre>
+    <p>
+      Con eso, la fila 1 mide 100px y todas las que sigan miden 60px, haya 2 o 200.
+    </p>
+    <p>
+      El valor más útil para <code>grid-auto-rows</code> suele ser
+      <code>minmax(100px, auto)</code>: un piso, pero libertad para crecer si el
+      contenido lo necesita.
+    </p>
+  </section>
+
+  <section class="bloque bloque-demo">
+    <h2>Probalo vos</h2>
+    <div class="editor" data-editor>
+      <div class="editor-panel">
+        <div class="editor-barra">
+          <span>HTML + CSS</span>
+          <button type="button" class="editor-reset" data-editor-reset>Reiniciar</button>
+        </div>
+        <textarea spellcheck="false" aria-label="Código editable">
+          <style>
+            body { font: 14px system-ui; padding: 10px; margin: 0; }
+
+            .contenedor {
+              display: grid;
+              grid-template-columns: repeat(3, 1fr);
+              grid-template-rows: 90px;
+              grid-auto-rows: 45px;
+              gap: 8px;
+            }
+
+            .caja {
+              background: #264de4;
+              color: white;
+              display: grid;
+              place-items: center;
+              border-radius: 8px;
+            }
+            /* Las filas implícitas en otro color */
+            .caja:nth-child(n+4) { background: #e34c26; }
+          </style>
+
+          <div class="contenedor">
+            <div class="caja">1</div>
+            <div class="caja">2</div>
+            <div class="caja">3</div>
+            <div class="caja">4</div>
+            <div class="caja">5</div>
+            <div class="caja">6</div>
+          </div>
+        </textarea>
+      </div>
+      <div class="editor-panel">
+        <div class="editor-barra"><span>Resultado</span></div>
+        <iframe title="Vista previa del ejemplo"></iframe>
+      </div>
+    </div>
+    <p class="editor-ayuda">
+      Las azules están en la fila explícita (90px); las naranjas, en filas
+      implícitas (45px). Cambiá <code>grid-auto-rows</code> y mirá que solo
+      se mueven las naranjas.
+    </p>
+  </section>
+
+  <section class="bloque bloque-errores">
+    <h2>Errores comunes</h2>
+    <ul class="errores">
+      <li>
+        <strong>Querer estilar filas implícitas con <code>grid-template-rows</code></strong>
+        No las alcanza. Si no sabés cuántas filas va a haber (un listado que viene
+        de una base de datos), lo que necesitás es <code>grid-auto-rows</code>.
+      </li>
+      <li>
+        <strong>Filas implícitas que quedan en <code>auto</code></strong>
+        Es el valor por defecto: cada fila mide lo que su contenido más alto.
+        Por eso a veces te quedan filas de alturas desparejas sin entender por qué.
+      </li>
+      <li>
+        <strong>Confundir <code>grid-auto-flow: column</code> con cambiar las columnas</strong>
+        No modifica <code>grid-template-columns</code>: cambia el
+        <strong>orden en que se llenan</strong> las celdas, de arriba hacia abajo
+        en vez de izquierda a derecha.
+      </li>
+      <li>
+        <strong>Crear filas implícitas sin querer</strong>
+        Si posicionás un elemento en la fila 5 de una grilla de 3 filas
+        (tema 7), Grid crea las filas 4 y 5 vacías. A veces aparece un hueco
+        enorme y la causa es esta.
+      </li>
+    </ul>
+  </section>
+
+  <section class="bloque bloque-cuando">
+    <h2>Cuándo NO usarlo</h2>
+    <div class="comparacion">
+      <div class="si">
+        <h3>✔ Dejá que sea implícito</h3>
+        <p>
+          Cuando la cantidad de elementos es variable o desconocida: un listado de
+          productos, comentarios, resultados de búsqueda.
+        </p>
+      </div>
+      <div class="no">
+        <h3>✘ Declaralo explícito</h3>
+        <p>
+          Cuando el layout es fijo y conocido: el esqueleto de una página con
+          header, contenido y footer. Ahí querés control total.
+        </p>
+      </div>
+    </div>
+    <p style="margin-top:14px">
+      Buena costumbre: si el contenido es dinámico, poné siempre un
+      <code>grid-auto-rows</code>. Te ahorra sorpresas cuando llegan datos
+      distintos a los que probaste.
+    </p>
+  </section>
+
+  <section class="bloque bloque-ejercicio">
+    <h2>Mini-ejercicio</h2>
+    <div class="consigna">
+      <p>Un listado de novedades:</p>
+      <ol>
+        <li><strong>2 columnas iguales.</strong></li>
+        <li>La <strong>primera fila destacada</strong>, de 150px.</li>
+        <li>Todas las demás, <strong>mínimo 80px</strong> pero que puedan crecer.</li>
+      </ol>
+    </div>
+
+    <details class="solucion">
+      <summary>Ver solución</summary>
+<pre><code>.novedades {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  <b>grid-template-rows: 150px;</b>              /* explícita: solo la 1ª */
+  <b>grid-auto-rows: minmax(80px, auto);</b>     /* implícitas: el resto */
+  gap: 12px;
+}</code></pre>
+      <p>
+        Declarar una sola fila en <code>grid-template-rows</code> es totalmente
+        válido y muy común: definís la que es especial y dejás que el resto se
+        genere solo con el molde de <code>grid-auto-rows</code>.
+      </p>
+    </details>
+  </section>
+
+  <footer class="ficha-footer">
+    Referencia:
+    <a href="https://developer.mozilla.org/es/docs/Web/CSS/grid-auto-rows" target="_blank" rel="noopener">
+      grid-auto-rows en MDN
+    </a>
+  </footer>
+
+</article>
+<script src="editor.js" defer></script>
+</body>
+</html>

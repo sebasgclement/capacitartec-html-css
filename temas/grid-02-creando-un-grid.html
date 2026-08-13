@@ -1,18 +1,202 @@
-<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Creando un Grid</title>
-<style>
-:root{--bg:#0b0e14;--fg:#eef1f8;--mut:#9aa4b2;--b:#1f2741}
-body{margin:0;font:16px/1.5 system-ui;color:var(--fg);background:var(--bg)}
-.wrap{max-width:1000px;margin:auto;padding:24px}
-.grid{display:grid;gap:10px;background:#121726;border:1px solid var(--b);padding:10px;border-radius:12px}
-.item{background:#0f1322;border:1px solid var(--b);border-radius:10px;padding:16px;text-align:center}
-</style></head><body>
-<div class="wrap">
-  <h1>Creando un Grid</h1>
-  <p style="color:var(--mut)">Definí columnas/filas con <code>grid-template-columns</code> / <code>grid-template-rows</code>.</p>
-  <div class="grid" style="grid-template-columns: 150px 1fr 2fr; grid-template-rows: auto auto;">
-    <div class="item">150px</div><div class="item">1fr</div><div class="item">2fr</div>
-    <div class="item">fila 2</div><div class="item">fila 2</div><div class="item">fila 2</div>
-  </div>
-</div></body></html>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Creando un Grid</title>
+  <link rel="stylesheet" href="theme.css" />
+</head>
+<body>
+<article class="ficha">
+
+  <header class="ficha-header">
+    <p class="ficha-modulo">CSS Grid · Tema 2 de 12</p>
+    <h1>Creando un Grid</h1>
+    <p class="ficha-resumen">
+      Filas, columnas y el vocabulario que vas a usar en los otros once temas:
+      pistas, líneas, celdas y gap.
+    </p>
+  </header>
+
+  <section class="bloque bloque-problema">
+    <h2>¿Qué problema resuelve?</h2>
+    <p>
+      Ya sabés que <code>display: grid</code> arma una grilla. Ahora falta lo
+      importante: <strong>decidir cuántas filas y columnas tiene, y qué tamaño</strong>.
+    </p>
+    <p>
+      Sin eso, Grid te da una sola columna del ancho del contenedor y apila todo
+      hacia abajo, que no es muy distinto a no hacer nada.
+    </p>
+    <p>
+      Además hay tres palabras que conviene aprender ahora, porque toda la
+      documentación las usa:
+    </p>
+    <ul>
+      <li><strong>Pista (<em>track</em>):</strong> una fila o una columna completa.</li>
+      <li><strong>Línea:</strong> el borde entre pistas. Se numeran desde 1, y las líneas son una más que las pistas.</li>
+      <li><strong>Celda:</strong> el cruce de una fila con una columna. La unidad mínima.</li>
+    </ul>
+  </section>
+
+  <section class="bloque bloque-sintaxis">
+    <h2>Sintaxis mínima</h2>
+<pre><code>.contenedor {
+  display: grid;
+
+  <b>grid-template-columns: 150px 150px 150px;</b>  /* 3 columnas de 150px */
+  <b>grid-template-rows: 100px 100px;</b>           /* 2 filas de 100px */
+
+  <b>gap: 10px;</b>              /* separación en filas y columnas */
+  /* column-gap: 10px;  row-gap: 20px;  → por separado */
+}</code></pre>
+    <p>
+      Cada valor que escribís en <code>grid-template-columns</code> es una columna.
+      Tres valores, tres columnas. Es literal, y es lo que hace a Grid tan legible.
+    </p>
+    <p>
+      Con 3 columnas y 2 filas tenés <strong>6 celdas</strong>. Los hijos las van
+      ocupando en orden, de izquierda a derecha y de arriba hacia abajo.
+    </p>
+  </section>
+
+  <section class="bloque bloque-demo">
+    <h2>Probalo vos</h2>
+    <div class="editor" data-editor>
+      <div class="editor-panel">
+        <div class="editor-barra">
+          <span>HTML + CSS</span>
+          <button type="button" class="editor-reset" data-editor-reset>Reiniciar</button>
+        </div>
+        <textarea spellcheck="false" aria-label="Código editable">
+          <style>
+            body { font: 15px system-ui; padding: 10px; margin: 0; }
+
+            .contenedor {
+              display: grid;
+              grid-template-columns: 100px 100px;
+              grid-template-rows: 80px 80px;
+              gap: 10px;
+            }
+
+            .caja {
+              background: #264de4;
+              color: white;
+              display: grid;
+              place-items: center;
+              border-radius: 8px;
+            }
+          </style>
+
+          <div class="contenedor">
+            <div class="caja">A</div>
+            <div class="caja">B</div>
+            <div class="caja">C</div>
+            <div class="caja">D</div>
+          </div>
+        </textarea>
+      </div>
+      <div class="editor-panel">
+        <div class="editor-barra"><span>Resultado</span></div>
+        <iframe title="Vista previa del ejemplo"></iframe>
+      </div>
+    </div>
+    <p class="editor-ayuda">
+      Agregá un tercer valor a <code>grid-template-columns</code> y mirá cómo
+      las cajas se reordenan sin que toques el HTML.
+    </p>
+  </section>
+
+  <section class="bloque bloque-errores">
+    <h2>Errores comunes</h2>
+    <ul class="errores">
+      <li>
+        <strong>Separar los valores con comas</strong>
+        Se escriben con <em>espacios</em>: <code>150px 150px</code>, no
+        <code>150px, 150px</code>. Con coma la propiedad entera se ignora.
+      </li>
+      <li>
+        <strong>Definir más celdas que elementos</strong>
+        Si declarás 6 celdas y ponés 4 hijos, las 2 últimas quedan vacías. No es
+        un error de CSS, pero suele no ser lo que querías.
+      </li>
+      <li>
+        <strong>Poner medidas fijas en px y esperar que sea responsive</strong>
+        <code>150px 150px 150px</code> siempre mide 450px, se desborde o no.
+        Para que se adapte necesitás <code>fr</code> (tema 3).
+      </li>
+      <li>
+        <strong>Contar las líneas desde 0</strong>
+        La primera línea es la <strong>1</strong>, no la 0. Con 3 columnas hay
+        4 líneas verticales. Esto importa mucho en el tema 7.
+      </li>
+    </ul>
+  </section>
+
+  <section class="bloque bloque-cuando">
+    <h2>Cuándo NO usarlo</h2>
+    <div class="comparacion">
+      <div class="si">
+        <h3>✔ Declará las filas</h3>
+        <p>
+          Cuando el alto importa: un hero de pantalla completa, un dashboard con
+          zonas de tamaño fijo, una galería de cuadrados.
+        </p>
+      </div>
+      <div class="no">
+        <h3>✘ Dejá que las calcule Grid</h3>
+        <p>
+          Cuando el contenido manda: un listado de artículos de largo variable.
+          Fijar el alto ahí te corta el texto o te deja huecos.
+        </p>
+      </div>
+    </div>
+    <p style="margin-top:14px">
+      En la práctica, <code>grid-template-columns</code> se usa casi siempre y
+      <code>grid-template-rows</code> bastante menos: las filas suelen crecer
+      solas según lo que tengan adentro.
+    </p>
+  </section>
+
+  <section class="bloque bloque-ejercicio">
+    <h2>Mini-ejercicio</h2>
+    <div class="consigna">
+      <p>Armá un calendario semanal de juguete:</p>
+      <ol>
+        <li><strong>7 columnas</strong> de 60px (una por día).</li>
+        <li><strong>3 filas</strong> de 50px.</li>
+        <li>Separación de <strong>4px</strong> entre columnas y <strong>8px</strong> entre filas.</li>
+      </ol>
+    </div>
+
+    <details class="solucion">
+      <summary>Ver solución</summary>
+<pre><code>.contenedor {
+  display: grid;
+  grid-template-columns: 60px 60px 60px 60px 60px 60px 60px;
+  grid-template-rows: 50px 50px 50px;
+  <b>column-gap: 4px;</b>
+  <b>row-gap: 8px;</b>
+}</code></pre>
+      <p>
+        Escribir <code>60px</code> siete veces cansa, ¿no? Para eso existe
+        <code>repeat(7, 60px)</code>, que vemos en el tema 4.
+      </p>
+      <p>
+        <code>gap: 8px 4px</code> es el atajo de las dos propiedades juntas:
+        primero filas, después columnas.
+      </p>
+    </details>
+  </section>
+
+  <footer class="ficha-footer">
+    Referencia:
+    <a href="https://developer.mozilla.org/es/docs/Web/CSS/grid-template-columns" target="_blank" rel="noopener">
+      grid-template-columns en MDN
+    </a>
+  </footer>
+
+</article>
+<script src="editor.js" defer></script>
+</body>
+</html>

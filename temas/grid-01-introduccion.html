@@ -1,18 +1,191 @@
-<!DOCTYPE html><html lang="es"><head>
-<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>CSS Grid — Introducción</title>
-<style>
-:root{--bg:#0b0e14;--fg:#eef1f8;--mut:#9aa4b2;--b:#1f2741}
-*{box-sizing:border-box}body{margin:0;font:16px/1.5 system-ui;color:var(--fg);background:var(--bg)}
-.wrap{max-width:1000px;margin:auto;padding:24px}
-.grid{display:grid;gap:12px;background:#121726;border:1px solid var(--b);padding:12px;border-radius:12px}
-.item{background:#0f1322;border:1px solid var(--b);border-radius:10px;padding:18px;text-align:center;font-weight:600}
-</style></head><body>
-<div class="wrap">
-  <h1>CSS Grid — Introducción</h1>
-  <p style="color:var(--mut)">Grid es un sistema bidimensional (filas+columnas), ideal para layouts complejos.</p>
-  <div class="grid" style="grid-template-columns: 1fr 1fr 1fr;">
-    <div class="item">1</div><div class="item">2</div><div class="item">3</div>
-    <div class="item">4</div><div class="item">5</div><div class="item">6</div>
-  </div>
-</div></body></html>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Introducción a CSS Grid</title>
+  <link rel="stylesheet" href="theme.css" />
+</head>
+<body>
+<article class="ficha">
+
+  <header class="ficha-header">
+    <p class="ficha-modulo">CSS Grid · Tema 1 de 12</p>
+    <h1>Introducción a CSS Grid</h1>
+    <p class="ficha-resumen">
+      El primer sistema de CSS pensado para armar layouts en dos dimensiones:
+      filas y columnas al mismo tiempo.
+    </p>
+  </header>
+
+  <section class="bloque bloque-problema">
+    <h2>¿Qué problema resuelve?</h2>
+    <p>
+      Durante años armamos layouts con herramientas que no estaban hechas para eso:
+      <code>float</code> (pensado para que el texto rodee una imagen) y hasta
+      <code>&lt;table&gt;</code> (pensado para datos). Funcionaban, pero pedían
+      <em>clearfix</em>, anchos calculados a mano y muchos <code>div</code> extra.
+    </p>
+    <p>
+      Flexbox mejoró mucho las cosas, pero trabaja en <strong>una sola dirección</strong>:
+      o acomodás en fila, o acomodás en columna. Cuando querés que además las cosas
+      se alineen <strong>hacia abajo</strong>, empezás a pelear con anchos y márgenes.
+    </p>
+    <p>
+      Grid resuelve exactamente eso: definís una grilla de filas y columnas, y los
+      elementos se ubican en ella. <strong>Vos declarás la estructura, no las medidas
+      de cada pieza.</strong>
+    </p>
+  </section>
+
+  <section class="bloque bloque-sintaxis">
+    <h2>Sintaxis mínima</h2>
+    <p>Tres propiedades y ya tenés una grilla funcionando:</p>
+<pre><code>.contenedor {
+  <b>display: grid;</b>
+  <b>grid-template-columns: 200px 200px 200px;</b>  /* 3 columnas */
+  <b>gap: 12px;</b>                                 /* separación */
+}</code></pre>
+    <p>
+      Todo se declara en el <strong>contenedor</strong>. Los hijos directos se
+      convierten automáticamente en ítems de la grilla y se van acomodando solos,
+      sin que tengas que tocarles nada.
+    </p>
+  </section>
+
+  <section class="bloque bloque-demo">
+    <h2>Probalo vos</h2>
+    <div class="editor" data-editor>
+      <div class="editor-panel">
+        <div class="editor-barra">
+          <span>HTML + CSS</span>
+          <button type="button" class="editor-reset" data-editor-reset>Reiniciar</button>
+        </div>
+        <textarea spellcheck="false" aria-label="Código editable">
+          <style>
+            body { font: 15px system-ui; padding: 10px; margin: 0; }
+
+            .contenedor {
+              display: grid;
+              grid-template-columns: 1fr 1fr 1fr;
+              gap: 10px;
+            }
+
+            .caja {
+              background: #264de4;
+              color: white;
+              padding: 20px;
+              border-radius: 8px;
+              text-align: center;
+            }
+          </style>
+
+          <div class="contenedor">
+            <div class="caja">1</div>
+            <div class="caja">2</div>
+            <div class="caja">3</div>
+            <div class="caja">4</div>
+            <div class="caja">5</div>
+            <div class="caja">6</div>
+          </div>
+        </textarea>
+      </div>
+      <div class="editor-panel">
+        <div class="editor-barra"><span>Resultado</span></div>
+        <iframe title="Vista previa del ejemplo"></iframe>
+      </div>
+    </div>
+    <p class="editor-ayuda">
+      Probá cambiar <code>1fr 1fr 1fr</code> por <code>1fr 2fr</code> y mirá cómo
+      se reacomodan las 6 cajas solas.
+    </p>
+  </section>
+
+  <section class="bloque bloque-errores">
+    <h2>Errores comunes</h2>
+    <ul class="errores">
+      <li>
+        <strong>Poner <code>display: grid</code> en el hijo</strong>
+        Va siempre en el <em>contenedor</em>. Si lo ponés en la caja, convertís
+        a esa caja en una grilla para <em>sus</em> hijos, que no es lo que buscabas.
+      </li>
+      <li>
+        <strong>Esperar que funcione con nietos</strong>
+        Grid solo afecta a los <strong>hijos directos</strong>. Si envolvés cada caja
+        en otro <code>div</code>, la grilla acomoda los envoltorios, no las cajas.
+      </li>
+      <li>
+        <strong>Seguir usando <code>margin</code> para separar</strong>
+        Para eso está <code>gap</code>. Es más simple y no agrega espacio sobrante
+        en los bordes de la grilla.
+      </li>
+      <li>
+        <strong>Creer que Grid reemplaza a Flexbox</strong>
+        Son complementarios y se usan juntos todo el tiempo: Grid para la
+        estructura de la página, Flexbox para alinear el contenido dentro de cada parte.
+      </li>
+    </ul>
+  </section>
+
+  <section class="bloque bloque-cuando">
+    <h2>Cuándo NO usarlo</h2>
+    <div class="comparacion">
+      <div class="si">
+        <h3>✔ Usá Grid</h3>
+        <p>
+          Cuando la estructura importa en las dos direcciones: layout de página,
+          galerías, dashboards, formularios de varias columnas.
+        </p>
+      </div>
+      <div class="no">
+        <h3>✘ Mejor Flexbox</h3>
+        <p>
+          Cuando es una sola línea de elementos: una barra de navegación, un grupo
+          de botones, un ítem con ícono y texto al lado.
+        </p>
+      </div>
+    </div>
+    <p style="margin-top:14px">
+      Regla práctica: si podés describir lo que querés diciendo
+      <em>"una fila de..."</em> o <em>"una columna de..."</em>, es Flexbox.
+      Si necesitás decir <em>"una cuadrícula de..."</em>, es Grid.
+    </p>
+  </section>
+
+  <section class="bloque bloque-ejercicio">
+    <h2>Mini-ejercicio</h2>
+    <div class="consigna">
+      <p>Sobre el editor de arriba:</p>
+      <ol>
+        <li>Hacé que la grilla tenga <strong>2 columnas</strong> en vez de 3.</li>
+        <li>Separá las cajas <strong>24px</strong> entre sí.</li>
+        <li>Agregá una séptima caja y fijate dónde cae sin que le digas nada.</li>
+      </ol>
+    </div>
+
+    <details class="solucion">
+      <summary>Ver solución</summary>
+<pre><code>.contenedor {
+  display: grid;
+  <b>grid-template-columns: 1fr 1fr;</b>
+  <b>gap: 24px;</b>
+}</code></pre>
+      <p>
+        La caja 7 arranca sola una cuarta fila. Nunca declaraste filas: Grid las
+        va creando a medida que hacen falta. Eso se llama <strong>grid implícito</strong>
+        y lo vemos en el tema 5.
+      </p>
+    </details>
+  </section>
+
+  <footer class="ficha-footer">
+    Referencia:
+    <a href="https://developer.mozilla.org/es/docs/Web/CSS/CSS_grid_layout" target="_blank" rel="noopener">
+      CSS Grid Layout en MDN
+    </a>
+  </footer>
+
+</article>
+<script src="editor.js" defer></script>
+</body>
+</html>

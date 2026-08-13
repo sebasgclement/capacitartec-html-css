@@ -1,21 +1,224 @@
-<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Grid dinámico y responsive</title>
-<style>
-:root{--bg:#0b0e14;--fg:#eef1f8;--mut:#9aa4b2;--b:#1f2741}
-body{margin:0;font:16px/1.5 system-ui;color:var(--fg);background:var(--bg)}
-.wrap{max-width:1100px;margin:auto;padding:24px}
-.grid{display:grid;gap:12px;background:#121726;border:1px solid var(--b);padding:12px;border-radius:12px}
-/* Truco responsive sin media queries: columnas auto-fit con minmax */
-.grid{grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));}
-.item{background:#0f1322;border:1px solid var(--b);border-radius:10px;padding:18px;text-align:center}
-</style></head><body>
-<div class="wrap">
-  <h1>Grid dinámico y responsive</h1>
-  <p style="color:var(--mut)">Usá <code>repeat(auto-fit, minmax())</code> para que la grilla fluya sola según el ancho.</p>
-  <div class="grid">
-    <div class="item">Card 1</div><div class="item">Card 2</div><div class="item">Card 3</div>
-    <div class="item">Card 4</div><div class="item">Card 5</div><div class="item">Card 6</div>
-    <div class="item">Card 7</div><div class="item">Card 8</div>
-  </div>
-</div></body></html>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Grid dinámico y responsive</title>
+  <link rel="stylesheet" href="theme.css" />
+</head>
+<body>
+<article class="ficha">
+
+  <header class="ficha-header">
+    <p class="ficha-modulo">CSS Grid · Tema 6 de 12</p>
+    <h1>Grid dinámico y responsive</h1>
+    <p class="ficha-resumen">
+      Una sola línea de CSS que arma una grilla responsive completa,
+      sin una sola media query.
+    </p>
+  </header>
+
+  <section class="bloque bloque-problema">
+    <h2>¿Qué problema resuelve?</h2>
+    <p>
+      Hasta acá, para que una galería tenga 4 columnas en escritorio, 2 en tablet
+      y 1 en celular, había que escribir esto:
+    </p>
+<pre><code>.galeria { grid-template-columns: repeat(4, 1fr); }
+
+@media (max-width: 900px) {
+  .galeria { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 500px) {
+  .galeria { grid-template-columns: 1fr; }
+}</code></pre>
+    <p>
+      Funciona, pero tiene dos problemas. Uno: elegiste 900px y 500px a ojo, y
+      no coinciden con ningún dispositivo real. Dos: si mañana las tarjetas se
+      hacen más anchas, hay que recalcular los tres breakpoints.
+    </p>
+    <p>
+      La combinación <code>auto-fit</code> + <code>minmax()</code> da vuelta el
+      planteo: en vez de decir <em>"cuántas columnas según el ancho de pantalla"</em>,
+      decís <strong>"cuánto tiene que medir cada tarjeta como mínimo"</strong> y
+      Grid calcula solo cuántas entran.
+    </p>
+  </section>
+
+  <section class="bloque bloque-sintaxis">
+    <h2>Sintaxis mínima</h2>
+<pre><code>.galeria {
+  display: grid;
+  <b>grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));</b>
+  gap: 16px;
+}</code></pre>
+    <p>Leído en voz alta: <em>"repetí tantas columnas como entren, de mínimo 200px, y repartí el sobrante entre ellas"</em>.</p>
+    <p>
+      Eso es todo. En 1200px entran 5 columnas; en 640px, 3; en 380px, 1. Sin
+      media queries, sin breakpoints inventados, y funciona en anchos que ni probaste.
+    </p>
+
+    <h3 style="font-size:1rem;margin:18px 0 6px">auto-fit vs auto-fill</h3>
+    <p>
+      Son casi iguales y la diferencia solo se nota <strong>cuando sobra espacio</strong>:
+    </p>
+    <ul>
+      <li>
+        <code>auto-fit</code>: las columnas vacías se <strong>colapsan</strong>,
+        y las que tienen contenido se estiran para ocupar todo.
+      </li>
+      <li>
+        <code>auto-fill</code>: las columnas vacías <strong>se mantienen</strong>
+        reservadas, y los ítems conservan su ancho mínimo.
+      </li>
+    </ul>
+    <p>
+      Con 3 tarjetas en una pantalla donde entrarían 6: con <code>auto-fit</code>
+      las 3 se agrandan hasta llenar la fila; con <code>auto-fill</code> quedan
+      chicas y con espacio vacío a la derecha. Para galerías, casi siempre querés
+      <code>auto-fit</code>.
+    </p>
+  </section>
+
+  <section class="bloque bloque-demo">
+    <h2>Probalo vos</h2>
+    <div class="editor" data-editor>
+      <div class="editor-panel">
+        <div class="editor-barra">
+          <span>HTML + CSS</span>
+          <button type="button" class="editor-reset" data-editor-reset>Reiniciar</button>
+        </div>
+        <textarea spellcheck="false" aria-label="Código editable">
+          <style>
+            body { font: 14px system-ui; padding: 10px; margin: 0; }
+
+            .galeria {
+              display: grid;
+              grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+              gap: 10px;
+            }
+
+            .tarjeta {
+              background: #264de4;
+              color: white;
+              padding: 24px 10px;
+              border-radius: 8px;
+              text-align: center;
+            }
+          </style>
+
+          <div class="galeria">
+            <div class="tarjeta">1</div>
+            <div class="tarjeta">2</div>
+            <div class="tarjeta">3</div>
+            <div class="tarjeta">4</div>
+            <div class="tarjeta">5</div>
+          </div>
+        </textarea>
+      </div>
+      <div class="editor-panel">
+        <div class="editor-barra"><span>Resultado</span></div>
+        <iframe title="Vista previa del ejemplo"></iframe>
+      </div>
+    </div>
+    <p class="editor-ayuda">
+      Arrastrá el borde del editor para hacerlo más angosto, o cambiá el mínimo
+      de <code>120px</code> a <code>200px</code>: la cantidad de columnas cambia
+      sola. Después probá <code>auto-fill</code> en vez de <code>auto-fit</code>.
+    </p>
+  </section>
+
+  <section class="bloque bloque-errores">
+    <h2>Errores comunes</h2>
+    <ul class="errores">
+      <li>
+        <strong>Usar <code>auto-fit</code> con pocos elementos sin querer</strong>
+        Con 2 tarjetas en una pantalla ancha, <code>auto-fit</code> las estira
+        a media pantalla cada una. Si no querés eso, limitá el máximo:
+        <code>minmax(200px, 400px)</code>.
+      </li>
+      <li>
+        <strong>Un mínimo más grande que la pantalla</strong>
+        <code>minmax(400px, 1fr)</code> se desborda en un celular de 360px.
+        Si el mínimo no entra, se desborda igual. Para eso está
+        <code>min(400px, 100%)</code> como mínimo.
+      </li>
+      <li>
+        <strong>Poner <code>auto-fit</code> adentro de <code>minmax</code></strong>
+        Es al revés: <code>repeat(auto-fit, minmax(...))</code>. El
+        <code>auto-fit</code> es el primer argumento de <code>repeat()</code>.
+      </li>
+      <li>
+        <strong>Combinar <code>auto-fit</code> con cantidades fijas</strong>
+        <code>repeat(auto-fit, ...)</code> no se puede mezclar con otro
+        <code>repeat()</code> de cantidad automática en la misma declaración.
+      </li>
+    </ul>
+  </section>
+
+  <section class="bloque bloque-cuando">
+    <h2>Cuándo NO usarlo</h2>
+    <div class="comparacion">
+      <div class="si">
+        <h3>✔ Usá auto-fit</h3>
+        <p>
+          Cuando todos los elementos son equivalentes y da igual cuántos entren
+          por fila: galerías, tarjetas de producto, logos, un equipo de trabajo.
+        </p>
+      </div>
+      <div class="no">
+        <h3>✘ Usá media queries</h3>
+        <p>
+          Cuando el layout tiene que <em>cambiar de forma</em>, no solo de cantidad:
+          una barra lateral que en celular pasa a ir arriba.
+        </p>
+      </div>
+    </div>
+    <p style="margin-top:14px">
+      Los dos enfoques conviven: <code>auto-fit</code> para el contenido repetido,
+      media queries (o <code>grid-template-areas</code>, tema 9) para reorganizar
+      la estructura general.
+    </p>
+  </section>
+
+  <section class="bloque bloque-ejercicio">
+    <h2>Mini-ejercicio</h2>
+    <div class="consigna">
+      <p>Una grilla de tarjetas de equipo:</p>
+      <ol>
+        <li>Cada tarjeta, <strong>mínimo 180px</strong>.</li>
+        <li>Que <strong>nunca se desborde</strong>, ni en una pantalla de 320px.</li>
+        <li>Sin escribir <strong>ni una media query</strong>.</li>
+      </ol>
+    </div>
+
+    <details class="solucion">
+      <summary>Ver solución</summary>
+<pre><code>.equipo {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, <b>minmax(min(180px, 100%), 1fr)</b>);
+  gap: 16px;
+}</code></pre>
+      <p>
+        El <code>min(180px, 100%)</code> es la parte que casi nunca se ve en los
+        tutoriales, y es la que evita el desborde: significa
+        <em>"180px, salvo que el contenedor sea más chico, en cuyo caso ocupá el 100%"</em>.
+      </p>
+      <p>
+        Sin eso, en una pantalla de 320px con 16px de padding a cada lado, una
+        columna de mínimo 180px entra justa... hasta que agregás el gap.
+      </p>
+    </details>
+  </section>
+
+  <footer class="ficha-footer">
+    Referencia:
+    <a href="https://developer.mozilla.org/es/docs/Web/CSS/repeat" target="_blank" rel="noopener">
+      repeat() y auto-fit en MDN
+    </a>
+  </footer>
+
+</article>
+<script src="editor.js" defer></script>
+</body>
+</html>

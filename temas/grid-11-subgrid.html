@@ -1,36 +1,248 @@
-<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Subgrid</title>
-<style>
-:root{--bg:#0b0e14;--fg:#eef1f8;--mut:#9aa4b2;--b:#1f2741}
-body{margin:0;font:16px/1.5 system-ui;color:var(--fg);background:var(--bg)}
-.wrap{max-width:1100px;margin:auto;padding:24px}
-.parent{display:grid;gap:14px;background:#121726;border:1px solid var(--b);padding:14px;border-radius:12px;grid-template-columns: 1fr 1fr 1fr}
-.card{background:#0f1322;border:1px solid var(--b);border-radius:10px;padding:10px;display:grid;grid-template-rows: auto 1fr auto;gap:8px}
-.header,.body,.footer{background:#101426;border:1px dashed var(--b);border-radius:8px;padding:8px}
-/* Subgrid de columnas: hijos alinean su layout a la grilla del padre */
-@supports (grid-template-columns: subgrid){
-  .card{grid-template-columns: subgrid; grid-column: span 1;}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Subgrid</title>
+  <link rel="stylesheet" href="theme.css" />
+</head>
+<body>
+<article class="ficha">
+
+  <header class="ficha-header">
+    <p class="ficha-modulo">CSS Grid · Tema 11 de 12</p>
+    <h1>Subgrid</h1>
+    <p class="ficha-resumen">
+      Cómo hacer que los elementos de adentro de una tarjeta se alineen con los
+      de las tarjetas vecinas. El problema que Grid tardó años en resolver.
+    </p>
+  </header>
+
+  <section class="bloque bloque-problema">
+    <h2>¿Qué problema resuelve?</h2>
+    <p>
+      Imaginate tres tarjetas de producto, cada una con título, descripción y
+      precio. Los títulos tienen largos distintos: uno ocupa una línea, otro dos.
+    </p>
+    <p>
+      Resultado: <strong>los precios quedan a distinta altura</strong>. Se ve
+      descuidado, y es uno de los detalles que separa un diseño prolijo de uno
+      que no.
+    </p>
+    <p>
+      La causa es que cada tarjeta es una grilla independiente. La tarjeta 1 no
+      tiene idea de que el título de la tarjeta 2 ocupa dos líneas.
+    </p>
+    <p>
+      <code>subgrid</code> resuelve eso: la tarjeta deja de definir sus propias
+      pistas y <strong>usa las del abuelo</strong>. Como todas comparten las
+      mismas filas, todo queda alineado automáticamente.
+    </p>
+    <p>
+      Antes de subgrid esto se resolvía con alturas fijas o con JavaScript
+      midiendo elementos. Ninguna de las dos era buena.
+    </p>
+  </section>
+
+  <section class="bloque bloque-sintaxis">
+    <h2>Sintaxis mínima</h2>
+<pre><code>/* El contenedor de afuera define las pistas de verdad */
+.galeria {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  <b>grid-template-rows: auto auto auto;</b>   /* título / desc / precio */
 }
-</style></head><body>
-<div class="wrap">
-  <h1>Subgrid</h1>
-  <p style="color:var(--mut)">Permite que un grid hijo herede líneas/medidas de columnas/filas del grid padre.</p>
-  <div class="parent">
-    <article class="card">
-      <div class="header">Header</div>
-      <div class="body">Contenido</div>
-      <div class="footer">Footer</div>
-    </article>
-    <article class="card">
-      <div class="header">Header</div>
-      <div class="body">Contenido más largo para ver ajuste…</div>
-      <div class="footer">Footer</div>
-    </article>
-    <article class="card">
-      <div class="header">Header</div>
-      <div class="body">Contenido</div>
-      <div class="footer">Footer</div>
-    </article>
-  </div>
-</div></body></html>
+
+/* Cada tarjeta ocupa las 3 filas y hereda esas pistas */
+.tarjeta {
+  display: grid;
+  <b>grid-row: span 3;</b>
+  <b>grid-template-rows: subgrid;</b>
+}</code></pre>
+    <p>
+      Las dos líneas van juntas y las dos son necesarias: <code>span 3</code>
+      dice <em>cuántas</em> pistas del abuelo abarca, y <code>subgrid</code> dice
+      que use esas en vez de crear las suyas.
+    </p>
+    <p>
+      Funciona igual con <code>grid-template-columns: subgrid</code>, y se puede
+      usar en un solo eje o en los dos.
+    </p>
+    <p>
+      <strong>Soporte:</strong> está disponible en todos los navegadores modernos
+      (Firefox desde 2019, Safari desde 2023, Chrome y Edge desde fines de 2023).
+      Para navegadores viejos conviene protegerlo con una feature query, que ya
+      viste en Responsive Design:
+    </p>
+<pre><code><b>@supports (grid-template-rows: subgrid)</b> {
+  .tarjeta { grid-template-rows: subgrid; }
+}</code></pre>
+  </section>
+
+  <section class="bloque bloque-demo">
+    <h2>Probalo vos</h2>
+    <div class="editor" data-editor>
+      <div class="editor-panel">
+        <div class="editor-barra">
+          <span>HTML + CSS</span>
+          <button type="button" class="editor-reset" data-editor-reset>Reiniciar</button>
+        </div>
+        <textarea spellcheck="false" aria-label="Código editable">
+          <style>
+            body { font: 13px system-ui; padding: 10px; margin: 0; }
+
+            .galeria {
+              display: grid;
+              grid-template-columns: repeat(3, 1fr);
+              grid-template-rows: auto auto auto;
+              gap: 10px;
+            }
+
+            .tarjeta {
+              display: grid;
+              grid-row: span 3;
+              /* Comentá la línea de abajo para ver el problema */
+              grid-template-rows: subgrid;
+              border: 2px solid #264de4;
+              border-radius: 8px;
+              overflow: hidden;
+            }
+
+            .tarjeta > * { padding: 8px; }
+            .titulo { background: #264de4; color: white; font-weight: 700; }
+            .precio { background: #f1f5f9; font-weight: 700; }
+          </style>
+
+          <div class="galeria">
+            <div class="tarjeta">
+              <div class="titulo">Teclado</div>
+              <div class="desc">Corto.</div>
+              <div class="precio">$ 100</div>
+            </div>
+            <div class="tarjeta">
+              <div class="titulo">Monitor curvo ultrapanorámico</div>
+              <div class="desc">Una descripción bastante más larga que la otra.</div>
+              <div class="precio">$ 900</div>
+            </div>
+            <div class="tarjeta">
+              <div class="titulo">Mouse</div>
+              <div class="desc">Media.</div>
+              <div class="precio">$ 50</div>
+            </div>
+          </div>
+        </textarea>
+      </div>
+      <div class="editor-panel">
+        <div class="editor-barra"><span>Resultado</span></div>
+        <iframe title="Vista previa del ejemplo"></iframe>
+      </div>
+    </div>
+    <p class="editor-ayuda">
+      Los precios están alineados. Ahora comentá
+      <code>grid-template-rows: subgrid</code> y mirá cómo se desalinean:
+      ese es exactamente el problema que resuelve.
+    </p>
+  </section>
+
+  <section class="bloque bloque-errores">
+    <h2>Errores comunes</h2>
+    <ul class="errores">
+      <li>
+        <strong>Olvidar el <code>span</code></strong>
+        <code>grid-template-rows: subgrid</code> sin <code>grid-row: span 3</code>
+        no alinea nada: la tarjeta ocupa una sola fila y no hay pistas que heredar.
+      </li>
+      <li>
+        <strong>No declarar las filas en el abuelo</strong>
+        Si el contenedor externo no tiene <code>grid-template-rows</code>, no hay
+        pistas explícitas para compartir.
+      </li>
+      <li>
+        <strong>Creer que hereda de cualquier ancestro</strong>
+        Subgrid toma las pistas del <strong>padre inmediato</strong> que sea grid.
+        Si hay un <code>div</code> intermedio sin <code>display: grid</code>, se corta.
+      </li>
+      <li>
+        <strong>Confundirlo con un grid anidado común</strong>
+        Un grid dentro de otro grid siempre se pudo hacer. La diferencia es que
+        el anidado crea pistas <em>propias</em>; subgrid usa las de arriba.
+      </li>
+      <li>
+        <strong>El <code>gap</code> también se hereda</strong>
+        Un subgrid usa el <code>gap</code> del padre por defecto. Si le ponés uno
+        propio, lo pisa, y ahí se te desalinea todo de nuevo.
+      </li>
+    </ul>
+  </section>
+
+  <section class="bloque bloque-cuando">
+    <h2>Cuándo NO usarlo</h2>
+    <div class="comparacion">
+      <div class="si">
+        <h3>✔ Usá subgrid</h3>
+        <p>
+          Cuando piezas <em>hermanas</em> tienen que alinearse entre sí: tarjetas
+          de producto, formularios de etiqueta + campo, tablas de precios.
+        </p>
+      </div>
+      <div class="no">
+        <h3>✘ Grid anidado normal</h3>
+        <p>
+          Cuando cada bloque es independiente y no necesita coordinarse con sus
+          vecinos. Ahí subgrid solo agrega complejidad.
+        </p>
+      </div>
+    </div>
+    <p style="margin-top:14px">
+      La pregunta que decide: <em>¿necesito que esta parte se alinee con la misma
+      parte de la tarjeta de al lado?</em> Si sí, subgrid. Si no, un grid común.
+    </p>
+  </section>
+
+  <section class="bloque bloque-ejercicio">
+    <h2>Mini-ejercicio</h2>
+    <div class="consigna">
+      <p>Un formulario de etiquetas y campos:</p>
+      <ol>
+        <li>Dos columnas: <strong>etiqueta</strong> y <strong>campo</strong>.</li>
+        <li>Cada fila del formulario es un <code>&lt;div&gt;</code> propio (por el borde y el error).</li>
+        <li>Que <strong>todos los campos arranquen en la misma columna</strong>, aunque las etiquetas tengan largos distintos.</li>
+      </ol>
+    </div>
+
+    <details class="solucion">
+      <summary>Ver solución</summary>
+<pre><code>.formulario {
+  display: grid;
+  <b>grid-template-columns: auto 1fr;</b>
+}
+
+.fila {
+  display: grid;
+  <b>grid-column: span 2;</b>
+  <b>grid-template-columns: subgrid;</b>
+}</code></pre>
+      <p>
+        Sin subgrid, cada <code>.fila</code> calcularía su columna
+        <code>auto</code> según <em>su</em> etiqueta, y los campos quedarían
+        escalonados. Con subgrid, la columna <code>auto</code> se calcula una vez
+        para todo el formulario: la más ancha manda.
+      </p>
+      <p>
+        Este caso es interesante porque acá el subgrid es de
+        <strong>columnas</strong>, no de filas. Sirve para los dos ejes.
+      </p>
+    </details>
+  </section>
+
+  <footer class="ficha-footer">
+    Referencia:
+    <a href="https://developer.mozilla.org/es/docs/Web/CSS/CSS_grid_layout/Subgrid" target="_blank" rel="noopener">
+      Subgrid en MDN
+    </a>
+  </footer>
+
+</article>
+<script src="editor.js" defer></script>
+</body>
+</html>

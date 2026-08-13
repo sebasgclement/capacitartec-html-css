@@ -1,0 +1,397 @@
+/* =====================================================
+   CapacitarTec · Hoja compartida de las fichas de tema
+   -----------------------------------------------------
+   Las fichas se ven dentro del modal (fondo blanco), así
+   que el tema es claro. Los bloques de código van oscuros
+   para que contrasten.
+   ===================================================== */
+
+:root {
+  --html: #e34c26;
+  --css: #264de4;
+  --acento: #0d9488;
+
+  --tinta: #1f2430;
+  --tinta-suave: #5b6472;
+  --linea: #e4e7ec;
+  --papel: #ffffff;
+  --papel-alt: #f7f8fa;
+
+  --codigo-bg: #0f1322;
+  --codigo-fg: #e6e9f2;
+
+  --radio: 10px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 24px 20px 60px;
+  font-family: system-ui, "Segoe UI", Roboto, sans-serif;
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--tinta);
+  background: var(--papel);
+}
+
+.ficha {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+/* ---------- Encabezado ---------- */
+
+.ficha-header {
+  padding-bottom: 18px;
+  border-bottom: 2px solid var(--linea);
+  margin-bottom: 8px;
+}
+
+.ficha-modulo {
+  margin: 0 0 6px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--css);
+}
+
+.ficha-header h1 {
+  margin: 0;
+  font-size: clamp(1.6rem, 4vw, 2.1rem);
+  line-height: 1.2;
+}
+
+.ficha-resumen {
+  margin: 10px 0 0;
+  font-size: 1.05rem;
+  color: var(--tinta-suave);
+}
+
+/* ---------- Bloques ---------- */
+
+.bloque {
+  padding: 22px 0;
+  border-bottom: 1px solid var(--linea);
+}
+
+.bloque:last-of-type {
+  border-bottom: none;
+}
+
+.bloque h2 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 12px;
+  font-size: 1.15rem;
+}
+
+/* Cada bloque se reconoce por su ícono, siempre el mismo
+   en las 12 fichas: el alumno aprende la estructura. */
+.bloque h2::before {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  background: var(--papel-alt);
+  border: 1px solid var(--linea);
+}
+
+.bloque-problema h2::before { content: "❓"; }
+.bloque-sintaxis h2::before { content: "⌨️"; }
+.bloque-demo h2::before     { content: "🎛️"; }
+.bloque-errores h2::before  { content: "⚠️"; }
+.bloque-cuando h2::before   { content: "🚦"; }
+.bloque-ejercicio h2::before{ content: "🎯"; }
+
+.bloque p:first-of-type {
+  margin-top: 0;
+}
+
+.bloque > p:last-child,
+.bloque > ul:last-child {
+  margin-bottom: 0;
+}
+
+/* ---------- Código ---------- */
+
+code {
+  padding: 2px 6px;
+  border-radius: 5px;
+  background: var(--papel-alt);
+  border: 1px solid var(--linea);
+  font-family: "Cascadia Code", Consolas, "SF Mono", monospace;
+  font-size: 0.88em;
+}
+
+pre {
+  margin: 14px 0;
+  padding: 16px;
+  border-radius: var(--radio);
+  background: var(--codigo-bg);
+  color: var(--codigo-fg);
+  overflow-x: auto;
+}
+
+pre code {
+  padding: 0;
+  border: none;
+  background: none;
+  color: inherit;
+  font-size: 0.86rem;
+  line-height: 1.6;
+}
+
+/* Resaltado manual: <b> marca la línea que importa */
+pre b {
+  display: inline-block;
+  padding: 0 4px;
+  margin: 0 -4px;
+  border-radius: 4px;
+  background: rgba(13, 148, 136, 0.28);
+  color: #7ff0e0;
+  font-weight: 600;
+}
+
+/* ---------- Editor en vivo ---------- */
+
+.editor {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.editor-panel {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  border: 1px solid var(--linea);
+  border-radius: var(--radio);
+  overflow: hidden;
+}
+
+.editor-barra {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 6px 10px;
+  background: var(--papel-alt);
+  border-bottom: 1px solid var(--linea);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--tinta-suave);
+}
+
+.editor-reset {
+  padding: 3px 10px;
+  border: 1px solid var(--linea);
+  border-radius: 999px;
+  background: var(--papel);
+  color: var(--tinta-suave);
+  font: inherit;
+  font-size: 0.7rem;
+  text-transform: none;
+  letter-spacing: 0;
+  cursor: pointer;
+}
+
+.editor-reset:hover {
+  border-color: var(--html);
+  color: var(--html);
+}
+
+.editor textarea {
+  flex: 1;
+  min-height: 230px;
+  padding: 12px;
+  border: none;
+  resize: vertical;
+  background: var(--codigo-bg);
+  color: var(--codigo-fg);
+  font-family: "Cascadia Code", Consolas, "SF Mono", monospace;
+  font-size: 0.8rem;
+  line-height: 1.6;
+  tab-size: 2;
+}
+
+.editor textarea:focus {
+  outline: 2px solid var(--acento);
+  outline-offset: -2px;
+}
+
+.editor iframe {
+  flex: 1;
+  width: 100%;
+  min-height: 230px;
+  border: none;
+  background: #fff;
+}
+
+.editor-ayuda {
+  margin: 8px 0 0;
+  font-size: 0.85rem;
+  color: var(--tinta-suave);
+}
+
+/* ---------- Listas de errores ---------- */
+
+.errores {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.errores li {
+  padding: 10px 0 10px 16px;
+  border-left: 3px solid #f0b429;
+  margin-bottom: 10px;
+  background: linear-gradient(90deg, rgba(240, 180, 41, 0.08), transparent 60%);
+}
+
+.errores li:last-child {
+  margin-bottom: 0;
+}
+
+.errores strong {
+  display: block;
+  color: #8a6100;
+}
+
+/* ---------- Cuándo no usarlo ---------- */
+
+.comparacion {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+  margin: 0;
+}
+
+.comparacion > div {
+  padding: 14px;
+  border: 1px solid var(--linea);
+  border-radius: var(--radio);
+  background: var(--papel-alt);
+}
+
+.comparacion h3 {
+  margin: 0 0 6px;
+  font-size: 0.95rem;
+}
+
+.comparacion p {
+  margin: 0;
+  font-size: 0.92rem;
+  color: var(--tinta-suave);
+}
+
+.si h3 { color: var(--acento); }
+.no h3 { color: var(--html); }
+
+/* ---------- Ejercicio ---------- */
+
+.consigna {
+  padding: 14px 16px;
+  border-radius: var(--radio);
+  background: rgba(38, 77, 228, 0.06);
+  border: 1px solid rgba(38, 77, 228, 0.25);
+}
+
+.consigna ol {
+  margin: 8px 0 0;
+  padding-left: 20px;
+}
+
+.solucion {
+  margin-top: 14px;
+  border: 1px solid var(--linea);
+  border-radius: var(--radio);
+  overflow: hidden;
+}
+
+.solucion summary {
+  padding: 10px 14px;
+  background: var(--papel-alt);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.solucion summary:hover {
+  background: #eef0f4;
+}
+
+.solucion[open] summary {
+  border-bottom: 1px solid var(--linea);
+}
+
+.solucion > *:not(summary) {
+  margin-left: 14px;
+  margin-right: 14px;
+}
+
+/* ---------- Pie ---------- */
+
+.ficha-footer {
+  margin-top: 26px;
+  padding-top: 16px;
+  border-top: 2px solid var(--linea);
+  font-size: 0.9rem;
+  color: var(--tinta-suave);
+}
+
+.ficha-footer a {
+  color: var(--css);
+  font-weight: 600;
+}
+
+/* ---------- Utilidades de demo ---------- */
+/* Las usan los ejemplos estáticos dentro de las fichas */
+
+.demo {
+  display: grid;
+  gap: 8px;
+  padding: 10px;
+  border: 1px dashed #c3c9d4;
+  border-radius: var(--radio);
+  background: var(--papel-alt);
+  margin: 14px 0;
+}
+
+.demo > div {
+  display: grid;
+  place-items: center;
+  min-height: 54px;
+  padding: 10px;
+  border-radius: 8px;
+  background: var(--css);
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 720px) {
+  .editor {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

@@ -1,53 +1,290 @@
-<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Layout con CSS Grid</title>
-<style>
-:root{--bg:#0b0e14;--fg:#eef1f8;--mut:#9aa4b2;--b:#1f2741;--acc:#ff5f45}
-*{box-sizing:border-box}body{margin:0;font:16px/1.6 system-ui;color:var(--fg);background:var(--bg)}
-.wrap{min-height:100dvh;display:grid;grid-template-rows:auto 1fr auto}
-.header,.footer{background:#121726;border-block:1px solid var(--b);padding:16px}
-.main{display:grid;gap:14px;padding:16px}
-@media (min-width: 900px){
-  .main{grid-template-columns:240px 1fr 280px;grid-template-areas:"nav content aside"}
-}
-@media (max-width: 899px){
-  .main{grid-template-columns:1fr}
-}
-.box{background:#0f1322;border:1px solid var(--b);border-radius:12px;padding:14px}
-.nav{grid-area:nav}.content{grid-area:content}.aside{grid-area:aside}
-.cardgrid{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(180px,1fr))}
-.tag{display:inline-block;background:#101426;border:1px solid var(--b);padding:4px 8px;border-radius:999px;margin-right:6px}
-.btn{background:var(--acc);color:#fff;border:none;border-radius:10px;padding:10px 14px;font-weight:700}
-</style></head><body>
-<div class="wrap">
-  <header class="header"><strong>Mi Sitio</strong> — Demo Grid</header>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Creando una página web</title>
+  <link rel="stylesheet" href="theme.css" />
+</head>
+<body>
+<article class="ficha">
 
-  <div class="main">
-    <nav class="box nav">
-      <h3>Navegación</h3>
-      <ul style="margin:0;padding-left:18px">
-        <li>Inicio</li><li>Artículos</li><li>Contacto</li>
-      </ul>
-    </nav>
+  <header class="ficha-header">
+    <p class="ficha-modulo">CSS Grid · Tema 12 de 12</p>
+    <h1>Creando una página web</h1>
+    <p class="ficha-resumen">
+      El cierre del módulo: los once temas anteriores puestos a trabajar juntos
+      en una página completa y responsive.
+    </p>
+  </header>
 
-    <main class="box content">
-      <h1>Título de la página</h1>
-      <p style="color:var(--mut)">Layout responsive con Grid + <code>auto-fit</code>/<code>minmax</code> para cards.</p>
-      <div class="cardgrid">
-        <article class="box"><strong>Card 1</strong><div><span class="tag">UI</span><span class="tag">CSS</span></div></article>
-        <article class="box"><strong>Card 2</strong><div><span class="tag">Grid</span></div></article>
-        <article class="box"><strong>Card 3</strong><div><span class="tag">Tips</span></div></article>
-        <article class="box"><strong>Card 4</strong><div><span class="tag">Layout</span></div></article>
+  <section class="bloque bloque-problema">
+    <h2>¿Qué problema resuelve?</h2>
+    <p>
+      Cada tema anterior mostró una pieza aislada. En un proyecto real todas
+      aparecen a la vez, y lo difícil no es cada una por separado sino
+      <strong>decidir cuál usar en cada parte</strong>.
+    </p>
+    <p>Esta es la guía de decisión que vas a repetir en todos tus proyectos:</p>
+    <ul>
+      <li><strong>Esqueleto de la página</strong> → <code>grid-template-areas</code> (tema 9)</li>
+      <li><strong>Galerías y listados</strong> → <code>auto-fit</code> + <code>minmax</code> (tema 6)</li>
+      <li><strong>Piezas destacadas</strong> → <code>grid-column: span</code> (tema 7)</li>
+      <li><strong>Alinear tarjetas entre sí</strong> → <code>subgrid</code> (tema 11)</li>
+      <li><strong>Contenido dentro de una celda</strong> → Flexbox, no Grid</li>
+      <li><strong>Cambio de layout en celular</strong> → redibujar las <code>areas</code></li>
+    </ul>
+    <p>
+      La regla de fondo: <strong>Grid para la estructura, Flexbox para el
+      contenido</strong>. Casi todo lo demás sale de ahí.
+    </p>
+  </section>
+
+  <section class="bloque bloque-sintaxis">
+    <h2>Sintaxis mínima</h2>
+    <p>El esqueleto completo de una página, en 20 líneas:</p>
+<pre><code>body {
+  display: grid;
+  <b>grid-template-columns: 220px 1fr;</b>
+  <b>grid-template-rows: auto 1fr auto;</b>
+  <b>grid-template-areas:
+    "header  header"
+    "aside   main"
+    "footer  footer";</b>
+  min-height: 100vh;      /* que el footer quede abajo de todo */
+  gap: 16px;
+}
+
+header { grid-area: header; }
+aside  { grid-area: aside; }
+main   { grid-area: main; }
+footer { grid-area: footer; }
+
+@media (max-width: 700px) {
+  body {
+    grid-template-columns: 1fr;
+    <b>grid-template-areas:
+      "header"
+      "main"
+      "aside"
+      "footer";</b>
+  }
+}</code></pre>
+    <p>
+      El <code>1fr</code> en la fila del medio es lo que empuja el footer al
+      fondo aunque haya poco contenido. Junto con <code>min-height: 100vh</code>
+      reemplaza todos los trucos de "sticky footer" que se usaban antes.
+    </p>
+    <p>
+      Y en celular, el <code>main</code> pasa <strong>antes</strong> que el
+      <code>aside</code> aunque en el HTML esté después. El orden del documento
+      sigue siendo el correcto para lectores de pantalla.
+    </p>
+  </section>
+
+  <section class="bloque bloque-demo">
+    <h2>Probalo vos</h2>
+    <div class="editor" data-editor>
+      <div class="editor-panel">
+        <div class="editor-barra">
+          <span>HTML + CSS</span>
+          <button type="button" class="editor-reset" data-editor-reset>Reiniciar</button>
+        </div>
+        <textarea spellcheck="false" aria-label="Código editable">
+          <style>
+            * { box-sizing: border-box; }
+            body {
+              margin: 0;
+              font: 12px system-ui;
+              display: grid;
+              grid-template-columns: 90px 1fr;
+              grid-template-rows: auto 1fr auto;
+              grid-template-areas:
+                "header header"
+                "aside  main"
+                "footer footer";
+              min-height: 100vh;
+              gap: 8px;
+              padding: 8px;
+            }
+
+            header, aside, main, footer { padding: 8px; border-radius: 6px; color: white; }
+            header { grid-area: header; background: #264de4; }
+            aside  { grid-area: aside;  background: #0d9488; }
+            main   { grid-area: main;   background: #f1f5f9; color: #222; }
+            footer { grid-area: footer; background: #e34c26; }
+
+            /* La galería adentro del main: tema 6 */
+            .galeria {
+              display: grid;
+              grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
+              gap: 6px;
+              margin-top: 6px;
+            }
+            .item { background: #94a3b8; color: white; padding: 14px 6px;
+                    border-radius: 4px; text-align: center; }
+            /* Una pieza destacada: tema 7 */
+            .item.destacado { grid-column: span 2; background: #e34c26; }
+
+            @media (max-width: 480px) {
+              body {
+                grid-template-columns: 1fr;
+                grid-template-areas: "header" "main" "aside" "footer";
+              }
+            }
+          </style>
+
+          <header>header</header>
+          <aside>aside</aside>
+          <main>
+            main
+            <div class="galeria">
+              <div class="item destacado">destacado</div>
+              <div class="item">1</div>
+              <div class="item">2</div>
+              <div class="item">3</div>
+              <div class="item">4</div>
+            </div>
+          </main>
+          <footer>footer</footer>
+        </textarea>
       </div>
-      <p><button class="btn">Call to Action</button></p>
-    </main>
+      <div class="editor-panel">
+        <div class="editor-barra"><span>Resultado</span></div>
+        <iframe title="Vista previa del ejemplo"></iframe>
+      </div>
+    </div>
+    <p class="editor-ayuda">
+      Acá hay tres grids trabajando juntos: la página, la galería y las tarjetas.
+      Achicá el panel para ver la media query en acción.
+    </p>
+  </section>
 
-    <aside class="box aside">
-      <h3>Aside</h3>
-      <p style="color:var(--mut)">Contenido extra, anuncios o enlaces.</p>
-    </aside>
-  </div>
+  <section class="bloque bloque-errores">
+    <h2>Errores comunes</h2>
+    <ul class="errores">
+      <li>
+        <strong>Usar Grid para todo</strong>
+        Una barra de navegación con logo y links es una fila: eso es Flexbox.
+        Meter Grid ahí es más código para el mismo resultado.
+      </li>
+      <li>
+        <strong>Anidar grids sin necesidad</strong>
+        Antes de agregar otro <code>display: grid</code>, preguntate si no
+        alcanza con <code>span</code> en el grid que ya tenés.
+      </li>
+      <li>
+        <strong>Olvidar <code>min-height: 100vh</code></strong>
+        Sin eso, en una página con poco contenido el footer queda flotando en el
+        medio de la pantalla.
+      </li>
+      <li>
+        <strong>Reordenar visualmente sin pensar en el teclado</strong>
+        Cambiar el orden con <code>areas</code> no cambia el orden de tabulación.
+        Si el resultado visual se aleja mucho del HTML, arreglá el HTML.
+      </li>
+      <li>
+        <strong>Media queries de más</strong>
+        Si la galería ya usa <code>auto-fit</code>, no necesita breakpoints
+        propios. Reservá las media queries para cuando cambia la
+        <em>estructura</em>, no la cantidad.
+      </li>
+    </ul>
+  </section>
 
-  <footer class="footer">© Tu Curso — CSS Grid</footer>
-</div>
-</body></html>
+  <section class="bloque bloque-cuando">
+    <h2>Cuándo NO usarlo</h2>
+    <div class="comparacion">
+      <div class="si">
+        <h3>✔ Grid</h3>
+        <p>
+          El esqueleto de la página, galerías, dashboards, cualquier cosa
+          bidimensional o con piezas de distinto tamaño.
+        </p>
+      </div>
+      <div class="no">
+        <h3>✘ Flexbox</h3>
+        <p>
+          Navbars, grupos de botones, ícono + texto, el pie de una tarjeta,
+          cualquier fila o columna simple.
+        </p>
+      </div>
+    </div>
+    <p style="margin-top:14px">
+      No son competidores. En la demo de arriba, el layout es Grid y adentro de
+      cada tarjeta lo natural sería Flexbox. Casi todos los sitios reales usan
+      los dos, y saber cuándo va cada uno es más valioso que dominar todas las
+      propiedades de memoria.
+    </p>
+  </section>
+
+  <section class="bloque bloque-ejercicio">
+    <h2>Mini-ejercicio</h2>
+    <div class="consigna">
+      <p>Integrador del módulo. Armá una página de portfolio con:</p>
+      <ol>
+        <li><strong>Header</strong> de ancho completo y <strong>footer</strong> siempre abajo.</li>
+        <li>Una <strong>barra lateral de 200px</strong> que en celular pase debajo del contenido.</li>
+        <li>Una <strong>galería de proyectos</strong> con tarjetas de mínimo 200px, sin media queries propias.</li>
+        <li>El <strong>primer proyecto destacado</strong>, ocupando el doble de ancho.</li>
+      </ol>
+    </div>
+
+    <details class="solucion">
+      <summary>Ver solución</summary>
+<pre><code>body {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  grid-template-rows: auto 1fr auto;
+  grid-template-areas:
+    "header header"
+    "aside  main"
+    "footer footer";
+  min-height: 100vh;
+  gap: 20px;
+}
+
+header { grid-area: header; }
+aside  { grid-area: aside; }
+main   { grid-area: main; }
+footer { grid-area: footer; }
+
+.proyectos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
+  gap: 16px;
+}
+
+.proyecto:first-child { grid-column: span 2; }
+
+@media (max-width: 700px) {
+  body {
+    grid-template-columns: 1fr;
+    grid-template-areas: "header" "main" "aside" "footer";
+  }
+  /* en una sola columna, el destacado no puede ocupar 2 */
+  .proyecto:first-child { grid-column: auto; }
+}</code></pre>
+      <p>
+        Ese último detalle es el que más se olvida: cuando la galería queda en
+        una sola columna, un <code>span 2</code> fuerza una segunda columna
+        implícita y se desborda. Hay que devolverlo a <code>auto</code>.
+      </p>
+      <p>
+        Con esto usaste areas (9), auto-fit + minmax (6), span (7), grid
+        implícito (5) y fr (3) en un solo archivo. Eso es el módulo completo.
+      </p>
+    </details>
+  </section>
+
+  <footer class="ficha-footer">
+    Referencia:
+    <a href="https://developer.mozilla.org/es/docs/Web/CSS/CSS_grid_layout/Realizing_common_layouts_using_grids" target="_blank" rel="noopener">
+      Layouts habituales con Grid · MDN
+    </a>
+  </footer>
+
+</article>
+<script src="editor.js" defer></script>
+</body>
+</html>

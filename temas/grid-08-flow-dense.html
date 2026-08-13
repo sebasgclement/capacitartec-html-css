@@ -1,22 +1,216 @@
-<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>grid-auto-flow: dense</title>
-<style>
-:root{--bg:#0b0e14;--fg:#eef1f8;--mut:#9aa4b2;--b:#1f2741}
-body{margin:0;font:16px/1.5 system-ui;color:var(--fg);background:var(--bg)}
-.wrap{max-width:1000px;margin:auto;padding:24px}
-.grid{display:grid;gap:10px;background:#121726;border:1px solid var(--b);padding:10px;border-radius:12px;grid-template-columns: repeat(4,1fr);grid-auto-rows:70px;grid-auto-flow: dense;}
-.item{background:#0f1322;border:1px solid var(--b);border-radius:10px;padding:16px;text-align:center}
-.w2{grid-column: span 2}.h2{grid-row: span 2}
-</style></head><body>
-<div class="wrap">
-  <h1>grid-auto-flow: dense</h1>
-  <p style="color:var(--mut)">Rellena huecos reordenando automáticamente ítems sin posición fija.</p>
-  <div class="grid">
-    <div class="item w2 h2">A</div>
-    <div class="item">B</div><div class="item">C</div>
-    <div class="item w2">D</div>
-    <div class="item">E</div><div class="item">F</div><div class="item">G</div>
-    <div class="item h2">H</div><div class="item">I</div><div class="item">J</div>
-  </div>
-</div></body></html>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Grid flow: dense</title>
+  <link rel="stylesheet" href="theme.css" />
+</head>
+<body>
+<article class="ficha">
+
+  <header class="ficha-header">
+    <p class="ficha-modulo">CSS Grid · Tema 8 de 12</p>
+    <h1>Grid flow: dense</h1>
+    <p class="ficha-resumen">
+      Cómo tapar los huecos que quedan cuando mezclás elementos de distintos
+      tamaños, y por qué a veces conviene no taparlos.
+    </p>
+  </header>
+
+  <section class="bloque bloque-problema">
+    <h2>¿Qué problema resuelve?</h2>
+    <p>
+      En el tema 7 posicionaste elementos a mano. Si probaste un poco, seguro
+      viste esto: una tarjeta que ocupa 2 columnas no entra al final de una fila,
+      así que salta a la siguiente y <strong>deja un hueco atrás</strong>.
+    </p>
+    <p>
+      Por defecto Grid acomoda los elementos en orden y <strong>nunca retrocede</strong>.
+      Si un elemento no entra, avanza; y si más adelante aparece uno chico que
+      sí habría entrado en el hueco, no vuelve a buscarlo.
+    </p>
+    <p>
+      <code>grid-auto-flow: dense</code> cambia esa regla: le permite a Grid
+      <strong>volver atrás</strong> y rellenar los huecos con los elementos
+      chicos que vengan después.
+    </p>
+    <p>
+      Es la diferencia entre una galería con agujeros y una galería compacta
+      tipo mosaico.
+    </p>
+  </section>
+
+  <section class="bloque bloque-sintaxis">
+    <h2>Sintaxis mínima</h2>
+<pre><code>.contenedor {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+
+  <b>grid-auto-flow: row dense;</b>
+  /* row    → llena por filas (por defecto) */
+  /* column → llena por columnas */
+  /* dense  → además, rellena huecos hacia atrás */
+}</code></pre>
+    <p>
+      <code>dense</code> es un modificador: se escribe junto a <code>row</code>
+      o <code>column</code>. Escribir solo <code>grid-auto-flow: dense</code>
+      equivale a <code>row dense</code>.
+    </p>
+  </section>
+
+  <section class="bloque bloque-demo">
+    <h2>Probalo vos</h2>
+    <div class="editor" data-editor>
+      <div class="editor-panel">
+        <div class="editor-barra">
+          <span>HTML + CSS</span>
+          <button type="button" class="editor-reset" data-editor-reset>Reiniciar</button>
+        </div>
+        <textarea spellcheck="false" aria-label="Código editable">
+          <style>
+            body { font: 14px system-ui; padding: 10px; margin: 0; }
+
+            .mosaico {
+              display: grid;
+              grid-template-columns: repeat(4, 1fr);
+              grid-auto-rows: 55px;
+              gap: 8px;
+              /* Probá agregar "dense" acá: */
+              grid-auto-flow: row;
+            }
+
+            .caja {
+              background: #264de4;
+              color: white;
+              display: grid;
+              place-items: center;
+              border-radius: 8px;
+              font-size: 13px;
+            }
+
+            .ancha { background: #e34c26; grid-column: span 3; }
+            .alta  { background: #0d9488; grid-row: span 2; }
+          </style>
+
+          <div class="mosaico">
+            <div class="caja">1</div>
+            <div class="caja ancha">ancha (3)</div>
+            <div class="caja">2</div>
+            <div class="caja alta">alta</div>
+            <div class="caja">3</div>
+            <div class="caja">4</div>
+            <div class="caja">5</div>
+          </div>
+        </textarea>
+      </div>
+      <div class="editor-panel">
+        <div class="editor-barra"><span>Resultado</span></div>
+        <iframe title="Vista previa del ejemplo"></iframe>
+      </div>
+    </div>
+    <p class="editor-ayuda">
+      Mirá los huecos. Ahora cambiá <code>grid-auto-flow: row</code> por
+      <code>row dense</code> y observá cómo las cajas chicas se meten en los
+      espacios libres.
+    </p>
+  </section>
+
+  <section class="bloque bloque-errores">
+    <h2>Errores comunes</h2>
+    <ul class="errores">
+      <li>
+        <strong>Romper el orden de lectura</strong>
+        Este es el problema serio de <code>dense</code>: cambia el
+        <strong>orden visual</strong> pero no el del HTML. Alguien navegando con
+        teclado o con lector de pantalla recorre el orden original, que ya no
+        coincide con lo que se ve.
+      </li>
+      <li>
+        <strong>Usarlo cuando el orden tiene significado</strong>
+        En un listado cronológico, un ranking o los pasos de un instructivo,
+        <code>dense</code> puede dejar el ítem 7 antes que el 5. Ahí es un bug,
+        no una mejora.
+      </li>
+      <li>
+        <strong>Escribirlo solo</strong>
+        <code>grid-auto-flow: dense</code> funciona, pero es más claro escribir
+        <code>row dense</code> o <code>column dense</code> para que se lea la
+        dirección.
+      </li>
+      <li>
+        <strong>Esperar que ordene por tamaño</strong>
+        <code>dense</code> no reordena buscando el mejor encastre global: recorre
+        los elementos en orden y mete cada uno en el primer hueco donde entre.
+      </li>
+    </ul>
+  </section>
+
+  <section class="bloque bloque-cuando">
+    <h2>Cuándo NO usarlo</h2>
+    <div class="comparacion">
+      <div class="si">
+        <h3>✔ Usá dense</h3>
+        <p>
+          Cuando el orden da igual y lo que importa es que se vea compacto:
+          galerías de fotos, mosaicos de logos, nubes de tags.
+        </p>
+      </div>
+      <div class="no">
+        <h3>✘ Evitá dense</h3>
+        <p>
+          Cuando el orden comunica algo: resultados de búsqueda por relevancia,
+          publicaciones por fecha, pasos numerados, un podio.
+        </p>
+      </div>
+    </div>
+    <p style="margin-top:14px">
+      La pregunta para decidir: <em>¿alguien podría quejarse de que el elemento 5
+      aparezca después del 7?</em> Si la respuesta es sí, no uses
+      <code>dense</code>.
+    </p>
+  </section>
+
+  <section class="bloque bloque-ejercicio">
+    <h2>Mini-ejercicio</h2>
+    <div class="consigna">
+      <p>Sobre el editor de arriba:</p>
+      <ol>
+        <li>Activá <code>dense</code> y contá cuántos huecos quedan.</li>
+        <li>Cambiá <code>.ancha</code> a <code>span 4</code>. ¿<code>dense</code> puede rellenar algo ahí?</li>
+        <li>Probá <code>grid-auto-flow: column dense</code>. ¿Qué cambió?</li>
+      </ol>
+    </div>
+
+    <details class="solucion">
+      <summary>Ver solución</summary>
+      <p>
+        <strong>1.</strong> Con <code>dense</code> los huecos de la primera fila
+        se llenan con las cajas chicas que venían después.
+      </p>
+      <p>
+        <strong>2.</strong> Con <code>span 4</code> la caja ancha ocupa la fila
+        entera, así que no deja hueco al costado: <code>dense</code> no tiene
+        nada que rellenar ahí. Un buen recordatorio de que <code>dense</code>
+        solo ayuda cuando los huecos existen.
+      </p>
+      <p>
+        <strong>3.</strong> Con <code>column</code> el llenado pasa a ser de
+        arriba hacia abajo y después a la derecha. El orden visual cambia
+        completamente, y ahí se nota mejor por qué el orden de lectura es un tema.
+      </p>
+<pre><code>.mosaico { <b>grid-auto-flow: row dense;</b> }</code></pre>
+    </details>
+  </section>
+
+  <footer class="ficha-footer">
+    Referencia:
+    <a href="https://developer.mozilla.org/es/docs/Web/CSS/grid-auto-flow" target="_blank" rel="noopener">
+      grid-auto-flow en MDN
+    </a>
+  </footer>
+
+</article>
+<script src="editor.js" defer></script>
+</body>
+</html>
