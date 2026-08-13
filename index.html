@@ -3,283 +3,168 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CapacitarTec - HTML & CSS</title>
+
+    <title>CapacitarTec — Curso de HTML & CSS</title>
+    <meta
+      name="description"
+      content="Material completo del curso de HTML y CSS de CapacitarTec: fichas, resúmenes y ejercicios integradores de HTML, CSS, Flexbox, Grid, Responsive Design y Bootstrap."
+    />
+    <meta name="author" content="Sebastián Clement" />
+    <meta name="theme-color" content="#0d180e" />
+
+    <!-- Open Graph (lo mismo que se ve en el tema "Metatags.io") -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="CapacitarTec — Curso de HTML & CSS" />
+    <meta
+      property="og:description"
+      content="Fichas, resúmenes y ejercicios del curso de HTML y CSS de CapacitarTec."
+    />
+    <meta property="og:image" content="pubic/maxresdefault.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="icon" href="img/faicon.png" />
     <link rel="stylesheet" href="style.css" />
   </head>
+
   <body>
+    <a class="skip-link" href="#clases">Saltar al contenido</a>
+
     <header id="inicio">
-      <nav>
+      <nav aria-label="Navegación principal">
         <ul>
           <li><a href="#inicio">Inicio</a></li>
           <li><a href="#clases">Clases</a></li>
           <li><a href="#recursos">Recursos</a></li>
           <li><a href="#consultas">Ejercicios</a></li>
-          <li><a href="#proyectos">Proyectos</a></li>
+          <li><a href="#toolbox">Toolbox</a></li>
         </ul>
       </nav>
+
       <div class="hero">
-        <h1>Segunda etapa</h1>
-        <p>Curso HTML & CSS</p>
+        <p class="hero-kicker">Segunda etapa</p>
+        <h1>Curso de HTML &amp; CSS</h1>
+        <p class="hero-sub">
+          Fichas, resúmenes y ejercicios integradores para repasar cuando quieras.
+        </p>
       </div>
     </header>
 
     <main class="wrapper">
-      <section id="clases" class="section-light">
-        <h2 class="blanco">Clases del Curso HTML & CSS</h2>
+      <section id="clases" class="section-light" aria-labelledby="titulo-clases">
+        <h2 id="titulo-clases">Clases del curso</h2>
+        <p class="section-intro">
+          Cada módulo agrupa sus temas. Hacé clic en uno para abrir la ficha.
+        </p>
 
-        <details>
-          <summary><strong>HTML Básico</strong></summary>
-          <ul>
-            <li>Historia</li>
-            <li>Estructura del DOM</li>
-            <li>Párrafo</li>
-            <li>Encabezados</li>
-            <li>Listas</li>
-            <li>Enlaces</li>
-            <li>Etiquetas de bloque/línea</li>
-            <li>Rutas</li>
-            <li>Formularios</li>
-          </ul>
-        </details>
+        <div class="buscador">
+          <label class="solo-lectores" for="buscar">Buscar un tema</label>
+          <span class="buscador-icono" aria-hidden="true">🔍</span>
+          <input
+            type="search"
+            id="buscar"
+            placeholder="Buscar un tema…"
+            autocomplete="off"
+          />
+          <button type="button" id="buscarLimpiar" class="buscador-limpiar" aria-label="Limpiar búsqueda" hidden>
+            &times;
+          </button>
+          <kbd class="buscador-atajo" aria-hidden="true">/</kbd>
+        </div>
+        <p class="buscador-resultado" id="buscarResultado" role="status" aria-live="polite"></p>
 
-        <details>
-          <summary><strong>CSS Básico</strong></summary>
-          <ul>
-            <li>Inserción</li>
-            <li>Selectores (elemento, clase y id)</li>
-            <li>Propiedades de texto</li>
-            <li>Tipografías externas</li>
-            <li>Modelo de caja (box model)</li>
-            <li>Padding y margin</li>
-            <li>Borders</li>
-            <li>Box sizing</li>
-            <li>Colorimetría (rgba, hexadecimal, hsl)</li>
-            <li>Unidades de medida (absolutas y relativas)</li>
-            <li>Background</li>
-            <li>Gradientes</li>
-            <li>Shadows</li>
-          </ul>
-        </details>
+        <div class="progreso">
+          <span
+            class="barra barra-global"
+            id="progresoGlobal"
+            role="progressbar"
+            aria-label="Progreso general del curso"
+            aria-valuemin="0"
+            aria-valuenow="0"
+          ></span>
+          <span class="progreso-texto" id="progresoTexto"></span>
+          <button type="button" id="reiniciarProgreso" class="progreso-reset" hidden>
+            Reiniciar
+          </button>
+        </div>
 
-        <details>
-          <summary><strong>HTML Intermedio</strong></summary>
-          <ul>
-            <li>Comentarios</li>
-            <li>Favicon</li>
-            <li>Metadatos</li>
-            <li>Metatags.io</li>
-            <li>Textarea</li>
-            <li>Labels</li>
-            <li>Select, datalist y option</li>
-            <li>Fieldset y legend</li>
-            <li>Details y summary</li>
-            <li>Enlaces avanzados</li>
-            <li>Audio y Video</li>
-            <li>Lazy Loading</li>
-            <li>HTML Obsoleto</li>
-            <li>HTML Semántico</li>
-            <li>Accesibilidad WEB</li>
-          </ul>
-        </details>
-
-        <details>
-          <summary><strong>CSS Intermedio</strong></summary>
-          <ul>
-            <li>Selectores avanzados</li>
-            <li>Herencia, Cascada y Especificidad</li>
-            <li>Pseudoclases</li>
-            <li>Pseudoelementos</li>
-            <li>Metodología BEM</li>
-            <li>Display</li>
-            <li>Posición relativa y absoluta</li>
-            <li>Ventanas Modal</li>
-            <li>Posición fixed y sticky</li>
-            <li>CSS Transiciones</li>
-            <li>Overflow</li>
-            <li>Control de flujo del texto</li>
-            <li>Object-fit y object-position</li>
-            <li>Outline</li>
-            <li>Emmet</li>
-          </ul>
-        </details>
-
-        <details>
-          <summary><strong>CSS Flexbox</strong></summary>
-          <ul>
-            <li>Introducción a Flexbox</li>
-            <li>Flex Direction, Wrap y Flow</li>
-            <li>Alineación en los ejes</li>
-            <li>Order</li>
-            <li>Flex Basis, Shrink y Grow</li>
-            <li>Align Self</li>
-            <li>Layout con Flexbox</li>
-          </ul>
-        </details>
-
-        <details>
-          <summary><strong>Responsive Design</strong></summary>
-          <ul>
-            <li>Bloques y multimedia flexible</li>
-            <li>SRCSET y SIZES</li>
-            <li>Picture, Source y Media</li>
-            <li>Media Queries</li>
-            <li>Ejercicio "Holy Grail"</li>
-            <li>Mobile First</li>
-            <li>Feature Queries</li>
-            <li>Container Queries</li>
-          </ul>
-        </details>
-
-        <details>
-          <summary><strong>CSS Grid</strong></summary>
-          <ul>
-            <li>Introducción a CSS Grid</li>
-            <li>Creando un Grid</li>
-            <li>Auto y fr</li>
-            <li>Repeat y Minmax</li>
-            <li>Grid implícito y explícito</li>
-            <li>Grid dinámico y responsive</li>
-            <li>Grid column y row</li>
-            <li>Grid flow: dense</li>
-            <li>Grid areas</li>
-            <li>Alineación con Grid</li>
-            <li>Subgrid</li>
-            <li>Creando una página web</li>
-          </ul>
-        </details>
-
-        <details>
-          <summary><strong>Animaciones menu</strong></summary>
-          <ul>
-            <li>Transiciones</li>
-            <li>Animaciones</li>
-            <li>Botones animados y Typewriter</li>
-            <li>Animaciones con scroll</li>
-            <li>Rango de animaciones</li>
-            <li>Integración en proyectos</li>
-            <li>Animaciones y promesas</li>
-          </ul>
-        </details>
-
-        <details>
-          <summary><strong>Mini Bootstrap</strong></summary>
-          <ul>
-            <li>Framework CSS</li>
-            <li>¿Qué es Bootstrap y por qué es útil?</li>
-            <li>Cómo incluirlo en CDN</li>
-            <li>Tipo de contenedores</li>
-            <li>Sistema de grillas</li>
-            <li>Clases utilitarias</li>
-            <li>Componentes</li>
-            <li>Breakponints</li>
-            <li>Responsive y navbar</li>
-            <li>Acordeones y modales</li>
-            <li>Bootstrap y CSS personalizado</li>
-            <li>Tips de buenas prácticas</li>
-          </ul>
-        </details>
-
-        <details>
-          <summary><strong>Sección Avanzada</strong></summary>
-          <ul>
-            <li>Filter y Backdrop Filter</li>
-            <li>Transform</li>
-            <li>Min, Max y Clamp</li>
-            <li>Variables (custom properties)</li>
-            <li>Función Calc</li>
-            <li>Propiedades del Scroll</li>
-            <li>Initial Letter</li>
-            <li>Unidades del Viewport</li>
-            <li>Min-content, Max-content y Fit-content</li>
-            <li>Función Color Mix</li>
-          </ul>
-        </details>
+        <!-- Se completa desde js/render.js con los datos de js/course.js -->
+        <div id="lista-modulos"></div>
       </section>
 
-      <section id="recursos" class="section-dark">
-        <h2 class="h2b">Resúmenes</h2>
-        <ul class="uls">
-          <li class="mano">Html básico</li>
-          <li class="mano">Css básico</li>
-          <li class="mano">HTML avanzado</li>
-          <li class="mano">Css avanzado</li>
-          <li class="mano">CSS flexbox</li>
-          <li class="mano">Responsive design</li>
-          <li class="mano">CSS grid</li>
-          <li class="mano">Resumen animaciones</li>
-          <li class="mano">Resumen Bootstrap</li>
-        </ul>
+      <section id="recursos" class="section-dark" aria-labelledby="titulo-recursos">
+        <h2 id="titulo-recursos">Resúmenes</h2>
+        <p class="section-intro">Una hoja de repaso por bloque temático.</p>
+
+        <ul class="temas" id="lista-resumenes"></ul>
       </section>
 
-      <section id="consultas" class="section-light">
-        <h2 h2b>Ejercicios</h2>
-        <h3 h2b>Html y CSS básico</h3>
-        <ul class="uls">
-          <li class="mano2">INTEGRADOR 1</li>
-          <li class="mano2">INTEGRADOR 2</li>
-          <li class="mano2">INTEGRADOR 3</li>
-        </ul>
-        </details>
+      <section id="consultas" class="section-light" aria-labelledby="titulo-ejercicios">
+        <h2 id="titulo-ejercicios">Ejercicios</h2>
+        <p class="section-intro">Trabajos integradores para aplicar lo visto.</p>
+
+        <div id="lista-ejercicios"></div>
       </section>
 
-      <section id="toolbox" class="section-dark">
-  <h2 class="h2b">🧰 Toolbox del Desarrollador</h2>
+      <section id="toolbox" class="section-dark" aria-labelledby="titulo-toolbox">
+        <h2 id="titulo-toolbox">🧰 Toolbox del desarrollador</h2>
+        <p class="section-intro">Herramientas externas que usamos en clase.</p>
 
-  <ul class="toolbox-list">
-    <li class="mano">
-      🚀 <a class="no-link" href="https://www.transparenttextures.com/" target="_blank">Transparent Textures – Texturas transparentes</a>
-    </li>
-    <li class="mano">
-      🎨 <a class="no-link" href="https://coolors.co/" target="_blank">Coolors – Paletas de Colores</a>
-    </li>
-    <li class="mano">
-      💡 <a class="no-link" href="https://onepagelove.com/" target="_blank">One Page Love – Inspiración de sitios</a>
-    </li>
-    <li class="mano">
-      🎯 <a class="no-link" href="https://dribbble.com/" target="_blank">Dribbble – Diseño profesional</a>
-    </li>
-    <li class="mano">
-      ⚙️ <a class="no-link" href="https://cssgradient.io/" target="_blank">CSS Gradient – Fondos con gradientes</a>
-    </li>
-    <li class="mano">
-      🔤 <a class="no-link" href="https://htmlentities.dev/" target="_blank">HTML Entities – Caracteres especiales</a>
-    </li>
-    <li class="mano">
-      💻 <a class="no-link" href="https://codepen.io/" target="_blank">CodePen – Probar código online</a>
-    </li>
-  </ul>
-</section>
-
+        <ul class="toolbox-list" id="lista-toolbox"></ul>
+      </section>
     </main>
 
     <footer>
       <p>Sitio creado por Sebastián Clement · CapacitarTec</p>
     </footer>
 
-    <!-- Ventana Modal -->
-<div class="modal-overlay" id="modal">
-  <div class="modal-box">
-    <span class="modal-close" id="modalClose">&times;</span>
-    <iframe id="modalHtml" frameborder="0" hidden></iframe>
-    <iframe id="modalPdf"  frameborder="0" hidden></iframe>
-    <img id="modalImg" style="max-width:100%" hidden />
-  </div>
+    <!-- Ventana modal -->
+    <div
+      class="modal-overlay"
+      id="modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modalTitle"
+    >
+      <div class="modal-box" hidden>
+        <div class="modal-header">
+          <div class="modal-encabezado">
+            <h2 class="modal-title" id="modalTitle"></h2>
+            <span class="modal-pos" id="modalPos" hidden></span>
+          </div>
+
+          <div class="modal-nav">
+            <button type="button" id="modalPrev" aria-label="Tema anterior" title="Tema anterior (←)">
+              &lsaquo;
+            </button>
+            <button type="button" id="modalNext" aria-label="Tema siguiente" title="Tema siguiente (→)">
+              &rsaquo;
+            </button>
+          </div>
+
+          <button type="button" class="modal-close" id="modalClose" aria-label="Cerrar">
+            &times;
+          </button>
+        </div>
+
+        <iframe id="modalHtml" title="Contenido del tema" hidden></iframe>
+        <iframe id="modalPdf" title="Documento PDF" hidden></iframe>
+        <img id="modalImg" alt="" hidden />
+      </div>
+
       <!-- Aviso de contenido no disponible -->
-<div id="modalNotice" class="modal-notice" hidden>
-  <div class="notice-icon" aria-hidden="true">🚧</div>
-  <h2 class="notice-title">Contenido no disponible</h2>
-  <p class="notice-text">
-    Este recurso todavía no está habilitado. <br />
-    <span id="noticeTopic" class="notice-topic"></span>
-  </p>
+      <div id="modalNotice" class="modal-notice" hidden>
+        <div class="notice-icon" aria-hidden="true">🚧</div>
+        <h2 class="notice-title">Contenido en preparación</h2>
+        <p class="notice-text">
+          Este material todavía no está publicado.<br />
+          <span id="noticeTopic" class="notice-topic"></span>
+        </p>
 
-  <div class="notice-actions">
-    <button id="noticeClose" class="btn btn-primary">Entendido</button>
-    <!-- Opcional: link a consultas -->
-    <a href="#consultas" class="btn btn-ghost">Hacer una consulta</a>
-  </div>
-</div>
-
+        <div class="notice-actions">
+          <button type="button" id="noticeClose" class="btn btn-primary">Entendido</button>
+          <a href="#recursos" class="btn btn-ghost">Ver los resúmenes</a>
+        </div>
+      </div>
     </div>
 
     <script type="module" src="./js/main.js"></script>
