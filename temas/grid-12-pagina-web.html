@@ -96,42 +96,26 @@ footer { grid-area: footer; }
             body {
               margin: 0;
               font: 12px system-ui;
-              display: grid;
-              grid-template-columns: 90px 1fr;
-              grid-template-rows: auto 1fr auto;
-              grid-template-areas:
-                "header header"
-                "aside  main"
-                "footer footer";
-              min-height: 100vh;
-              gap: 8px;
               padding: 8px;
+              /* Todavía no es un grid: falta declarar display y las áreas.
+                 Guiate por el bloque "Sintaxis mínima" de más arriba. */
             }
 
             header, aside, main, footer { padding: 8px; border-radius: 6px; color: white; }
-            header { grid-area: header; background: #264de4; }
-            aside  { grid-area: aside;  background: #0d9488; }
-            main   { grid-area: main;   background: #f1f5f9; color: #222; }
-            footer { grid-area: footer; background: #e34c26; }
+            header { background: #264de4; }
+            aside  { background: #0d9488; }
+            main   { background: #f1f5f9; color: #222; }
+            footer { background: #e34c26; }
 
-            /* La galería adentro del main: tema 6 */
+            /* La galería adentro del main: todavía en una sola columna */
             .galeria {
               display: grid;
-              grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
               gap: 6px;
               margin-top: 6px;
             }
             .item { background: #94a3b8; color: white; padding: 14px 6px;
                     border-radius: 4px; text-align: center; }
-            /* Una pieza destacada: tema 7 */
-            .item.destacado { grid-column: span 2; background: #e34c26; }
-
-            @media (max-width: 480px) {
-              body {
-                grid-template-columns: 1fr;
-                grid-template-areas: "header" "main" "aside" "footer";
-              }
-            }
+            .item.destacado { background: #e34c26; }
           </style>
 
           <header>header</header>
@@ -155,8 +139,12 @@ footer { grid-area: footer; }
       </div>
     </div>
     <p class="editor-ayuda">
-      Acá hay tres grids trabajando juntos: la página, la galería y las tarjetas.
-      Achicá el panel para ver la media query en acción.
+      Este código todavía no cumple ninguno de los 4 objetivos de abajo: hoy
+      header, aside, main y footer solo están apilados uno debajo del otro.
+      Completalo vos guiándote por el bloque de sintaxis de más arriba —
+      cada vez que dejes de escribir, el laboratorio revisa el resultado solo.
+      Cuando los 4 estén en verde, agregale <code>grid-column: span 2</code>
+      a <code>.item.destacado</code> para repasar el tema 7.
     </p>
   </section>
 
@@ -285,6 +273,78 @@ footer { grid-area: footer; }
   </footer>
 
 </article>
+
+<script>
+  // Objetivos del laboratorio guiado (temas/lab.js). Cada "check" mide el
+  // resultado ya renderizado en el iframe, no el código: cualquier forma
+  // válida de resolverlo cuenta.
+  window.LAB = {
+    id: "grid-12-pagina-web",
+    pasos: [
+      {
+        texto: "El <body> es un contenedor de Grid.",
+        pista: "Agregá esto en la regla de body:",
+        codigo: "display: grid;",
+        check: (doc) => doc.defaultView.getComputedStyle(doc.body).display === "grid",
+      },
+      {
+        texto: "El layout está armado con grid-template-areas, con header, aside, main y footer.",
+        pista: "También en body, con las 4 zonas nombradas:",
+        codigo: 'grid-template-areas:\n  "header header"\n  "aside  main"\n  "footer footer";',
+        check: (doc) => {
+          const areas = doc.defaultView.getComputedStyle(doc.body).gridTemplateAreas.toLowerCase();
+          return (
+            areas !== "none" &&
+            ["header", "aside", "main", "footer"].every((zona) => areas.includes(zona))
+          );
+        },
+      },
+      {
+        texto: "La galería de proyectos se acomoda en más de una columna.",
+        pista: "En la regla .galeria:",
+        codigo: "grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));",
+        check: (doc) => {
+          const galeria = doc.querySelector(".galeria");
+          if (!galeria) return false;
+          const columnas = doc.defaultView
+            .getComputedStyle(galeria)
+            .gridTemplateColumns.trim()
+            .split(/\s+/);
+          return columnas.length > 1;
+        },
+      },
+      {
+        texto: "El footer queda pegado al final de la página, aunque haya poco contenido.",
+        pista: "Otra vez en body — sin esto, el footer termina apenas después del contenido en vez de ir al fondo real de la pantalla:",
+        codigo: "min-height: 100vh;",
+        check: (doc) => {
+          const footer = doc.querySelector("footer");
+          if (!footer) return false;
+          const ventana = doc.defaultView;
+          const alturaVentana = ventana.innerHeight;
+          const TOLERANCIA = Math.max(16, alturaVentana * 0.05);
+
+          // Leemos min-height directo: si el contenido de por sí ya es más
+          // alto que el visor (pasa fácil con poco contenido apilado sin
+          // grid), inferirlo comparando alturas da un falso positivo aunque
+          // no exista ningún min-height: 100vh en el CSS.
+          const alturaMinima = parseFloat(ventana.getComputedStyle(doc.body).minHeight) || 0;
+          const cubreLaPantalla = alturaMinima >= alturaVentana - TOLERANCIA;
+
+          // Y hace falta además que el footer esté realmente al final: un
+          // min-height alto con filas todas "auto" (sin ningún 1fr) deja el
+          // footer pegado al contenido, con el hueco vacío por debajo.
+          const alturaTotal = doc.documentElement.scrollHeight;
+          const footerRect = footer.getBoundingClientRect();
+          const footerAlFinal = alturaTotal - footerRect.bottom < TOLERANCIA;
+
+          return cubreLaPantalla && footerAlFinal;
+        },
+      },
+    ],
+  };
+</script>
 <script src="editor.js" defer></script>
+<script src="lab.js" defer></script>
 </body>
 </html>

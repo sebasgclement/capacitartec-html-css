@@ -246,6 +246,148 @@ pre b {
   color: var(--tinta-suave);
 }
 
+/* ---------- Laboratorio guiado (temas/lab.js) ---------- */
+
+.lab-wrap {
+  margin-top: 18px;
+  padding: 16px;
+  border: 1px solid var(--linea);
+  border-radius: var(--radio);
+  background: var(--papel-alt);
+}
+
+.lab-encabezado {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.lab-titulo {
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.lab-reset {
+  padding: 4px 12px;
+  border: 1px solid var(--linea);
+  border-radius: 999px;
+  background: var(--papel);
+  color: var(--tinta-suave);
+  font: inherit;
+  font-size: 0.78rem;
+  cursor: pointer;
+}
+
+.lab-reset:hover {
+  border-color: var(--html);
+  color: var(--html);
+}
+
+.lab-pasos {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.lab-paso {
+  padding: 10px 12px;
+  border: 1px solid var(--linea);
+  border-radius: 8px;
+  background: var(--papel);
+  transition: border-color 0.25s ease, background-color 0.25s ease;
+}
+
+.lab-paso.hecho {
+  border-color: var(--acento);
+  background: rgba(13, 148, 136, 0.06);
+}
+
+.lab-paso-cabeza {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.lab-paso-marca {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2px solid var(--linea);
+  color: var(--tinta-suave);
+  font-size: 0.78rem;
+  transition: border-color 0.25s ease, background-color 0.25s ease, color 0.25s ease;
+}
+
+.lab-paso.hecho .lab-paso-marca {
+  border-color: var(--acento);
+  background: var(--acento);
+  color: #fff;
+}
+
+.lab-paso-texto {
+  flex: 1;
+  font-size: 0.93rem;
+}
+
+.lab-paso.hecho .lab-paso-texto {
+  color: var(--tinta);
+}
+
+.lab-pista-boton {
+  flex: none;
+  margin-left: auto;
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--css);
+  font: inherit;
+  font-size: 0.8rem;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.lab-pista {
+  margin: 8px 0 0 32px;
+  padding: 8px 10px;
+  border-left: 3px solid #f0b429;
+  border-radius: 6px;
+  background: #fff8e1;
+  color: #8a6100;
+  font-size: 0.85rem;
+}
+
+.lab-pista-texto {
+  margin: 0 0 8px;
+}
+
+.lab-pista-texto:last-child {
+  margin-bottom: 0;
+}
+
+.lab-pista pre {
+  margin: 0;
+}
+
+.lab-completo {
+  margin: 14px 0 0;
+  padding: 10px 14px;
+  border: 1px solid rgba(13, 148, 136, 0.4);
+  border-radius: 8px;
+  background: rgba(13, 148, 136, 0.12);
+  color: #0d6b60;
+  font-weight: 600;
+  text-align: center;
+}
+
 /* ---------- Listas de errores ---------- */
 
 .errores {
