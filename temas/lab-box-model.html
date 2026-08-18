@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Laboratorio: Modelo de caja</title>
+  <link rel="stylesheet" href="theme.css" />
+</head>
+<body>
+<article class="ficha">
+
+  <header class="ficha-header">
+    <p class="ficha-modulo">CSS Básico · Laboratorio</p>
+    <h1>Laboratorio: Modelo de caja</h1>
+    <p class="ficha-resumen">
+      Padding, border, box-sizing y margin juntos: los cuatro conceptos que
+      forman el modelo de caja, aplicados sobre una tarjeta real.
+    </p>
+  </header>
+
+  <section class="bloque bloque-problema">
+    <h2>¿Qué problema resuelve?</h2>
+    <p>
+      Todo elemento HTML es una caja rectangular, y esa caja tiene cuatro
+      capas, de adentro hacia afuera: el <strong>contenido</strong>, el
+      <strong>padding</strong> (aire interno), el <strong>border</strong>
+      (el borde) y el <strong>margin</strong> (aire externo, hacia los
+      vecinos).
+    </p>
+    <p>
+      Sin entender estas cuatro capas, cualquier ajuste de espaciado en CSS
+      es prueba y error. Con ellas, es una decisión: "necesito más aire
+      adentro" es padding, "necesito separarme del vecino" es margin.
+    </p>
+  </section>
+
+  <section class="bloque bloque-sintaxis">
+    <h2>Sintaxis mínima</h2>
+<pre><code>.tarjeta {
+  <b>padding: 16px;</b>              /* aire interno, en las 4 direcciones */
+  <b>border: 2px solid #264de4;</b>  /* borde visible */
+  <b>box-sizing: border-box;</b>     /* el width ya incluye padding y border */
+  <b>margin-bottom: 16px;</b>        /* separación con el elemento siguiente */
+}</code></pre>
+    <p>
+      El detalle que más confunde: sin <code>box-sizing: border-box</code>,
+      el <code>width</code> que declarás es solo el del contenido, y el
+      padding y el border se <strong>suman</strong> por afuera, agrandando
+      la caja real. Con <code>border-box</code>, el <code>width</code> que
+      pusiste es el ancho final, sin sorpresas.
+    </p>
+  </section>
+
+  <section class="bloque bloque-demo">
+    <h2>Probalo vos</h2>
+    <div class="editor" data-editor>
+      <div class="editor-panel">
+        <div class="editor-barra">
+          <span>HTML + CSS</span>
+          <button type="button" class="editor-reset" data-editor-reset>Reiniciar</button>
+        </div>
+        <textarea spellcheck="false" aria-label="Código editable">
+          <style>
+            * { box-sizing: content-box; }
+            body { margin: 0; padding: 16px; font: 14px system-ui; background: #f1f5f9; }
+
+            .tarjeta {
+              background: #fff;
+              width: 220px;
+              /* Todavía sin padding, sin borde, sin separación */
+            }
+
+            .tarjeta h3 { margin: 0 0 6px; }
+            .tarjeta p { margin: 0; color: #556; }
+          </style>
+
+          <div class="tarjeta">
+            <h3>Tarjeta de producto</h3>
+            <p>Todavía no tiene aire interno ni borde.</p>
+          </div>
+          <div class="tarjeta">
+            <h3>Otra tarjeta</h3>
+            <p>Debería separarse de la de arriba.</p>
+          </div>
+        </textarea>
+      </div>
+      <div class="editor-panel">
+        <div class="editor-barra"><span>Resultado</span></div>
+        <iframe title="Vista previa del ejemplo"></iframe>
+      </div>
+    </div>
+    <p class="editor-ayuda">
+      Las dos tarjetas todavía están pegadas entre sí, sin aire ni borde.
+      Completá la clase <code>.tarjeta</code> guiándote por la sintaxis de
+      arriba — el laboratorio revisa el resultado solo, cada vez que dejes
+      de escribir.
+    </p>
+  </section>
+
+  <section class="bloque bloque-errores">
+    <h2>Errores comunes</h2>
+    <ul class="errores">
+      <li>
+        <strong>Confundir padding con margin</strong>
+        Si el fondo de color de la caja se agranda, es padding. Si lo que
+        se mueve es la <em>separación con el vecino</em> sin que la caja
+        cambie de tamaño, es margin.
+      </li>
+      <li>
+        <strong>Poner border sin border-style</strong>
+        <code>border-width: 2px;</code> sola no dibuja nada: por defecto el
+        estilo es <code>none</code>. Hace falta <code>solid</code>,
+        <code>dashed</code>, etc. El atajo <code>border: 2px solid #000;</code>
+        ya lo incluye.
+      </li>
+      <li>
+        <strong>Olvidar box-sizing y after fijar un width</strong>
+        Con <code>content-box</code> (el valor por defecto), agregar
+        padding o border después de fijar el <code>width</code> agranda la
+        caja real, aunque el CSS diga otra medida.
+      </li>
+      <li>
+        <strong>Usar margin cuando el problema es alineación</strong>
+        Empujar una caja con márgenes a mano para "centrarla" es fragil.
+        Para centrar de verdad, mejor Flexbox o Grid (los vas a ver más
+        adelante).
+      </li>
+    </ul>
+  </section>
+
+  <section class="bloque bloque-cuando">
+    <h2>Cuándo NO usarlo</h2>
+    <div class="comparacion">
+      <div class="si">
+        <h3>✔ box-sizing: border-box</h3>
+        <p>
+          Casi siempre. Es tan común que muchos proyectos lo aplican a
+          <code>*</code> una sola vez, al principio del CSS, y se olvidan
+          del tema.
+        </p>
+      </div>
+      <div class="no">
+        <h3>✘ content-box (el default)</h3>
+        <p>
+          Rara vez conviene dejarlo así a propósito: es el que obliga a
+          recalcular a mano cada vez que cambiás un padding.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="bloque bloque-ejercicio">
+    <h2>Mini-ejercicio</h2>
+    <div class="consigna">
+      <p>Sobre el editor de arriba, después de resolver el laboratorio:</p>
+      <ol>
+        <li>Cambiá el <code>border</code> a <code>dashed</code> y de otro color.</li>
+        <li>Subí el <code>padding</code> a <code>24px</code> y mirá cómo crece la caja.</li>
+        <li>Sacá <code>box-sizing: border-box</code> del <code>*</code> y volvé a ponerlo solo en <code>.tarjeta</code>: el resultado visual no cambia, pero ahora sabés exactamente qué elemento lo tiene.</li>
+      </ol>
+    </div>
+  </section>
+
+  <footer class="ficha-footer">
+    Referencia:
+    <a href="https://developer.mozilla.org/es/docs/Learn/CSS/Building_blocks/The_box_model" target="_blank" rel="noopener">
+      El modelo de caja · MDN
+    </a>
+  </footer>
+
+</article>
+
+<script>
+  // Objetivos del laboratorio guiado (temas/lab.js). Cada "check" lee una
+  // propiedad computada directamente —no infiere por geometría— porque en
+  // el laboratorio de CSS Grid un check indirecto (comparar alturas para
+  // deducir min-height) dio un falso positivo con contenido real.
+  window.LAB = {
+    id: "lab-box-model",
+    pasos: [
+      {
+        texto: "La tarjeta tiene padding interno en todos los lados.",
+        pista: "En .tarjeta:",
+        codigo: "padding: 16px;",
+        check: (doc) => {
+          const tarjeta = doc.querySelector(".tarjeta");
+          if (!tarjeta) return false;
+          const cs = doc.defaultView.getComputedStyle(tarjeta);
+          return parseFloat(cs.paddingTop) > 0 && parseFloat(cs.paddingLeft) > 0;
+        },
+      },
+      {
+        texto: "La tarjeta tiene un borde visible.",
+        pista: "También en .tarjeta:",
+        codigo: "border: 2px solid #264de4;",
+        check: (doc) => {
+          const tarjeta = doc.querySelector(".tarjeta");
+          if (!tarjeta) return false;
+          const cs = doc.defaultView.getComputedStyle(tarjeta);
+          return parseFloat(cs.borderTopWidth) > 0 && cs.borderTopStyle !== "none";
+        },
+      },
+      {
+        texto: "box-sizing: border-box está aplicado, así el width no se desborda con el padding y el border.",
+        pista: "En .tarjeta (o en el * de arriba, cambiándolo de content-box a border-box):",
+        codigo: "box-sizing: border-box;",
+        check: (doc) => {
+          const tarjeta = doc.querySelector(".tarjeta");
+          if (!tarjeta) return false;
+          return doc.defaultView.getComputedStyle(tarjeta).boxSizing === "border-box";
+        },
+      },
+      {
+        texto: "Las tarjetas ya no están pegadas: hay separación entre ellas.",
+        pista: "En .tarjeta:",
+        codigo: "margin-bottom: 16px;",
+        check: (doc) => {
+          const tarjetas = doc.querySelectorAll(".tarjeta");
+          if (tarjetas.length < 2) return false;
+          const cs = doc.defaultView.getComputedStyle(tarjetas[0]);
+          return parseFloat(cs.marginBottom) > 0 || parseFloat(cs.marginTop) > 0;
+        },
+      },
+    ],
+  };
+</script>
+<script src="editor.js" defer></script>
+<script src="lab.js" defer></script>
+</body>
+</html>

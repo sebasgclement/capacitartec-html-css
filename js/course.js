@@ -50,6 +50,7 @@ export const modules = [
       { id: "padding-margin", title: "Padding y margin", type: "html", content: "temas/padding-margin.html", enabled: true },
       { id: "borders", title: "Borders", type: "html", content: "temas/bordes.html", enabled: true },
       { id: "box-sizing", title: "Box sizing", type: "html", content: "temas/box-sizing.html", enabled: true },
+      { id: "lab-box-model", title: "🧪 Laboratorio: Modelo de caja", type: "html", content: "temas/lab-box-model.html", enabled: true },
       { id: "colorimetria", title: "Colorimetría (rgba, hexadecimal, hsl)", type: "html", content: "temas/colorimetria.html", enabled: true },
       { id: "unidades-medida", title: "Unidades de medida (absolutas y relativas)", type: "html", content: "temas/unidades-medida.html", enabled: true },
       { id: "background", title: "Background", type: "html", content: "temas/background.html", enabled: true },
