@@ -1,51 +1,183 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Picture / Source / Media</title>
-<style>
-  :root { --bg:#0b0e14; --fg:#eef1f8; --muted:#9aa4b2; }
-  body { margin:0; font:16px/1.5 system-ui,Segoe UI,Roboto; color:var(--fg); background:var(--bg); }
-  .wrap { max-width: 900px; margin:auto; padding:24px; }
-  picture, img { display:block; max-width:100%; height:auto; border-radius:12px; }
-  .card { background:#121726; border:1px solid #1f2741; border-radius:14px; padding:16px; margin:16px 0; }
-  code { background:#0f1322; padding:2px 6px; border-radius:6px; }
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Picture, Source y Media</title>
+  <link rel="stylesheet" href="theme.css" />
 </head>
 <body>
-  <div class="wrap">
-    <h1>Picture, Source y Media</h1>
-    <p>Uso típico: <em>art direction</em> (cambiar recorte/imagen según viewport) y/o formatos modernos (AVIF/WEBP) con <em>fallback</em>.</p>
+<article class="ficha">
 
-    <div class="card">
-      <h2>Art direction + formatos</h2>
-      <picture>
-        <!-- Formatos modernos primero -->
-        <source
-          type="image/avif"
-          srcset="
-            https://images.unsplash.com/photo-1535223289827-42f1e9919769?q=80&w=600&auto=format&fit=crop 600w,
-            https://images.unsplash.com/photo-1535223289827-42f1e9919769?q=80&w=1200&auto=format&fit=crop 1200w
-          "
-          sizes="(max-width: 700px) 95vw, 700px">
-        <source
-          type="image/webp"
-          srcset="
-            https://images.unsplash.com/photo-1535223289827-42f1e9919769?q=80&w=600&auto=format&fit=crop 600w,
-            https://images.unsplash.com/photo-1535223289827-42f1e9919769?q=80&w=1200&auto=format&fit=crop 1200w
-          "
-          sizes="(max-width: 700px) 95vw, 700px">
-        <!-- Cambiar imagen según media query (art direction) -->
-        <source
-          media="(max-width:700px)"
-          srcset="https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=900&auto=format&fit=crop">
-        <!-- Fallback IMG -->
-        <img src="https://images.unsplash.com/photo-1518779578993-ec3579fee39f?q=80&w=900&auto=format&fit=crop"
-             alt="Persona usando laptop en escritorio" loading="lazy">
-      </picture>
-      <p>Orden recomendado: formatos modernos → media queries → <code>&lt;img&gt;</code> fallback.</p>
+  <header class="ficha-header">
+    <p class="ficha-modulo">Responsive Design · Tema 3 de 8</p>
+    <h1>Picture, Source y Media</h1>
+    <p class="ficha-resumen">
+      Cuando no alcanza con achicar la misma foto: mostrar un recorte
+      distinto según el tamaño de pantalla, o el formato más liviano que el
+      navegador soporte.
+    </p>
+  </header>
+
+  <section class="bloque bloque-problema">
+    <h2>¿Qué problema resuelve?</h2>
+    <p>
+      <code>srcset</code> (tema anterior) sirve para elegir entre copias de
+      <strong>la misma imagen</strong> en distintos tamaños. Pero a veces el
+      problema es otro: en celular, una foto panorámica achicada queda con
+      el sujeto principal diminuto en el medio. Lo que hace falta ahí no es
+      una versión más chica, sino un <strong>recorte distinto</strong> —
+      eso se llama <em>art direction</em>.
+    </p>
+    <p>
+      <code>&lt;picture&gt;</code> también resuelve un segundo problema:
+      formatos de imagen modernos (AVIF, WEBP) pesan menos que JPG, pero no
+      todos los navegadores viejos los soportan. Con
+      <code>&lt;picture&gt;</code> podés ofrecer el formato moderno primero
+      y caer a JPG como respaldo, sin JavaScript.
+    </p>
+  </section>
+
+  <section class="bloque bloque-sintaxis">
+    <h2>Sintaxis mínima</h2>
+<pre><code>&lt;picture&gt;
+  <b>&lt;source media="(max-width: 700px)" srcset="recorte-movil.jpg"&gt;</b>
+  <b>&lt;source srcset="recorte-escritorio.jpg"&gt;</b>
+  &lt;img src="recorte-escritorio.jpg" alt="..." /&gt;
+&lt;/picture&gt;</code></pre>
+    <p>
+      El navegador recorre los <code>&lt;source&gt;</code> de arriba hacia
+      abajo y usa el <strong>primero que matchea</strong>. El
+      <code>&lt;img&gt;</code> final es obligatorio: es el respaldo si
+      ningún <code>&lt;source&gt;</code> aplica (o si el navegador no
+      entiende <code>&lt;picture&gt;</code> del todo).
+    </p>
+    <p>Con formatos, el orden importa por el mismo motivo — más moderno primero:</p>
+<pre><code>&lt;picture&gt;
+  <b>&lt;source type="image/avif" srcset="foto.avif"&gt;</b>
+  <b>&lt;source type="image/webp" srcset="foto.webp"&gt;</b>
+  &lt;img src="foto.jpg" alt="..." /&gt;
+&lt;/picture&gt;</code></pre>
+    <p>
+      Con <code>type</code>, el navegador ni siquiera pide el archivo si no
+      soporta ese formato — pasa directo al siguiente
+      <code>&lt;source&gt;</code>.
+    </p>
+  </section>
+
+  <section class="bloque bloque-demo">
+    <h2>Probalo vos</h2>
+    <div class="editor" data-editor>
+      <div class="editor-panel">
+        <div class="editor-barra">
+          <span>HTML + CSS</span>
+          <button type="button" class="editor-reset" data-editor-reset>Reiniciar</button>
+        </div>
+        <textarea spellcheck="false" aria-label="Código editable">
+          <style>
+            body { margin: 0; font: 14px system-ui; padding: 16px; background: #0b1020; color: #e5e7eb; }
+            picture, img { display: block; max-width: 100%; height: auto; border-radius: 12px; }
+          </style>
+
+          <p>Este panel es angosto, así que debería verse el recorte "móvil" (violeta).</p>
+
+          <picture>
+            <source
+              media="(max-width: 700px)"
+              srcset="data:image/svg+xml,%3Csvg xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22 viewBox%3D%220 0 480 700%22%3E%3Crect width%3D%22480%22 height%3D%22700%22 fill%3D%22%237c3aed%22%2F%3E%3Ctext x%3D%2250%25%22 y%3D%2250%25%22 fill%3D%22%23ffffff%22 font-family%3D%22system-ui%2Csans-serif%22 font-size%3D%2298%22 font-weight%3D%22700%22 text-anchor%3D%22middle%22 dominant-baseline%3D%22middle%22%3ERecorte movil%3C%2Ftext%3E%3C%2Fsvg%3E" />
+            <img
+              src="data:image/svg+xml,%3Csvg xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22 viewBox%3D%220 0 1200 500%22%3E%3Crect width%3D%221200%22 height%3D%22500%22 fill%3D%22%230891b2%22%2F%3E%3Ctext x%3D%2250%25%22 y%3D%2250%25%22 fill%3D%22%23ffffff%22 font-family%3D%22system-ui%2Csans-serif%22 font-size%3D%2270%22 font-weight%3D%22700%22 text-anchor%3D%22middle%22 dominant-baseline%3D%22middle%22%3ERecorte escritorio%3C%2Ftext%3E%3C%2Fsvg%3E"
+              alt="Foto con recorte distinto según el ancho" />
+          </picture>
+        </textarea>
+      </div>
+      <div class="editor-panel">
+        <div class="editor-barra"><span>Resultado</span></div>
+        <iframe title="Vista previa del ejemplo"></iframe>
+      </div>
     </div>
-  </div>
+    <p class="editor-ayuda">
+      El color y el texto adentro de la imagen te dicen cuál
+      <code>&lt;source&gt;</code> ganó — no es una simulación. Cambiá el
+      breakpoint de <code>(max-width: 700px)</code> a
+      <code>(max-width: 200px)</code>: como el panel es más ancho que eso,
+      debería pasar a mostrar el recorte de escritorio (celeste).
+    </p>
+  </section>
+
+  <section class="bloque bloque-errores">
+    <h2>Errores comunes</h2>
+    <ul class="errores">
+      <li>
+        <strong>Olvidar el <code>&lt;img&gt;</code> final</strong>
+        Sin él, <code>&lt;picture&gt;</code> no tiene ningún respaldo, y
+        además pierde el <code>alt</code> — el texto alternativo va siempre
+        en el <code>&lt;img&gt;</code>, nunca en los
+        <code>&lt;source&gt;</code>.
+      </li>
+      <li>
+        <strong>Poner los <code>&lt;source&gt;</code> en el orden equivocado</strong>
+        Como gana el primero que matchea, un <code>&lt;source&gt;</code>
+        genérico (sin <code>media</code>) puesto <em>antes</em> que uno con
+        condición nunca deja que el segundo se evalúe. Los más específicos
+        van primero.
+      </li>
+      <li>
+        <strong>Combinar <code>media</code> y <code>type</code> esperando que ambos se cumplan a la vez sin revisar el orden</strong>
+        Se pueden combinar en un mismo <code>&lt;source&gt;</code>, pero
+        conviene tener en cuenta que cada <code>&lt;source&gt;</code> sigue
+        evaluándose de arriba a abajo: si hay varios con distinto
+        <code>media</code> y distinto <code>type</code>, el orden entre
+        ellos importa igual.
+      </li>
+      <li>
+        <strong>Usar <code>&lt;picture&gt;</code> cuando alcanzaba con <code>srcset</code></strong>
+        Si el recorte es siempre el mismo y solo cambia el tamaño del
+        archivo, <code>&lt;picture&gt;</code> es más código del necesario.
+        Repasá el tema anterior.
+      </li>
+    </ul>
+  </section>
+
+  <section class="bloque bloque-cuando">
+    <h2>Cuándo NO usarlo</h2>
+    <div class="comparacion">
+      <div class="si">
+        <h3>✔ &lt;picture&gt;</h3>
+        <p>
+          Art direction (recorte distinto según pantalla) o formatos de
+          archivo alternativos con respaldo (AVIF/WEBP → JPG).
+        </p>
+      </div>
+      <div class="no">
+        <h3>✘ srcset simple</h3>
+        <p>
+          Si la imagen es siempre la misma composición y solo cambia el
+          peso/tamaño del archivo. Es más simple y menos código.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="bloque bloque-ejercicio">
+    <h2>Mini-ejercicio</h2>
+    <div class="consigna">
+      <p>Sobre el editor de arriba:</p>
+      <ol>
+        <li>Agregá un tercer <code>&lt;source&gt;</code> para un ancho intermedio, entre el móvil y el de escritorio.</li>
+        <li>Probá los tres breakpoints achicando y agrandando el panel de resultado si tu navegador lo permite, o cambiando los valores de <code>max-width</code>.</li>
+      </ol>
+    </div>
+  </section>
+
+  <footer class="ficha-footer">
+    Referencia:
+    <a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/picture" target="_blank" rel="noopener">
+      &lt;picture&gt; en MDN
+    </a>
+  </footer>
+
+</article>
+<script src="editor.js" defer></script>
 </body>
 </html>

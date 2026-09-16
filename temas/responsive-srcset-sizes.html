@@ -1,50 +1,203 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>SRCSET y SIZES</title>
-<style>
-  :root { --bg:#0b0e14; --fg:#eef1f8; --muted:#9aa4b2; }
-  body { margin:0; font:16px/1.5 system-ui,Segoe UI,Roboto; color:var(--fg); background:var(--bg); }
-  .wrap { max-width: 1000px; margin:auto; padding:24px; }
-  figure { margin:0; }
-  img { max-width:100%; height:auto; border-radius:12px; display:block; }
-  .grid { display:grid; gap:16px; grid-template-columns: 1fr; }
-  @media (min-width: 900px) { .grid { grid-template-columns: 1fr 1fr; } }
-  p { color:var(--muted); }
-  code { background:#0f1322; padding:2px 6px; border-radius:6px; }
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>SRCSET y SIZES</title>
+  <link rel="stylesheet" href="theme.css" />
 </head>
 <body>
-  <div class="wrap">
+<article class="ficha">
+
+  <header class="ficha-header">
+    <p class="ficha-modulo">Responsive Design · Tema 2 de 8</p>
     <h1>SRCSET y SIZES</h1>
-    <p><strong>Objetivo:</strong> que el navegador elija la mejor imagen según el tamaño de pantalla y densidad.</p>
+    <p class="ficha-resumen">
+      Que el navegador elija sola la imagen del tamaño justo, en vez de
+      bajar siempre la más pesada aunque se muestre chiquita.
+    </p>
+  </header>
 
-    <div class="grid">
-      <figure>
-        <img 
-          src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=800&auto=format&fit=crop"
-          srcset="
-            https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=480&auto=format&fit=crop 480w,
-            https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=800&auto=format&fit=crop 800w,
-            https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop 1200w
-          "
-          sizes="(max-width: 600px) 90vw, (max-width: 900px) 60vw, 600px"
-          alt="Laptop sobre escritorio con código" />
-        <figcaption>Ejemplo con <code>srcset</code> y <code>sizes</code>.</figcaption>
-      </figure>
+  <section class="bloque bloque-problema">
+    <h2>¿Qué problema resuelve?</h2>
+    <p>
+      Con un <code>&lt;img src="foto-1600.jpg"&gt;</code> normal, un celular
+      descarga la misma imagen de 1600px de ancho que una pantalla 4K, aunque
+      la vaya a mostrar en 300px. Es ancho de banda tirado, y en una conexión
+      móvil lenta se nota en el tiempo de carga.
+    </p>
+    <p>
+      <code>srcset</code> le da al navegador <strong>varias copias</strong>
+      de la misma imagen en distintos tamaños, y <code>sizes</code> le dice
+      <strong>qué tan grande se va a mostrar</strong> esa imagen en el
+      layout. Con esas dos pistas, el navegador calcula solo cuál de las
+      copias conviene bajar — vos nunca elegís directamente cuál se usa.
+    </p>
+  </section>
 
-      <div>
-        <h2>¿Cómo leer <code>sizes</code>?</h2>
-        <ul>
-          <li><code>(max-width:600px) 90vw</code> → en móviles, usa ~90% del viewport.</li>
-          <li><code>(max-width:900px) 60vw</code> → en tablets, ~60% del viewport.</li>
-          <li><code>600px</code> → en escritorio, fije 600px de ancho mostrado.</li>
-        </ul>
-        <p>El navegador combina <em>ancho mostrado</em> + <em>DPR</em> para elegir el recurso adecuado del <code>srcset</code>.</p>
+  <section class="bloque bloque-sintaxis">
+    <h2>Sintaxis mínima</h2>
+<pre><code>&lt;img
+  src="foto-800.jpg"
+  <b>srcset="foto-480.jpg 480w,
+           foto-800.jpg 800w,
+           foto-1200.jpg 1200w"</b>
+  <b>sizes="(max-width: 600px) 90vw, 600px"</b>
+  alt="..." /&gt;</code></pre>
+    <p>
+      Cada entrada de <code>srcset</code> es <code>archivo ancho-real-en-px + w</code>.
+      El <code>w</code> es el ancho intrínseco del archivo, no un tamaño de
+      pantalla.
+    </p>
+    <p>
+      <code>sizes</code> es una lista de condiciones que responde
+      <em>"¿qué ancho va a ocupar esta imagen en el layout?"</em>, de
+      izquierda a derecha, y se queda con la primera que aplica:
+    </p>
+<pre><code>sizes="(max-width: 600px) 90vw,   /* en pantallas chicas, ocupa 90% del viewport */
+       (max-width: 900px) 60vw,   /* en pantallas medianas, 60% */
+       600px"                     /* si no, siempre 600px fijos */</code></pre>
+    <p>
+      Con esas dos piezas, el navegador combina <em>ancho mostrado</em> +
+      <em>densidad de píxeles de la pantalla (DPR)</em> para elegir la
+      variante de <code>srcset</code> que menos datos gasta sin verse
+      pixelada.
+    </p>
+  </section>
+
+  <section class="bloque bloque-demo">
+    <h2>Probalo vos</h2>
+    <div class="editor" data-editor>
+      <div class="editor-panel">
+        <div class="editor-barra">
+          <span>HTML + CSS + JS</span>
+          <button type="button" class="editor-reset" data-editor-reset>Reiniciar</button>
+        </div>
+        <textarea spellcheck="false" aria-label="Código editable">
+          <style>
+            body { margin: 0; font: 14px system-ui; padding: 16px; background: #0b1020; color: #e5e7eb; }
+            img { max-width: 100%; height: auto; display: block; border-radius: 10px; }
+            .lectura { margin-top: 10px; padding: 10px; background: #0f172a; border-radius: 8px; font-family: monospace; }
+          </style>
+
+          <img
+            id="foto"
+            src="data:image/svg+xml,%3Csvg xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22 viewBox%3D%220 0 800 533%22%3E%3Crect width%3D%22800%22 height%3D%22533%22 fill%3D%22%23264de4%22%2F%3E%3Ctext x%3D%2250%25%22 y%3D%2250%25%22 fill%3D%22%23ffffff%22 font-family%3D%22system-ui%2Csans-serif%22 font-size%3D%2275%22 font-weight%3D%22700%22 text-anchor%3D%22middle%22 dominant-baseline%3D%22middle%22%3E800w%3C%2Ftext%3E%3C%2Fsvg%3E"
+            srcset="
+              data:image/svg+xml,%3Csvg xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22 viewBox%3D%220 0 480 320%22%3E%3Crect width%3D%22480%22 height%3D%22320%22 fill%3D%22%23e34c26%22%2F%3E%3Ctext x%3D%2250%25%22 y%3D%2250%25%22 fill%3D%22%23ffffff%22 font-family%3D%22system-ui%2Csans-serif%22 font-size%3D%2245%22 font-weight%3D%22700%22 text-anchor%3D%22middle%22 dominant-baseline%3D%22middle%22%3E480w%3C%2Ftext%3E%3C%2Fsvg%3E 480w,
+              data:image/svg+xml,%3Csvg xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22 viewBox%3D%220 0 800 533%22%3E%3Crect width%3D%22800%22 height%3D%22533%22 fill%3D%22%23264de4%22%2F%3E%3Ctext x%3D%2250%25%22 y%3D%2250%25%22 fill%3D%22%23ffffff%22 font-family%3D%22system-ui%2Csans-serif%22 font-size%3D%2275%22 font-weight%3D%22700%22 text-anchor%3D%22middle%22 dominant-baseline%3D%22middle%22%3E800w%3C%2Ftext%3E%3C%2Fsvg%3E 800w,
+              data:image/svg+xml,%3Csvg xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22 viewBox%3D%220 0 1200 800%22%3E%3Crect width%3D%221200%22 height%3D%22800%22 fill%3D%22%230d9488%22%2F%3E%3Ctext x%3D%2250%25%22 y%3D%2250%25%22 fill%3D%22%23ffffff%22 font-family%3D%22system-ui%2Csans-serif%22 font-size%3D%22112%22 font-weight%3D%22700%22 text-anchor%3D%22middle%22 dominant-baseline%3D%22middle%22%3E1200w%3C%2Ftext%3E%3C%2Fsvg%3E 1200w
+            "
+            sizes="(max-width: 500px) 90vw, 500px"
+            alt="Cada color es un archivo distinto del srcset" />
+
+          <div class="lectura" id="lectura">calculando…</div>
+
+          <script>
+            // El color/número que ves ADENTRO de la imagen es el archivo
+            // real que el navegador decidió bajar — no un dibujo aparte.
+            const img = document.getElementById("foto");
+            const lectura = document.getElementById("lectura");
+            function mostrarElegido() {
+              const w = img.currentSrc.includes("e34c26") ? "480"
+                      : img.currentSrc.includes("264de4") ? "800"
+                      : img.currentSrc.includes("0d9488") ? "1200" : "?";
+              lectura.textContent = `El navegador eligió la variante de ${w}w para este ancho de pantalla.`;
+            }
+            img.complete ? mostrarElegido() : img.addEventListener("load", mostrarElegido);
+            addEventListener("resize", mostrarElegido);
+          </script>
+        </textarea>
+      </div>
+      <div class="editor-panel">
+        <div class="editor-barra"><span>Resultado</span></div>
+        <iframe title="Vista previa del ejemplo"></iframe>
       </div>
     </div>
-  </div>
+    <p class="editor-ayuda">
+      El color que ves adentro de la imagen es literalmente el archivo que
+      se cargó — no una simulación. Esta ficha corre en un panel angosto,
+      así que probablemente veas <strong>480w</strong>. Abrí este archivo
+      (<code>temas/responsive-srcset-sizes.html</code>) en su propia pestaña
+      del navegador y agrandá la ventana para ver cómo cambia a 800w o 1200w.
+    </p>
+  </section>
+
+  <section class="bloque bloque-errores">
+    <h2>Errores comunes</h2>
+    <ul class="errores">
+      <li>
+        <strong>Confundir el "w" con el tamaño de pantalla</strong>
+        <code>480w</code> es el ancho <em>real del archivo</em>, no un
+        breakpoint de pantalla. No tiene nada que ver con
+        <code>@media (max-width: 480px)</code>.
+      </li>
+      <li>
+        <strong>Poner <code>srcset</code> sin <code>sizes</code></strong>
+        Sin <code>sizes</code>, el navegador asume que la imagen va a ocupar
+        el 100% del viewport, y elige la variante en base a eso — que casi
+        nunca es el tamaño real que va a tener en tu layout.
+      </li>
+      <li>
+        <strong>Un ancho en <code>sizes</code> que no coincide con el CSS real</strong>
+        Si tu CSS hace que la imagen ocupe 400px pero <code>sizes</code>
+        dice <code>800px</code>, el navegador va a bajar una variante más
+        pesada de lo necesario. <code>sizes</code> tiene que reflejar el
+        layout real.
+      </li>
+      <li>
+        <strong>Muy pocas variantes, o saltos muy grandes entre ellas</strong>
+        Con solo <code>480w</code> y <code>1200w</code>, una pantalla que
+        necesita 700px va a terminar bajando la de 1200px igual. Cuantas
+        más variantes intermedias, más ajustado el resultado — con un
+        límite práctico de 3 a 5 para no complicar el mantenimiento.
+      </li>
+    </ul>
+  </section>
+
+  <section class="bloque bloque-cuando">
+    <h2>Cuándo NO usarlo</h2>
+    <div class="comparacion">
+      <div class="si">
+        <h3>✔ srcset + sizes</h3>
+        <p>
+          La misma imagen, en distintos tamaños, para optimizar peso según
+          el ancho de pantalla. Es el caso más común: fotos de producto,
+          hero images, galerías.
+        </p>
+      </div>
+      <div class="no">
+        <h3>✘ Usá &lt;picture&gt;</h3>
+        <p>
+          Cuando no es solo cuestión de tamaño: necesitás un
+          <strong>recorte distinto</strong> según el ancho (art direction),
+          o formatos de archivo distintos (AVIF/WEBP con fallback). Es el
+          próximo tema.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="bloque bloque-ejercicio">
+    <h2>Mini-ejercicio</h2>
+    <div class="consigna">
+      <p>Sobre el editor de arriba:</p>
+      <ol>
+        <li>Agregá una cuarta variante de <code>1600w</code> al <code>srcset</code>.</li>
+        <li>Cambiá <code>sizes</code> a <code>100vw</code> y pensá qué variante convendría para una pantalla de escritorio ancha.</li>
+        <li>Abrí la ficha en su propia pestaña y probá el modo responsive del navegador (F12) para ver el cambio real entre variantes.</li>
+      </ol>
+    </div>
+  </section>
+
+  <footer class="ficha-footer">
+    Referencia:
+    <a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/img#atributos" target="_blank" rel="noopener">
+      Atributos srcset y sizes en MDN
+    </a>
+  </footer>
+
+</article>
+<script src="editor.js" defer></script>
 </body>
 </html>

@@ -1,55 +1,215 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Bloques y multimedia flexible</title>
-<style>
-  :root { --bg:#0b0e14; --fg:#eef1f8; --muted:#9aa4b2; --brand:#ff5f45; }
-  body { margin:0; font:16px/1.5 system-ui,Segoe UI,Roboto; color:var(--fg); background:var(--bg); }
-  .wrap { max-width: 900px; margin: auto; padding: 24px; }
-  h1,h2 { margin: 0 0 12px; }
-  p { color: var(--muted); margin: 8px 0 16px; }
-  .card { background: #121726; border:1px solid #1f2741; border-radius:14px; padding:16px; margin:16px 0; }
-  /* 1) Imágenes fluidas: ocupan el ancho de su contenedor manteniendo proporción */
-  img.resp { max-width: 100%; height: auto; display:block; border-radius: 10px; }
-  /* 2) Videos responsivos con aspect-ratio */
-  .ratio { position: relative; width: 100%; aspect-ratio: 16 / 9; background:#0f1322; border-radius:10px; overflow:hidden; }
-  .ratio iframe,
-  .ratio video { position:absolute; inset:0; width:100%; height:100%; border:0; }
-  /* 3) Iframe flexible (ej: mapa, youtube, etc.) ya cubierto con .ratio */
-  code { background:#0f1322; padding:2px 6px; border-radius:6px; }
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Bloques y multimedia flexible</title>
+  <link rel="stylesheet" href="theme.css" />
 </head>
 <body>
-  <div class="wrap">
+<article class="ficha">
+
+  <header class="ficha-header">
+    <p class="ficha-modulo">Responsive Design · Tema 1 de 8</p>
     <h1>Bloques y multimedia flexible</h1>
-    <p>Regla de oro: <code>max-width:100%</code> para imágenes y contenedores con <code>aspect-ratio</code> para iframes/videos.</p>
+    <p class="ficha-resumen">
+      La base de todo lo demás: que imágenes, videos e iframes se achiquen
+      junto con la pantalla en vez de desbordarla.
+    </p>
+  </header>
 
-    <div class="card">
-      <h2>Imagen fluida</h2>
-      <p>La imagen nunca desborda el contenedor y se reduce en pantallas pequeñas.</p>
-      <img class="resp" src="https://images.unsplash.com/photo-1522199755839-a2bacb67c546?q=80&w=1600&auto=format&fit=crop" alt="Teclado y escritorio elegante" />
-    </div>
+  <section class="bloque bloque-problema">
+    <h2>¿Qué problema resuelve?</h2>
+    <p>
+      Una imagen tiene un ancho <strong>intrínseco</strong> (el de su archivo
+      original, por ejemplo 1600px). Si no le decís nada, ese ancho es fijo:
+      en un celular de 360px de pantalla, la imagen se corta y aparece una
+      barra de scroll horizontal — uno de los errores más comunes en sitios
+      que "casi" son responsive.
+    </p>
+    <p>
+      Los videos e iframes (mapas, YouTube) tienen el problema inverso:
+      muchas veces se insertan con <code>width</code> y <code>height</code>
+      fijos en píxeles, así que en pantallas chicas no se achican, y en
+      pantallas grandes se quedan pequeños en vez de aprovechar el espacio.
+    </p>
+    <p>
+      La solución para imágenes es una sola línea de CSS. Para video/iframe
+      hace falta un truco distinto, porque no se puede poner
+      <code>height: auto</code> en un iframe sin perder la proporción.
+    </p>
+  </section>
 
-    <div class="card">
-      <h2>Video responsivo (YouTube)</h2>
-      <div class="ratio">
-        <iframe src="https://www.youtube.com/embed/dD2EISBDjWM"
-                title="HTML & CSS"
-                allowfullscreen
-                loading="lazy"></iframe>
+  <section class="bloque bloque-sintaxis">
+    <h2>Sintaxis mínima</h2>
+    <p><strong>Imágenes fluidas:</strong></p>
+<pre><code>img {
+  <b>max-width: 100%;</b>   /* nunca más ancha que su contenedor */
+  <b>height: auto;</b>      /* mantiene la proporción al achicarse */
+  display: block;
+}</code></pre>
+    <p><strong>Video/iframe con proporción fija (16:9, por ejemplo):</strong></p>
+<pre><code>.contenedor-video {
+  width: 100%;
+  <b>aspect-ratio: 16 / 9;</b>
+}
+.contenedor-video iframe,
+.contenedor-video video {
+  width: 100%;
+  height: 100%;
+}</code></pre>
+    <p>
+      <code>aspect-ratio</code> le dice al navegador "reservá este alto en
+      relación al ancho, antes de saber el tamaño real del contenido" — el
+      mismo mecanismo evita que la página "salte" cuando el video termina de
+      cargar.
+    </p>
+  </section>
+
+  <section class="bloque bloque-demo">
+    <h2>Probalo vos</h2>
+    <div class="editor" data-editor>
+      <div class="editor-panel">
+        <div class="editor-barra">
+          <span>HTML + CSS</span>
+          <button type="button" class="editor-reset" data-editor-reset>Reiniciar</button>
+        </div>
+        <textarea spellcheck="false" aria-label="Código editable">
+          <style>
+            body { margin: 0; font: 14px system-ui; padding: 16px; background: #0b1020; color: #e5e7eb; }
+            .card { background: #0f172a; border-radius: 14px; padding: 16px; margin-bottom: 16px; }
+
+            .foto {
+              max-width: 100%;
+              height: auto;
+              display: block;
+              border-radius: 10px;
+            }
+
+            .contenedor-video {
+              width: 100%;
+              aspect-ratio: 16 / 9;
+              background: #1f2937;
+              border-radius: 10px;
+              display: grid;
+              place-items: center;
+              color: #94a3b8;
+              font-size: 40px;
+            }
+          </style>
+
+          <div class="card">
+            <h3>Imagen fluida</h3>
+            <img class="foto" src="data:image/svg+xml,%3Csvg xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22 viewBox%3D%220 0 800 450%22%3E%3Crect width%3D%22800%22 height%3D%22450%22 fill%3D%22%23334155%22%2F%3E%3Ctext x%3D%2250%25%22 y%3D%2250%25%22 fill%3D%22%23ffffff%22 font-family%3D%22system-ui%2Csans-serif%22 font-size%3D%2263%22 font-weight%3D%22700%22 text-anchor%3D%22middle%22 dominant-baseline%3D%22middle%22%3EFoto de ejemplo%3C%2Ftext%3E%3C%2Fsvg%3E" alt="Foto de ejemplo (placeholder)" />
+          </div>
+
+          <div class="card">
+            <h3>Video con proporción fija (16:9)</h3>
+            <div class="contenedor-video">▶</div>
+          </div>
+        </textarea>
       </div>
-      <p>El contenedor usa <code>aspect-ratio:16/9</code> para mantener proporción.</p>
+      <div class="editor-panel">
+        <div class="editor-barra"><span>Resultado</span></div>
+        <iframe title="Vista previa del ejemplo"></iframe>
+      </div>
+    </div>
+    <p class="editor-ayuda">
+      Sacá <code>max-width: 100%</code> de <code>.foto</code> y mirá cómo se
+      desborda. Después probá cambiar <code>aspect-ratio</code> a
+      <code>1 / 1</code> o <code>4 / 3</code> en el video y notá que la
+      proporción del recuadro cambia al instante.
+    </p>
+  </section>
+
+  <section class="bloque bloque-errores">
+    <h2>Errores comunes</h2>
+    <ul class="errores">
+      <li>
+        <strong>Poner <code>max-width: 100%</code> sin <code>height: auto</code></strong>
+        Sin <code>height: auto</code>, si la imagen tiene un <code>height</code>
+        fijo en algún otro selector, se aplasta o se estira: el ancho se
+        achica pero el alto no acompaña, y la imagen se ve distorsionada.
+      </li>
+      <li>
+        <strong>Usar <code>width: 100%</code> en vez de <code>max-width: 100%</code></strong>
+        <code>width: 100%</code> fuerza a la imagen a ocupar todo el
+        contenedor incluso si es más chica que él, agrandándola y
+        pixelándola. <code>max-width: 100%</code> solo actúa como límite.
+      </li>
+      <li>
+        <strong>Iframes con <code>width</code> y <code>height</code> en atributos HTML fijos</strong>
+        Los atributos <code>width="560" height="315"</code> de un embed de
+        YouTube son solo el tamaño por defecto. Sin el truco de
+        <code>aspect-ratio</code> (o el <code>position: absolute</code> más
+        viejo), esos valores fijos ganan y el video no se adapta.
+      </li>
+      <li>
+        <strong>No reservar espacio para imágenes que tardan en cargar</strong>
+        Si la imagen no tiene <code>aspect-ratio</code> (o atributos
+        <code>width</code>/<code>height</code> que el navegador usa para
+        inferirlo), el layout "salta" cuando termina de cargar y empuja el
+        contenido de abajo. Esto se llama <em>layout shift</em>.
+      </li>
+    </ul>
+  </section>
+
+  <section class="bloque bloque-cuando">
+    <h2>Cuándo NO usarlo</h2>
+    <div class="comparacion">
+      <div class="si">
+        <h3>✔ max-width: 100%</h3>
+        <p>
+          Prácticamente siempre, para cualquier imagen de contenido:
+          fotos, ilustraciones, capturas de pantalla.
+        </p>
+      </div>
+      <div class="no">
+        <h3>✘ Excepción: íconos e imágenes de UI</h3>
+        <p>
+          Un ícono de 24px o el logo de la barra de navegación normalmente
+          querés que tenga un tamaño fijo, no que se achique con el
+          contenedor. Ahí no aplica esta regla.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="bloque bloque-ejercicio">
+    <h2>Mini-ejercicio</h2>
+    <div class="consigna">
+      <p>Sobre el editor de arriba:</p>
+      <ol>
+        <li>Agregá una segunda imagen dentro de la misma tarjeta.</li>
+        <li>Ponelas en una fila con <code>display: flex; gap: 12px;</code> en el contenedor.</li>
+        <li>Verificá que ninguna de las dos se desborde de su mitad de la fila.</li>
+      </ol>
     </div>
 
-    <div class="card">
-      <h2>Video local con controls</h2>
-      <div class="ratio">
-        <video src="" controls poster="https://images.unsplash.com/photo-1518779578993-ec3579fee39f?q=80&w=1400&auto=format&fit=crop"></video>
-      </div>
-      <p>Puedes reemplazar <code>src</code> por tu archivo MP4/WEBM.</p>
-    </div>
-  </div>
+    <details class="solucion">
+      <summary>Ver solución</summary>
+<pre><code>.card { display: flex; gap: 12px; }
+.foto {
+  max-width: 100%;
+  <b>flex: 1 1 0;</b>   /* cada imagen se reparte el espacio disponible por igual */
+  height: auto;
+}</code></pre>
+      <p>
+        <code>flex: 1 1 0</code> hace que las dos imágenes compartan el
+        ancho disponible en partes iguales, y <code>max-width: 100%</code>
+        sigue evitando que cualquiera de las dos se desborde de su porción.
+      </p>
+    </details>
+  </section>
+
+  <footer class="ficha-footer">
+    Referencia:
+    <a href="https://developer.mozilla.org/es/docs/Web/CSS/aspect-ratio" target="_blank" rel="noopener">
+      aspect-ratio en MDN
+    </a>
+  </footer>
+
+</article>
+<script src="editor.js" defer></script>
 </body>
 </html>

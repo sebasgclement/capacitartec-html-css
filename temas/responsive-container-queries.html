@@ -1,77 +1,235 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Container Queries</title>
-<style>
-  :root { --bg:#0b0e14; --fg:#eef1f8; --muted:#9aa4b2; --chip:#1f2741; }
-  body { margin:0; font:16px/1.5 system-ui,Segoe UI,Roboto; color:var(--fg); background:var(--bg); }
-  .wrap { max-width: 1100px; margin:auto; padding:24px; }
-  .grid { display:grid; gap:16px; grid-template-columns: 1fr; }
-  @media (min-width: 800px) { .grid { grid-template-columns: repeat(3, 1fr); } }
-  /* Declarar contenedor para que sus hijos reaccionen a SU ancho (no al viewport) */
-  .card { container-type: inline-size; background:#121726; border:1px solid #1f2741; border-radius:14px; padding:16px; }
-  .head { display:flex; align-items:center; gap:12px; }
-  .avatar { width:56px; height:56px; border-radius:50%; background:#0f1322; }
-  .title { font-weight:700; }
-  .meta { color:var(--muted); font-size:0.9rem; }
-  .content { margin-top:10px; color:var(--muted); }
-  /* Consultas basadas en el contenedor (.card) */
-  @container (min-width: 420px) {
-    .card { display:grid; grid-template-columns: 72px 1fr; gap:12px; align-items:start; }
-    .head { grid-column: span 2; }
-  }
-  @container (min-width: 620px) {
-    .head { grid-column: 1 / -1; justify-content:space-between; }
-    .meta { font-size:1rem; }
-  }
-  /* Pequeño chip de ejemplo */
-  .chip { display:inline-block; padding:4px 8px; border-radius:999px; background:var(--chip); }
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Container Queries</title>
+  <link rel="stylesheet" href="theme.css" />
 </head>
 <body>
-  <div class="wrap">
+<article class="ficha">
+
+  <header class="ficha-header">
+    <p class="ficha-modulo">Responsive Design · Tema 8 de 8</p>
     <h1>Container Queries</h1>
-    <p>La tarjeta cambia su layout según el ancho de <em>su propio contenedor</em> (no del viewport). Útil en grids con columnas variables.</p>
+    <p class="ficha-resumen">
+      El cierre lógico del módulo: hacer que un componente reaccione al
+      espacio real que tiene disponible, no al tamaño de toda la pantalla.
+    </p>
+  </header>
 
-    <div class="grid">
-      <article class="card">
-        <div class="head">
-          <div class="avatar"></div>
-          <div class="title">Perfil de Desarrollador</div>
-          <span class="chip">Nuevo</span>
-        </div>
-        <div class="content">
-          <p class="meta">Frontend • HTML • CSS • JS</p>
-          <p>Cuando esta card se hace más ancha (p. ej. pasa a otra columna), la disposición interna se reconfigura.</p>
-        </div>
-      </article>
+  <section class="bloque bloque-problema">
+    <h2>¿Qué problema resuelve?</h2>
+    <p>
+      Una media query pregunta por el ancho del <strong>viewport</strong>
+      (la ventana del navegador). El problema: una misma tarjeta de
+      producto puede aparecer en una barra lateral angosta y, en otra
+      página, ocupar el ancho completo — el viewport es el mismo en los dos
+      casos, pero el espacio real disponible para la tarjeta es totalmente
+      distinto.
+    </p>
+    <p>
+      Las <strong>container queries</strong> resuelven exactamente eso: en
+      vez de preguntar por el ancho de toda la pantalla, preguntan por el
+      ancho de <strong>su propio contenedor</strong>. La misma tarjeta se
+      adapta sola según dónde la pongas, sin necesitar una clase distinta
+      para cada contexto.
+    </p>
+  </section>
 
-      <article class="card">
-        <div class="head">
-          <div class="avatar"></div>
-          <div class="title">UI Designer</div>
-          <span class="chip">Pro</span>
-        </div>
-        <div class="content">
-          <p class="meta">Figma • Prototyping</p>
-          <p>Prueba redimensionando el modal o cambiando el ancho del contenedor padre.</p>
-        </div>
-      </article>
+  <section class="bloque bloque-sintaxis">
+    <h2>Sintaxis mínima</h2>
+<pre><code>/* 1. Declarás que un elemento es un "contenedor" a observar */
+.tarjeta-wrap {
+  <b>container-type: inline-size;</b>
+  <b>container-name: tarjeta;</b>   /* opcional, para ser específico */
+}
 
-      <article class="card">
-        <div class="head">
-          <div class="avatar"></div>
-          <div class="title">Fullstack</div>
-          <span class="chip">Top</span>
+/* 2. Los hijos reaccionan al ancho de ESE contenedor */
+<b>@container tarjeta (min-width: 420px) {</b>
+  .tarjeta { display: grid; grid-template-columns: 80px 1fr; }
+<b>}</b></code></pre>
+    <p>
+      <code>container-type: inline-size;</code> es el paso que casi
+      siempre se olvida: sin declarar un contenedor en algún ancestro,
+      <code>@container</code> no tiene de qué ancho hablar y la regla no
+      hace nada.
+    </p>
+    <p>
+      También existen unidades relativas al contenedor, como
+      <code>cqw</code> (1% del ancho del contenedor), paralelas a
+      <code>vw</code> pero para este nuevo caso.
+    </p>
+  </section>
+
+  <section class="bloque bloque-demo">
+    <h2>Probalo vos</h2>
+    <div class="editor" data-editor>
+      <div class="editor-panel">
+        <div class="editor-barra">
+          <span>HTML + CSS</span>
+          <button type="button" class="editor-reset" data-editor-reset>Reiniciar</button>
         </div>
-        <div class="content">
-          <p class="meta">Node • Django • SQL</p>
-          <p>Las <strong>container queries</strong> permiten componentes verdaderamente adaptables.</p>
-        </div>
-      </article>
+        <textarea spellcheck="false" aria-label="Código editable">
+          <style>
+            body { margin: 0; font: 14px system-ui; padding: 16px; background: #0b1020; color: #e5e7eb; }
+
+            .angosta, .ancha {
+              margin-bottom: 16px;
+            }
+            .angosta { max-width: 220px; }
+            .ancha { max-width: 100%; }
+
+            .tarjeta-wrap {
+              container-type: inline-size;
+              background: #0f172a;
+              border-radius: 14px;
+              padding: 14px;
+            }
+
+            .tarjeta { display: block; }
+            .avatar { width: 48px; height: 48px; border-radius: 50%; background: #264de4; margin-bottom: 8px; }
+            .titulo { font-weight: 700; }
+            .meta { color: #94a3b8; font-size: 12px; }
+
+            /* Layout horizontal cuando el CONTENEDOR (no la pantalla) supera 380px */
+            @container (min-width: 380px) {
+              .tarjeta { display: grid; grid-template-columns: 48px 1fr; gap: 12px; align-items: center; }
+              .avatar { margin-bottom: 0; }
+            }
+          </style>
+
+          <p>La misma tarjeta, en dos contenedores de distinto ancho:</p>
+
+          <div class="angosta tarjeta-wrap">
+            <div class="tarjeta">
+              <div class="avatar"></div>
+              <div>
+                <div class="titulo">Contenedor angosto</div>
+                <div class="meta">Apilada verticalmente</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="ancha tarjeta-wrap">
+            <div class="tarjeta">
+              <div class="avatar"></div>
+              <div>
+                <div class="titulo">Contenedor ancho</div>
+                <div class="meta">Pasa a horizontal sola</div>
+              </div>
+            </div>
+          </div>
+        </textarea>
+      </div>
+      <div class="editor-panel">
+        <div class="editor-barra"><span>Resultado</span></div>
+        <iframe title="Vista previa del ejemplo"></iframe>
+      </div>
     </div>
-  </div>
+    <p class="editor-ayuda">
+      Es el mismo HTML y el mismo CSS de tarjeta para las dos — el único
+      cambio es el ancho del <code>.tarjeta-wrap</code> que la contiene.
+      Cambiá <code>max-width: 220px</code> de la primera a
+      <code>500px</code> y va a pasar a verse horizontal también, sin
+      tocar la tarjeta en sí.
+    </p>
+  </section>
+
+  <section class="bloque bloque-errores">
+    <h2>Errores comunes</h2>
+    <ul class="errores">
+      <li>
+        <strong>Olvidar <code>container-type</code> en el ancestro</strong>
+        Es el error más común: escribís <code>@container (min-width: ...)</code>
+        pero ningún elemento por encima declaró
+        <code>container-type: inline-size</code>. La regla se ignora sin
+        ningún aviso.
+      </li>
+      <li>
+        <strong>Poner <code>container-type</code> en el mismo elemento que tiene el <code>@container</code></strong>
+        El contenedor y el elemento que reacciona no pueden ser el mismo:
+        el contenedor mide a sus <strong>hijos</strong>. Por eso en el
+        ejemplo hay un <code>.tarjeta-wrap</code> (contenedor) envolviendo
+        a <code>.tarjeta</code> (el que reacciona).
+      </li>
+      <li>
+        <strong>Confundir con media queries</strong>
+        <code>@container</code> nunca mide el viewport, solo el
+        contenedor más cercano con <code>container-type</code> declarado.
+        Si necesitás reaccionar al tamaño de toda la ventana, es
+        <code>@media</code>, no esto.
+      </li>
+      <li>
+        <strong>container-name mal escrito o repetido en contenedores anidados</strong>
+        Sin <code>container-name</code>, <code>@container</code> usa el
+        contenedor más cercano. Si hay contenedores anidados y necesitás
+        apuntar a uno específico que no es el más cercano, ahí sí hace
+        falta nombrarlo.
+      </li>
+    </ul>
+  </section>
+
+  <section class="bloque bloque-cuando">
+    <h2>Cuándo NO usarlo</h2>
+    <div class="comparacion">
+      <div class="si">
+        <h3>✔ Container queries</h3>
+        <p>
+          Componentes reutilizables que van a vivir en contextos distintos:
+          tarjetas, widgets de sidebar, elementos de un design system.
+        </p>
+      </div>
+      <div class="no">
+        <h3>✘ Media queries</h3>
+        <p>
+          Decisiones de layout a nivel de página completa: si el sitio
+          entero pasa de una columna a tres, eso sigue siendo el ancho del
+          viewport, no de un contenedor puntual.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="bloque bloque-ejercicio">
+    <h2>Mini-ejercicio</h2>
+    <div class="consigna">
+      <p>Sobre el editor de arriba:</p>
+      <ol>
+        <li>Agregá una tercera tarjeta con un ancho intermedio (por ejemplo 320px).</li>
+        <li>Sumá un segundo <code>@container (min-width: 500px)</code> que además agrande la fuente del <code>.titulo</code>.</li>
+        <li>Nombrá el contenedor con <code>container-name: tarjeta;</code> y actualizá el <code>@container</code> para usar ese nombre.</li>
+      </ol>
+    </div>
+
+    <details class="solucion">
+      <summary>Ver solución</summary>
+<pre><code>.tarjeta-wrap {
+  container-type: inline-size;
+  <b>container-name: tarjeta;</b>
+}
+
+@container <b>tarjeta</b> (min-width: 380px) { /* ... */ }
+<b>@container tarjeta (min-width: 500px) {
+  .titulo { font-size: 1.2rem; }
+}</b></code></pre>
+      <p>
+        Nombrar el contenedor no cambia el comportamiento acá (solo hay un
+        nivel), pero es buena práctica en proyectos reales donde puede
+        haber contenedores anidados y necesitás ser explícito sobre a cuál
+        te referís.
+      </p>
+    </details>
+  </section>
+
+  <footer class="ficha-footer">
+    Referencia:
+    <a href="https://developer.mozilla.org/es/docs/Web/CSS/CSS_containment/Container_queries" target="_blank" rel="noopener">
+      Container Queries en MDN
+    </a>
+  </footer>
+
+</article>
+<script src="editor.js" defer></script>
 </body>
 </html>

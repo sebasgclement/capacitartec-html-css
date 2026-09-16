@@ -1,51 +1,199 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Media Queries</title>
-<style>
-  :root { --bg:#0b0e14; --fg:#eef1f8; --muted:#9aa4b2; --brand:#41b883; }
-  body { margin:0; font:16px/1.5 system-ui,Segoe UI,Roboto; color:var(--fg); background:var(--bg); }
-  .wrap { max-width: 1000px; margin:auto; padding:24px; }
-  .grid { display:grid; gap:16px; grid-template-columns: 1fr; }
-  .card { background:#121726; border:1px solid #1f2741; border-radius:14px; padding:16px; }
-  .box { background:#0f1322; padding:20px; border-radius:10px; text-align:center; font-weight:600; }
-  /* Breakpoints móviles-first */
-  @media (min-width: 600px) {
-    .grid { grid-template-columns: repeat(2,1fr); }
-  }
-  @media (min-width: 900px) {
-    .grid { grid-template-columns: repeat(3,1fr); }
-  }
-  /* Modo oscuro/claro del sistema */
-  @media (prefers-color-scheme: light) {
-    :root { --bg:#f6f7fb; --fg:#10131a; --muted:#4a5568; }
-    .card { background:#ffffff; border-color:#e4e7ee; }
-    .box { background:#eef1f8; }
-  }
-  /* Reduce motion: desactivar animaciones potentes si el usuario lo pide */
-  @media (prefers-reduced-motion: reduce) {
-    * { animation: none !important; transition: none !important; }
-  }
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Media Queries</title>
+  <link rel="stylesheet" href="theme.css" />
 </head>
 <body>
-  <div class="wrap">
-    <h1>Media Queries</h1>
-    <p>Ejemplo clásico de columnas que crecen con <code>min-width</code> + preferencias del usuario (color y movimiento).</p>
+<article class="ficha">
 
-    <div class="card">
-      <h2>Grid responsivo</h2>
-      <div class="grid">
-        <div class="box">Item 1</div>
-        <div class="box">Item 2</div>
-        <div class="box">Item 3</div>
-        <div class="box">Item 4</div>
-        <div class="box">Item 5</div>
-        <div class="box">Item 6</div>
+  <header class="ficha-header">
+    <p class="ficha-modulo">Responsive Design · Tema 4 de 8</p>
+    <h1>Media Queries</h1>
+    <p class="ficha-resumen">
+      La herramienta central del responsive design: aplicar CSS distinto
+      según el tamaño de pantalla, o según las preferencias del sistema
+      de quien te visita.
+    </p>
+  </header>
+
+  <section class="bloque bloque-problema">
+    <h2>¿Qué problema resuelve?</h2>
+    <p>
+      Un layout de 3 columnas se ve perfecto en un monitor, pero en un
+      celular esas columnas quedan de 100px de ancho, ilegibles. El CSS
+      normal no tiene forma de decir <em>"esta regla solo aplica si la
+      pantalla mide tanto"</em> — para eso están las media queries.
+    </p>
+    <p>
+      Además de tamaño de pantalla, las media queries también leen
+      <strong>preferencias del sistema operativo</strong>: si la persona
+      activó modo oscuro, o si pidió reducir las animaciones. Es
+      "responsive" en un sentido más amplio que solo el ancho de pantalla.
+    </p>
+  </section>
+
+  <section class="bloque bloque-sintaxis">
+    <h2>Sintaxis mínima</h2>
+<pre><code>.grid { grid-template-columns: 1fr; }
+
+<b>@media (min-width: 600px) {</b>
+  .grid { grid-template-columns: repeat(2, 1fr); }
+<b>}</b>
+<b>@media (min-width: 900px) {</b>
+  .grid { grid-template-columns: repeat(3, 1fr); }
+<b>}</b></code></pre>
+    <p>
+      <code>min-width</code> se lee <em>"a partir de este ancho"</em> — es
+      la base del enfoque <strong>mobile first</strong> (próximo tema): se
+      empieza con el estilo para pantallas chicas, y cada media query
+      agrega mejoras a medida que hay más espacio.
+    </p>
+    <p>Preferencias del sistema, sin ningún ancho de por medio:</p>
+<pre><code><b>@media (prefers-color-scheme: dark)</b> { /* la persona usa modo oscuro */ }
+<b>@media (prefers-reduced-motion: reduce)</b> { /* pidió menos movimiento */ }</code></pre>
+  </section>
+
+  <section class="bloque bloque-demo">
+    <h2>Probalo vos</h2>
+    <div class="editor" data-editor>
+      <div class="editor-panel">
+        <div class="editor-barra">
+          <span>HTML + CSS</span>
+          <button type="button" class="editor-reset" data-editor-reset>Reiniciar</button>
+        </div>
+        <textarea spellcheck="false" aria-label="Código editable">
+          <style>
+            body { margin: 0; font: 14px system-ui; padding: 16px; background: #0b1020; color: #e5e7eb; }
+            .grid { display: grid; gap: 12px; grid-template-columns: 1fr; }
+            .box { background: #0f172a; padding: 20px; border-radius: 10px; text-align: center; font-weight: 600; }
+
+            @media (min-width: 500px) {
+              .grid { grid-template-columns: repeat(2, 1fr); }
+            }
+            @media (min-width: 800px) {
+              .grid { grid-template-columns: repeat(3, 1fr); }
+            }
+
+            @media (prefers-color-scheme: light) {
+              body { background: #f6f7fb; color: #10131a; }
+              .box { background: #e4e7ee; }
+            }
+          </style>
+
+          <p>Achicá o agrandá el panel de resultado si podés. Este texto sale de la grilla.</p>
+          <div class="grid">
+            <div class="box">1</div>
+            <div class="box">2</div>
+            <div class="box">3</div>
+            <div class="box">4</div>
+            <div class="box">5</div>
+            <div class="box">6</div>
+          </div>
+        </textarea>
+      </div>
+      <div class="editor-panel">
+        <div class="editor-barra"><span>Resultado</span></div>
+        <iframe title="Vista previa del ejemplo"></iframe>
       </div>
     </div>
-  </div>
+    <p class="editor-ayuda">
+      Cambiá los valores de <code>min-width</code> y mirá el punto exacto
+      donde saltan las columnas. Si tu sistema está en modo claro, esta
+      demo ya se ve distinta al resto de la página (que fuerza fondo oscuro)
+      — esa es la media query <code>prefers-color-scheme</code> en acción.
+    </p>
+  </section>
+
+  <section class="bloque bloque-errores">
+    <h2>Errores comunes</h2>
+    <ul class="errores">
+      <li>
+        <strong>Mezclar <code>min-width</code> y <code>max-width</code> para el mismo breakpoint</strong>
+        Usar las dos estrategias a la vez (algunas reglas "a partir de" y
+        otras "hasta") en el mismo proyecto genera reglas que se pisan y
+        breakpoints difíciles de rastrear. Elegí una — normalmente
+        <code>min-width</code> (mobile first) — y sostenela.
+      </li>
+      <li>
+        <strong>Breakpoints "mágicos" sin relación con el contenido</strong>
+        320px, 768px, 1024px son números de dispositivos específicos que
+        cambian todo el tiempo. Es mejor elegir el breakpoint en el punto
+        exacto donde <em>tu diseño</em> empieza a verse mal, sea cual sea
+        ese número.
+      </li>
+      <li>
+        <strong>No probar los estados intermedios</strong>
+        Un layout puede verse bien a 400px y a 1200px, pero raro a 700px.
+        Conviene arrastrar el borde de la ventana (o el modo responsive del
+        navegador) en vez de solo mirar 2-3 anchos fijos.
+      </li>
+      <li>
+        <strong>Ignorar <code>prefers-reduced-motion</code></strong>
+        Es una media query, no una propiedad exótica — se usa exactamente
+        igual que las de ancho. No incluirla en un proyecto con animaciones
+        es un descuido de accesibilidad fácil de evitar.
+      </li>
+    </ul>
+  </section>
+
+  <section class="bloque bloque-cuando">
+    <h2>Cuándo NO usarlo</h2>
+    <div class="comparacion">
+      <div class="si">
+        <h3>✔ Media queries</h3>
+        <p>
+          Cuando el layout general de la <em>página</em> tiene que cambiar
+          según el ancho de la ventana o las preferencias del sistema.
+        </p>
+      </div>
+      <div class="no">
+        <h3>✘ Container queries</h3>
+        <p>
+          Cuando lo que tiene que reaccionar es un <em>componente
+          reutilizable</em> (una tarjeta, un widget) según el espacio que
+          le toca en su contenedor, no el de toda la pantalla. Es el
+          último tema del módulo.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="bloque bloque-ejercicio">
+    <h2>Mini-ejercicio</h2>
+    <div class="consigna">
+      <p>Sobre el editor de arriba:</p>
+      <ol>
+        <li>Agregá una media query <code>(min-width: 1100px)</code> que pase la grilla a 4 columnas.</li>
+        <li>Sumá <code>@media (prefers-reduced-motion: reduce)</code> que anule cualquier <code>transition</code> que agregues a <code>.box:hover</code>.</li>
+      </ol>
+    </div>
+
+    <details class="solucion">
+      <summary>Ver solución</summary>
+<pre><code>@media (min-width: 1100px) {
+  .grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+.box { transition: transform .2s ease; }
+.box:hover { transform: translateY(-4px); }
+
+<b>@media (prefers-reduced-motion: reduce) {
+  .box { transition: none; }
+}</b></code></pre>
+    </details>
+  </section>
+
+  <footer class="ficha-footer">
+    Referencia:
+    <a href="https://developer.mozilla.org/es/docs/Web/CSS/CSS_media_queries/Using_media_queries" target="_blank" rel="noopener">
+      Media Queries en MDN
+    </a>
+  </footer>
+
+</article>
+<script src="editor.js" defer></script>
 </body>
 </html>

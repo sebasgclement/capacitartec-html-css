@@ -3,96 +3,127 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Resumen - Responsive Design</title>
+<title>Resumen — Responsive Design</title>
 <style>
   :root {
     --bg:#0b0e14; --fg:#eef1f8; --muted:#9aa4b2;
-    --brand:#ff5f45; --chip-bg:#121726; --chip-fg:#fff;
+    --brand:#ff5f45; --chip-bg:#121726; --chip-fg:#fff; --b:#1f2741;
   }
-  body { margin:0; font:16px/1.5 system-ui,Segoe UI,Roboto;
-         color:var(--fg); background:var(--bg); }
-  .wrap { max-width: 900px; margin:auto; padding:24px; }
+  * { box-sizing: border-box; }
+  body { margin:0; font:16px/1.5 system-ui, Segoe UI, Roboto; color:var(--fg); background:var(--bg); }
+  .wrap { max-width: 1000px; margin:auto; padding:24px; }
   h1 { margin-top:0; }
-  p { color:var(--muted); margin-bottom:16px; }
-  
-  /* Estilo para los chips de código */
-  .chips { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:24px; }
+  p  { color:var(--muted); margin-bottom:16px; }
+
+  .chips { display:flex; flex-wrap:wrap; gap:8px; margin: 8px 0 24px; }
   .chip {
     background:var(--chip-bg); color:var(--chip-fg);
-    border:1px solid #1f2741; border-radius:999px;
-    padding:6px 12px; font-size:0.9rem;
-    white-space:nowrap;
+    border:1px solid var(--b); border-radius:999px;
+    padding:6px 12px; font-size:0.9rem; white-space:nowrap;
   }
-  
-  /* Listas de resumen */
+
   .resumen {
-    background:#121726; border:1px solid #1f2741;
-    border-radius:14px; padding:16px;
-    margin-bottom:20px;
+    background:#121726; border:1px solid var(--b);
+    border-radius:14px; padding:16px; margin-bottom:18px;
   }
-  .resumen h2 {
-    margin:0 0 12px; font-size:1.1rem; color:var(--brand);
-  }
+  .resumen h2 { margin:0 0 10px; font-size:1.05rem; color:var(--brand); }
   ul { margin:0; padding-left:20px; }
   li { margin-bottom:6px; }
-  code {
-    background:#0f1322; padding:2px 6px;
-    border-radius:6px; font-size:0.9rem;
-  }
+  code { background:#0f1322; padding:2px 6px; border-radius:6px; font-size:0.9rem; }
+
+  pre { margin:0; overflow:auto; background:#0f1322; border:1px solid var(--b); border-radius:10px; padding:12px; }
 </style>
 </head>
 <body>
 <div class="wrap">
   <h1>Resumen — Responsive Design</h1>
-  <p>Lista de selectores, propiedades y elementos clave usados en los ejemplos de esta sección.</p>
-  
-  <!-- Chips rápidos -->
+  <p>Media queries, imágenes adaptables, mobile first y container queries: los ocho temas del módulo, en una sola hoja.</p>
+
   <div class="chips">
-    <div class="chip">@media</div>
-    <div class="chip>@supports</div>
-    <div class="chip>aspect-ratio</div>
-    <div class="chip>srcset / sizes</div>
-    <div class="chip>&lt;picture&gt; / &lt;source&gt;</div>
-    <div class="chip>Mobile First</div>
-    <div class="chip>Container Queries</div>
+    <div class="chip">max-width / height:auto</div>
+    <div class="chip">aspect-ratio</div>
+    <div class="chip">srcset / sizes</div>
+    <div class="chip">&lt;picture&gt; / &lt;source&gt;</div>
+    <div class="chip">@media (min-width)</div>
+    <div class="chip">prefers-color-scheme</div>
+    <div class="chip">prefers-reduced-motion</div>
+    <div class="chip">grid-template-areas</div>
+    <div class="chip">Mobile First</div>
+    <div class="chip">@supports</div>
+    <div class="chip">container-type</div>
+    <div class="chip">@container</div>
   </div>
 
-  <!-- Bloque 1 -->
+  <!-- Imágenes y multimedia -->
   <div class="resumen">
-    <h2>Selectores</h2>
+    <h2>Imágenes y multimedia fluida</h2>
     <ul>
-      <li><code>img.resp</code> — imágenes fluidas.</li>
-      <li><code>.ratio iframe</code> — video responsivo.</li>
-      <li><code>@media (min-width: ...)</code> — media queries móviles-first.</li>
-      <li><code>@container (min-width: ...)</code> — container queries.</li>
+      <li><code>img { max-width: 100%; height: auto; }</code> — nunca desborda, mantiene proporción.</li>
+      <li><code>.contenedor { aspect-ratio: 16 / 9; }</code> — reserva espacio para video/iframe antes de que carguen.</li>
+      <li><code>srcset="foto-480.jpg 480w, foto-1200.jpg 1200w"</code> + <code>sizes="(max-width:600px) 90vw, 600px"</code> — el navegador elige la variante más liviana que alcanza.</li>
+      <li><code>&lt;picture&gt;&lt;source media="..."&gt;&lt;source type="..."&gt;&lt;img&gt;&lt;/picture&gt;</code> — recorte distinto (art direction) o formato con fallback.</li>
     </ul>
   </div>
 
-  <!-- Bloque 2 -->
+  <!-- Media queries -->
   <div class="resumen">
-    <h2>Propiedades CSS</h2>
+    <h2>Media queries</h2>
     <ul>
-      <li><code>max-width</code>, <code>height:auto</code></li>
-      <li><code>aspect-ratio</code></li>
-      <li><code>grid-template-columns</code></li>
-      <li><code>flex-wrap</code></li>
-      <li><code>object-fit</code></li>
-      <li><code>border-radius</code></li>
+      <li><code>@media (min-width: 600px) { ... }</code> — mobile first: agregar, nunca corregir.</li>
+      <li><code>@media (prefers-color-scheme: dark|light)</code> — preferencia de tema del sistema.</li>
+      <li><code>@media (prefers-reduced-motion: reduce)</code> — desactivar animaciones si la persona lo pidió.</li>
+      <li>Evitar mezclar <code>min-width</code> y <code>max-width</code> para el mismo breakpoint en un mismo proyecto.</li>
+    </ul>
+    <p class="hint" style="color:var(--muted); margin-top:10px">Patrón mobile-first:</p>
+<pre><code>.grid { grid-template-columns: 1fr; }              /* base: celular */
+@media (min-width: 600px) { .grid { grid-template-columns: repeat(2,1fr); } }
+@media (min-width: 900px) { .grid { grid-template-columns: repeat(3,1fr); } }</code></pre>
+  </div>
+
+  <!-- Layouts responsive -->
+  <div class="resumen">
+    <h2>Layouts que se reordenan (Holy Grail)</h2>
+    <ul>
+      <li>Base (sin media query): <code>grid-template-areas</code> apilado en una sola columna.</li>
+      <li>A partir de un breakpoint: se redibuja el mismo <code>grid-template-areas</code> con más columnas.</li>
+      <li>El orden del HTML debe seguir siendo lógico para navegación por teclado en cualquiera de los dos casos.</li>
     </ul>
   </div>
 
-  <!-- Bloque 3 -->
+  <!-- Feature queries -->
   <div class="resumen">
-    <h2>Elementos HTML</h2>
+    <h2>Feature queries (@supports)</h2>
     <ul>
-      <li><code>&lt;img&gt;</code></li>
-      <li><code>&lt;picture&gt;</code></li>
-      <li><code>&lt;source&gt;</code></li>
-      <li><code>&lt;video&gt;</code></li>
-      <li><code>&lt;iframe&gt;</code></li>
+      <li><code>@supports (display: grid) { ... }</code> — aplica una mejora solo si el navegador la soporta.</li>
+      <li><code>@supports not (...)</code>, <code>and</code>, <code>or</code> — se combinan como en las media queries.</li>
+      <li>Siempre necesita una base funcional por fuera del <code>@supports</code>: es para sumar, no para ser la única fuente de estilos.</li>
+      <li><code>CSS.supports("display", "grid")</code> — la misma pregunta, pero desde JavaScript.</li>
     </ul>
   </div>
 
+  <!-- Container queries -->
+  <div class="resumen">
+    <h2>Container queries</h2>
+    <ul>
+      <li><code>.wrap { container-type: inline-size; }</code> — declara el ancestro que se va a medir.</li>
+      <li><code>@container (min-width: 380px) { ... }</code> — reacciona al ancho del contenedor, no del viewport.</li>
+      <li><code>container-name</code> — para apuntar a un contenedor específico si hay varios anidados.</li>
+      <li>Media query = pantalla completa. Container query = el espacio real del componente.</li>
+    </ul>
+  </div>
+
+  <!-- Cheat express -->
+  <div class="resumen">
+    <h2>Cheat express: ¿cuál uso?</h2>
+    <ul>
+      <li><span class="chip">Imagen que se achica</span> → <code>max-width: 100%; height: auto;</code></li>
+      <li><span class="chip">Misma foto, distinto peso</span> → <code>srcset</code> + <code>sizes</code></li>
+      <li><span class="chip">Recorte distinto según pantalla</span> → <code>&lt;picture&gt;</code></li>
+      <li><span class="chip">Layout de toda la página</span> → <code>@media</code></li>
+      <li><span class="chip">Un componente reutilizable</span> → <code>@container</code></li>
+      <li><span class="chip">CSS muy nuevo, con fallback</span> → <code>@supports</code></li>
+    </ul>
+  </div>
 </div>
 </body>
 </html>

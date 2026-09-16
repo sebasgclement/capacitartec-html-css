@@ -1,46 +1,208 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Mobile First</title>
-<style>
-  :root { --bg:#0b0e14; --fg:#eef1f8; --muted:#9aa4b2; --brand:#2962ff; }
-  body { margin:0; font:16px/1.6 system-ui,Segoe UI,Roboto; color:var(--fg); background:var(--bg); }
-  .wrap { max-width: 1100px; margin:auto; padding:24px; }
-  .hero { padding:24px; background:#121726; border:1px solid #1f2741; border-radius:14px; }
-  .grid { display:grid; gap:12px; grid-template-columns: 1fr; margin-top:16px; }
-  .card { background:#0f1322; border-radius:12px; padding:16px; }
-  .cta { display:block; margin-top:12px; background:var(--brand); color:white; border:none; padding:12px 16px; border-radius:10px; font-weight:600; text-align:center; }
-  /* Mejoras progresivas a medida que crece el viewport */
-  @media (min-width: 600px) {
-    .grid { grid-template-columns: repeat(2, 1fr); }
-  }
-  @media (min-width: 900px) {
-    .grid { grid-template-columns: repeat(3, 1fr); }
-    .hero { display:flex; align-items:center; justify-content:space-between; gap:20px; }
-    .cta { width:max-content; }
-  }
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Mobile First</title>
+  <link rel="stylesheet" href="theme.css" />
 </head>
 <body>
-  <div class="wrap">
-    <section class="hero">
-      <div>
-        <h1>Estrategia Mobile First</h1>
-        <p>Comienza con estilos para móvil y agrega <em>enhancements</em> con <code>min-width</code>.</p>
-      </div>
-      <a class="cta" href="#">Call to Action</a>
-    </section>
+<article class="ficha">
 
-    <div class="grid">
-      <article class="card">Bloque 1</article>
-      <article class="card">Bloque 2</article>
-      <article class="card">Bloque 3</article>
-      <article class="card">Bloque 4</article>
-      <article class="card">Bloque 5</article>
-      <article class="card">Bloque 6</article>
+  <header class="ficha-header">
+    <p class="ficha-modulo">Responsive Design · Tema 6 de 8</p>
+    <h1>Mobile First</h1>
+    <p class="ficha-resumen">
+      No es una técnica nueva de CSS: es un orden de trabajo. Empezar por
+      el celular cambia cómo se escriben las media queries — y para mejor.
+    </p>
+  </header>
+
+  <section class="bloque bloque-problema">
+    <h2>¿Qué problema resuelve?</h2>
+    <p>
+      Diseñar primero para escritorio y después "achicar para celular" con
+      <code>@media (max-width: ...)</code> suena razonable, pero en la
+      práctica genera un problema: cada regla de escritorio tiene que ser
+      <strong>anulada</strong> más abajo en el CSS para que el celular se
+      vea bien. El código crece en las dos direcciones y las
+      especificidades empiezan a pelear entre sí.
+    </p>
+    <p>
+      <strong>Mobile first</strong> da vuelta el orden: el CSS base (sin
+      ninguna media query) es el de la pantalla más chica. Cada
+      <code>@media (min-width: ...)</code> que sigue no anula nada, solo
+      <strong>agrega</strong> mejoras a medida que hay más espacio
+      disponible. Es la misma sintaxis de <code>min-width</code> que ya
+      viste, pero con esta disciplina de "agregar, no corregir".
+    </p>
+  </section>
+
+  <section class="bloque bloque-sintaxis">
+    <h2>Sintaxis mínima</h2>
+<pre><code>/* Base: se aplica siempre, pensado para el celular */
+.hero { padding: 16px; }
+.grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
+
+/* Mejora progresiva a partir de 600px */
+<b>@media (min-width: 600px) {</b>
+  .grid { grid-template-columns: repeat(2, 1fr); }
+<b>}</b>
+
+/* Otra mejora a partir de 900px */
+<b>@media (min-width: 900px) {</b>
+  .grid { grid-template-columns: repeat(3, 1fr); }
+  .hero { display: flex; align-items: center; justify-content: space-between; }
+<b>}</b></code></pre>
+    <p>
+      Notá que ninguna regla dentro de una media query <em>revierte</em>
+      algo de la base — solo suma comportamiento nuevo. Esa es la señal de
+      que el enfoque mobile-first está bien aplicado.
+    </p>
+  </section>
+
+  <section class="bloque bloque-demo">
+    <h2>Probalo vos</h2>
+    <div class="editor" data-editor>
+      <div class="editor-panel">
+        <div class="editor-barra">
+          <span>HTML + CSS</span>
+          <button type="button" class="editor-reset" data-editor-reset>Reiniciar</button>
+        </div>
+        <textarea spellcheck="false" aria-label="Código editable">
+          <style>
+            body { margin: 0; font: 14px system-ui; padding: 16px; background: #0b1020; color: #e5e7eb; }
+
+            .hero {
+              padding: 20px;
+              background: #0f172a;
+              border-radius: 14px;
+            }
+            .cta {
+              display: block;
+              margin-top: 12px;
+              background: #264de4;
+              color: white;
+              border: none;
+              padding: 10px 16px;
+              border-radius: 10px;
+              font-weight: 600;
+              text-align: center;
+            }
+            .grid {
+              display: grid;
+              gap: 10px;
+              grid-template-columns: 1fr;
+              margin-top: 14px;
+            }
+            .card { background: #111827; border-radius: 10px; padding: 14px; }
+
+            @media (min-width: 500px) {
+              .grid { grid-template-columns: repeat(2, 1fr); }
+            }
+            @media (min-width: 800px) {
+              .grid { grid-template-columns: repeat(3, 1fr); }
+              .hero { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+              .cta { width: max-content; margin-top: 0; }
+            }
+          </style>
+
+          <section class="hero">
+            <div>
+              <h1>Estrategia Mobile First</h1>
+              <p>Base para celular, mejoras con min-width.</p>
+            </div>
+            <a class="cta" href="#" onclick="event.preventDefault()">Empezar</a>
+          </section>
+
+          <div class="grid">
+            <article class="card">Bloque 1</article>
+            <article class="card">Bloque 2</article>
+            <article class="card">Bloque 3</article>
+          </div>
+        </textarea>
+      </div>
+      <div class="editor-panel">
+        <div class="editor-barra"><span>Resultado</span></div>
+        <iframe title="Vista previa del ejemplo"></iframe>
+      </div>
     </div>
-  </div>
+    <p class="editor-ayuda">
+      Notá que la regla base (sin media query) ya es un layout completo y
+      usable de una sola columna. Las media queries solo agregan: más
+      columnas, y a los 800px el hero pasa a ser una fila. Nada se corrige,
+      todo se suma.
+    </p>
+  </section>
+
+  <section class="bloque bloque-errores">
+    <h2>Errores comunes</h2>
+    <ul class="errores">
+      <li>
+        <strong>Escribir el CSS de escritorio primero "por costumbre"</strong>
+        Es fácil recaer en <code>max-width</code> porque es como se enseñaba
+        antes. La pregunta que ayuda a decidir: "¿esta regla es la base
+        universal, o es una mejora que solo tiene sentido con más espacio?"
+      </li>
+      <li>
+        <strong>Anular en vez de agregar</strong>
+        Si dentro de un <code>@media (min-width: ...)</code> estás
+        escribiendo <code>display: block !important</code> para deshacer
+        algo del <code>flex</code> de la base, es señal de que el orden se
+        invirtió en algún punto.
+      </li>
+      <li>
+        <strong>Cargar recursos pesados "porque total en desktop hay ancho de banda"</strong>
+        Mobile first también aplica al peso: si la base carga una imagen
+        gigante pensando en escritorio, todos los celulares la bajan
+        igual, aunque nunca la muestren tan grande. Repasá el tema de
+        <code>srcset</code>.
+      </li>
+    </ul>
+  </section>
+
+  <section class="bloque bloque-cuando">
+    <h2>Cuándo NO usarlo</h2>
+    <div class="comparacion">
+      <div class="si">
+        <h3>✔ Mobile first</h3>
+        <p>
+          Casi cualquier sitio o app nueva. La mayoría del tráfico web
+          global es móvil, y el enfoque produce CSS más simple de
+          mantener.
+        </p>
+      </div>
+      <div class="no">
+        <h3>✘ Desktop first (excepción)</h3>
+        <p>
+          Herramientas internas de uso exclusivo en escritorio (paneles de
+          administración muy densos en datos, por ejemplo), donde el uso
+          en celular directamente no está contemplado.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="bloque bloque-ejercicio">
+    <h2>Mini-ejercicio</h2>
+    <div class="consigna">
+      <p>Sobre el editor de arriba:</p>
+      <ol>
+        <li>Agregá un cuarto <code>.card</code> a la grilla.</li>
+        <li>Sumá una media query <code>(min-width: 1100px)</code> que lleve la grilla a 4 columnas.</li>
+        <li>Verificá que ninguna de tus reglas nuevas "corrija" algo de la base, solo que agregue.</li>
+      </ol>
+    </div>
+  </section>
+
+  <footer class="ficha-footer">
+    Referencia:
+    <a href="https://developer.mozilla.org/es/docs/Glossary/Mobile_First" target="_blank" rel="noopener">
+      Mobile First en MDN
+    </a>
+  </footer>
+
+</article>
+<script src="editor.js" defer></script>
 </body>
 </html>

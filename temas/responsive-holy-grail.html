@@ -1,61 +1,246 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Ejercicio Holy Grail</title>
-<style>
-  :root { --bg:#0b0e14; --fg:#eef1f8; --muted:#9aa4b2; --accent:#ff5f45; }
-  * { box-sizing: border-box; }
-  body { margin:0; font:16px/1.5 system-ui,Segoe UI,Roboto; color:var(--fg); background:var(--bg); }
-  header, footer, nav, main, aside { padding:16px; }
-  header, footer { background:#121726; border-block:1px solid #1f2741; }
-  nav { background:#101426; border-right:1px solid #1f2741; }
-  aside { background:#101426; border-left:1px solid #1f2741; }
-  main { background:#0f1322; }
-  .wrap { min-height:100dvh; display:grid; grid-template-rows: auto 1fr auto; }
-  .layout { display:grid; grid-template-columns: 1fr; }
-  /* Escritorio: 3 columnas. Holy Grail: nav | main | aside */
-  @media (min-width: 900px) {
-    .layout {
-      grid-template-columns: 220px 1fr 260px;
-      grid-template-areas: "nav main aside";
-    }
-    nav { grid-area: nav; }
-    main { grid-area: main; }
-    aside { grid-area: aside; }
-  }
-  /* Móvil: nav arriba, aside abajo, main al medio */
-  @media (max-width: 899px) {
-    .layout { gap:12px; }
-  }
-  ul { margin:0; padding-left:18px; }
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Ejercicio "Holy Grail"</title>
+  <link rel="stylesheet" href="theme.css" />
 </head>
 <body>
-  <div class="wrap">
-    <header><strong>Header</strong> — Sitio Demo</header>
+<article class="ficha">
 
-    <div class="layout">
-      <nav>
-        <strong>Navegación</strong>
-        <ul>
-          <li>Inicio</li><li>Artículos</li><li>Contacto</li>
-        </ul>
-      </nav>
+  <header class="ficha-header">
+    <p class="ficha-modulo">Responsive Design · Tema 5 de 8</p>
+    <h1>Ejercicio "Holy Grail"</h1>
+    <p class="ficha-resumen">
+      El layout más clásico de la web (header, nav, contenido, aside y
+      footer) armado para que se reordene solo en pantallas chicas.
+    </p>
+  </header>
 
-      <main>
-        <h1>Contenido principal</h1>
-        <p>En pantallas grandes verás tres columnas; en móvil, todo se apila.</p>
-      </main>
+  <section class="bloque bloque-problema">
+    <h2>¿Qué problema resuelve?</h2>
+    <p>
+      Se llama "Holy Grail" (santo grial) porque durante años fue
+      sorprendentemente difícil de lograr bien con las herramientas viejas
+      de CSS: 3 columnas donde la del medio ocupa el espacio flexible, con
+      header y footer de ancho completo arriba y abajo.
+    </p>
+    <p>
+      Con Grid (que ya viste) el layout de escritorio es simple. Lo que
+      hace <strong>responsive</strong> a este ejercicio es la parte que
+      falta en la mayoría de los tutoriales: qué pasa con esas 3 columnas
+      en un celular, donde simplemente no entran una al lado de la otra.
+      La respuesta es <code>grid-template-areas</code> distinto dentro de
+      una media query — el mismo layout, reordenado.
+    </p>
+  </section>
 
-      <aside>
-        <strong>Aside</strong>
-        <p>Contenido extra / publicidad / links.</p>
-      </aside>
+  <section class="bloque bloque-sintaxis">
+    <h2>Sintaxis mínima</h2>
+<pre><code>.layout {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  <b>grid-template-areas:
+    "header"
+    "main"
+    "footer";</b>
+}
+
+<b>@media (min-width: 900px) {</b>
+  .layout {
+    grid-template-columns: 200px 1fr 220px;
+    <b>grid-template-areas:
+      "header header header"
+      "nav    main   aside"
+      "footer footer footer";</b>
+  }
+<b>}</b>
+
+nav    { grid-area: nav; }
+main   { grid-area: main; }
+aside  { grid-area: aside; }
+header { grid-area: header; }
+footer { grid-area: footer; }</code></pre>
+    <p>
+      La base (sin media query) es mobile-first: todo apilado en una sola
+      columna. A partir de 900px, se redibuja el mismo
+      <code>grid-template-areas</code> con 3 columnas — exactamente la
+      técnica que viste en la ficha de "Creando una página web" de Grid,
+      ahora explícitamente pensada mobile-first.
+    </p>
+  </section>
+
+  <section class="bloque bloque-demo">
+    <h2>Probalo vos</h2>
+    <div class="editor" data-editor>
+      <div class="editor-panel">
+        <div class="editor-barra">
+          <span>HTML + CSS</span>
+          <button type="button" class="editor-reset" data-editor-reset>Reiniciar</button>
+        </div>
+        <textarea spellcheck="false" aria-label="Código editable">
+          <style>
+            * { box-sizing: border-box; }
+            body { margin: 0; font: 13px system-ui; color: #e5e7eb; background: #0b0e14; }
+            header, footer, nav, main, aside { padding: 12px; }
+            header, footer { background: #121726; }
+            nav { background: #101426; }
+            aside { background: #101426; }
+            main { background: #0f1322; }
+
+            .layout {
+              min-height: 100vh;
+              display: grid;
+              grid-template-rows: auto auto 1fr auto;
+              gap: 8px;
+              grid-template-areas:
+                "header"
+                "nav"
+                "main"
+                "footer";
+            }
+
+            @media (min-width: 560px) {
+              .layout {
+                grid-template-rows: auto 1fr auto;
+                grid-template-columns: 140px 1fr 160px;
+                grid-template-areas:
+                  "header header header"
+                  "nav    main   aside"
+                  "footer footer footer";
+              }
+            }
+
+            header { grid-area: header; }
+            nav    { grid-area: nav; }
+            main   { grid-area: main; }
+            aside  { grid-area: aside; }
+            footer { grid-area: footer; }
+
+            nav ul, aside p { margin: 0; padding-left: 16px; }
+          </style>
+
+          <div class="layout">
+            <header><strong>Header</strong></header>
+            <nav>
+              <strong>Nav</strong>
+              <ul><li>Inicio</li><li>Artículos</li><li>Contacto</li></ul>
+            </nav>
+            <main>
+              <h1>Contenido principal</h1>
+              <p>En pantallas angostas todo se apila. A partir de 560px, aparecen las 3 columnas.</p>
+            </main>
+            <aside><strong>Aside</strong><p>Extra / links.</p></aside>
+            <footer><strong>Footer</strong></footer>
+          </div>
+        </textarea>
+      </div>
+      <div class="editor-panel">
+        <div class="editor-barra"><span>Resultado</span></div>
+        <iframe title="Vista previa del ejemplo"></iframe>
+      </div>
+    </div>
+    <p class="editor-ayuda">
+      El panel de resultado es angosto, así que ya estás viendo la versión
+      apilada. Bajá el breakpoint de <code>560px</code> a un número más
+      chico que el panel para ver el layout de 3 columnas, o abrí la ficha
+      en su propia pestaña y agrandá la ventana.
+    </p>
+  </section>
+
+  <section class="bloque bloque-errores">
+    <h2>Errores comunes</h2>
+    <ul class="errores">
+      <li>
+        <strong>Repetir <code>grid-template-columns</code> sin repetir <code>grid-template-areas</code></strong>
+        Cambiar solo las columnas dentro de la media query no alcanza si el
+        mapa de áreas de la base tiene una cantidad distinta de celdas —
+        las dos declaraciones tienen que ser consistentes entre sí en cada
+        breakpoint.
+      </li>
+      <li>
+        <strong>Elegir el breakpoint por el dispositivo en vez del contenido</strong>
+        900px no es un número mágico: es donde el <code>nav</code> y el
+        <code>aside</code> dejan de caber cómodos al lado del contenido
+        principal. Ajustá el breakpoint a tu contenido real, como viste en
+        el tema de Media Queries.
+      </li>
+      <li>
+        <strong>Olvidar <code>min-height</code> en el layout completo</strong>
+        Sin darle una altura mínima al contenedor general (por ejemplo
+        <code>100vh</code>), en una página con poco contenido el footer no
+        queda pegado abajo — el mismo problema que viste en el laboratorio
+        de CSS Grid.
+      </li>
+      <li>
+        <strong>Un orden de tabulación que no coincide con el visual</strong>
+        Reordenar visualmente con <code>grid-template-areas</code> no
+        cambia el orden del HTML. Si en móvil el <code>nav</code> queda
+        arriba del <code>main</code> mientras que en el HTML está después,
+        alguien navegando con teclado en desktop pasa primero por el
+        contenido y recién después por la navegación — revisá que el orden
+        del documento tenga sentido en los dos casos.
+      </li>
+    </ul>
+  </section>
+
+  <section class="bloque bloque-cuando">
+    <h2>Cuándo NO usarlo</h2>
+    <div class="comparacion">
+      <div class="si">
+        <h3>✔ Este patrón</h3>
+        <p>
+          El esqueleto de una página de contenido clásica: blogs, sitios
+          institucionales, dashboards con navegación lateral.
+        </p>
+      </div>
+      <div class="no">
+        <h3>✘ Layouts sin navegación lateral</h3>
+        <p>
+          Landing pages de una sola columna, o apps donde todo el contenido
+          es central sin sidebar — ahí el "Holy Grail" completo es más
+          estructura de la que hace falta.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="bloque bloque-ejercicio">
+    <h2>Mini-ejercicio</h2>
+    <div class="consigna">
+      <p>Sobre el editor de arriba:</p>
+      <ol>
+        <li>Agregá un breakpoint intermedio (por ejemplo 380px) donde el <code>nav</code> pase a mostrarse como una fila horizontal de links, en vez de una lista vertical, aunque el layout general siga apilado.</li>
+        <li>Achicá el <code>aside</code> a 130px de ancho en la versión de escritorio.</li>
+      </ol>
     </div>
 
-    <footer><strong>Footer</strong> — © Tu Curso</footer>
-  </div>
+    <details class="solucion">
+      <summary>Ver solución</summary>
+<pre><code>@media (min-width: 380px) {
+  nav ul { display: flex; gap: 12px; padding-left: 0; list-style: none; }
+}
+
+@media (min-width: 560px) {
+  .layout { grid-template-columns: 140px 1fr <b>130px</b>; }
+}</code></pre>
+      <p>
+        Fijate que agregaste un breakpoint que no coincide con el que ya
+        existía (560px): las media queries no tienen que ser todas iguales,
+        cada elemento puede tener el punto de quiebre que le sirva.
+      </p>
+    </details>
+  </section>
+
+  <footer class="ficha-footer">
+    Referencia:
+    <a href="https://developer.mozilla.org/es/docs/Web/CSS/CSS_grid_layout/Realizing_common_layouts_using_grids" target="_blank" rel="noopener">
+      Layouts habituales con Grid · MDN
+    </a>
+  </footer>
+
+</article>
+<script src="editor.js" defer></script>
 </body>
 </html>

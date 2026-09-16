@@ -1,34 +1,190 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Feature Queries (@supports)</title>
-<style>
-  :root { --bg:#0b0e14; --fg:#eef1f8; --muted:#9aa4b2; }
-  body { margin:0; font:16px/1.5 system-ui,Segoe UI,Roboto; color:var(--fg); background:var(--bg); }
-  .wrap { max-width: 1000px; margin:auto; padding:24px; }
-  .list { display:flex; flex-wrap:wrap; gap:12px; } /* Fallback flexible */
-  .item { background:#121726; border:1px solid #1f2741; border-radius:12px; padding:16px; flex:1 1 280px; }
-  /* Si el navegador soporta Grid, usar una grilla más precisa */
-  @supports (display: grid) {
-    .list { display:grid; grid-template-columns: repeat(auto-fill, minmax(240px,1fr)); }
-    .item { flex: initial; } /* se ignora en grid */
-  }
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Feature Queries</title>
+  <link rel="stylesheet" href="theme.css" />
 </head>
 <body>
-  <div class="wrap">
-    <h1>@supports (Feature Queries)</h1>
-    <p>Aplica mejoras solo si el navegador soporta cierta propiedad. Fallback: Flexbox.</p>
+<article class="ficha">
 
-    <div class="list">
-      <div class="item">Card A</div>
-      <div class="item">Card B</div>
-      <div class="item">Card C</div>
-      <div class="item">Card D</div>
-      <div class="item">Card E</div>
+  <header class="ficha-header">
+    <p class="ficha-modulo">Responsive Design · Tema 7 de 8</p>
+    <h1>Feature Queries</h1>
+    <p class="ficha-resumen">
+      Las media queries preguntan por el tamaño de pantalla. <code>@supports</code>
+      pregunta algo distinto: <em>"¿este navegador entiende esta propiedad de CSS?"</em>
+    </p>
+  </header>
+
+  <section class="bloque bloque-problema">
+    <h2>¿Qué problema resuelve?</h2>
+    <p>
+      Cuando usás una propiedad de CSS muy nueva, no todos los navegadores
+      la soportan todavía (o alguien en el aula tiene uno desactualizado).
+      Sin ningún control, el navegador viejo simplemente <strong>ignora</strong>
+      la propiedad que no entiende — a veces eso está bien, y a veces deja
+      el layout roto porque esa propiedad era la única que sostenía el
+      diseño.
+    </p>
+    <p>
+      <code>@supports</code> te deja preguntar por adelantado: "si el
+      navegador soporta tal propiedad con tal valor, aplicale este bloque
+      de reglas". Así podés dar un CSS base que funciona en cualquier
+      navegador, y <strong>sumar</strong> una mejora solo donde hay soporte
+      real — el mismo espíritu de "sumar, no corregir" del tema anterior.
+    </p>
+  </section>
+
+  <section class="bloque bloque-sintaxis">
+    <h2>Sintaxis mínima</h2>
+<pre><code>/* Base: funciona en cualquier navegador */
+.lista { display: flex; flex-wrap: wrap; gap: 12px; }
+.item { flex: 1 1 240px; }
+
+<b>@supports (display: grid) {</b>
+  .lista { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+<b>}</b></code></pre>
+    <p>Se puede combinar con <code>and</code>, <code>or</code> y <code>not</code>:</p>
+<pre><code>@supports (display: grid) and (gap: 1rem) { ... }
+@supports not (display: grid) { ... }             /* la negación: para el fallback explícito */
+@supports (display: flex) or (display: grid) { ... }</code></pre>
+    <p>
+      El valor importa, no solo la propiedad: <code>@supports (display: grid)</code>
+      pregunta específicamente por el valor <code>grid</code>, no por si la
+      propiedad <code>display</code> existe (existe en todos lados).
+    </p>
+  </section>
+
+  <section class="bloque bloque-demo">
+    <h2>Probalo vos</h2>
+    <div class="editor" data-editor>
+      <div class="editor-panel">
+        <div class="editor-barra">
+          <span>HTML + CSS</span>
+          <button type="button" class="editor-reset" data-editor-reset>Reiniciar</button>
+        </div>
+        <textarea spellcheck="false" aria-label="Código editable">
+          <style>
+            body { margin: 0; font: 14px system-ui; padding: 16px; background: #0b1020; color: #e5e7eb; }
+
+            /* Base: Flexbox, funciona en cualquier navegador */
+            .lista { display: flex; flex-wrap: wrap; gap: 12px; }
+            .item { flex: 1 1 200px; background: #0f172a; border-radius: 10px; padding: 16px; }
+
+            /* Mejora: si soporta Grid, usamos una grilla más precisa */
+            @supports (display: grid) {
+              .lista { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+              .item { flex: initial; }
+            }
+
+            .aviso { margin-bottom: 12px; padding: 10px; border-radius: 8px; background: #111827; font-size: 13px; }
+          </style>
+
+          <p class="aviso" id="aviso">calculando soporte…</p>
+
+          <div class="lista">
+            <div class="item">Tarjeta A</div>
+            <div class="item">Tarjeta B</div>
+            <div class="item">Tarjeta C</div>
+            <div class="item">Tarjeta D</div>
+            <div class="item">Tarjeta E</div>
+          </div>
+
+          <script>
+            document.getElementById("aviso").textContent = CSS.supports("display", "grid")
+              ? "✅ Tu navegador soporta Grid: se está usando la versión con @supports."
+              : "⚠️ Tu navegador no soporta Grid: se está usando el fallback de Flexbox.";
+          </script>
+        </textarea>
+      </div>
+      <div class="editor-panel">
+        <div class="editor-barra"><span>Resultado</span></div>
+        <iframe title="Vista previa del ejemplo"></iframe>
+      </div>
     </div>
-  </div>
+    <p class="editor-ayuda">
+      Hoy prácticamente todos los navegadores soportan Grid, así que vas a
+      ver la versión con <code>@supports</code>. Cambiá la condición a
+      <code>@supports (display: masonry)</code> (que casi ningún navegador
+      soporta todavía) para ver el fallback de Flexbox en acción.
+    </p>
+  </section>
+
+  <section class="bloque bloque-errores">
+    <h2>Errores comunes</h2>
+    <ul class="errores">
+      <li>
+        <strong>Usar @supports para propiedades que ya son universales</strong>
+        Envolver <code>flexbox</code> en un <code>@supports</code> hoy es
+        innecesario: lo soportan todos los navegadores relevantes desde
+        hace años. Reservalo para features realmente nuevas.
+      </li>
+      <li>
+        <strong>No escribir la base sin @supports</strong>
+        <code>@supports</code> es para <em>sumar</em> una mejora sobre una
+        base que ya funciona. Si el bloque con la mejora es el único CSS
+        que existe, un navegador sin soporte se queda sin estilos, no con
+        un fallback razonable.
+      </li>
+      <li>
+        <strong>Confundir @supports con @media</strong>
+        Son dos preguntas distintas: <code>@media</code> pregunta por el
+        entorno (tamaño de pantalla, preferencias), <code>@supports</code>
+        pregunta por las <em>capacidades del navegador</em>. Se pueden
+        anidar, pero no son intercambiables.
+      </li>
+      <li>
+        <strong>Poner un valor inválido en la condición</strong>
+        <code>@supports (display: bloque)</code> (con un valor que no
+        existe) siempre da falso, silenciosamente. Si el bloque nunca se
+        aplica, revisá que la propiedad y el valor estén bien escritos.
+      </li>
+    </ul>
+  </section>
+
+  <section class="bloque bloque-cuando">
+    <h2>Cuándo NO usarlo</h2>
+    <div class="comparacion">
+      <div class="si">
+        <h3>✔ @supports</h3>
+        <p>
+          Features de CSS muy nuevas (como <code>subgrid</code> o
+          <code>animation-timeline</code>, que ya viste) donde te interesa
+          dar un fallback razonable a navegadores viejos.
+        </p>
+      </div>
+      <div class="no">
+        <h3>✘ Sin @supports</h3>
+        <p>
+          Para features con soporte universal desde hace tiempo (flexbox,
+          grid básico, variables CSS). Envolver todo "por las dudas" es
+          ruido innecesario.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="bloque bloque-ejercicio">
+    <h2>Mini-ejercicio</h2>
+    <div class="consigna">
+      <p>Sobre el editor de arriba:</p>
+      <ol>
+        <li>Agregá un <code>@supports</code> separado que aplique <code>gap</code> a la versión Flexbox del fallback (algunos navegadores muy viejos no soportaban <code>gap</code> en Flexbox).</li>
+        <li>Probá <code>@supports not (display: grid)</code> para escribir el caso "sin soporte" de forma explícita, en vez de depender del orden del CSS.</li>
+      </ol>
+    </div>
+  </section>
+
+  <footer class="ficha-footer">
+    Referencia:
+    <a href="https://developer.mozilla.org/es/docs/Web/CSS/@supports" target="_blank" rel="noopener">
+      @supports en MDN
+    </a>
+  </footer>
+
+</article>
+<script src="editor.js" defer></script>
 </body>
 </html>
