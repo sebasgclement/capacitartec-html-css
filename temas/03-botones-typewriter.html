@@ -1,68 +1,244 @@
-<!-- /temas/animaciones/03-botones-typewriter.html -->
-<!doctype html><html lang="es"><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Botones animados + Typewriter</title>
-<style>
-  :root{--txt:#e5e7eb;--bg:#0b1020;--c1:#22d3ee;--c2:#f472b6}
-  body{margin:0;background:radial-gradient(600px 300px at 20% 0%,#11203b 0,#0b1020 60%);color:var(--txt);font-family:system-ui;padding:28px;display:grid;place-items:center;min-height:100svh}
-  .wrap{max-width:900px;display:grid;gap:24px}
-  .row{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
-  .card{background:#0f172a;border-radius:16px;padding:20px;box-shadow:0 8px 24px rgba(0,0,0,.3)}
-  /* Botón brillo */
-  .btn-glow{--p:0%; position:relative; padding:14px 20px;border-radius:12px;border:1px solid #334155;background:#111827;color:var(--txt);cursor:pointer;overflow:hidden}
-  .btn-glow::before{content:"";position:absolute;inset:-2px;background:conic-gradient(from 180deg at 50% 50%,var(--c1),var(--c2),var(--c1));filter:blur(12px);opacity:.0;transition:opacity .25s}
-  .btn-glow:hover::before{opacity:.6}
-  .btn-glow span{position:relative;z-index:1}
-  /* Botón subrayado deslizante */
-  .btn-underline{position:relative;color:var(--txt);text-decoration:none;padding:10px 2px;display:inline-block}
-  .btn-underline::after{content:"";position:absolute;left:0;right:100%;bottom:0;height:2px;background:linear-gradient(90deg,var(--c1),var(--c2));transition:right .35s ease}
-  .btn-underline:hover::after{right:0}
-  /* Typewriter puro CSS */
-  .type{width:ch;max-width:100%;border-right:2px solid #94a3b8;white-space:nowrap;overflow:hidden}
-  .type[data-text]{--n: attr(data-text length); }
-  .type{animation:typing 3s steps(30,end) 1 both, blink .8s step-end infinite}
-  @keyframes typing{from{width:0} to{width:100%}}
-  @keyframes blink{50%{border-color:transparent}}
-  /* Variante JS para escribir y borrar */
-  .terminal{background:#0b1220;border-radius:12px;padding:16px;font-family:ui-monospace,Consolas,monospace}
-  .cursor{border-right:2px solid #94a3b8;animation:blink .9s step-end infinite}
-</style></head><body>
-<div class="wrap">
-  <h1>Botones animados + efecto Typewriter</h1>
-  <div class="row">
-    <div class="card">
-      <h3>Glow sutil</h3>
-      <button class="btn-glow"><span>Comprar ahora</span></button>
-      <p>Brillo alrededor con pseudo-elemento + <code>filter: blur()</code>.</p>
-    </div>
-    <div class="card">
-      <h3>Subrayado deslizante</h3>
-      <a class="btn-underline" href="#" onclick="event.preventDefault()">Ver detalles</a>
-      <p>Transición del pseudo-elemento <code>::after</code> para el underline.</p>
-    </div>
-    <div class="card">
-      <h3>Typewriter (CSS)</h3>
-      <p class="type">Aprendé animaciones modernas en CSS ✨</p>
-      <p>Uso de <code>steps()</code> y borde como cursor.</p>
-    </div>
-  </div>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Botones animados y Typewriter</title>
+  <link rel="stylesheet" href="theme.css" />
+</head>
+<body>
+<article class="ficha">
 
-  <div class="card">
-    <h3>Typewriter (JS, escribe y borra)</h3>
-    <div class="terminal"><span id="tw"></span><span class="cursor"></span></div>
-    <p>Con el Web API básico animamos texto dinámico.</p>
-  </div>
-</div>
-<script>
-  const frases=["Hola mundo 👋","CSS Animations 💫","Frontend divertido ✨"];
-  const el=document.getElementById('tw');
-  let i=0, j=0, borrando=false;
-  function tick(){
-    const f=frases[i%frases.length];
-    if(!borrando){ j++; el.textContent=f.slice(0,j); if(j===f.length){borrando=true; setTimeout(tick,900); return;}}
-    else{ j--; el.textContent=f.slice(0,j); if(j===0){borrando=false; i++;}}
-    setTimeout(tick, borrando?40:70);
-  }
-  tick();
-</script>
-</body></html>
+  <header class="ficha-header">
+    <p class="ficha-modulo">Animaciones · Tema 3 de 7</p>
+    <h1>Botones animados y Typewriter</h1>
+    <p class="ficha-resumen">
+      Dos efectos clásicos hechos con las herramientas que ya conocés:
+      pseudo-elementos + transition para el botón, y steps() para el texto
+      que se escribe solo.
+    </p>
+  </header>
+
+  <section class="bloque bloque-problema">
+    <h2>¿Qué problema resuelve?</h2>
+    <p>
+      Un botón que reacciona al hover se siente vivo; uno que no cambia nunca
+      se siente "muerto", aunque funcione igual. La mayoría de estos efectos
+      no necesitan JavaScript ni imágenes: se resuelven con
+      <code>::before</code>/<code>::after</code> y <code>transition</code>,
+      que ya viste antes.
+    </p>
+    <p>
+      El efecto typewriter (texto que aparece letra por letra) parece
+      necesitar JavaScript, pero CSS tiene una solución elegante para el caso
+      simple: animar el <code>width</code> de un texto con
+      <code>white-space: nowrap</code> y <code>overflow: hidden</code>, con
+      una función de tiempo especial llamada <code>steps()</code> que avanza
+      en saltos discretos en vez de suave.
+    </p>
+  </section>
+
+  <section class="bloque bloque-sintaxis">
+    <h2>Sintaxis mínima</h2>
+    <p><strong>Glow con pseudo-elemento:</strong></p>
+<pre><code>.btn { position: relative; overflow: hidden; }
+.btn::before {
+  content: "";
+  position: absolute; inset: -2px;
+  background: conic-gradient(from 180deg, #22d3ee, #f472b6, #22d3ee);
+  filter: blur(12px);
+  opacity: 0;
+  <b>transition: opacity .25s;</b>
+}
+.btn:hover::before { opacity: .6; }</code></pre>
+    <p><strong>Typewriter con steps():</strong></p>
+<pre><code>.type {
+  width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 2px solid;
+  <b>animation: typing 3s steps(30, end) 1 both,
+              blink .8s step-end infinite;</b>
+}
+@keyframes typing { from { width: 0; } to { width: 100%; } }
+@keyframes blink  { 50% { border-color: transparent; } }</code></pre>
+    <p>
+      <code>steps(30, end)</code> divide la animación en 30 saltos iguales en
+      vez de un movimiento continuo — por eso el texto "escribe" letra por
+      letra y no se desliza. El número de pasos debería ser cercano a la
+      cantidad de caracteres del texto para que se vea prolijo.
+    </p>
+  </section>
+
+  <section class="bloque bloque-demo">
+    <h2>Probalo vos</h2>
+    <div class="editor" data-editor>
+      <div class="editor-panel">
+        <div class="editor-barra">
+          <span>HTML + CSS</span>
+          <button type="button" class="editor-reset" data-editor-reset>Reiniciar</button>
+        </div>
+        <textarea spellcheck="false" aria-label="Código editable">
+          <style>
+            body { margin: 0; font: 14px system-ui; padding: 20px; background: #0b1020; color: #e5e7eb; }
+            .row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+            .card { background: #0f172a; border-radius: 16px; padding: 20px; }
+
+            .btn-glow {
+              position: relative;
+              padding: 14px 20px;
+              border-radius: 12px;
+              border: 1px solid #334155;
+              background: #111827;
+              color: #e5e7eb;
+              cursor: pointer;
+              overflow: hidden;
+            }
+            .btn-glow::before {
+              content: "";
+              position: absolute;
+              inset: -2px;
+              background: conic-gradient(from 180deg, #22d3ee, #f472b6, #22d3ee);
+              filter: blur(12px);
+              opacity: 0;
+              transition: opacity .25s;
+            }
+            .btn-glow:hover::before { opacity: .6; }
+            .btn-glow span { position: relative; z-index: 1; }
+
+            .type {
+              width: 0;
+              max-width: 100%;
+              white-space: nowrap;
+              overflow: hidden;
+              border-right: 2px solid #94a3b8;
+              animation: typing 3s steps(30, end) 1 both, blink .8s step-end infinite;
+            }
+            @keyframes typing { from { width: 0; } to { width: 100%; } }
+            @keyframes blink { 50% { border-color: transparent; } }
+          </style>
+
+          <div class="row">
+            <div class="card">
+              <h3>Glow sutil</h3>
+              <button class="btn-glow"><span>Comprar ahora</span></button>
+            </div>
+            <div class="card">
+              <h3>Typewriter (CSS puro)</h3>
+              <p class="type">Aprendé animaciones en CSS ✨</p>
+            </div>
+          </div>
+        </textarea>
+      </div>
+      <div class="editor-panel">
+        <div class="editor-barra"><span>Resultado</span></div>
+        <iframe title="Vista previa del ejemplo"></iframe>
+      </div>
+    </div>
+    <p class="editor-ayuda">
+      Pasá el mouse por el botón para ver el glow. Cambiá los colores del
+      <code>conic-gradient</code>, y probá subir <code>steps(30, end)</code>
+      a <code>steps(60, end)</code> con un texto más largo: el efecto se
+      afina cuando el número de pasos se acerca a la cantidad de letras.
+    </p>
+  </section>
+
+  <section class="bloque bloque-errores">
+    <h2>Errores comunes</h2>
+    <ul class="errores">
+      <li>
+        <strong>Olvidar <code>position: relative</code> en el botón</strong>
+        El <code>::before</code> se posiciona con <code>absolute</code>
+        respecto al ancestro posicionado más cercano. Sin
+        <code>position: relative</code> en <code>.btn</code>, el glow se va
+        a posicionar respecto a otro elemento (o al body) y termina en
+        cualquier lado.
+      </li>
+      <li>
+        <strong>Olvidar <code>z-index</code> en el contenido del botón</strong>
+        Si el <code>::before</code> queda por encima del texto/ícono del
+        botón, hay que subir el contenido con
+        <code>position: relative; z-index: 1;</code>, como en el ejemplo.
+      </li>
+      <li>
+        <strong>Typewriter sin <code>white-space: nowrap</code></strong>
+        Sin eso, el texto puede saltar de línea a mitad de la animación de
+        <code>width</code>, y el efecto se ve roto en vez de "escribiéndose".
+      </li>
+      <li>
+        <strong>Un texto typewriter muy largo con pocos steps</strong>
+        Con pocos <code>steps()</code> para un texto largo, cada salto
+        revela varias letras de golpe: se ve entrecortado en vez de fluido.
+      </li>
+    </ul>
+  </section>
+
+  <section class="bloque bloque-cuando">
+    <h2>Cuándo NO usarlo</h2>
+    <div class="comparacion">
+      <div class="si">
+        <h3>✔ Typewriter en CSS puro</h3>
+        <p>
+          Un texto fijo que se escribe una sola vez al cargar la página
+          (un título, un hero). Cero JavaScript, funciona siempre.
+        </p>
+      </div>
+      <div class="no">
+        <h3>✘ Typewriter en JS</h3>
+        <p>
+          Si el texto cambia dinámicamente, hay varias frases en secuencia,
+          o necesitás que también <em>borre</em> letra por letra — ahí sí
+          hace falta JavaScript, como en la segunda demo del archivo original.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="bloque bloque-ejercicio">
+    <h2>Mini-ejercicio</h2>
+    <div class="consigna">
+      <p>Sobre el editor de arriba:</p>
+      <ol>
+        <li>Agregá un segundo botón con un efecto de subrayado deslizante usando <code>::after</code> y <code>transition</code> sobre su ancho.</li>
+        <li>Hacé que el glow del primer botón cambie de color al hacer click (con una clase que alterna, o directamente otro <code>conic-gradient</code> en <code>:active</code>).</li>
+      </ol>
+    </div>
+
+    <details class="solucion">
+      <summary>Ver solución</summary>
+<pre><code>.btn-underline {
+  position: relative;
+  display: inline-block;
+  padding: 10px 2px;
+  color: #e5e7eb;
+  text-decoration: none;
+}
+.btn-underline::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 100%; bottom: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #22d3ee, #f472b6);
+  <b>transition: right .35s ease;</b>
+}
+<b>.btn-underline:hover::after { right: 0; }</b></code></pre>
+      <p>
+        El truco es animar <code>right</code> de <code>100%</code> a
+        <code>0</code>: la línea "crece" desde la izquierda porque el borde
+        derecho del <code>::after</code> se va acercando al borde derecho del
+        link.
+      </p>
+    </details>
+  </section>
+
+  <footer class="ficha-footer">
+    Referencia:
+    <a href="https://developer.mozilla.org/es/docs/Web/CSS/easing-function/steps" target="_blank" rel="noopener">
+      steps() en MDN
+    </a>
+  </footer>
+
+</article>
+<script src="editor.js" defer></script>
+</body>
+</html>

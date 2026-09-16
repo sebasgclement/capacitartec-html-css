@@ -1,47 +1,214 @@
-<!-- /temas/animaciones/06-integracion.html -->
-<!doctype html><html lang="es"><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Integración en Proyectos</title>
-<style>
-  :root{--bg:#0b1020;--txt:#e5e7eb;--mut:#9ca3af;--acc:#22d3ee}
-  *{box-sizing:border-box} body{margin:0;background:linear-gradient(120deg,#0b1020,#0f172a);color:var(--txt);font-family:system-ui}
-  header{padding:72px 24px;text-align:center}
-  .container{max-width:1100px;margin:auto;display:grid;gap:24px;padding:0 24px 48px}
-  /* Hero de entrada */
-  .hero{background:#0f172a;border-radius:20px;padding:32px;overflow:hidden;position:relative}
-  .hero h2{margin:0 0 8px}
-  .hero p{color:var(--mut);margin:0 0 16px}
-  .cta{display:inline-block;padding:12px 18px;border-radius:12px;background:#111827;border:1px solid #233146;color:var(--txt);
-       transition: transform .25s ease, background-color .25s ease}
-  .cta:hover{transform:translateY(-3px);background:#162136}
-  /* Cards con microinteracciones */
-  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
-  .card{background:#0f172a;border-radius:16px;padding:18px;transition:transform .2s ease, box-shadow .2s ease}
-  .card:hover{transform:translateY(-4px);box-shadow:0 10px 30px rgba(0,0,0,.35)}
-  .chip{display:inline-block;font-size:.85rem;color:#0ea5e9;background:#0b1220;border:1px solid #1f2a42;padding:4px 8px;border-radius:999px}
-  /* Entrada por scroll */
-  .reveal{opacity:0;transform:translateY(16px);transition:opacity .5s ease, transform .5s ease}
-  .reveal.in{opacity:1;transform:none}
-</style></head><body>
-<header><h1>Integración: micro-interacciones + entrada de sección</h1></header>
-<div class="container">
-  <section class="hero reveal">
-    <h2>Tu producto, pero con vida ✨</h2>
-    <p>Agregá animaciones sutiles: hover, focus, reveal al entrar, y evita animaciones ruidosas en contenido.</p>
-    <a class="cta" href="#" onclick="event.preventDefault()">Empezar ahora</a>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Integración en proyectos</title>
+  <link rel="stylesheet" href="theme.css" />
+</head>
+<body>
+<article class="ficha">
+
+  <header class="ficha-header">
+    <p class="ficha-modulo">Animaciones · Tema 6 de 7</p>
+    <h1>Integración en proyectos</h1>
+    <p class="ficha-resumen">
+      Todo lo anterior junto en una página real, y las dos reglas de buen
+      gusto que separan una animación prolija de una que cansa.
+    </p>
+  </header>
+
+  <section class="bloque bloque-problema">
+    <h2>¿Qué problema resuelve?</h2>
+    <p>
+      Cada tema anterior mostró una técnica aislada. En un proyecto real
+      conviven varias a la vez: hover en botones, reveal al hacer scroll,
+      quizás un typewriter en el hero. El desafío ya no es "cómo se hace
+      esto", sino <strong>cuándo conviene cada una</strong> y cómo no
+      terminar con una página que se mueve todo el tiempo.
+    </p>
+    <p>
+      Ahí entran dos reglas que separan un sitio con buen gusto de uno
+      cansador: respetar <code>prefers-reduced-motion</code> (para quien
+      configuró su sistema para minimizar el movimiento) y animar solo
+      <code>transform</code> y <code>opacity</code> cuando se pueda, que son
+      las dos propiedades que el navegador puede animar sin recalcular el
+      layout.
+    </p>
   </section>
 
-  <section class="grid">
-    <article class="card reveal"><span class="chip">Hover</span><h3>Botones</h3><p>Elevación y cambio de fondo con transición.</p></article>
-    <article class="card reveal"><span class="chip">Focus</span><h3>Inputs</h3><p>Resaltar campo activo, accesible y suave.</p></article>
-    <article class="card reveal"><span class="chip">Motion</span><h3>Feedback</h3><p>Confirmaciones con pulso/scale breve.</p></article>
+  <section class="bloque bloque-sintaxis">
+    <h2>Sintaxis mínima</h2>
+    <p>El patrón de "reveal" reutilizable que vas a escribir una y otra vez:</p>
+<pre><code>.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity .5s ease, transform .5s ease;
+}
+.reveal.in { opacity: 1; transform: none; }</code></pre>
+    <p>Y la regla que nunca debería faltar en un proyecto con animaciones:</p>
+<pre><code><b>@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}</b></code></pre>
+    <p>
+      Esa media query detecta si la persona activó "reducir movimiento" en
+      la configuración de su sistema operativo, y en ese caso corta
+      prácticamente todas las duraciones a casi cero — el cambio de estado
+      sigue pasando, pero sin la animación de por medio.
+    </p>
   </section>
-</div>
-<script>
-  // Reveal simple y reutilizable
-  const io=new IntersectionObserver(es=>es.forEach(e=>{
-    if(e.isIntersecting){e.target.classList.add('in'); io.unobserve(e.target);}
-  }),{threshold:.15});
-  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
-</script>
-</body></html>
+
+  <section class="bloque bloque-demo">
+    <h2>Probalo vos</h2>
+    <div class="editor" data-editor>
+      <div class="editor-panel">
+        <div class="editor-barra">
+          <span>HTML + CSS + JS</span>
+          <button type="button" class="editor-reset" data-editor-reset>Reiniciar</button>
+        </div>
+        <textarea spellcheck="false" aria-label="Código editable">
+          <style>
+            body { margin: 0; font: 14px system-ui; background: #0b1020; color: #e5e7eb; }
+            .container { max-width: 700px; margin: auto; display: grid; gap: 20px; padding: 24px; }
+
+            .hero { background: #0f172a; border-radius: 20px; padding: 28px; }
+            .cta {
+              display: inline-block; padding: 12px 18px; border-radius: 12px;
+              background: #111827; border: 1px solid #233146; color: #e5e7eb;
+              transition: transform .25s ease, background-color .25s ease;
+            }
+            .cta:hover { transform: translateY(-3px); background: #162136; }
+
+            .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; }
+            .card {
+              background: #0f172a; border-radius: 16px; padding: 16px;
+              transition: transform .2s ease, box-shadow .2s ease;
+            }
+            .card:hover { transform: translateY(-4px); box-shadow: 0 10px 30px rgba(0,0,0,.35); }
+
+            .reveal { opacity: 0; transform: translateY(16px); transition: opacity .5s ease, transform .5s ease; }
+            .reveal.in { opacity: 1; transform: none; }
+
+            @media (prefers-reduced-motion: reduce) {
+              *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+              }
+            }
+          </style>
+
+          <div class="container">
+            <section class="hero reveal">
+              <h2>Tu producto, con vida ✨</h2>
+              <p>Micro-interacciones sutiles: hover, focus y reveal al entrar.</p>
+              <a class="cta" href="#" onclick="event.preventDefault()">Empezar ahora</a>
+            </section>
+
+            <div class="grid">
+              <article class="card reveal"><h3>Hover</h3><p>Botones que elevan.</p></article>
+              <article class="card reveal"><h3>Focus</h3><p>Inputs que resaltan.</p></article>
+              <article class="card reveal"><h3>Reveal</h3><p>Aparecen al entrar.</p></article>
+            </div>
+          </div>
+
+          <script>
+            const io = new IntersectionObserver((entries) => entries.forEach((e) => {
+              if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+            }), { threshold: .15 });
+            document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
+          </script>
+        </textarea>
+      </div>
+      <div class="editor-panel">
+        <div class="editor-barra"><span>Resultado</span></div>
+        <iframe title="Vista previa del ejemplo"></iframe>
+      </div>
+    </div>
+    <p class="editor-ayuda">
+      Pasá el mouse por el botón y las tarjetas. En Windows podés simular
+      "reducir movimiento" desde Configuración → Accesibilidad → Efectos
+      visuales, y volver a esta demo: las transiciones deberían sentirse
+      casi instantáneas.
+    </p>
+  </section>
+
+  <section class="bloque bloque-errores">
+    <h2>Errores comunes</h2>
+    <ul class="errores">
+      <li>
+        <strong>Animar todo lo que se pueda, "porque se puede"</strong>
+        Cada elemento con hover, cada tarjeta con su propio reveal, un
+        typewriter en cada título... Demasiado movimiento a la vez compite
+        por la atención y cansa. Reservá el efecto más llamativo para lo que
+        realmente importa.
+      </li>
+      <li>
+        <strong>No respetar prefers-reduced-motion</strong>
+        Para algunas personas, el movimiento excesivo no es solo una
+        molestia estética: puede causar mareo o dificultar la lectura. La
+        media query es una sola regla de CSS; no hay excusa para omitirla en
+        un proyecto real.
+      </li>
+      <li>
+        <strong>Reveals que tapan contenido importante</strong>
+        Si el <code>transform: translateY()</code> inicial es muy grande, el
+        contenido puede arrancar fuera del área visible y el usuario nota un
+        salto raro al aparecer. Con 16-24px alcanza para que se note el
+        movimiento sin exagerar.
+      </li>
+      <li>
+        <strong>Combinar demasiadas técnicas sin necesidad</strong>
+        No todo proyecto necesita scroll-driven animations, typewriter y
+        WAAPI a la vez. Elegí la herramienta más simple que resuelve el
+        efecto que necesitás — es más fácil de mantener.
+      </li>
+    </ul>
+  </section>
+
+  <section class="bloque bloque-cuando">
+    <h2>Cuándo NO usarlo</h2>
+    <div class="comparacion">
+      <div class="si">
+        <h3>✔ Animar</h3>
+        <p>
+          Feedback de interacción (hover, focus, click), y para guiar la
+          atención hacia algo importante que acaba de aparecer.
+        </p>
+      </div>
+      <div class="no">
+        <h3>✘ No animar</h3>
+        <p>
+          Contenido que se lee de forma continua (texto largo, tablas de
+          datos), o cuando <code>prefers-reduced-motion</code> está activo:
+          ahí la animación se corta, no se reemplaza por otra cosa.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="bloque bloque-ejercicio">
+    <h2>Mini-ejercicio</h2>
+    <div class="consigna">
+      <p>Sobre el editor de arriba:</p>
+      <ol>
+        <li>Agregá un <code>&lt;input&gt;</code> con una transición sutil en <code>:focus</code> (borde de color, por ejemplo).</li>
+        <li>Escalonás el reveal de las 3 tarjetas con un <code>transition-delay</code> distinto para cada una (0s, .1s, .2s).</li>
+        <li>Verificá que, con <code>prefers-reduced-motion</code> activo, el layout final se vea igual, solo sin el movimiento de entrada.</li>
+      </ol>
+    </div>
+  </section>
+
+  <footer class="ficha-footer">
+    Referencia:
+    <a href="https://developer.mozilla.org/es/docs/Web/CSS/@media/prefers-reduced-motion" target="_blank" rel="noopener">
+      prefers-reduced-motion en MDN
+    </a>
+  </footer>
+
+</article>
+<script src="editor.js" defer></script>
+</body>
+</html>

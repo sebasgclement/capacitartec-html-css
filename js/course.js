@@ -155,13 +155,13 @@ export const modules = [
     title: "Animaciones",
     nivel: "avanzado",
     topics: [
-      { id: "anim-transiciones", title: "Transiciones", type: "html", content: "temas/01-transiciones.html", enabled: false },
-      { id: "anim-animaciones", title: "Animaciones", type: "html", content: "temas/02-animaciones.html", enabled: false },
-      { id: "anim-typewriter", title: "Botones animados y Typewriter", type: "html", content: "temas/03-botones-typewriter.html", enabled: false },
-      { id: "anim-scroll", title: "Animaciones con scroll", type: "html", content: "temas/04-scroll.html", enabled: false },
-      { id: "anim-rango", title: "Rango de animaciones", type: "html", content: "temas/05-rango.html", enabled: false },
-      { id: "anim-integracion", title: "Integración en proyectos", type: "html", content: "temas/06-integracion.html", enabled: false },
-      { id: "anim-promesas", title: "Animaciones y promesas", type: "html", content: "temas/07-promesas.html", enabled: false },
+      { id: "anim-transiciones", title: "Transiciones", type: "html", content: "temas/01-transiciones.html", enabled: true },
+      { id: "anim-animaciones", title: "Animaciones con @keyframes", type: "html", content: "temas/02-animaciones.html", enabled: true },
+      { id: "anim-typewriter", title: "Botones animados y Typewriter", type: "html", content: "temas/03-botones-typewriter.html", enabled: true },
+      { id: "anim-scroll", title: "Animaciones con scroll", type: "html", content: "temas/04-scroll.html", enabled: true },
+      { id: "anim-rango", title: "Rango de animaciones", type: "html", content: "temas/05-rango.html", enabled: true },
+      { id: "anim-integracion", title: "Integración en proyectos", type: "html", content: "temas/06-integracion.html", enabled: true },
+      { id: "anim-promesas", title: "Animaciones y promesas", type: "html", content: "temas/07-promesas.html", enabled: true },
     ],
   },
   {
@@ -210,7 +210,7 @@ export const resumenes = [
   { id: "res-flexbox", title: "CSS flexbox", type: "html", content: "temas/flex-resumen.html", enabled: true },
   { id: "res-responsive", title: "Responsive design", type: "html", content: "temas/responsive-resumen.html", enabled: true },
   { id: "res-grid", title: "CSS grid", type: "html", content: "temas/grid-resumen.html", enabled: true },
-  { id: "res-animaciones", title: "Resumen animaciones", type: "html", content: "temas/00-resumen.html", enabled: false },
+  { id: "res-animaciones", title: "Resumen animaciones", type: "html", content: "temas/00-resumen.html", enabled: true },
   { id: "res-bootstrap", title: "Resumen Bootstrap", type: "html", content: "temas/bootstrap/00-resumen.html", enabled: false },
 ];
 

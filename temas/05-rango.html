@@ -1,68 +1,222 @@
-<!-- /temas/animaciones/05-rango.html -->
-<!doctype html><html lang="es"><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Rango de Animaciones</title>
-<style>
-  :root{--txt:#e5e7eb}
-  body{margin:0;font-family:system-ui;background:#0b1020;color:var(--txt)}
-  header{padding:56px 24px;text-align:center}
-  .spacer{height:14svh}
-  .track{position:sticky;top:10svh;height:60svh;display:grid;place-items:center}
-  .box{width:160px;height:160px;border-radius:24px;background:linear-gradient(135deg,#22d3ee,#a78bfa);
-       transform:scale(.6) rotate(0deg);opacity:.4;transition:transform .2s, opacity .2s}
-  .bar{height:6px;background:#1f2937;border-radius:999px;margin:18px auto;width:min(560px,90%);overflow:hidden}
-  .fill{height:100%;width:0%;background:linear-gradient(90deg,#22d3ee,#a78bfa)}
-  /* Propuesta moderna (si hay soporte): scroll-timeline + animation-range */
-  @supports (animation-timeline: scroll(block)) {
-    @keyframes growspin {
-      0%{transform:scale(.6) rotate(0deg);opacity:.4}
-      100%{transform:scale(1.2) rotate(270deg);opacity:1}
-    }
-    .box{
-      animation: growspin linear both;
-      animation-timeline: view();
-      /* el tramo activo: desde que entra 10% hasta cubrir 80% del viewport */
-      animation-range: entry 10% cover 80%;
-    }
-  }
-</style></head><body>
-<header>
-  <h1>Rango de animaciones</h1>
-  <p>Definí qué parte del scroll “conduce” la animación. Si el navegador no soporta <code>animation-timeline</code>, usamos un fallback JS con progreso.</p>
-</header>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Rango de animaciones</title>
+  <link rel="stylesheet" href="theme.css" />
+</head>
+<body>
+<article class="ficha">
 
-<div class="spacer"></div>
-<div class="track">
-  <div class="box" id="box"></div>
-  <div class="bar"><div class="fill" id="fill"></div></div>
-</div>
-<div class="spacer"></div><div class="spacer"></div><div class="spacer"></div>
+  <header class="ficha-header">
+    <p class="ficha-modulo">Animaciones · Tema 5 de 7</p>
+    <h1>Rango de animaciones</h1>
+    <p class="ficha-resumen">
+      La versión sin JavaScript del tema anterior: que el scroll mismo sea
+      quien "conduce" la animación, con CSS puro.
+    </p>
+  </header>
 
-<script>
-  // Fallback: calcular progreso manualmente entre un rango del viewport
-  if (!CSS.supports('animation-timeline: scroll(block)')) {
-    const box=document.getElementById('box');
-    const fill=document.getElementById('fill');
-    const track=document.querySelector('.track');
-    function lerp(a,b,t){return a+(b-a)*t}
-    function clamp01(x){return Math.max(0,Math.min(1,x))}
-    function onScroll(){
-      const r=track.getBoundingClientRect();
-      const vh=window.innerHeight;
-      // rango activo: cuando el centro de track está entre 10% y 90% del viewport
-      const center=r.top + r.height/2;
-      const start=vh*0.1, end=vh*0.9;
-      const t=clamp01((center-start)/(end-start));
-      // aplicar al box (escala y giro)
-      const scale=lerp(0.6,1.2,t);
-      const rot=lerp(0,270,t);
-      const op=lerp(0.4,1,t);
-      box.style.transform=`scale(${scale}) rotate(${rot}deg)`;
-      box.style.opacity=op.toFixed(3);
-      // progreso visual
-      fill.style.width=(t*100).toFixed(1)+'%';
-    }
-    onScroll(); addEventListener('scroll',onScroll,{passive:true}); addEventListener('resize',onScroll);
-  }
-</script>
-</body></html>
+  <section class="bloque bloque-problema">
+    <h2>¿Qué problema resuelve?</h2>
+    <p>
+      En el tema anterior, <code>IntersectionObserver</code> avisa
+      <em>una vez</em> cuando el elemento entra en pantalla, y de ahí en
+      adelante la animación corre sola con su propia duración en segundos.
+      No sigue el scroll: sigue el reloj.
+    </p>
+    <p>
+      <code>animation-timeline</code> cambia la fuente del tiempo: en vez de
+      que la animación avance con los segundos, avanza con el
+      <strong>progreso del scroll</strong>. Si dejás de scrollear, la
+      animación se congela exactamente donde estaba. Si scrolleás para
+      atrás, retrocede. Es la misma sintaxis de <code>@keyframes</code> que
+      ya conocés, solo que el reloj es distinto.
+    </p>
+  </section>
+
+  <section class="bloque bloque-sintaxis">
+    <h2>Sintaxis mínima</h2>
+<pre><code>@keyframes growspin {
+  0%   { transform: scale(.6) rotate(0deg); opacity: .4; }
+  100% { transform: scale(1.2) rotate(270deg); opacity: 1; }
+}
+
+.caja {
+  animation: growspin linear both;
+  <b>animation-timeline: view();</b>       /* el reloj: el scroll del elemento en el viewport */
+  <b>animation-range: entry 10% cover 80%;</b> /* qué tramo del scroll usa */
+}</code></pre>
+    <p>
+      <code>animation-timeline: view()</code> ata la animación a la posición
+      del elemento dentro del viewport a medida que se scrollea.
+      <code>animation-range</code> recorta qué tramo de ese recorrido cuenta:
+      <code>entry 10%</code> es "cuando el elemento lleva 10% entrando",
+      <code>cover 80%</code> es "hasta que cubre el 80% del viewport".
+    </p>
+    <p>
+      Como es una API nueva, conviene envolverla en un
+      <code>@supports</code> y tener un plan B para navegadores viejos:
+    </p>
+<pre><code><b>@supports (animation-timeline: scroll(block))</b> {
+  .caja { animation: growspin linear both; animation-timeline: view(); }
+}</code></pre>
+  </section>
+
+  <section class="bloque bloque-demo">
+    <h2>Probalo vos</h2>
+    <div class="editor" data-editor>
+      <div class="editor-panel">
+        <div class="editor-barra">
+          <span>HTML + CSS + JS (fallback)</span>
+          <button type="button" class="editor-reset" data-editor-reset>Reiniciar</button>
+        </div>
+        <textarea spellcheck="false" aria-label="Código editable">
+          <style>
+            body { margin: 0; font: 14px system-ui; background: #0b1020; color: #e5e7eb; }
+            header { padding: 32px 20px; text-align: center; }
+            .spacer { height: 20vh; }
+            .track { position: sticky; top: 5vh; height: 40vh; display: grid; place-items: center; }
+            .box {
+              width: 120px; height: 120px; border-radius: 20px;
+              background: linear-gradient(135deg, #22d3ee, #a78bfa);
+              transform: scale(.6) rotate(0deg);
+              opacity: .4;
+              transition: transform .2s, opacity .2s;
+            }
+            .bar { height: 6px; background: #1f2937; border-radius: 999px; margin: 16px auto; width: 80%; overflow: hidden; }
+            .fill { height: 100%; width: 0%; background: linear-gradient(90deg, #22d3ee, #a78bfa); }
+
+            @supports (animation-timeline: scroll(block)) {
+              @keyframes growspin {
+                0%   { transform: scale(.6) rotate(0deg); opacity: .4; }
+                100% { transform: scale(1.2) rotate(270deg); opacity: 1; }
+              }
+              .box { animation: growspin linear both; animation-timeline: view(); animation-range: entry 10% cover 80%; }
+            }
+          </style>
+
+          <header><h1>Scrolleá para animar la caja</h1></header>
+          <div class="spacer"></div>
+          <div class="track">
+            <div class="box" id="box"></div>
+            <div class="bar"><div class="fill" id="fill"></div></div>
+          </div>
+          <div class="spacer"></div><div class="spacer"></div>
+
+          <script>
+            // Fallback JS: si el navegador no soporta animation-timeline,
+            // calculamos el progreso a mano en cada evento de scroll.
+            if (!CSS.supports("animation-timeline: scroll(block)")) {
+              const box = document.getElementById("box");
+              const fill = document.getElementById("fill");
+              const track = document.querySelector(".track");
+              const lerp = (a, b, t) => a + (b - a) * t;
+              const clamp01 = (x) => Math.max(0, Math.min(1, x));
+              function onScroll() {
+                const r = track.getBoundingClientRect();
+                const vh = window.innerHeight;
+                const centro = r.top + r.height / 2;
+                const t = clamp01((centro - vh * 0.1) / (vh * 0.8));
+                box.style.transform = `scale(${lerp(0.6, 1.2, t)}) rotate(${lerp(0, 270, t)}deg)`;
+                box.style.opacity = lerp(0.4, 1, t).toFixed(3);
+                fill.style.width = (t * 100).toFixed(1) + "%";
+              }
+              onScroll();
+              addEventListener("scroll", onScroll, { passive: true });
+            }
+          </script>
+        </textarea>
+      </div>
+      <div class="editor-panel">
+        <div class="editor-barra"><span>Resultado (scrolleá adentro)</span></div>
+        <iframe title="Vista previa del ejemplo"></iframe>
+      </div>
+    </div>
+    <p class="editor-ayuda">
+      Scrolleá despacio dentro del panel de resultado: la caja crece y gira
+      exactamente al ritmo de tu scroll, no de un reloj. Probá cambiar
+      <code>animation-range</code> a <code>entry 40% cover 60%</code> para
+      que el tramo activo sea más corto y el efecto se sienta más rápido.
+    </p>
+  </section>
+
+  <section class="bloque bloque-errores">
+    <h2>Errores comunes</h2>
+    <ul class="errores">
+      <li>
+        <strong>Confundir <code>view()</code> con <code>scroll()</code></strong>
+        <code>view()</code> sigue la posición del elemento <em>dentro del
+        viewport</em> (lo que usamos acá). <code>scroll()</code> sigue el
+        progreso del scroll de todo un contenedor. Son dos casos de uso
+        distintos con nombres parecidos.
+      </li>
+      <li>
+        <strong>Olvidar el fallback</strong>
+        Es una API relativamente nueva. Sin
+        <code>@supports</code> ni un plan B, en un navegador que no la
+        soporte el elemento se queda estático en su estado inicial
+        (<code>scale(.6)</code>, medio transparente) para siempre.
+      </li>
+      <li>
+        <strong>No usar <code>both</code> en el fill-mode</strong>
+        Sin <code>fill-mode: both</code>, fuera del rango activo el
+        elemento puede no mostrar ni el primer ni el último frame
+        correctamente.
+      </li>
+      <li>
+        <strong>Rangos tan angostos que se sienten abruptos</strong>
+        Un <code>animation-range</code> muy corto (por ejemplo
+        <code>entry 45% cover 50%</code>) hace que la animación pase casi
+        de golpe. Para un efecto que se note, conviene un tramo de al menos
+        30-40% del recorrido.
+      </li>
+    </ul>
+  </section>
+
+  <section class="bloque bloque-cuando">
+    <h2>Cuándo NO usarlo</h2>
+    <div class="comparacion">
+      <div class="si">
+        <h3>✔ animation-timeline</h3>
+        <p>
+          Efectos donde el scroll mismo es protagonista: una barra de
+          progreso de lectura, un elemento que crece a medida que avanzás,
+          un fondo que cambia de color según cuánto scrolleaste.
+        </p>
+      </div>
+      <div class="no">
+        <h3>✘ IntersectionObserver + transition</h3>
+        <p>
+          Si el efecto es simplemente "aparecer una vez al entrar" (el caso
+          del tema anterior), y necesitás soporte garantizado en cualquier
+          navegador, sin plan B.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="bloque bloque-ejercicio">
+    <h2>Mini-ejercicio</h2>
+    <div class="consigna">
+      <p>Sobre el editor de arriba:</p>
+      <ol>
+        <li>Cambiá <code>animation-range</code> para que el efecto arranque más tarde en el scroll.</li>
+        <li>Agregá <code>filter: saturate()</code> al keyframe, animando de poco saturado a muy saturado.</li>
+        <li>Probá <code>animation-range: cover 0% cover 100%</code> y compará contra la versión original.</li>
+      </ol>
+    </div>
+  </section>
+
+  <footer class="ficha-footer">
+    Referencia:
+    <a href="https://developer.mozilla.org/es/docs/Web/CSS/animation-range" target="_blank" rel="noopener">
+      animation-range en MDN
+    </a>
+  </footer>
+
+</article>
+<script src="editor.js" defer></script>
+</body>
+</html>

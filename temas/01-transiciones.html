@@ -1,36 +1,221 @@
-<!-- /temas/animaciones/01-transiciones.html -->
-<!doctype html><html lang="es"><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Transiciones CSS</title>
-<style>
-  :root { --bg:#0f172a; --card:#111827; --txt:#e5e7eb; --acc:#38bdf8; }
-  body{margin:0;font-family:system-ui,Segoe UI,Roboto;background:linear-gradient(120deg,#0f172a,#111827);color:var(--txt);min-height:100svh;display:grid;place-items:center;padding:24px}
-  .wrap{max-width:900px;width:100%;display:grid;gap:24px}
-  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
-  .card{background:var(--card);padding:18px;border-radius:16px;box-shadow:0 8px 24px rgba(0,0,0,.25)}
-  .box{height:120px;border-radius:14px;background:#1f2937;display:grid;place-items:center;color:#9ca3af;
-       transition: transform .35s ease, background-color .35s ease, border-radius .35s ease;}
-  .box:hover{transform:translateY(-8px) scale(1.04);background:#334155;border-radius:24px}
-  code,kbd{background:#0b1220;padding:.1rem .4rem;border-radius:6px}
-  pre{background:#0b1220;border-radius:12px;padding:12px;overflow:auto}
-</style></head><body>
-<div class="wrap">
-  <h1>Transiciones CSS</h1>
-  <p>Una <b>transición</b> suaviza el cambio entre dos estados. Se declara con <code>transition: propiedad duración timing delay</code>. Podés listar varias propiedades separadas por comas.</p>
-  <div class="grid">
-    <div class="card">
-      <h3>Hover suave</h3>
-      <div class="box">pasá el mouse 👆</div>
-      <pre><code>.box{transition: transform .35s ease, background-color .35s ease, border-radius .35s;}
-.box:hover{transform:translateY(-8px) scale(1.04);background:#334155;border-radius:24px}</code></pre>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Transiciones</title>
+  <link rel="stylesheet" href="theme.css" />
+</head>
+<body>
+<article class="ficha">
+
+  <header class="ficha-header">
+    <p class="ficha-modulo">Animaciones · Tema 1 de 7</p>
+    <h1>Transiciones</h1>
+    <p class="ficha-resumen">
+      La forma más simple de animar: suavizar el cambio entre dos estados de
+      un mismo elemento, sin escribir un solo keyframe.
+    </p>
+  </header>
+
+  <section class="bloque bloque-problema">
+    <h2>¿Qué problema resuelve?</h2>
+    <p>
+      Sin <code>transition</code>, todo cambio de estilo es instantáneo: un
+      <code>:hover</code> que cambia el color pasa de un valor al otro en el
+      mismo frame, de golpe. Se siente brusco y poco pulido.
+    </p>
+    <p>
+      <code>transition</code> le dice al navegador <em>"cuando esta propiedad
+      cambie de valor, no lo muestres de golpe: interpolá los valores
+      intermedios durante este tiempo"</em>. No define un movimiento nuevo,
+      solo suaviza uno que ya iba a pasar (por <code>:hover</code>,
+      <code>:focus</code>, una clase que se agrega con JS, etc.).
+    </p>
+    <p>
+      Es la herramienta correcta para <strong>cambios de estado</strong>. Para
+      loops, coreografías con varios pasos o algo que arranca solo sin que
+      nada cambie, lo que hace falta es <code>@keyframes</code> (próximo tema).
+    </p>
+  </section>
+
+  <section class="bloque bloque-sintaxis">
+    <h2>Sintaxis mínima</h2>
+<pre><code>.caja {
+  <b>transition: transform .35s ease, background-color .35s ease;</b>
+  /*           propiedad  duración timing, propiedad  duración timing */
+}
+
+.caja:hover {
+  transform: translateY(-8px) scale(1.04);
+  background-color: #334155;
+}</code></pre>
+    <p>
+      El <code>transition</code> va en el estado <strong>de partida</strong>
+      (la regla sin <code>:hover</code>), no en el estado final. Es el
+      elemento en reposo el que sabe que, si algo cambia, tiene que
+      transicionar — no importa hacia qué estado vaya.
+    </p>
+    <p>Se pueden animar varias propiedades separadas por coma, cada una con su propia duración y curva:</p>
+<pre><code>transition-property: transform, background-color, border-radius;
+transition-duration: .35s, .35s, .5s;
+transition-timing-function: ease, ease, cubic-bezier(.2,.7,.2,1.1);</code></pre>
+  </section>
+
+  <section class="bloque bloque-demo">
+    <h2>Probalo vos</h2>
+    <div class="editor" data-editor>
+      <div class="editor-panel">
+        <div class="editor-barra">
+          <span>HTML + CSS</span>
+          <button type="button" class="editor-reset" data-editor-reset>Reiniciar</button>
+        </div>
+        <textarea spellcheck="false" aria-label="Código editable">
+          <style>
+            body { margin: 0; font: 14px system-ui; padding: 16px; background: #0f172a; color: #e5e7eb; }
+            .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; }
+            .card { background: #111827; padding: 16px; border-radius: 14px; }
+
+            .box {
+              height: 100px;
+              border-radius: 14px;
+              background: #1f2937;
+              display: grid;
+              place-items: center;
+              color: #9ca3af;
+              transition: transform .35s ease, background-color .35s ease, border-radius .35s ease;
+            }
+            .box:hover {
+              transform: translateY(-8px) scale(1.04);
+              background: #334155;
+              border-radius: 24px;
+            }
+
+            .bezier {
+              transition-duration: .6s;
+              transition-timing-function: cubic-bezier(.2,.7,.2,1.1);
+            }
+          </style>
+
+          <div class="grid">
+            <div class="card">
+              <h3>Hover suave</h3>
+              <div class="box">pasá el mouse 👆</div>
+            </div>
+            <div class="card">
+              <h3>Curva bezier</h3>
+              <div class="box bezier">pasá el mouse 👆</div>
+            </div>
+          </div>
+        </textarea>
+      </div>
+      <div class="editor-panel">
+        <div class="editor-barra"><span>Resultado</span></div>
+        <iframe title="Vista previa del ejemplo"></iframe>
+      </div>
     </div>
-    <div class="card">
-      <h3>Delays y timing</h3>
-      <div class="box" style="transition-timing-function:cubic-bezier(.2,.7,.2,1.1);transition-duration:.6s">bezier</div>
-      <pre><code>.box{transition-duration:.6s;
-  transition-timing-function:cubic-bezier(.2,.7,.2,1.1);}</code></pre>
+    <p class="editor-ayuda">
+      Pasá el mouse por las dos cajas del resultado. Cambiá la duración a
+      <code>2s</code> para ver la interpolación en cámara lenta, y probá
+      sacar <code>ease</code> para comparar contra el default (<code>ease</code>
+      también, pero <code>linear</code> se ve más robótico).
+    </p>
+  </section>
+
+  <section class="bloque bloque-errores">
+    <h2>Errores comunes</h2>
+    <ul class="errores">
+      <li>
+        <strong>Poner transition en <code>:hover</code> y no en el elemento base</strong>
+        Si el <code>transition</code> solo está en <code>.box:hover</code>, la
+        transición se aplica al <em>entrar</em> pero no al <em>salir</em> (o
+        viceversa), porque al perder el hover el navegador vuelve a la regla
+        base, que no tiene transición. Ponelo siempre en el estado de reposo.
+      </li>
+      <li>
+        <strong>Usar <code>transition: all</code></strong>
+        Funciona, pero anima <em>cualquier</em> propiedad que cambie,
+        incluidas las que no esperás (por ejemplo si un script cambia
+        <code>width</code> por otro motivo). Es más lento de calcular y más
+        difícil de depurar. Mejor nombrar las propiedades.
+      </li>
+      <li>
+        <strong>Transicionar propiedades que disparan layout</strong>
+        Animar <code>width</code>, <code>height</code>, <code>top</code> o
+        <code>left</code> obliga al navegador a recalcular el layout en cada
+        frame. <code>transform</code> y <code>opacity</code> se animan en la
+        GPU, sin ese costo — casi siempre hay una forma de lograr el mismo
+        efecto con <code>transform</code>.
+      </li>
+      <li>
+        <strong>Esperar que transition anime la aparición inicial</strong>
+        Si un elemento nace con <code>opacity: 1</code> directamente,
+        <code>transition</code> no tiene "antes" y "después": no hay nada que
+        interpolar. Para animar una entrada hace falta cambiar el valor
+        después de que el elemento ya existe (con una clase, por ejemplo).
+      </li>
+    </ul>
+  </section>
+
+  <section class="bloque bloque-cuando">
+    <h2>Cuándo NO usarlo</h2>
+    <div class="comparacion">
+      <div class="si">
+        <h3>✔ Usá transition</h3>
+        <p>
+          Cambios de estado: hover, focus, una clase que se agrega/quita,
+          abrir y cerrar un menú, un input que se resalta.
+        </p>
+      </div>
+      <div class="no">
+        <h3>✘ Usá @keyframes</h3>
+        <p>
+          Loops infinitos, animaciones que arrancan solas sin que nada
+          cambie de estado, o coreografías con más de dos pasos (0% → 50% → 100%).
+        </p>
+      </div>
     </div>
-  </div>
-  <p><b>Tip:</b> Usá <code>transition</code> para cambios de estado (hover/focus/expanded). Para bucles o coreografías, usá <a href="./02-animaciones.html" target="_blank">animaciones</a>.</p>
-</div>
-</body></html>
+  </section>
+
+  <section class="bloque bloque-ejercicio">
+    <h2>Mini-ejercicio</h2>
+    <div class="consigna">
+      <p>Sobre el editor de arriba:</p>
+      <ol>
+        <li>Agregá <code>box-shadow</code> a la lista de <code>transition</code> de <code>.box</code>.</li>
+        <li>En <code>:hover</code>, sumá una sombra más marcada.</li>
+        <li>Probá <code>transition-delay: .15s</code> en una de las cajas y notá el pequeño respiro antes de que arranque.</li>
+      </ol>
+    </div>
+
+    <details class="solucion">
+      <summary>Ver solución</summary>
+<pre><code>.box {
+  transition: transform .35s ease, background-color .35s ease,
+              border-radius .35s ease, <b>box-shadow .35s ease</b>;
+}
+.box:hover {
+  transform: translateY(-8px) scale(1.04);
+  background: #334155;
+  border-radius: 24px;
+  <b>box-shadow: 0 12px 24px rgba(0,0,0,.4);</b>
+}</code></pre>
+      <p>
+        <code>transition-delay</code> no cambia la duración, solo cuándo
+        arranca. Es útil para escalonar varias cajas: cada una con un delay
+        un poco mayor que la anterior.
+      </p>
+    </details>
+  </section>
+
+  <footer class="ficha-footer">
+    Referencia:
+    <a href="https://developer.mozilla.org/es/docs/Web/CSS/transition" target="_blank" rel="noopener">
+      transition en MDN
+    </a>
+  </footer>
+
+</article>
+<script src="editor.js" defer></script>
+</body>
+</html>

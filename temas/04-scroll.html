@@ -1,46 +1,202 @@
-<!-- /temas/animaciones/04-scroll.html -->
-<!doctype html><html lang="es"><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Animaciones con Scroll</title>
-<style>
-  :root{--txt:#e5e7eb;--bg:#0b1020}
-  body{margin:0;font-family:system-ui;background:linear-gradient(#0b1020,#0f172a);color:var(--txt)}
-  header{padding:64px 24px;text-align:center}
-  section{min-height:80svh;display:grid;place-items:center;padding:24px}
-  .card{opacity:0;transform:translateY(24px) scale(.98);transition:opacity .6s ease, transform .6s ease;
-        background:#0f172a;padding:28px;border-radius:16px;max-width:820px;box-shadow:0 10px 30px rgba(0,0,0,.35)}
-  .card.in{opacity:1;transform:none}
-  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
-  .tile{height:140px;border-radius:14px;background:linear-gradient(135deg,#22d3ee33,#a78bfa33);backdrop-filter:blur(4px)}
-</style></head><body>
-<header><h1>Animaciones activadas por scroll</h1><p>IntersectionObserver para agregar clase <code>.in</code> cuando el elemento entra al viewport.</p></header>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Animaciones con scroll</title>
+  <link rel="stylesheet" href="theme.css" />
+</head>
+<body>
+<article class="ficha">
 
-<section>
-  <div class="card js-observe">
-    <h2>Bloque 1</h2>
-    <p>Esta tarjeta aparece con fade &amp; slide cuando entra en pantalla.</p>
-    <div class="grid">
-      <div class="tile js-observe"></div>
-      <div class="tile js-observe"></div>
-      <div class="tile js-observe"></div>
+  <header class="ficha-header">
+    <p class="ficha-modulo">Animaciones · Tema 4 de 7</p>
+    <h1>Animaciones con scroll</h1>
+    <p class="ficha-resumen">
+      Que un bloque aparezca con un fundido y un pequeño desplazamiento
+      cuando entra en pantalla, en vez de estar visible desde el principio.
+    </p>
+  </header>
+
+  <section class="bloque bloque-problema">
+    <h2>¿Qué problema resuelve?</h2>
+    <p>
+      <code>transition</code> y <code>@keyframes</code> animan algo que
+      cambia de estado, pero ninguno de los dos sabe <em>cuándo</em> un
+      elemento entra en el viewport al hacer scroll — eso no es un estado de
+      CSS, es una posición en la pantalla.
+    </p>
+    <p>
+      La pieza que falta es <code>IntersectionObserver</code>, una API de
+      JavaScript que avisa cuando un elemento entra o sale del área visible.
+      El patrón es siempre el mismo: el elemento arranca invisible
+      (<code>opacity: 0</code>) con una transición lista, el observer le
+      agrega una clase (<code>.in</code>) cuando aparece en pantalla, y esa
+      clase dispara la transición al estado visible.
+    </p>
+    <p>
+      JS decide <strong>cuándo</strong>, CSS decide <strong>cómo se ve</strong>
+      el cambio. Ninguno de los dos hace todo el trabajo solo.
+    </p>
+  </section>
+
+  <section class="bloque bloque-sintaxis">
+    <h2>Sintaxis mínima</h2>
+<pre><code>.card {
+  opacity: 0;
+  transform: translateY(24px);
+  <b>transition: opacity .6s ease, transform .6s ease;</b>
+}
+<b>.card.in { opacity: 1; transform: none; }</b></code></pre>
+<pre><code>const obs = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      <b>entry.target.classList.add("in");</b>
+      obs.unobserve(entry.target); // ya cumplió su función, no hace más falta
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll(".card").forEach((el) => obs.observe(el));</code></pre>
+    <p>
+      <code>threshold: 0.1</code> significa "avisame cuando el 10% del
+      elemento sea visible". <code>rootMargin</code> permite adelantar o
+      atrasar ese momento respecto al borde real del viewport, por ejemplo
+      <code>"0px 0px -10% 0px"</code> dispara un poco antes de llegar al
+      fondo de la pantalla.
+    </p>
+  </section>
+
+  <section class="bloque bloque-demo">
+    <h2>Probalo vos</h2>
+    <div class="editor" data-editor>
+      <div class="editor-panel">
+        <div class="editor-barra">
+          <span>HTML + CSS + JS</span>
+          <button type="button" class="editor-reset" data-editor-reset>Reiniciar</button>
+        </div>
+        <textarea spellcheck="false" aria-label="Código editable">
+          <style>
+            body { margin: 0; font: 14px system-ui; background: #0b1020; color: #e5e7eb; }
+            header { padding: 32px 20px; text-align: center; }
+            section { min-height: 70vh; display: grid; place-items: center; padding: 16px; }
+            .card {
+              opacity: 0;
+              transform: translateY(24px);
+              transition: opacity .6s ease, transform .6s ease;
+              background: #0f172a;
+              padding: 24px;
+              border-radius: 16px;
+              max-width: 500px;
+            }
+            .card.in { opacity: 1; transform: none; }
+          </style>
+
+          <header><h1>Scrolleá hacia abajo 👇</h1></header>
+          <section><div class="card js-observe"><h2>Bloque 1</h2><p>Aparece con fade y slide al entrar en pantalla.</p></div></section>
+          <section><div class="card js-observe"><h2>Bloque 2</h2><p>Cada bloque se observa por separado.</p></div></section>
+
+          <script>
+            const obs = new IntersectionObserver((entries) => {
+              entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                  entry.target.classList.add("in");
+                  obs.unobserve(entry.target);
+                }
+              });
+            }, { threshold: 0.15 });
+            document.querySelectorAll(".js-observe").forEach((el) => obs.observe(el));
+          </script>
+        </textarea>
+      </div>
+      <div class="editor-panel">
+        <div class="editor-barra"><span>Resultado (scrolleá adentro)</span></div>
+        <iframe title="Vista previa del ejemplo"></iframe>
+      </div>
     </div>
-  </div>
-</section>
+    <p class="editor-ayuda">
+      Scrolleá dentro del panel de resultado para ver aparecer cada bloque.
+      Subí <code>threshold</code> a <code>0.5</code> para que necesite verse
+      la mitad antes de aparecer, o cambiá el <code>transform</code> inicial
+      a <code>translateX(-40px)</code> para que entre desde el costado.
+    </p>
+  </section>
 
-<section>
-  <div class="card js-observe"><h2>Bloque 2</h2><p>Podés ajustar el <code>threshold</code> y el <code>rootMargin</code>.</p></div>
-</section>
+  <section class="bloque bloque-errores">
+    <h2>Errores comunes</h2>
+    <ul class="errores">
+      <li>
+        <strong>No hacer <code>unobserve</code> después de animar</strong>
+        Si no se deja de observar, el callback sigue disparando cada vez que
+        el elemento entra y sale del viewport, y si la clase no se saca al
+        salir, no pasa nada visible — pero es trabajo de más para el
+        navegador, sin ningún beneficio.
+      </li>
+      <li>
+        <strong>El elemento nunca mide 0 al observarlo</strong>
+        Si el elemento tiene <code>display: none</code> al momento de crear
+        el observer, no tiene tamaño y el cálculo de intersección puede
+        comportarse de forma rara. El patrón de "empieza invisible" tiene que
+        ser con <code>opacity: 0</code>, no con <code>display: none</code>.
+      </li>
+      <li>
+        <strong>Animar demasiados elementos a la vez</strong>
+        Observar 50 tarjetas individuales con la misma configuración
+        funciona, pero si todas entran juntas (por ejemplo una grilla
+        completa), suelen verse mejor con un pequeño delay escalonado entre
+        una y la siguiente que si todas aparecen exactamente en el mismo frame.
+      </li>
+      <li>
+        <strong>Olvidarse de que existe una alternativa 100% CSS</strong>
+        Los navegadores modernos ya soportan <code>animation-timeline: view()</code>,
+        que logra un efecto parecido sin una sola línea de JavaScript. Es el
+        tema que sigue.
+      </li>
+    </ul>
+  </section>
 
-<section>
-  <div class="card js-observe"><h2>Bloque 3</h2><p>Sin librerías, súper performante.</p></div>
-</section>
+  <section class="bloque bloque-cuando">
+    <h2>Cuándo NO usarlo</h2>
+    <div class="comparacion">
+      <div class="si">
+        <h3>✔ IntersectionObserver</h3>
+        <p>
+          Cuando necesitás lógica además de animar: cargar una imagen recién
+          cuando aparece (lazy loading), contar una vista, o disparar algo en
+          JavaScript además del efecto visual.
+        </p>
+      </div>
+      <div class="no">
+        <h3>✘ animation-timeline (CSS)</h3>
+        <p>
+          Si lo único que hace falta es el efecto visual de aparición, sin
+          ninguna lógica adicional — ahí conviene la versión sin JavaScript
+          del próximo tema.
+        </p>
+      </div>
+    </div>
+  </section>
 
-<script>
-  const obs=new IntersectionObserver((entries)=>{
-    entries.forEach(e=>{
-      if(e.isIntersecting){ e.target.classList.add('in'); obs.unobserve(e.target); }
-    });
-  },{root:null, rootMargin:"0px 0px -10% 0px", threshold:0.1});
-  document.querySelectorAll('.js-observe').forEach(el=>obs.observe(el));
-</script>
-</body></html>
+  <section class="bloque bloque-ejercicio">
+    <h2>Mini-ejercicio</h2>
+    <div class="consigna">
+      <p>Sobre el editor de arriba:</p>
+      <ol>
+        <li>Agregá un tercer <code>&lt;section&gt;</code> con su propia tarjeta.</li>
+        <li>Hacé que las tarjetas entren desde la izquierda en vez de desde abajo.</li>
+        <li>Cambiá el <code>threshold</code> a <code>0.5</code> y notá que ahora tarda más en aparecer.</li>
+      </ol>
+    </div>
+  </section>
+
+  <footer class="ficha-footer">
+    Referencia:
+    <a href="https://developer.mozilla.org/es/docs/Web/API/Intersection_Observer_API" target="_blank" rel="noopener">
+      Intersection Observer API en MDN
+    </a>
+  </footer>
+
+</article>
+<script src="editor.js" defer></script>
+</body>
+</html>

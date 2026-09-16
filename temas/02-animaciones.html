@@ -1,69 +1,212 @@
-<!-- /temas/animaciones/02-animaciones.html -->
-<!doctype html><html lang="es"><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Animaciones con @keyframes</title>
-<style>
-  :root{--bg:#0b1020;--card:#0f172a;--txt:#e5e7eb;--acc:#a78bfa}
-  *{box-sizing:border-box} body{margin:0;background:radial-gradient(800px 400px at 10% 10%,#12203a 0,#0b1020 60%);color:var(--txt);font-family:system-ui,Segoe UI;padding:28px}
-  .wrap{max-width:1000px;margin:auto;display:grid;gap:20px}
-  .stage{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
-  .card{background:var(--card);border-radius:16px;padding:18px;box-shadow:0 8px 24px rgba(0,0,0,.3)}
-  .ball{width:80px;height:80px;border-radius:999px;margin:auto;background:linear-gradient(135deg,#22d3ee,#818cf8)}
-  /* Keyframes */
-  @keyframes bounce {
-    0%,100%{transform:translateY(0)}
-    50%{transform:translateY(-40px)}
-  }
-  @keyframes pulse {
-    0%{transform:scale(1);filter:saturate(100%)}
-    70%{transform:scale(1.12);filter:saturate(130%)}
-    100%{transform:scale(1)}
-  }
-  @keyframes spin3d {
-    from{transform:rotateY(0deg)}
-    to{transform:rotateY(360deg)}
-  }
-  .bouncing .ball{animation:bounce 1s ease-in-out infinite}
-  .pulse .ball{animation:pulse 1.6s ease-in-out infinite}
-  .spin .ball{animation:spin3d 2.5s linear infinite; transform-style:preserve-3d}
-  pre{background:#0b1220;border-radius:12px;padding:12px;overflow:auto}
-  code{font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace}
-  .controls{display:flex;gap:8px;flex-wrap:wrap}
-  button{background:#1f2937;border:1px solid #334155;color:#e5e7eb;padding:8px 12px;border-radius:10px;cursor:pointer}
-  button:hover{background:#2a3648}
-</style></head><body>
-<div class="wrap">
-  <h1>@keyframes: crear animaciones declarativas</h1>
-  <div class="stage">
-    <div class="card bouncing"><h3>Rebote</h3><div class="ball"></div><pre><code>@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-40px)}}
-.ball{animation:bounce 1s ease-in-out infinite}</code></pre></div>
-    <div class="card pulse"><h3>Pulso</h3><div class="ball"></div></div>
-    <div class="card spin"><h3>Giro 3D</h3><div class="ball"></div></div>
-  </div>
-  <div class="card">
-    <h3>Controles por clase</h3>
-    <div class="controls">
-      <button data-action="pause">Pausar</button>
-      <button data-action="play">Reanudar</button>
-      <button data-action="slower">Más lento</button>
-      <button data-action="faster">Más rápido</button>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Animaciones con @keyframes</title>
+  <link rel="stylesheet" href="theme.css" />
+</head>
+<body>
+<article class="ficha">
+
+  <header class="ficha-header">
+    <p class="ficha-modulo">Animaciones · Tema 2 de 7</p>
+    <h1>Animaciones con @keyframes</h1>
+    <p class="ficha-resumen">
+      Cuando una transición de dos puntos no alcanza: coreografías con varios
+      pasos, loops infinitos, y control fino de cada etapa.
+    </p>
+  </header>
+
+  <section class="bloque bloque-problema">
+    <h2>¿Qué problema resuelve?</h2>
+    <p>
+      <code>transition</code> solo sabe interpolar entre <strong>dos</strong>
+      estados: el de antes y el de después. No hay forma de decirle "primero
+      subí, después girá, y recién ahí volvé a bajar" — eso son 3 pasos, no 2.
+    </p>
+    <p>
+      <code>@keyframes</code> define una secuencia con nombre, con tantos
+      puntos intermedios (<em>0%, 50%, 100%</em>, o los que necesites) como
+      haga falta. Y a diferencia de <code>transition</code>, no necesita que
+      nada cambie de estado primero: puede arrancar solo, apenas el elemento
+      existe, y repetirse para siempre.
+    </p>
+  </section>
+
+  <section class="bloque bloque-sintaxis">
+    <h2>Sintaxis mínima</h2>
+<pre><code><b>@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-40px); }
+}</b>
+
+.pelota {
+  <b>animation: bounce 1s ease-in-out infinite;</b>
+  /*          nombre  duración timing   repetición */
+}</code></pre>
+    <p>
+      Primero se declara la secuencia con <code>@keyframes &lt;nombre&gt;</code>,
+      con los porcentajes que quieras (podés usar <code>from</code>/<code>to</code>
+      como sinónimos de <code>0%</code>/<code>100%</code>). Después, cualquier
+      elemento la usa con <code>animation-name</code> (o el shorthand
+      <code>animation</code>).
+    </p>
+    <p>Las propiedades sueltas, si no querés el shorthand:</p>
+<pre><code>animation-name: bounce;
+animation-duration: 1s;
+animation-timing-function: ease-in-out;
+animation-iteration-count: infinite;   /* un número, o infinite */
+animation-direction: alternate;        /* normal | reverse | alternate */
+animation-fill-mode: both;             /* qué valor conserva antes/después */
+animation-play-state: running;         /* running | paused */</code></pre>
+  </section>
+
+  <section class="bloque bloque-demo">
+    <h2>Probalo vos</h2>
+    <div class="editor" data-editor>
+      <div class="editor-panel">
+        <div class="editor-barra">
+          <span>HTML + CSS</span>
+          <button type="button" class="editor-reset" data-editor-reset>Reiniciar</button>
+        </div>
+        <textarea spellcheck="false" aria-label="Código editable">
+          <style>
+            body { margin: 0; font: 14px system-ui; padding: 16px; background: #0b1020; color: #e5e7eb; }
+            .stage { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 16px; }
+            .card { background: #0f172a; border-radius: 16px; padding: 16px; text-align: center; }
+            .ball { width: 70px; height: 70px; border-radius: 999px; margin: 10px auto;
+                    background: linear-gradient(135deg, #22d3ee, #818cf8); }
+
+            @keyframes bounce {
+              0%, 100% { transform: translateY(0); }
+              50%      { transform: translateY(-30px); }
+            }
+            @keyframes pulse {
+              0%   { transform: scale(1); }
+              70%  { transform: scale(1.15); }
+              100% { transform: scale(1); }
+            }
+
+            .bouncing .ball { animation: bounce 1s ease-in-out infinite; }
+            .pulse .ball { animation: pulse 1.4s ease-in-out infinite; }
+          </style>
+
+          <div class="stage">
+            <div class="card bouncing"><h3>Rebote</h3><div class="ball"></div></div>
+            <div class="card pulse"><h3>Pulso</h3><div class="ball"></div></div>
+          </div>
+        </textarea>
+      </div>
+      <div class="editor-panel">
+        <div class="editor-barra"><span>Resultado</span></div>
+        <iframe title="Vista previa del ejemplo"></iframe>
+      </div>
     </div>
-    <p>Podés pausar/reanudar y cambiar la duración editando <code>animation-play-state</code> y <code>animation-duration</code> desde JS.</p>
-  </div>
-</div>
-<script>
-  const cards=[...document.querySelectorAll('.card')];
-  document.addEventListener('click',e=>{
-    const b=e.target.closest('button'); if(!b) return;
-    const a=b.dataset.action;
-    cards.forEach(c=>{
-      const el=c.querySelector('.ball'); if(!el) return;
-      const cs=getComputedStyle(el); const dur=parseFloat(cs.animationDuration);
-      if(a==='pause') el.style.animationPlayState='paused';
-      if(a==='play')  el.style.animationPlayState='running';
-      if(a==='slower') el.style.animationDuration=(dur*1.25)+'s';
-      if(a==='faster') el.style.animationDuration=(Math.max(dur*0.8, .2))+'s';
-    });
-  });
-</script>
-</body></html>
+    <p class="editor-ayuda">
+      Agregá una tercera pelota con su propio <code>@keyframes</code> (por
+      ejemplo un giro con <code>rotate</code>), o cambiá
+      <code>animation-direction</code> a <code>alternate</code> en el rebote
+      y compará el movimiento.
+    </p>
+  </section>
+
+  <section class="bloque bloque-errores">
+    <h2>Errores comunes</h2>
+    <ul class="errores">
+      <li>
+        <strong>Usar el nombre de un keyframe que no existe (o con un typo)</strong>
+        CSS no avisa: la animación simplemente no hace nada, sin error en
+        consola. Si algo no se mueve, lo primero es revisar que
+        <code>animation-name</code> coincida exactamente con el
+        <code>@keyframes</code>.
+      </li>
+      <li>
+        <strong>Olvidar <code>animation-iteration-count: infinite</code></strong>
+        Por defecto una animación corre <strong>una sola vez</strong> y
+        vuelve al estado original (a menos que uses <code>fill-mode</code>).
+        Si esperabas un loop y solo ves un pantallazo, es esto.
+      </li>
+      <li>
+        <strong>Confundir fill-mode</strong>
+        Sin <code>fill-mode</code>, apenas termina la animación el elemento
+        vuelve a su estilo original, no se queda en el último frame.
+        <code>forwards</code> conserva el estado final; <code>backwards</code>
+        aplica el primer frame incluso antes de arrancar (útil con delay).
+      </li>
+      <li>
+        <strong>Animar con loops en contenido que se lee</strong>
+        Un elemento que titila o rebota permanentemente al lado de texto
+        distrae y puede resultar molesto para quien navega. Reservá los loops
+        infinitos para elementos decorativos, y respetá
+        <code>prefers-reduced-motion</code> (lo vas a ver en el tema de
+        integración).
+      </li>
+    </ul>
+  </section>
+
+  <section class="bloque bloque-cuando">
+    <h2>Cuándo NO usarlo</h2>
+    <div class="comparacion">
+      <div class="si">
+        <h3>✔ Usá @keyframes</h3>
+        <p>
+          Loops (un spinner de carga), coreografías de varios pasos, o
+          cualquier animación que tiene que arrancar sola sin depender de un
+          cambio de estado.
+        </p>
+      </div>
+      <div class="no">
+        <h3>✘ Usá transition</h3>
+        <p>
+          Un cambio simple de A a B disparado por hover, focus o una clase.
+          Escribir un <code>@keyframes</code> de dos puntos para eso es más
+          código para el mismo resultado.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="bloque bloque-ejercicio">
+    <h2>Mini-ejercicio</h2>
+    <div class="consigna">
+      <p>Sobre el editor de arriba:</p>
+      <ol>
+        <li>Creá un <code>@keyframes spin</code> que rote de <code>0deg</code> a <code>360deg</code>.</li>
+        <li>Aplicalo a una tercera tarjeta con <code>animation: spin 2s linear infinite</code>.</li>
+        <li>Pausá esa animación al pasar el mouse, con <code>:hover { animation-play-state: paused; }</code>.</li>
+      </ol>
+    </div>
+
+    <details class="solucion">
+      <summary>Ver solución</summary>
+<pre><code><b>@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}</b>
+
+.spin .ball {
+  animation: spin 2s linear infinite;
+}
+<b>.spin:hover .ball {
+  animation-play-state: paused;
+}</b></code></pre>
+      <p>
+        <code>animation-play-state</code> es la forma declarativa de pausar
+        sin JavaScript: el navegador congela la animación en el frame exacto
+        donde estaba.
+      </p>
+    </details>
+  </section>
+
+  <footer class="ficha-footer">
+    Referencia:
+    <a href="https://developer.mozilla.org/es/docs/Web/CSS/@keyframes" target="_blank" rel="noopener">
+      @keyframes en MDN
+    </a>
+  </footer>
+
+</article>
+<script src="editor.js" defer></script>
+</body>
+</html>
